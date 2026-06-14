@@ -1,0 +1,15 @@
+# VS Code
+.vscode/*
+!.vscode/tasks.json
+
+# Build output
+game.exe
+*.exe
+build/
+
+# Object files
+*.o
+*.obj
+
+# Optional debug symbols
+*.pdb

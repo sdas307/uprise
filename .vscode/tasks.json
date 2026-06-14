@@ -1,0 +1,21 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build Raylib Project",
+            "type": "shell",
+            "command": "cmd",
+            "args": [
+                "/c",
+                "gcc -c src\\main.c -Iinclude -o build\\main.o && gcc build\\main.o -Llib -lraylib -lopengl32 -lgdi32 -lwinmm -o game.exe"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [
+                "$gcc"
+            ]
+        }
+    ]
+}
