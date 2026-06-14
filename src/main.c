@@ -7,85 +7,84 @@ enum PLAYER_STATE
     playerWalkingBack,
     playerWalkingFront,
     playerWalkingLeft,
-    playerWalkingRight    
+    playerWalkingRight
 };
 
 enum PLAYER_STATE playerState = playerIdleFront;
 int playerSpeed = 10;
 
-void Move(float* x, float* y)
+void Move(float *x, float *y)
 {
-    if(IsKeyDown(KEY_W) && *y >= 0)
+    if (IsKeyDown(KEY_W) && *y >= 0)
     {
         playerState = playerWalkingBack;
         *y -= playerSpeed;
     }
-    if(IsKeyDown(KEY_S) && *y <= 800-32*4)
+    if (IsKeyDown(KEY_S) && *y <= 800 - 32 * 4)
     {
         playerState = playerWalkingFront;
         *y += playerSpeed;
     }
-    if(IsKeyDown(KEY_A) && *x >= 0)
+    if (IsKeyDown(KEY_A) && *x >= 0)
     {
         playerState = playerWalkingLeft;
         *x -= playerSpeed;
     }
-    if(IsKeyDown(KEY_D) && *x <= 1000-32*4)
+    if (IsKeyDown(KEY_D) && *x <= 1000 - 32 * 4)
     {
         playerState = playerWalkingRight;
         *x += playerSpeed;
     }
 
     // Player stays idleFront if no keys pressed
-    if(!(IsKeyDown(KEY_W) || IsKeyDown(KEY_S) || IsKeyDown(KEY_A) || IsKeyDown(KEY_D)))
+    if (!(IsKeyDown(KEY_W) || IsKeyDown(KEY_S) || IsKeyDown(KEY_A) || IsKeyDown(KEY_D)))
     {
         playerState = playerIdleFront;
     }
 }
 
-void updatePlayerSprite(float* x, float* y)
+void updatePlayerSprite(float *x, float *y)
 {
-    if(playerState == playerIdleFront)
+    if (playerState == playerIdleFront)
     {
         *y = 0;
-        if(*x >= 0)
+        if (*x >= 0)
             *x += 32;
-        else if(*x == 32*6)
+        else if (*x == 32 * 6)
             *x = 0;
     }
-    else if(playerState == playerWalkingFront)
+    else if (playerState == playerWalkingFront)
     {
-        *y = 32*3;
-        if(*x >= 0)
+        *y = 32 * 3;
+        if (*x >= 0)
             *x += 32;
-        else if(*x == 32*6)
+        else if (*x == 32 * 6)
             *x = 0;
     }
-    else if(playerState == playerWalkingBack)
+    else if (playerState == playerWalkingBack)
     {
-        *y = 32*5;
-        if(*x >= 0)
+        *y = 32 * 5;
+        if (*x >= 0)
             *x += 32;
-        else if(*x == 32*6)
+        else if (*x == 32 * 6)
             *x = 0;
     }
-    else if(playerState == playerWalkingLeft)
+    else if (playerState == playerWalkingLeft)
     {
-        *y = 32*4;
-        if(*x >= 0)
+        *y = 32 * 4;
+        if (*x >= 0)
             *x += 32;
-        else if(*x == 32*6)
+        else if (*x == 32 * 6)
             *x = 0;
     }
-    else if(playerState == playerWalkingRight)
+    else if (playerState == playerWalkingRight)
     {
-        *y = 32*4;
-        if(*x >= 0)
+        *y = 32 * 4;
+        if (*x >= 0)
             *x += 32;
-        else if(*x == 32*6)
+        else if (*x == 32 * 6)
             *x = 0;
     }
-
 }
 
 int main()
@@ -107,13 +106,13 @@ int main()
     Rectangle mapSource = {0, 0, 1000, 800};
 
     Rectangle source = {0, 0, 32, 32};
-    Rectangle dest = {100, 100, 32*4, 32*4};
+    Rectangle dest = {100, 100, 32 * 4, 32 * 4};
     Vector2 origin = {0, 0};
 
     SetTargetFPS(30);
 
     // Game-Loop
-    while(!WindowShouldClose())
+    while (!WindowShouldClose())
     {
         BeginDrawing();
 
