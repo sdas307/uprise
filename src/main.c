@@ -1,141 +1,201 @@
-#include "../inlcude/raylib.h"
+#include "../include/raylib.h"
+
+float deltaTime = 0.0f;
+const float interval = 0.15f;
 
 enum PLAYER_STATE
 {
-    playerIdleFront,
-    playerIdleBack,
-    playerWalkingBack,
-    playerWalkingFront,
-    playerWalkingLeft,
-    playerWalkingRight    
+    playerIdle,
+    playerWalking
 };
 
-enum PLAYER_STATE playerState = playerIdleFront;
-int playerSpeed = 10;
-
-void Move(float* x, float* y)
+enum PLAYER_DIRECTION
 {
-    if(IsKeyDown(KEY_W) && *y >= 0)
+    faceFront,
+    faceBack,
+    faceLeft,
+    faceRight
+};
+
+enum PLAYER_STATE playerState = playerIdle;
+enum PLAYER_DIRECTION playerDirection = faceFront;
+
+bool flipPlayer = false;
+
+const int playerSpeed = 2;
+const int frameWidth = 32;
+const int frameHeight = 32;
+const int totalFrames = 6;
+
+void MovePlayer(float *x, float *y)
+{
+    bool moving = false;
+
+    if (IsKeyDown(KEY_W) && *y >= 0)
     {
-        playerState = playerWalkingBack;
+        playerState = playerWalking;
+        playerDirection = faceBack;
+
         *y -= playerSpeed;
+        moving = true;
     }
-    if(IsKeyDown(KEY_S) && *y <= 800-32*4)
+
+    if (IsKeyDown(KEY_S) && *y <= 800 - frameHeight * 4)
     {
-        playerState = playerWalkingFront;
+        playerState = playerWalking;
+        playerDirection = faceFront;
+
         *y += playerSpeed;
+        moving = true;
     }
-    if(IsKeyDown(KEY_A) && *x >= 0)
+
+    if (IsKeyDown(KEY_A) && *x >= 0)
     {
-        playerState = playerWalkingLeft;
+        playerState = playerWalking;
+        playerDirection = faceLeft;
+
+        flipPlayer = true;
         *x -= playerSpeed;
+        moving = true;
     }
-    if(IsKeyDown(KEY_D) && *x <= 1000-32*4)
+
+    if (IsKeyDown(KEY_D) && *x <= 1000 - frameWidth * 4)
     {
-        playerState = playerWalkingRight;
+        playerState = playerWalking;
+        playerDirection = faceRight;
+
+        flipPlayer = false;
         *x += playerSpeed;
+        moving = true;
     }
 
-    // Player stays idleFront if no keys pressed
-    if(!(IsKeyDown(KEY_W) || IsKeyDown(KEY_S) || IsKeyDown(KEY_A) || IsKeyDown(KEY_D)))
+    if (!moving)
     {
-        playerState = playerIdleFront;
+        playerState = playerIdle;
     }
 }
 
-void updatePlayerSprite(float* x, float* y)
+void UpdatePlayerAnimation(Rectangle *source)
 {
-    if(playerState == playerIdleFront)
+    // ---------------- SELECT SPRITE ROW ----------------
+
+    if (playerState == playerIdle)
     {
-        *y = 0;
-        if(*x >= 0)
-            *x += 32;
-        else if(*x == 32*6)
-            *x = 0;
+        switch (playerDirection)
+        {
+        case faceFront:
+            source->y = frameHeight * 0;
+            break;
+
+        case faceLeft:
+        case faceRight:
+            source->y = frameHeight * 1;
+            break;
+
+        case faceBack:
+            source->y = frameHeight * 2;
+            break;
+        }
     }
-    else if(playerState == playerWalkingFront)
+    else if (playerState == playerWalking)
     {
-        *y = 32*3;
-        if(*x >= 0)
-            *x += 32;
-        else if(*x == 32*6)
-            *x = 0;
-    }
-    else if(playerState == playerWalkingBack)
-    {
-        *y = 32*5;
-        if(*x >= 0)
-            *x += 32;
-        else if(*x == 32*6)
-            *x = 0;
-    }
-    else if(playerState == playerWalkingLeft)
-    {
-        *y = 32*4;
-        if(*x >= 0)
-            *x += 32;
-        else if(*x == 32*6)
-            *x = 0;
-    }
-    else if(playerState == playerWalkingRight)
-    {
-        *y = 32*4;
-        if(*x >= 0)
-            *x += 32;
-        else if(*x == 32*6)
-            *x = 0;
+        switch (playerDirection)
+        {
+        case faceFront:
+            source->y = frameHeight * 3;
+            break;
+
+        case faceLeft:
+        case faceRight:
+            source->y = frameHeight * 4;
+            break;
+
+        case faceBack:
+            source->y = frameHeight * 5;
+            break;
+        }
     }
 
+    // ---------------- ANIMATION TIMER ----------------
+
+    deltaTime += GetFrameTime();
+
+    if (deltaTime >= interval)
+    {
+        source->x += frameWidth;
+
+        if (source->x >= frameWidth * totalFrames)
+        {
+            source->x = 0;
+        }
+
+        deltaTime -= interval;
+    }
+
+    source->width = frameWidth;
 }
 
-int main()
+int main(void)
 {
-    const int SCREEN_WIDTH = 1000;
-    const int SCREEN_HEIGHT = 800;
+    const int SCREEN_WIDTH = 1024;
+    const int SCREEN_HEIGHT = 832;
 
-    // Initialize Window (First Step)
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Uprise");
 
-    Texture2D player;
-    // Load Player
+    // Load player
     Texture2D sheet = LoadTexture("assets/player/player.png");
     SetTextureFilter(sheet, TEXTURE_FILTER_POINT);
 
-    // Load Map
+    // Load map
     Texture2D map = LoadTexture("assets/maps/map1.png");
     SetTextureFilter(map, TEXTURE_FILTER_POINT);
+
     Rectangle mapSource = {0, 0, 1000, 800};
 
-    Rectangle source = {0, 0, 32, 32};
-    Rectangle dest = {100, 100, 32*4, 32*4};
+    // Source rectangle on sprite sheet
+    Rectangle source = {0, 0, frameWidth, frameHeight};
+
+    // Destination rectangle on screen
+    Rectangle dest = {100, 100, frameWidth * 4, frameHeight * 4};
+
     Vector2 origin = {0, 0};
 
-    SetTargetFPS(30);
+    SetTargetFPS(60);
 
-    // Game-Loop
-    while(!WindowShouldClose())
+    while (!WindowShouldClose())
     {
+        // ---------------- UPDATE ----------------
+
+        MovePlayer(&dest.x, &dest.y);
+        UpdatePlayerAnimation(&source);
+
+        // Prepare sprite for rendering
+        Rectangle drawSource = source;
+
+        if (flipPlayer)
+        {
+            drawSource.x += frameWidth;
+            drawSource.width = -frameWidth;
+        }
+
+        // ---------------- DRAW ----------------
+
         BeginDrawing();
 
-        ClearBackground(GREEN);
+            ClearBackground(GREEN);
 
-        DrawTextureRec(map, mapSource, (Vector2){0, 0}, WHITE);
+            DrawTextureRec(map, mapSource, (Vector2){0, 0}, WHITE);
 
-        // DrawText("Hello, Raylib!", 250, 250, 30, DARKBLUE);
-        // DrawText("Press Esc to quit...", 250, 300, 20, GRAY);
+            DrawTexturePro(sheet, drawSource, dest, origin, 0.0f, WHITE);
 
-        Move(&dest.x, &dest.y);
-
-        updatePlayerSprite(&source.x, &source.y);
-
-        DrawTexturePro(sheet, source, dest, origin, 0.0f, WHITE);
-
-        DrawCircle(GetMouseX(), GetMouseY(), 10, RED);
+            DrawCircle(GetMouseX(), GetMouseY(), 10, RED);
 
         EndDrawing();
     }
 
-    UnloadTexture(sheet); // Free GPU
+    UnloadTexture(sheet);
+    UnloadTexture(map);
+
     CloseWindow();
 
     return 0;
