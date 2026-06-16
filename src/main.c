@@ -40,7 +40,7 @@ void MovePlayer(float *x, float *y)
         moving = true;
     }
 
-    if (IsKeyDown(KEY_S) && *y <= 800 - frameHeight * 4)
+    if (IsKeyDown(KEY_S) && *y <= 832 - frameHeight * 4)
     {
         playerState = playerWalking;
         playerDirection = faceFront;
@@ -59,7 +59,7 @@ void MovePlayer(float *x, float *y)
         moving = true;
     }
 
-    if (IsKeyDown(KEY_D) && *x <= 1000 - frameWidth * 4)
+    if (IsKeyDown(KEY_D) && *x <= 1024 - frameWidth * 4)
     {
         playerState = playerWalking;
         playerDirection = faceRight;
@@ -150,7 +150,7 @@ int main(void)
     Texture2D map = LoadTexture("assets/maps/map1.png");
     SetTextureFilter(map, TEXTURE_FILTER_POINT);
 
-    Rectangle mapSource = {0, 0, 1000, 800};
+    Rectangle mapSource = {0, 0, 1024, 832};
 
     // Source rectangle on sprite sheet
     Rectangle source = {0, 0, frameWidth, frameHeight};
