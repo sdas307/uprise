@@ -2,6 +2,10 @@
 
 float deltaTime = 0.0f;
 const float interval = 0.15f;
+char pathPlayerSheet[] = "assets/player/player.png";
+char pathMap[] = "assets/maps/map1.png";
+char windowTitle[] = "Uprise - 2D RPG";
+Vector2 posZeroZero = {0, 0};
 
 enum PLAYER_STATE
 {
@@ -140,14 +144,14 @@ int main(void)
     const int SCREEN_WIDTH = 1024;
     const int SCREEN_HEIGHT = 832;
 
-    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Uprise");
+    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, windowTitle);
 
     // Load player
-    Texture2D sheet = LoadTexture("assets/player/player.png");
+    Texture2D sheet = LoadTexture(pathPlayerSheet);
     SetTextureFilter(sheet, TEXTURE_FILTER_POINT);
 
     // Load map
-    Texture2D map = LoadTexture("assets/maps/map1.png");
+    Texture2D map = LoadTexture(pathMap);
     SetTextureFilter(map, TEXTURE_FILTER_POINT);
 
     Rectangle mapSource = {0, 0, 1024, 832};
@@ -184,7 +188,7 @@ int main(void)
 
             ClearBackground(GREEN);
 
-            DrawTextureRec(map, mapSource, (Vector2){0, 0}, WHITE);
+            DrawTextureRec(map, mapSource, posZeroZero, WHITE);
 
             DrawTexturePro(sheet, drawSource, dest, origin, 0.0f, WHITE);
 
