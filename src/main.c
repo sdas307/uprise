@@ -1,11 +1,7 @@
-#include "../include/raylib.h"
+#include "raylib.h"
+#include "gameconfig.h"
 
-float deltaTime = 0.0f;
-const float interval = 0.15f;
-char pathPlayerSheet[] = "assets/player/player.png";
-char pathMap[] = "assets/maps/map1.png";
-char windowTitle[] = "Uprise - 2D RPG";
-Vector2 posZeroZero = {0, 0};
+const Vector2 ZERO_POSITION = {0, 0};
 
 enum PLAYER_STATE
 {
@@ -144,14 +140,16 @@ int main(void)
     const int SCREEN_WIDTH = 1024;
     const int SCREEN_HEIGHT = 832;
 
-    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, windowTitle);
+    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, WINDOW_TITLE);
+    Image WindowIcon = LoadImage("assets/icons/icon_tree.png");
+    SetWindowIcon(WindowIcon);
 
     // Load player
-    Texture2D sheet = LoadTexture(pathPlayerSheet);
+    Texture2D sheet = LoadTexture(PATH_PLAYER_SHEET);
     SetTextureFilter(sheet, TEXTURE_FILTER_POINT);
 
     // Load map
-    Texture2D map = LoadTexture(pathMap);
+    Texture2D map = LoadTexture(PATH_MAP);
     SetTextureFilter(map, TEXTURE_FILTER_POINT);
 
     Rectangle mapSource = {0, 0, 1024, 832};
@@ -188,7 +186,7 @@ int main(void)
 
             ClearBackground(GREEN);
 
-            DrawTextureRec(map, mapSource, posZeroZero, WHITE);
+            DrawTextureRec(map, mapSource, ZERO_POSITION, WHITE);
 
             DrawTexturePro(sheet, drawSource, dest, origin, 0.0f, WHITE);
 
