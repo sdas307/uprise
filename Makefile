@@ -12,6 +12,11 @@ OBJ = $(patsubst src/%.c,build/%.o,$(SRC))
 TARGET = game.exe
 
 all: $(TARGET)
+	@echo.
+	@echo ============================
+	@echo     Build Successful!
+	@echo ============================
+	@echo.
 
 $(TARGET): $(OBJ)
 	$(CC) $(OBJ) $(LDFLAGS) -o $@
