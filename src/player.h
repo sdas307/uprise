@@ -3,48 +3,58 @@
 
 #include "raylib.h"
 
-typedef enum PLAYER_STATE
+typedef enum PlayerState
 {
-    playerIdle,
-    playerWalking
+    PLAYER_IDLE,
+    PLAYER_WALKING
 
-} PLAYER_STATE;
+} PlayerState;
 
-typedef enum PLAYER_DIRECTION
+typedef enum PlayerDirection
 {
-    faceFront,
-    faceBack,
-    faceLeft,
-    faceRight
+    PLAYER_FACE_FRONT,
+    PLAYER_FACE_BACK,
+    PLAYER_FACE_LEFT,
+    PLAYER_FACE_RIGHT
     
-} PLAYER_DIRECTION;
+} PlayerDirection;
 
+/// Player object configured with basic components.
 typedef struct Player
 {
-    Texture2D texture;
+    
+    Texture2D spriteSheet;      /// Player spritesheet.
 
-    Rectangle source;
-    Rectangle dest;
+    Rectangle source;           /// Sprite Sheet rectangle.
+    Rectangle dest;             /// Screen rectangle.
 
-    PLAYER_STATE state;
-    PLAYER_DIRECTION direction;
+    PlayerState state;         /// Current player state.
 
-    int speed;
+    PlayerDirection direction; /// Current facing direction.
 
-    bool flip;
+    
+    int speed;      /// Player's movement speed.
+
+    bool flip;      /// Flip sprite horizontally when facing left.
 
 } Player;
 
+/// Initialize Player with default values.
 void xInitPlayer(Player *player);
 
+/// Draw player at its current position.
 void xDrawPlayer(Player *player);
 
+/// Move player based on user input.
 void xMovePlayer(Player *player);
 
+/// Update player sprites to show animation.
 void xUpdatePlayerAnimation(Player *player);
 
-void xUpdatePlayer(Player *player);
+/// Update player values based on movement and animation logic.
+void xUpdatePlayer(Player *player);             
 
+/// Unload player object's texture from vram.
 void xUnloadPlayer(Player *player);
 
 

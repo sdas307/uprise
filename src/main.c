@@ -2,23 +2,17 @@
 
 #include "gameconfig.h"
 #include "player.h"
-
-const Vector2 ZERO_POSITION = {0, 0};
+#include "map.h"
 
 Player player;
-
+Map map;
 
 int main(void)
 {
     xInitWindow();
-    
-    // Load map
-    Texture2D map = LoadTexture(PATH_MAP);
-    SetTextureFilter(map, TEXTURE_FILTER_POINT);
-
-    Rectangle mapSource = {0, 0, 1024, 832};
 
     xInitPlayer(&player);
+    xInitMap(&map);
 
     SetTargetFPS(60);
 
@@ -34,7 +28,7 @@ int main(void)
 
             ClearBackground(GREEN);
 
-            DrawTextureRec(map, mapSource, ZERO_POSITION, WHITE);
+            xDrawMap(&map);
 
             xDrawPlayer(&player);
 
@@ -44,7 +38,7 @@ int main(void)
     }
 
     xUnloadPlayer(&player);
-    UnloadTexture(map);
+    xUnloadMap(&map);
 
     CloseWindow();
 
