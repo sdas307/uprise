@@ -1,8 +1,10 @@
 #include "player.h"
 #include "gameconfig.h"
 
+#include "raymath.h"
+
 static float deltaTime = 0.0f;
-static const float interval = 0.15f;
+static const float interval = 0.10f;
 
 static const int totalFrames = 6;
 static const int frameWidth = 32;
@@ -41,19 +43,22 @@ void xUnloadPlayer(Player *player)
 
 void xDrawPlayer(Player *player)
 {
+    Rectangle drawSource = player->source;
+
     if (player->flip)
     {
-        player->source.width *= -1;
-        DrawTexturePro(player->texture, player->source, player->dest, (Vector2) {0, 0}, 0.0f, WHITE);
+        drawSource.x += drawSource.width;
+        drawSource.width *= -1;
     }
-    else
-    {
-        DrawTexturePro(player->texture, player->source, player->dest, (Vector2) {0, 0}, 0.0f, WHITE);
-    }
+
+        DrawTexturePro(player->texture, drawSource, player->dest, (Vector2) {0, 0}, 0.0f, WHITE);
 }
 
 void xMovePlayer(Player *player)
 {
+    int dx = 0;
+    int dy = 0;
+
     bool moving = false;
 
     if (IsKeyDown(KEY_W) && player->dest.y >= 0)
@@ -61,16 +66,18 @@ void xMovePlayer(Player *player)
         player->state = playerWalking;
         player->direction = faceBack;
 
-        player->dest.y -= player->speed;
+        dy--;
+        //player->dest.y -= player->speed;
         moving = true;
     }
 
-    if (IsKeyDown(KEY_S) && player->dest.y <= 832 - frameHeight * 4)
+    if (IsKeyDown(KEY_S) && player->dest.y <= SCREEN_HEIGHT - frameHeight * 4)
     {
         player->state = playerWalking;
         player->direction = faceFront;
 
-        player->dest.y += player->speed;
+        dy++;
+        //player->dest.y += player->speed;
         moving = true;
     }
 
@@ -80,23 +87,41 @@ void xMovePlayer(Player *player)
         player->direction = faceLeft;
 
         player->flip = true;
-        player->dest.x -= player->speed;
+        
+        dx--;
+
+        //player->dest.x -= player->speed;
         moving = true;
     }
 
-    if (IsKeyDown(KEY_D) && player->dest.x <= 1024 - frameWidth * 4)
+    if (IsKeyDown(KEY_D) && player->dest.x <= SCREEN_WIDTH - frameWidth * 4)
     {
         player->state = playerWalking;
         player->direction = faceRight;
 
         player->flip = false;
-        player->dest.x += player->speed;
+        
+        dx++;
+        
+        //player->dest.x += player->speed;
         moving = true;
     }
 
     if (!moving)
     {
         player->state = playerIdle;
+        dx = 0;
+        dy = 0;
+    }
+
+    Vector2 movement = {dx, dy};
+
+    if (Vector2Length(movement) > 0)
+    {
+        movement = Vector2Normalize(movement);
+
+        player->dest.x += movement.x * player->speed;
+        player->dest.y += movement.y * player->speed;
     }
 }
 

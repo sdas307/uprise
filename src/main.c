@@ -11,13 +11,12 @@ Player player;
 int main(void)
 {
     xInitWindow();
+    
     // Load map
     Texture2D map = LoadTexture(PATH_MAP);
     SetTextureFilter(map, TEXTURE_FILTER_POINT);
 
     Rectangle mapSource = {0, 0, 1024, 832};
-
-    Vector2 origin = {0, 0};
 
     xInitPlayer(&player);
 
