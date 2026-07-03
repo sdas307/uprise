@@ -1,6 +1,6 @@
 #include "raylib.h"
 
-#include "gameconfig.h"
+#include "config.h"
 #include "player.h"
 #include "map.h"
 

@@ -1,10 +1,32 @@
 #include "player.h"
-#include "gameconfig.h"
+#include "config.h"
 
 #include "raymath.h"
+#include <stdio.h>
+
+typedef struct PlayerConfig
+{
+    int x;      // Player spawn x.
+    int y;      // Player spawn y.
+    int speed;  // Player movement speed.
+
+} PlayerConfig;
+
+typedef struct PlayerSave
+{
+    Rectangle dest;
+
+    int speed;
+
+    PlayerState state;
+    PlayerDirection direction;
+
+    bool flip;
+
+} PlayerSave;
 
 static float deltaTime = 0.0f;
-static const float interval = 0.10f;
+// static const float interval = 0.10f;
 
 static const int totalFrames = 6;
 static const int frameWidth = 32;
@@ -12,18 +34,60 @@ static const int frameHeight = 32;
 
 /** Player Object is made in main file,
  * here we simply define all funcitons and
- * possible opertaion on Player.
+ * possible opertaions on Player.
  */
+
+bool LoadPlayerConfig(PlayerConfig *config)
+{
+    FILE *file = fopen("config/player.cfg", "r");
+
+    if (file == NULL)
+    {
+        perror("Failed to open player.cfg");
+        return false;
+    }
+
+    // If any of the operations fail, return false.
+    /* The leading space before each string is an idomatic way
+    to tell fscanf to ignore all whitespace (\n, \t, etc.) */
+    if (fscanf(file, " x = %d", &config->x) != 1 ||
+        fscanf(file, " y = %d", &config->y) != 1 ||
+        fscanf(file, " speed = %d", &config->speed) != 1)
+    {
+        fclose(file);
+        return false;
+    }
+
+    // If nothing fails, close file and return true.
+    fclose(file);
+    return true;
+}
 
 void xInitPlayer(Player *player)
 {
+    PlayerConfig config =
+    {
+        .x = 0,
+        .y = 200,
+        .speed = 3
+    };
+
+    if (!LoadPlayerConfig(&config))
+    {
+        printf("\n\n");
+        printf("Using default player configuration: Loading failed.");
+        printf("\n\n");
+    }
+
     player->spriteSheet = LoadTexture(PATH_PLAYER_SHEET);
     SetTextureFilter(player->spriteSheet, TEXTURE_FILTER_POINT);
+    player->interval = 0.10f;
 
     player->source = (Rectangle) {0, 0, frameWidth, frameHeight};
-    player->dest = (Rectangle) {100, 100, frameWidth * 4, frameHeight * 4};
+    player->dest = (Rectangle) {config.x, config.y, frameWidth * 4, frameHeight * 4};
 
-    player->speed = 3;
+    player->speed = config.speed;
+    printf("speed = %d", config.speed);
     
     player->state = PLAYER_IDLE;
     player->direction = PLAYER_FACE_FRONT;
@@ -110,7 +174,7 @@ void xMovePlayer(Player *player)
     }
     
     // Create a movement vector from player input.
-    // Essentially copy values every frame (only 2 floats: x, y)
+    // Essentially copy values every frame (only 2 (int) floats: x, y)
     Vector2 movement = {dx, dy};
 
     if (Vector2Length(movement) > 0)
@@ -172,7 +236,7 @@ void xUpdatePlayerAnimation(Player *player)
     // Advance to the next animation frame.
     deltaTime += GetFrameTime();
 
-    if (deltaTime >= interval)
+    if (deltaTime >= player->interval)
     {
         player->source.x += frameWidth;
 
@@ -181,8 +245,68 @@ void xUpdatePlayerAnimation(Player *player)
             player->source.x = 0;
         }
 
-        deltaTime -= interval;
+        deltaTime -= player->interval;
     }
 
     player->source.width = frameWidth;
+}
+
+bool xSavePlayer(const Player *player)
+{
+    FILE *file = fopen(PATH_SAVEFILE, "wb");
+    
+    // If open failed, return false.
+    if (file == NULL)
+    {
+        perror("Failed to open save file");
+        return false;
+    }
+    
+    // Temporary struct to pass on values to save.
+    PlayerSave save =
+    {
+        .dest = player->dest,
+        .speed = player->speed,
+        .state = player->state,
+        .direction = player->direction,
+        .flip = player->flip
+    };
+
+    // Keeping track of write's success.
+    bool success = (fwrite(&save, sizeof(save), 1, file) == 1);
+    
+    fclose(file);
+
+    return success;
+}
+
+bool xLoadPlayer(Player *player)
+{
+    FILE *file = fopen(PATH_SAVEFILE, "rb");
+
+    // If open failed, return false.
+    if (file == NULL)
+    {
+        perror("Failed to open save file");
+        return false;
+    }
+
+    PlayerSave save;
+
+    bool success = (fread(&save, sizeof(save), 1, file) == 1);
+
+    fclose(file);
+
+    // If read is unsuccessful, return false.
+    if (!success)
+        return false;
+
+    player->dest = save.dest;
+    player->speed = save.speed;
+    player->state = save.state;
+    player->direction = save.direction;
+    player->flip = save.flip;
+
+    // After data has been read from file, return true.
+    return true;
 }

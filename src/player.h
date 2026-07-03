@@ -24,6 +24,7 @@ typedef struct Player
 {
     
     Texture2D spriteSheet;      /// Player spritesheet.
+    float interval;             /// Animation interval.
 
     Rectangle source;           /// Sprite Sheet rectangle.
     Rectangle dest;             /// Screen rectangle.
@@ -32,7 +33,6 @@ typedef struct Player
 
     PlayerDirection direction; /// Current facing direction.
 
-    
     int speed;      /// Player's movement speed.
 
     bool flip;      /// Flip sprite horizontally when facing left.
@@ -57,5 +57,10 @@ void xUpdatePlayer(Player *player);
 /// Unload player object's texture from vram.
 void xUnloadPlayer(Player *player);
 
+/// Save player's serializable data.
+bool xSavePlayer(const Player *player);
+
+/// Load player data from file.
+bool xLoadPlayer(Player *player);
 
 #endif
