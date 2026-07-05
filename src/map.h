@@ -2,18 +2,33 @@
 #define MAP_H    
 
 #include "raylib.h"
+#include "xEngine.h"
+
+#define MAX_OBJECTS 128
+
+typedef struct Terrain
+{
+    Texture2D texture;
+    Rectangle source;
+    Rectangle dest;
+
+} Terrain;
 
 typedef struct Map
 {
-    Texture2D texture;  /// Map image (texture).
+    Terrain terrain;    /// Terrain Image and position rectangles.
 
-    Rectangle source;   /// Map's rectangle.
-    Rectangle dest;     /// Screen rectangle.
+    Texture2D spriteSheet;  /// Objects sprite sheet.
+
+    xGameObject objects[MAX_OBJECTS];
+    int objectCount;
 
 } Map;
 
 /// Initialize Map with a texture and source and destination rectangles.
 void xInitMap(Map *map);
+
+void xAddObject(Map *map, Rectangle source, Rectangle dest);
 
 /// Draw map at its current position.
 void xDrawMap(Map *map);

@@ -8,6 +8,7 @@ extern const int SCREEN_HEIGHT;
 
 extern const char PATH_PLAYER_SHEET[];
 extern const char PATH_MAP[];
+extern const char PATH_SPRITE_SHEET[];
 extern const char WINDOW_TITLE[];
 extern const char PATH_SAVEFILE[];
 
