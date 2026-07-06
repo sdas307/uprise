@@ -68,6 +68,12 @@ void xLoadMap(Map *map)
         map, STONE_SMALL,
         (Rectangle){464+128, 428, 64, 64}
     );
+
+    // ################# Collider breaks here? ##########################
+    xAddTree(
+        map, TREE_SMALL,
+        (Rectangle) {600, 500, 64 * 2, 64 * 3}
+    );
 }
 
 void xDrawMap(Map *map)
@@ -115,11 +121,11 @@ void xAddStone(Map *map, StoneType type, Rectangle dest)
     xAddObject(map, source, dest);
 }
 
-void xAddTree(Map *map, TreeType type, Rectangle dest)
+void xAddTree(Map *map, TreeStage stage, Rectangle dest)
 {
     Rectangle source;
 
-    switch (type)
+    switch (stage)
     {
         case TREE_STUMP:
             source = (Rectangle) {64 * 0, 64 * 8, 64, 64};

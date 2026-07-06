@@ -2,6 +2,7 @@
 #define X_ENGINE_H
 
 #include "raylib.h"
+#include <stdbool.h>
 
 typedef struct xSprite
 {
@@ -33,5 +34,15 @@ typedef struct xGameObject
     bool active;            // Whether to draw on screen.
 
 } xGameObject;
+
+typedef Rectangle xRectangle;           /// Alias: raylib's Rectangle
+typedef Vector2 xVector2;               /// Alias: raylib's Vector2
+typedef Color xColor;                   /// Alias: raylib's Color
+
+/// @brief Check collision between two axis-aligned bounding boxes (AABB).
+/// @param a First rectangle
+/// @param b Second rectangle
+/// @return True if the rectangles overlap; otherwise false.
+bool xCheckCollisionAABB(xRectangle a, xRectangle b);
 
 #endif

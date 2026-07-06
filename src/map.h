@@ -41,6 +41,13 @@ void xUnloadMap(Map *map);
 
 /* ---------- Map Objects ---------- */
 
+typedef enum RockType
+{
+    ROCK_SMALL,
+    ROCK_BIG,
+    
+} RockType;
+
 typedef enum StoneType
 {
     STONE_SMALL,
@@ -49,17 +56,61 @@ typedef enum StoneType
     
 } StoneType;
 
-typedef enum TreeType
+typedef enum CarrotStage
+{
+    CARROT_STAGE_1,
+    CARROT_STAGE_2,
+    CARROT_STAGE_3,
+    CARROT_STAGE_4
+} CarrotStage;
+
+typedef enum TreeStage
 {
     TREE_STUMP,
     TREE_CUT,
     TREE_SMALL,
     TREE_LARGE
     
-} TreeType;
+} TreeStage;
+
+typedef enum RedFlowerStage
+{
+    RF_STAGE_1,
+    RF_STAGE_2,
+    RF_STAGE_3,
+    RF_STAGE_4,
+
+} RedFlowerStage;
+
+typedef enum YellowFlowerStage
+{
+    YF_STAGE_1,
+    YF_STAGE_2,
+    YF_STAGE_3,
+    YF_STAGE_4,
+
+} YellowFlowerStage;
+
+typedef enum RedFlowerPotStage
+{
+    RF_POT_STAGE_1,
+    RF_POT_STAGE_2,
+    RF_POT_STAGE_3,
+    RF_POT_STAGE_4,
+
+} RedFlowerPotStage;
+
+typedef enum YellowFlowerPotStage
+{
+    YF_POT_STAGE_1,
+    YF_POT_STAGE_2,
+    YF_POT_STAGE_3,
+    YF_POT_STAGE_4,
+
+} YellowFlowerPotStage; 
 
 void xAddStone(Map *map, StoneType type, Rectangle dest);
 
-void xAddTree(Map *map, TreeType type, Rectangle dest);
+void xAddTree(Map *map, TreeStage stage, Rectangle dest);
 
 #endif

@@ -2,7 +2,6 @@
 #include "config.h"
 
 #include "raymath.h"
-#include "map.h"
 #include <stdio.h>
 
 typedef struct PlayerConfig
@@ -215,7 +214,7 @@ bool xCheckCollision(Map *map, Rectangle collider)
         if (!map->objects[i].active)
             continue;
 
-        if (CheckCollisionRecs(collider, map->objects[i].collider))
+        if (xCheckCollisionAABB(collider, map->objects[i].collider))
         {
             return true;
         }
@@ -223,7 +222,6 @@ bool xCheckCollision(Map *map, Rectangle collider)
 
     return false;
 }
-
 
 void xUpdatePlayerAnimation(Player *player)
 {
