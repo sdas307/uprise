@@ -28,7 +28,7 @@ typedef struct Map
 /// Initialize Map with a texture and source and destination rectangles.
 void xInitMap(Map *map);
 
-void xAddObject(Map *map, Rectangle source, Rectangle dest);
+void xAddObject(Map *map, xRectangle source, xRectangle dest, xRectangle collider);
 
 /// Place all objects on map.
 void xLoadMap(Map *map);
@@ -107,10 +107,16 @@ typedef enum YellowFlowerPotStage
     YF_POT_STAGE_3,
     YF_POT_STAGE_4,
 
-} YellowFlowerPotStage; 
+} YellowFlowerPotStage;
 
-void xAddStone(Map *map, StoneType type, Rectangle dest);
+typedef enum MapObjectType
+{
+    TREE
 
-void xAddTree(Map *map, TreeStage stage, Rectangle dest);
+} MapObjectType;
+
+void xAddStone(Map *map, StoneType type, xRectangle dest);
+
+void xAddTree(Map *map, TreeStage stage, xRectangle dest);
 
 #endif

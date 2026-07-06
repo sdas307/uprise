@@ -18,7 +18,7 @@ void xInitMap(Map *map)
     map->objectCount = 0;
 }
 
-void xAddObject(Map *map, Rectangle source, Rectangle dest)
+void xAddObject(Map *map, xRectangle source, xRectangle dest, xRectangle collider)
 {
     if (map->objectCount >= MAX_OBJECTS)
         return;
@@ -27,13 +27,16 @@ void xAddObject(Map *map, Rectangle source, Rectangle dest)
 
     object->source = source;
     object->dest = dest;
-    object->collider = (Rectangle)
-    {
-        dest.x + 4,
-        dest.y + 44,
-        dest.width - 10,
-        12,
-    };
+
+    object->collider = collider;
+
+    // object->collider = (Rectangle)
+    // {
+    //     dest.x + 4,
+    //     dest.y + 44,
+    //     dest.width - 10,
+    //     12,
+    // };    
 
     object->active = true;
 }
@@ -43,24 +46,28 @@ void xLoadMap(Map *map)
     xAddObject(
         map,
         (Rectangle){0, 64 * 2, 64, 64},
+        (Rectangle){464, 300, 64, 64},
         (Rectangle){464, 300, 64, 64}
     );
 
     xAddObject(
         map,
         (Rectangle){0, 64 * 2, 64, 64},
+        (Rectangle){400, 364, 64, 64},
         (Rectangle){400, 364, 64, 64}
     );
 
     xAddObject(
         map,
         (Rectangle){0, 64 * 3, 64, 64},
+        (Rectangle){464, 364+64, 64, 64},
         (Rectangle){464, 364+64, 64, 64}
     );
 
     xAddObject(
         map,
         (Rectangle){0, 64 * 3, 64, 64},
+        (Rectangle){464+64, 364+64, 64, 64},
         (Rectangle){464+64, 364+64, 64, 64}
     );
 
@@ -69,7 +76,11 @@ void xLoadMap(Map *map)
         (Rectangle){464+128, 428, 64, 64}
     );
 
-    // ################# Collider breaks here? ##########################
+    xAddStone(
+        map, STONE_SMALL,
+        (Rectangle){464+192, 428, 64, 64}
+    );
+
     xAddTree(
         map, TREE_SMALL,
         (Rectangle) {600, 500, 64 * 2, 64 * 3}
@@ -99,9 +110,10 @@ void xUnloadMap(Map *map)
 
 /* ---------- Map Objects ---------- */
 
-void xAddStone(Map *map, StoneType type, Rectangle dest)
+void xAddStone(Map *map, StoneType type, xRectangle dest)
 {
     Rectangle source;
+    xRectangle collider;
 
     switch (type)
     {
@@ -116,14 +128,24 @@ void xAddStone(Map *map, StoneType type, Rectangle dest)
         case STONE_LARGE:
             source = (Rectangle) {64 * 0, 64 * 3, 64, 64};
             break;
+        
     }
 
-    xAddObject(map, source, dest);
+    collider = (Rectangle)
+    {
+        dest.x + 8,
+        dest.y + 44,
+        44,
+        12,
+    };
+
+    xAddObject(map, source, dest, collider);
 }
 
-void xAddTree(Map *map, TreeStage stage, Rectangle dest)
+void xAddTree(Map *map, TreeStage stage, xRectangle dest)
 {
-    Rectangle source;
+    xRectangle source;
+    xRectangle collider;
 
     switch (stage)
     {
@@ -137,6 +159,14 @@ void xAddTree(Map *map, TreeStage stage, Rectangle dest)
         
         case TREE_SMALL:
             source = (Rectangle) {64 * 5, 64 * 4, 64 * 2, 64 * 3};
+            
+            collider = (Rectangle)
+            {
+                dest.x + dest.width/2 - 15,
+                dest.y + 162,
+                20,
+                12,
+            };
             break;
 
         case TREE_LARGE:
@@ -144,5 +174,5 @@ void xAddTree(Map *map, TreeStage stage, Rectangle dest)
             break;
     }
 
-    xAddObject(map, source, dest);
+    xAddObject(map, source, dest, collider);
 }
