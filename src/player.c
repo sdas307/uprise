@@ -2,6 +2,7 @@
 #include "config.h"
 
 #include "raymath.h"
+#include "map.h"
 #include <stdio.h>
 
 typedef struct PlayerConfig
@@ -79,12 +80,21 @@ void xInitPlayer(Player *player)
         printf("\n\n");
     }
 
-    player->spriteSheet = LoadTexture(PATH_PLAYER_SHEET);
-    SetTextureFilter(player->spriteSheet, TEXTURE_FILTER_POINT);
+    player->gameObject.texture = LoadTexture(PATH_PLAYER_SHEET);
+    SetTextureFilter(player->gameObject.texture, TEXTURE_FILTER_POINT);
     player->interval = 0.10f;
 
-    player->source = (Rectangle) {0, 0, frameWidth, frameHeight};
-    player->dest = (Rectangle) {config.x, config.y, frameWidth * 4, frameHeight * 4};
+    player->gameObject.source = (Rectangle) {0, 0, frameWidth, frameHeight};
+    player->gameObject.dest = (Rectangle) {config.x, config.y, frameWidth * 4, frameHeight * 4};
+    player->gameObject.active = true;
+
+    player->gameObject.collider = (Rectangle)
+    {
+        player->gameObject.dest.x + 32,
+        player->gameObject.dest.y + 80,
+        60,
+        12,
+    };
 
     player->speed = config.speed;
     printf("speed = %d", config.speed);
@@ -94,20 +104,20 @@ void xInitPlayer(Player *player)
     player->flip = false;
 }
 
-void xUpdatePlayer(Player *player)
+void xUpdatePlayer(Player *player, Map *map)
 {
-    xMovePlayer(player);
+    xMovePlayer(player, map);
     xUpdatePlayerAnimation(player);
 }
 
 void xUnloadPlayer(Player *player)
 {
-    UnloadTexture(player->spriteSheet);
+    UnloadTexture(player->gameObject.texture);
 }
 
 void xDrawPlayer(Player *player)
 {
-    Rectangle drawSource = player->source;
+    Rectangle drawSource = player->gameObject.source;
 
     if (player->flip)
     {
@@ -115,17 +125,18 @@ void xDrawPlayer(Player *player)
         drawSource.width *= -1;
     }
 
-    DrawTexturePro(player->spriteSheet, drawSource, player->dest, (Vector2) {0, 0}, 0.0f, WHITE);
+    DrawTexturePro(player->gameObject.texture, drawSource, player->gameObject.dest, (Vector2) {0, 0}, 0.0f, WHITE);
+    DrawRectangleLinesEx(player->gameObject.collider, 1.0f, RED);
 }
 
-void xMovePlayer(Player *player)
+void xMovePlayer(Player *player, Map *map)
 {
     int dx = 0;     // movement vector's x
     int dy = 0;     // movement vector's y
 
     bool moving = false;
 
-    if (IsKeyDown(KEY_W) && player->dest.y >= 0)
+    if (IsKeyDown(KEY_W) && player->gameObject.dest.y >= 0)
     {
         player->state = PLAYER_WALKING;
         player->direction = PLAYER_FACE_BACK;
@@ -134,7 +145,7 @@ void xMovePlayer(Player *player)
         moving = true;
     }
 
-    if (IsKeyDown(KEY_S) && player->dest.y <= SCREEN_HEIGHT - frameHeight * 4)
+    if (IsKeyDown(KEY_S) && player->gameObject.dest.y <= SCREEN_HEIGHT - frameHeight * 4)
     {
         player->state = PLAYER_WALKING;
         player->direction = PLAYER_FACE_FRONT;
@@ -143,7 +154,7 @@ void xMovePlayer(Player *player)
         moving = true;
     }
 
-    if (IsKeyDown(KEY_A) && player->dest.x >= 0)
+    if (IsKeyDown(KEY_A) && player->gameObject.dest.x >= 0)
     {
         player->state = PLAYER_WALKING;
         player->direction = PLAYER_FACE_LEFT;
@@ -154,7 +165,7 @@ void xMovePlayer(Player *player)
         moving = true;
     }
 
-    if (IsKeyDown(KEY_D) && player->dest.x <= SCREEN_WIDTH - frameWidth * 4)
+    if (IsKeyDown(KEY_D) && player->gameObject.dest.x <= SCREEN_WIDTH - frameWidth * 4)
     {
         player->state = PLAYER_WALKING;
         player->direction = PLAYER_FACE_RIGHT;
@@ -176,16 +187,43 @@ void xMovePlayer(Player *player)
     // Create a movement vector from player input.
     // Essentially copy values every frame (only 2 (int) floats: x, y)
     Vector2 movement = {dx, dy};
+    Rectangle nextCollider;
 
-    if (Vector2Length(movement) > 0)
+    if (Vector2Length(movement) == 0)
+        return;
+
+    // Normalize diagonal movement to maintain a constant speed.
+    movement = Vector2Normalize(movement);
+
+    nextCollider = player->gameObject.collider;
+    nextCollider.x += movement.x * player->speed;
+    nextCollider.y += movement.y * player->speed;
+
+    if (!xCheckCollision(map, nextCollider))
     {
-        // Normalize diagonal movement to maintain a constant speed.
-        movement = Vector2Normalize(movement);
+        player->gameObject.dest.x += movement.x * player->speed;
+        player->gameObject.dest.y += movement.y * player->speed;
 
-        player->dest.x += movement.x * player->speed;
-        player->dest.y += movement.y * player->speed;
+        player->gameObject.collider = nextCollider;
     }
 }
+
+bool xCheckCollision(Map *map, Rectangle collider)
+{
+    for (int i=0; i < map->objectCount; i++)
+    {
+        if (!map->objects[i].active)
+            continue;
+
+        if (CheckCollisionRecs(collider, map->objects[i].collider))
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 
 void xUpdatePlayerAnimation(Player *player)
 {
@@ -197,16 +235,16 @@ void xUpdatePlayerAnimation(Player *player)
         switch (player->direction)
         {
         case PLAYER_FACE_FRONT:
-            player->source.y = frameHeight * 0;
+            player->gameObject.source.y = frameHeight * 0;
             break;
 
         case PLAYER_FACE_LEFT:
         case PLAYER_FACE_RIGHT:
-            player->source.y = frameHeight * 1;
+            player->gameObject.source.y = frameHeight * 1;
             break;
 
         case PLAYER_FACE_BACK:
-            player->source.y = frameHeight * 2;
+            player->gameObject.source.y = frameHeight * 2;
             break;
         }
     }
@@ -217,16 +255,16 @@ void xUpdatePlayerAnimation(Player *player)
         switch (player->direction)
         {
         case PLAYER_FACE_FRONT:
-            player->source.y = frameHeight * 3;
+            player->gameObject.source.y = frameHeight * 3;
             break;
 
         case PLAYER_FACE_LEFT:
         case PLAYER_FACE_RIGHT:
-            player->source.y = frameHeight * 4;
+            player->gameObject.source.y = frameHeight * 4;
             break;
 
         case PLAYER_FACE_BACK:
-            player->source.y = frameHeight * 5;
+            player->gameObject.source.y = frameHeight * 5;
             break;
         }
     }
@@ -238,17 +276,17 @@ void xUpdatePlayerAnimation(Player *player)
 
     if (deltaTime >= player->interval)
     {
-        player->source.x += frameWidth;
+        player->gameObject.source.x += frameWidth;
 
-        if (player->source.x >= frameWidth * totalFrames)
+        if (player->gameObject.source.x >= frameWidth * totalFrames)
         {
-            player->source.x = 0;
+            player->gameObject.source.x = 0;
         }
 
         deltaTime -= player->interval;
     }
 
-    player->source.width = frameWidth;
+    player->gameObject.source.width = frameWidth;
 }
 
 bool xSavePlayer(const Player *player)
@@ -265,7 +303,7 @@ bool xSavePlayer(const Player *player)
     // Temporary struct to pass on values to save.
     PlayerSave save =
     {
-        .dest = player->dest,
+        .dest = player->gameObject.dest,
         .speed = player->speed,
         .state = player->state,
         .direction = player->direction,
@@ -301,7 +339,7 @@ bool xLoadPlayer(Player *player)
     if (!success)
         return false;
 
-    player->dest = save.dest;
+    player->gameObject.dest = save.dest;
     player->speed = save.speed;
     player->state = save.state;
     player->direction = save.direction;

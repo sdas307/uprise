@@ -27,6 +27,13 @@ void xAddObject(Map *map, Rectangle source, Rectangle dest)
 
     object->source = source;
     object->dest = dest;
+    object->collider = (Rectangle)
+    {
+        dest.x + 4,
+        dest.y + 44,
+        dest.width - 10,
+        12,
+    };
 
     object->active = true;
 }
@@ -75,6 +82,7 @@ void xDrawMap(Map *map)
             continue;
 
         DrawTexturePro(map->spriteSheet, object->source, object->dest, ZERO_POSITION, 0, WHITE);
+        DrawRectangleLinesEx(map->objects[i].collider, 1.0f, RED);
     }
 }
 

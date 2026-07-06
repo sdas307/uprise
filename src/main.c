@@ -21,7 +21,7 @@ int main(void)
     {
         // ---------------- UPDATE ----------------
 
-        xUpdatePlayer(&player);
+        xUpdatePlayer(&player, &map);
 
         // ---------------- DRAW ----------------
 

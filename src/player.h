@@ -2,6 +2,8 @@
 #define PLAYER_H
 
 #include "raylib.h"
+#include "map.h"
+#include "xEngine.h"
 
 typedef enum PlayerState
 {
@@ -22,12 +24,9 @@ typedef enum PlayerDirection
 /// Player object configured with basic components.
 typedef struct Player
 {
-    
-    Texture2D spriteSheet;      /// Player spritesheet.
-    float interval;             /// Animation interval.
+    xGameObject gameObject;
 
-    Rectangle source;           /// Sprite Sheet rectangle.
-    Rectangle dest;             /// Screen rectangle.
+    float interval;             /// Animation interval.
 
     PlayerState state;         /// Current player state.
 
@@ -46,13 +45,16 @@ void xInitPlayer(Player *player);
 void xDrawPlayer(Player *player);
 
 /// Move player based on user input.
-void xMovePlayer(Player *player);
+void xMovePlayer(Player *player, Map *map);
+
+/// Check collisions between player and map objects
+bool xCheckCollision(Map *map, Rectangle collider);
 
 /// Update player sprites to show animation.
 void xUpdatePlayerAnimation(Player *player);
 
 /// Update player values based on movement and animation logic.
-void xUpdatePlayer(Player *player);             
+void xUpdatePlayer(Player *player, Map *map);             
 
 /// Unload player object's texture from vram.
 void xUnloadPlayer(Player *player);

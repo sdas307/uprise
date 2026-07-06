@@ -28,6 +28,7 @@ typedef struct xGameObject
     
     Rectangle source;
     Rectangle dest;
+    Rectangle collider;
 
     bool active;            // Whether to draw on screen.
 
