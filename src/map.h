@@ -9,8 +9,8 @@
 typedef struct Terrain
 {
     Texture2D texture;
-    Rectangle source;
-    Rectangle dest;
+    xRectangle source;
+    xRectangle dest;
 
 } Terrain;
 
@@ -33,15 +33,5 @@ void xDrawMap(Map *map);
 
 /// Unload map object's texture from vram.
 void xUnloadMap(Map *map);
-
-/* ---------- Map Objects ---------- */
-
-
-
-// typedef enum MapObjectType
-// {
-//     TREE
-
-// } MapObjectType;
 
 #endif

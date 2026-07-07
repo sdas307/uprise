@@ -8,8 +8,8 @@ void xInitMap(Map *map)
     map->terrain.texture = LoadTexture(PATH_MAP);
     SetTextureFilter(map->terrain.texture, TEXTURE_FILTER_POINT);
 
-    map->terrain.source = (Rectangle){0, 0, 1024, 832};
-    map->terrain.dest = (Rectangle){0, 0, 1024, 832};
+    map->terrain.source = (xRectangle){0, 0, 1024, 832};
+    map->terrain.dest = (xRectangle){0, 0, 1024, 832};
 
     map->spriteSheet = LoadTexture(PATH_SPRITE_SHEET);
     SetTextureFilter(map->spriteSheet, TEXTURE_FILTER_POINT);
