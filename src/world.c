@@ -13,6 +13,21 @@ void xLoadMap(Map *map)
     xAddTree(map, TREE_SMALL, (Rectangle){600, 500, 64 * 2, 64 * 2});
 }
 
+void xAddObject(Map *map, xRectangle source, xRectangle dest, xRectangle collider)
+{
+    if (map->objectCount >= MAX_OBJECTS)
+        return;
+
+    xGameObject *object = &map->objects[map->objectCount++];
+
+    object->source = source;
+    object->dest = dest;
+
+    object->collider = collider;
+
+    object->active = true;
+}
+
 void xAddStone(Map *map, StoneType type, xRectangle dest)
 {
     Rectangle source;

@@ -77,6 +77,8 @@ typedef enum YellowFlowerPotStage
 /// Place all objects on map.
 void xLoadMap(Map *map);
 
+void xAddObject(Map *map, xRectangle source, xRectangle dest, xRectangle collider);
+
 void xAddStone(Map *map, StoneType type, xRectangle dest);
 
 void xAddTree(Map *map, TreeStage stage, xRectangle dest);

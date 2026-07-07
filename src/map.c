@@ -14,32 +14,7 @@ void xInitMap(Map *map)
     map->spriteSheet = LoadTexture(PATH_SPRITE_SHEET);
     SetTextureFilter(map->spriteSheet, TEXTURE_FILTER_POINT);
 
-    // map->terrain.active = true;
-
     map->objectCount = 0;
-}
-
-void xAddObject(Map *map, xRectangle source, xRectangle dest, xRectangle collider)
-{
-    if (map->objectCount >= MAX_OBJECTS)
-        return;
-
-    xGameObject *object = &map->objects[map->objectCount++];
-
-    object->source = source;
-    object->dest = dest;
-
-    object->collider = collider;
-
-    // object->collider = (Rectangle)
-    // {
-    //     dest.x + 4,
-    //     dest.y + 44,
-    //     dest.width - 10,
-    //     12,
-    // };    
-
-    object->active = true;
 }
 
 void xDrawMap(Map *map)
