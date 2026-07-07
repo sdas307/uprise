@@ -1,6 +1,7 @@
 #include "raylib.h"
 #include "config.h"
 #include "player.h"
+#include "world.h"
 #include "map.h"
 
 Player player;

@@ -1,6 +1,7 @@
 #include "raylib.h"
 #include "map.h"
 #include "config.h"
+#include "world.h"
 
 void xInitMap(Map *map)
 {
@@ -41,52 +42,6 @@ void xAddObject(Map *map, xRectangle source, xRectangle dest, xRectangle collide
     object->active = true;
 }
 
-void xLoadMap(Map *map)
-{
-    xAddObject(
-        map,
-        (Rectangle){0, 64 * 2, 64, 64},
-        (Rectangle){464, 300, 64, 64},
-        (Rectangle){464, 300, 64, 64}
-    );
-
-    xAddObject(
-        map,
-        (Rectangle){0, 64 * 2, 64, 64},
-        (Rectangle){400, 364, 64, 64},
-        (Rectangle){400, 364, 64, 64}
-    );
-
-    xAddObject(
-        map,
-        (Rectangle){0, 64 * 3, 64, 64},
-        (Rectangle){464, 364+64, 64, 64},
-        (Rectangle){464, 364+64, 64, 64}
-    );
-
-    xAddObject(
-        map,
-        (Rectangle){0, 64 * 3, 64, 64},
-        (Rectangle){464+64, 364+64, 64, 64},
-        (Rectangle){464+64, 364+64, 64, 64}
-    );
-
-    xAddStone(
-        map, STONE_SMALL,
-        (Rectangle){464+128, 428, 64, 64}
-    );
-
-    xAddStone(
-        map, STONE_SMALL,
-        (Rectangle){464+192, 428, 64, 64}
-    );
-
-    xAddTree(
-        map, TREE_SMALL,
-        (Rectangle) {600, 500, 64 * 2, 64 * 3}
-    );
-}
-
 void xDrawMap(Map *map)
 {
     DrawTextureRec(map->terrain.texture, map->terrain.source, ZERO_POSITION, WHITE);
@@ -106,73 +61,5 @@ void xDrawMap(Map *map)
 void xUnloadMap(Map *map)
 {
     UnloadTexture(map->terrain.texture);
-}
-
-/* ---------- Map Objects ---------- */
-
-void xAddStone(Map *map, StoneType type, xRectangle dest)
-{
-    Rectangle source;
-    xRectangle collider;
-
-    switch (type)
-    {
-        case STONE_SMALL:
-            source = (Rectangle) {64 * 2, 64 * 3, 64, 64};
-            break;
-        
-        case STONE_MEDIUM:
-            source = (Rectangle) {64 * 1, 64 * 3, 64, 64};
-            break;
-        
-        case STONE_LARGE:
-            source = (Rectangle) {64 * 0, 64 * 3, 64, 64};
-            break;
-        
-    }
-
-    collider = (Rectangle)
-    {
-        dest.x + 8,
-        dest.y + 44,
-        44,
-        12,
-    };
-
-    xAddObject(map, source, dest, collider);
-}
-
-void xAddTree(Map *map, TreeStage stage, xRectangle dest)
-{
-    xRectangle source;
-    xRectangle collider;
-
-    switch (stage)
-    {
-        case TREE_STUMP:
-            source = (Rectangle) {64 * 0, 64 * 8, 64, 64};
-            break;
-        
-        case TREE_CUT:
-            source = (Rectangle) {64 * 1, 64 * 2, 64, 64};
-            break;
-        
-        case TREE_SMALL:
-            source = (Rectangle) {64 * 5, 64 * 4, 64 * 2, 64 * 3};
-            
-            collider = (Rectangle)
-            {
-                dest.x + dest.width/2 - 15,
-                dest.y + 162,
-                20,
-                12,
-            };
-            break;
-
-        case TREE_LARGE:
-            source = (Rectangle) {64 * 8, 64 * 1, 64 * 3, 64 * 4};
-            break;
-    }
-
-    xAddObject(map, source, dest, collider);
+    UnloadTexture(map->spriteSheet);
 }
