@@ -1,5 +1,16 @@
 #include "world.h"
 
+/* ---------- Signatures ---------- */
+
+static void xAddObject(Map *map, xRectangle source, xRectangle dest, xRectangle collider);
+
+static void xAddStone(Map *map, StoneType type, xRectangle dest);
+
+static void xAddTree(Map *map, TreeStage stage, xRectangle dest);
+
+
+/* ---------- Implementation ---------- */
+
 void xLoadMap(Map *map)
 {
     xAddTree(map, TREE_CUT, (xRectangle){400, 364, 64, 64});
@@ -44,9 +55,9 @@ void xAddStone(Map *map, StoneType type, xRectangle dest)
         source = (xRectangle){64 * 2, 64 * 3, 64, 64};
 
         collider = (xRectangle){
-            dest.x + 8,
+            dest.x + 12,
             dest.y + 36,
-            44,
+            38,
             20,
         };
         break;
@@ -55,9 +66,9 @@ void xAddStone(Map *map, StoneType type, xRectangle dest)
         source = (xRectangle){64 * 1, 64 * 3, 64, 64};
 
         collider = (xRectangle){
-            dest.x + 12,
+            dest.x + 14,
             dest.y + 36,
-            45,
+            42,
             20,
         };
         break;
@@ -66,9 +77,9 @@ void xAddStone(Map *map, StoneType type, xRectangle dest)
         source = (xRectangle){64 * 0, 64 * 3, 64, 64};
 
         collider = (xRectangle){
-            dest.x + 3,
+            dest.x + 8,
             dest.y + 36,
-            58,
+            50,
             20,
         };
         break;
@@ -92,9 +103,9 @@ void xAddTree(Map *map, TreeStage stage, xRectangle dest)
         source = (xRectangle){64 * 0, 64 * 2, 64, 64};
 
         collider = (xRectangle){
-            dest.x,
+            dest.x + 4,
             dest.y + 38,
-            64,
+            56,
             20,
         };
         break;

@@ -4,6 +4,20 @@
 #include "raymath.h"
 #include <stdio.h>
 
+/* ---------- Signatures ---------- */
+
+/// Check collisions between player and map objects
+static bool xCheckCollision(Map *map, Rectangle collider);
+
+/// Move player based on user input.
+static void xMovePlayer(Player *player, Map *map);
+
+/// Update player sprites to show animation.
+static void xUpdatePlayerAnimation(Player *player);
+
+
+/* ---------- Implementation ---------- */
+
 typedef struct PlayerConfig
 {
     int x;      // Player spawn x.
@@ -90,9 +104,9 @@ void xInitPlayer(Player *player)
 
     player->gameObject.collider = (Rectangle)
     {
-        player->gameObject.dest.x + 32,
+        player->gameObject.dest.x + 42,
         player->gameObject.dest.y + 80,
-        60,
+        40,
         12,
     };
 
@@ -117,7 +131,7 @@ void xUnloadPlayer(Player *player)
     UnloadTexture(player->gameObject.texture);
 }
 
-void xMovePlayer(Player *player, Map *map)
+static void xMovePlayer(Player *player, Map *map)
 {
     int dx = 0;     // movement vector's x
     int dy = 0;     // movement vector's y
@@ -212,7 +226,7 @@ bool xCheckCollision(Map *map, Rectangle collider)
     return false;
 }
 
-void xUpdatePlayerAnimation(Player *player)
+static void xUpdatePlayerAnimation(Player *player)
 {
     // ---------------- SELECT SPRITE ROW ----------------
 

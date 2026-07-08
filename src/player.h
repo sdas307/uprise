@@ -39,18 +39,6 @@ typedef struct Player
 /// Initialize Player with default values.
 void xInitPlayer(Player *player);
 
-/// Draw player at its current position.
-// void xDrawPlayer(Player *player);
-
-/// Move player based on user input.
-void xMovePlayer(Player *player, Map *map);
-
-/// Check collisions between player and map objects
-bool xCheckCollision(Map *map, Rectangle collider);
-
-/// Update player sprites to show animation.
-void xUpdatePlayerAnimation(Player *player);
-
 /// Update player values based on movement and animation logic.
 void xUpdatePlayer(Player *player, Map *map);             
 

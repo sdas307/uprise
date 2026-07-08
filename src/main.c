@@ -3,7 +3,7 @@
 #include "player.h"
 #include "world.h"
 #include "map.h"
-#include "xrender.h"
+#include "render.h"
 
 Player player;
 Map map;
