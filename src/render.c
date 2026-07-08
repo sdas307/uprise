@@ -9,7 +9,7 @@
 static xRectangle xGetFadeArea(xGameObject *object);
 
 /// Render object with color tint or opactiy.
-static void xRenderObject(xGameObject *object, Color tint);
+static void xRenderObject(xGameObject *object, xColor tint);
 
 /// Sort the render queue (array) by increasing depth values.
 static void xSortRenderOrder(xGameObject **renderList, int count);
@@ -56,11 +56,11 @@ void xRenderScene(World *world, Player *player)
 
         bool isBehindObject = (object->depth > player->gameObject.depth);
 
-        Rectangle fadeArea = xGetFadeArea(object);
+        xRectangle fadeArea = xGetFadeArea(object);
 
         bool overlapsPlayer = xCheckCollisionAABB(fadeArea, player->gameObject.collider);
 
-        Color tint = WHITE;
+        xColor tint = WHITE;
 
         if (!isPlayer && isBehindObject && overlapsPlayer)
         {
@@ -101,9 +101,9 @@ static void xSortRenderOrder(xGameObject **renderList, int count)
     }
 }
 
-static void xRenderObject(xGameObject *object, Color tint)
+static void xRenderObject(xGameObject *object, xColor tint)
 {
-    Rectangle drawSource = object->source;
+    xRectangle drawSource = object->source;
 
     if (object->flip)
     {
@@ -118,7 +118,7 @@ static void xRenderObject(xGameObject *object, Color tint)
 static xRectangle xGetFadeArea(xGameObject *object)
 {
     return (
-        (Rectangle)
+        (xRectangle)
         {
             object->collider.x,
             object->collider.y - 2,
