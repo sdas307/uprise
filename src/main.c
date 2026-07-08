@@ -2,20 +2,19 @@
 #include "config.h"
 #include "player.h"
 #include "world.h"
-#include "map.h"
 #include "render.h"
 
 Player player;
-Map map;
+World world;
 
 int main(void)
 {
     xInitWindow();
 
     xInitPlayer(&player);
-    xInitMap(&map);
+    xInitWorld(&world);
 
-    xLoadMap(&map);
+    xLoadWorld(&world);
 
     SetTargetFPS(60);
 
@@ -23,7 +22,7 @@ int main(void)
     {
         // ---------------- UPDATE ----------------
 
-        xUpdatePlayer(&player, &map);
+        xUpdatePlayer(&player, &world);
 
         // ---------------- DRAW ----------------
 
@@ -31,7 +30,7 @@ int main(void)
 
             ClearBackground(GREEN);
 
-            xRenderScene(&map, &player);
+            xRenderScene(&world, &player);
             
             DrawCircle(GetMouseX(), GetMouseY(), 10, RED);
 
@@ -39,7 +38,7 @@ int main(void)
     }
 
     xUnloadPlayer(&player);
-    xUnloadMap(&map);
+    xUnloadWorld(&world);
 
     CloseWindow();
 

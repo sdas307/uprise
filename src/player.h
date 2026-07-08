@@ -2,8 +2,8 @@
 #define PLAYER_H
 
 #include "raylib.h"
-#include "map.h"
 #include "xEngine.h"
+#include "world.h"
 
 typedef enum PlayerState
 {
@@ -40,7 +40,7 @@ typedef struct Player
 void xInitPlayer(Player *player);
 
 /// Update player values based on movement and animation logic.
-void xUpdatePlayer(Player *player, Map *map);             
+void xUpdatePlayer(Player *player, World *world);             
 
 /// Unload player object's texture from vram.
 void xUnloadPlayer(Player *player);

@@ -15,22 +15,22 @@ static void xRenderObject(xGameObject *object, Color tint);
 static void xSortRenderOrder(xGameObject **renderList, int count);
 
 /// Render map background (terrain).
-static void xRenderTerrain(Map *map);
+static void xRenderTerrain(World *world);
 
 
 /* ---------- Implementation ---------- */
 
-void xRenderScene(Map *map, Player *player)
+void xRenderScene(World *world, Player *player)
 {
     xGameObject *renderList[MAX_RENDERABLES];
     int renderCount = 0;
 
-    xRenderTerrain(map);
+    xRenderTerrain(world);
 
-    // Add map objects
-    for (int i = 0; i < map->objectCount; i++)
+    // Add world objects
+    for (int i = 0; i < world->objectCount; i++)
     {
-        renderList[renderCount++] = &map->objects[i];
+        renderList[renderCount++] = &world->objects[i];
     }
 
     // Add player
@@ -71,9 +71,9 @@ void xRenderScene(Map *map, Player *player)
     }
 }
 
-static void xRenderTerrain(Map *map)
+static void xRenderTerrain(World *world)
 {
-    DrawTexturePro(map->terrain.texture, map->terrain.source, map->terrain.dest, ZERO_POSITION, 0, WHITE);
+    DrawTexturePro(world->terrain.texture, world->terrain.source, world->terrain.dest, ZERO_POSITION, 0, WHITE);
 }
 
 static void xSortRenderOrder(xGameObject **renderList, int count)

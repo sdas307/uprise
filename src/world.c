@@ -1,37 +1,60 @@
 #include "world.h"
+#include "config.h"
 
 /* ---------- Signatures ---------- */
 
-static void xAddObject(Map *map, xRectangle source, xRectangle dest, xRectangle collider);
+static void xAddObject(World *world, xRectangle source, xRectangle dest, xRectangle collider);
 
-static void xAddStone(Map *map, StoneType type, xRectangle dest);
+static void xAddStone(World *world, StoneType type, xRectangle dest);
 
-static void xAddTree(Map *map, TreeStage stage, xRectangle dest);
+static void xAddTree(World *world, TreeStage stage, xRectangle dest);
 
 
 /* ---------- Implementation ---------- */
 
-void xLoadMap(Map *map)
+void xInitWorld(World *world)
 {
-    xAddTree(map, TREE_CUT, (xRectangle){400, 364, 64, 64});
+    // Initialize terrain
+    world->terrain.texture = LoadTexture(PATH_MAP);
+    SetTextureFilter(world->terrain.texture, TEXTURE_FILTER_POINT);
 
-    xAddStone(map, STONE_LARGE, (xRectangle){464 + 64, 428, 64, 64});
+    world->terrain.source = (xRectangle){0, 0, 1024, 832};
+    world->terrain.dest = (xRectangle){0, 0, 1024, 832};
 
-    xAddStone(map, STONE_MEDIUM, (xRectangle){464 + 128, 428, 64, 64});
+    // Initialize world objects sprite sheet
+    world->spriteSheet = LoadTexture(PATH_SPRITE_SHEET);
+    SetTextureFilter(world->spriteSheet, TEXTURE_FILTER_POINT);
 
-    xAddStone(map, STONE_SMALL, (xRectangle){464 + 192, 428, 64, 64});
-
-    xAddTree(map, TREE_SMALL, (xRectangle){600, 500, 64 * 2, 64 * 2});
+    world->objectCount = 0;
 }
 
-static void xAddObject(Map *map, xRectangle source, xRectangle dest, xRectangle collider)
+void xUnloadWorld(World *world)
 {
-    if (map->objectCount >= MAX_OBJECTS)
+    UnloadTexture(world->terrain.texture);
+    UnloadTexture(world->spriteSheet);
+}
+
+void xLoadWorld(World *world)
+{
+    xAddTree(world, TREE_CUT, (xRectangle){400, 364, 64, 64});
+
+    xAddStone(world, STONE_LARGE, (xRectangle){464 + 64, 428, 64, 64});
+
+    xAddStone(world, STONE_MEDIUM, (xRectangle){464 + 128, 428, 64, 64});
+
+    xAddStone(world, STONE_SMALL, (xRectangle){464 + 192, 428, 64, 64});
+
+    xAddTree(world, TREE_SMALL, (xRectangle){600, 500, 64 * 2, 64 * 2});
+}
+
+static void xAddObject(World *world, xRectangle source, xRectangle dest, xRectangle collider)
+{
+    if (world->objectCount >= MAX_OBJECTS)
         return;
 
-    xGameObject *object = &map->objects[map->objectCount++];
+    xGameObject *object = &world->objects[world->objectCount++];
 
-    object->texture = map->spriteSheet;
+    object->texture = world->spriteSheet;
 
     object->source = source;
     object->dest = dest;
@@ -44,7 +67,7 @@ static void xAddObject(Map *map, xRectangle source, xRectangle dest, xRectangle 
     object->active = true;
 }
 
-void xAddStone(Map *map, StoneType type, xRectangle dest)
+void xAddStone(World *world, StoneType type, xRectangle dest)
 {
     xRectangle source;
     xRectangle collider;
@@ -85,10 +108,10 @@ void xAddStone(Map *map, StoneType type, xRectangle dest)
         break;
     }
 
-    xAddObject(map, source, dest, collider);
+    xAddObject(world, source, dest, collider);
 }
 
-void xAddTree(Map *map, TreeStage stage, xRectangle dest)
+void xAddTree(World *world, TreeStage stage, xRectangle dest)
 {
     xRectangle source;
     xRectangle collider;
@@ -126,5 +149,5 @@ void xAddTree(Map *map, TreeStage stage, xRectangle dest)
         break;
     }
 
-    xAddObject(map, source, dest, collider);
+    xAddObject(world, source, dest, collider);
 }

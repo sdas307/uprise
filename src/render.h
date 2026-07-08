@@ -3,9 +3,9 @@
 
 #include "xEngine.h"
 #include "player.h"
-#include "map.h"
+#include "world.h"
 
 /// Renders the scene with player and game objects.
-void xRenderScene(Map *map, Player *player);
+void xRenderScene(World *world, Player *player);
 
 #endif

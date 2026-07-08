@@ -6,11 +6,11 @@
 
 /* ---------- Signatures ---------- */
 
-/// Check collisions between player and map objects
-static bool xCheckCollision(Map *map, Rectangle collider);
+/// Check collisions between player and world objects
+static bool xCheckCollision(World *world, Rectangle collider);
 
 /// Move player based on user input.
-static void xMovePlayer(Player *player, Map *map);
+static void xMovePlayer(Player *player, World *world);
 
 /// Update player sprites to show animation.
 static void xUpdatePlayerAnimation(Player *player);
@@ -120,9 +120,9 @@ void xInitPlayer(Player *player)
     player->gameObject.flip = false;
 }
 
-void xUpdatePlayer(Player *player, Map *map)
+void xUpdatePlayer(Player *player, World *world)
 {
-    xMovePlayer(player, map);
+    xMovePlayer(player, world);
     xUpdatePlayerAnimation(player);
 }
 
@@ -131,7 +131,7 @@ void xUnloadPlayer(Player *player)
     UnloadTexture(player->gameObject.texture);
 }
 
-static void xMovePlayer(Player *player, Map *map)
+static void xMovePlayer(Player *player, World *world)
 {
     int dx = 0;     // movement vector's x
     int dy = 0;     // movement vector's y
@@ -188,8 +188,8 @@ static void xMovePlayer(Player *player, Map *map)
     
     // Create a movement vector from player input.
     // Essentially copy values every frame (only 2 (int) floats: x, y)
-    Vector2 movement = {dx, dy};
-    Rectangle nextCollider;
+    xVector2 movement = {dx, dy};
+    xRectangle nextCollider;
 
     if (Vector2Length(movement) == 0)
         return;
@@ -201,7 +201,7 @@ static void xMovePlayer(Player *player, Map *map)
     nextCollider.x += movement.x * player->speed;
     nextCollider.y += movement.y * player->speed;
 
-    if (!xCheckCollision(map, nextCollider))
+    if (!xCheckCollision(world, nextCollider))
     {
         player->gameObject.dest.x += movement.x * player->speed;
         player->gameObject.dest.y += movement.y * player->speed;
@@ -210,14 +210,14 @@ static void xMovePlayer(Player *player, Map *map)
     }
 }
 
-bool xCheckCollision(Map *map, Rectangle collider)
+bool xCheckCollision(World *world, Rectangle collider)
 {
-    for (int i=0; i < map->objectCount; i++)
+    for (int i=0; i < world->objectCount; i++)
     {
-        if (!map->objects[i].active)
+        if (!world->objects[i].active)
             continue;
 
-        if (xCheckCollisionAABB(collider, map->objects[i].collider))
+        if (xCheckCollisionAABB(collider, world->objects[i].collider))
         {
             return true;
         }

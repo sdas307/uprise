@@ -3,8 +3,29 @@
 
 #include "raylib.h"
 #include "xEngine.h"
-#include "map.h"
 
+#define MAX_OBJECTS 128
+
+typedef struct Terrain
+{
+    Texture2D texture;
+    xRectangle source;
+    xRectangle dest;
+
+} Terrain;
+
+typedef struct World
+{
+    Terrain terrain;    /// Terrain Image and position rectangles.
+
+    Texture2D spriteSheet;  /// Objects sprite sheet.
+
+    xGameObject objects[MAX_OBJECTS];
+    int objectCount;
+
+} World;
+
+#pragma region Types of World Objects
 typedef enum StoneType
 {
     STONE_SMALL,
@@ -73,8 +94,15 @@ typedef enum YellowFlowerPotStage
     YELLOW_FLOWER_POT_STAGE_4,
 
 } YellowFlowerPotStage;
+#pragma endregion
 
-/// Place all objects on map.
-void xLoadMap(Map *map);
+/// Initialize world.
+void xInitWorld(World *world);
+
+/// Place all objects in world space.
+void xLoadWorld(World *world);
+
+/// Free world textures from GPU.
+void xUnloadWorld(World *world);
 
 #endif
