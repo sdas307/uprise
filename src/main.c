@@ -28,7 +28,7 @@ int main(void)
 
         BeginDrawing();
 
-            ClearBackground(GREEN);
+            ClearBackground(GRAY);
 
             xRenderScene(&world, &player);
             
