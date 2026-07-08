@@ -31,12 +31,8 @@ int main(void)
 
             ClearBackground(GREEN);
 
-            xRenderTerrain(&map);
+            xRenderScene(&map, &player);
             
-            xRenderMapObjects(&map);
-
-            xRenderPlayer(&player);
-
             DrawCircle(GetMouseX(), GetMouseY(), 10, RED);
 
         EndDrawing();

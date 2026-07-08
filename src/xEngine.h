@@ -33,6 +33,7 @@ typedef struct xGameObject
 
     int depth;              // Depth of the object (y + height).
 
+    bool flip;              // Whether to flip the sprite horizontally.
     bool active;            // Whether to draw on screen.
 
 } xGameObject;

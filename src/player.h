@@ -34,8 +34,6 @@ typedef struct Player
 
     int speed;      /// Player's movement speed.
 
-    bool flip;      /// Flip sprite horizontally when facing left.
-
 } Player;
 
 /// Initialize Player with default values.

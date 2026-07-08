@@ -103,7 +103,7 @@ void xInitPlayer(Player *player)
     
     player->state = PLAYER_IDLE;
     player->direction = PLAYER_FACE_FRONT;
-    player->flip = false;
+    player->gameObject.flip = false;
 }
 
 void xUpdatePlayer(Player *player, Map *map)
@@ -147,7 +147,7 @@ void xMovePlayer(Player *player, Map *map)
         player->state = PLAYER_WALKING;
         player->direction = PLAYER_FACE_LEFT;
 
-        player->flip = true;
+        player->gameObject.flip = true;
         
         dx--;
         moving = true;
@@ -158,7 +158,7 @@ void xMovePlayer(Player *player, Map *map)
         player->state = PLAYER_WALKING;
         player->direction = PLAYER_FACE_RIGHT;
 
-        player->flip = false;
+        player->gameObject.flip = false;
         
         dx++;
         moving = true;
@@ -294,7 +294,7 @@ bool xSavePlayer(const Player *player)
         .speed = player->speed,
         .state = player->state,
         .direction = player->direction,
-        .flip = player->flip
+        .flip = player->gameObject.flip
     };
 
     // Keeping track of write's success.
@@ -330,7 +330,7 @@ bool xLoadPlayer(Player *player)
     player->speed = save.speed;
     player->state = save.state;
     player->direction = save.direction;
-    player->flip = save.flip;
+    player->gameObject.flip = save.flip;
 
     // After data has been read from file, return true.
     return true;

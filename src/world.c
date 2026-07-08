@@ -20,6 +20,8 @@ static void xAddObject(Map *map, xRectangle source, xRectangle dest, xRectangle 
 
     xGameObject *object = &map->objects[map->objectCount++];
 
+    object->texture = map->spriteSheet;
+
     object->source = source;
     object->dest = dest;
 
@@ -27,6 +29,7 @@ static void xAddObject(Map *map, xRectangle source, xRectangle dest, xRectangle 
 
     object->depth = collider.y + collider.height;
 
+    object->flip = false;
     object->active = true;
 }
 
@@ -42,9 +45,9 @@ void xAddStone(Map *map, StoneType type, xRectangle dest)
 
         collider = (xRectangle){
             dest.x + 8,
-            dest.y + 44,
+            dest.y + 36,
             44,
-            12,
+            20,
         };
         break;
 
@@ -53,9 +56,9 @@ void xAddStone(Map *map, StoneType type, xRectangle dest)
 
         collider = (xRectangle){
             dest.x + 12,
-            dest.y + 44,
+            dest.y + 36,
             45,
-            12,
+            20,
         };
         break;
 
@@ -64,9 +67,9 @@ void xAddStone(Map *map, StoneType type, xRectangle dest)
 
         collider = (xRectangle){
             dest.x + 3,
-            dest.y + 44,
+            dest.y + 36,
             58,
-            12,
+            20,
         };
         break;
     }
@@ -90,9 +93,9 @@ void xAddTree(Map *map, TreeStage stage, xRectangle dest)
 
         collider = (xRectangle){
             dest.x,
-            dest.y + 46,
+            dest.y + 38,
             64,
-            12,
+            20,
         };
         break;
 
@@ -101,9 +104,9 @@ void xAddTree(Map *map, TreeStage stage, xRectangle dest)
 
         collider = (xRectangle){
             dest.x + dest.width / 2 - 15,
-            dest.y + 98,
+            dest.y + 90,
             20,
-            12,
+            20,
         };
         break;
 
