@@ -46,7 +46,7 @@ typedef enum TreeStage
 typedef enum RockType
 {
     ROCK_SMALL,
-    ROCK_BIG,
+    ROCK_LARGE,
     
 } RockType;
 
