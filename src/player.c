@@ -124,6 +124,7 @@ void xUpdatePlayer(Player *player, World *world)
 {
     xMovePlayer(player, world);
     xUpdatePlayerAnimation(player);
+    DrawRectangleLinesEx(player->gameObject.dest, 1.0f, RED);
 }
 
 void xUnloadPlayer(Player *player)
