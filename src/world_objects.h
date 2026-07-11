@@ -6,8 +6,6 @@
 
 /* ---------- Signatures ---------- */
 
-void xAddObject(World *world, xRectangle source, xRectangle dest, xRectangle collider);
-
 void xAddStone(World *world, StoneType type, xRectangle dest);
 
 void xAddTree(World *world, TreeStage stage, xRectangle dest);

@@ -1,7 +1,7 @@
 #include "world_objects.h"
 #include "assets.h"
 
-void xAddObject(World *world, xRectangle source, xRectangle dest, xRectangle collider)
+static void xAddObject(World *world, xRectangle source, xRectangle dest, xRectangle collider)
 {
     if (world->objectCount >= MAX_OBJECTS)
         return;
