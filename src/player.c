@@ -7,7 +7,7 @@
 /* ---------- Signatures ---------- */
 
 /// Check collisions between player and world objects
-static bool xCheckCollision(World *world, Rectangle collider);
+static bool xCheckCollision(World *world, xRectangle collider);
 
 /// Move player based on user input.
 static void xMovePlayer(Player *player, World *world);
@@ -211,7 +211,7 @@ static void xMovePlayer(Player *player, World *world)
     }
 }
 
-bool xCheckCollision(World *world, Rectangle collider)
+static bool xCheckCollision(World *world, xRectangle collider)
 {
     for (int i=0; i < world->objectCount; i++)
     {
