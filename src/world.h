@@ -105,4 +105,10 @@ void xLoadWorld(World *world);
 /// Free world textures from GPU.
 void xUnloadWorld(World *world);
 
+void xAddObject(World *world, xRectangle source, xRectangle dest, xRectangle collider);
+
+void xAddTree(World *world, TreeStage stage, xRectangle dest);
+
+void xAddStone(World *world, StoneType type, xRectangle dest);
+
 #endif

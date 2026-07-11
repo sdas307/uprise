@@ -5,7 +5,7 @@ const xRectangle SPRITE_HOUSE =
     64 * 15,
     62,
     64 * 5 - 40,
-    64 * 8 - 14
+    64 * 7
 };
 
 const xRectangle SPRITE_LIGHT_POST =

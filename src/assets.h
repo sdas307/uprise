@@ -3,6 +3,8 @@
 
 #include "xEngine.h"
 
+/* ---------- Source Rectangles ----------*/
+
 extern const xRectangle SPRITE_HOUSE;
 
 extern const xRectangle SPRITE_LIGHT_POST;
