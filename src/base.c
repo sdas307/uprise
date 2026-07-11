@@ -12,8 +12,6 @@ static const xRectangle largeTrees[] =
     
 };
 
-#define ARRAY_COUNT(x) (sizeof(x) / sizeof((x)[0]))
-
 static const xRectangle house =
 {
     64*2 - 12,
@@ -26,6 +24,9 @@ static const xRectangle smallTrees[] =
 {
     { 64-9, 64*4 + 20, 64*2 - 34, 64*2 }
 };
+
+/* ---------------------------------------------*/
+
 
 void xLoadTreesLarge(World *world)
 {

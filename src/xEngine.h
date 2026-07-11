@@ -4,6 +4,9 @@
 #include "raylib.h"
 #include <stdbool.h>
 
+/// Number of items in an array.
+#define ARRAY_COUNT(x) (sizeof(x) / sizeof((x)[0]))
+
 typedef struct xSprite
 {
     Texture2D texture;

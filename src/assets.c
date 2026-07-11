@@ -1,5 +1,7 @@
 #include "assets.h"
 
+/* ---------- Source Rectangles ----------*/
+
 const xRectangle SPRITE_HOUSE =
 {
     64 * 15,
