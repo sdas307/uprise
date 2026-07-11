@@ -4,7 +4,7 @@
 #include "xEngine.h"
 #include "player.h"
 #include "world.h"
-#include "animals.h"
+#include "animal.h"
 
 /// Renders the scene with player and game objects.
 void xRenderScene(World *world, Player *player, Animal *animal);

@@ -1,5 +1,6 @@
 #include "player.h"
 #include "config.h"
+#include "assets.h"
 
 #include "raymath.h"
 #include <stdio.h>

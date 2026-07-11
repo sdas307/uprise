@@ -3,7 +3,7 @@
 #include "player.h"
 #include "world.h"
 #include "render.h"
-#include "animals.h"
+#include "animal.h"
 
 Player player;
 World world;
@@ -15,7 +15,6 @@ int main(void)
 
     xInitPlayer(&player);
     xInitWorld(&world);
-    xInitAnimal(&animal);
 
     xLoadWorld(&world);
 
@@ -26,7 +25,6 @@ int main(void)
         // ---------------- UPDATE ----------------
 
         xUpdatePlayer(&player, &world);
-        xUpdateAnimal(&animal);
 
         // ---------------- DRAW ----------------
 

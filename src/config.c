@@ -3,12 +3,6 @@
 const int SCREEN_WIDTH = 1024;
 const int SCREEN_HEIGHT = 832;
 
-const char PATH_PLAYER_SHEET[] = "assets/player/player.png";
-const char PATH_COW_SHEET[] = "assets/animals/cow/cow.png";
-const char PATH_MAP[] = "assets/maps/map1.png";
-const char PATH_TERRAIN[] = "assets/maps/terrain.png";
-const char PATH_WORLD_OBJECTS[] = "assets/maps/world_objects_transparent.png";
-const char PATH_SPRITE_SHEET[] = "assets/uprise_spritesheet/spritesheet.png";
 const char WINDOW_TITLE[] = "Uprise - 2D RPG";
 const char GAME_ICON[] = "assets/icons/icon_tree.png";
 const char PATH_SAVEFILE[] = "../saves/save.xp";

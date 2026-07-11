@@ -3,7 +3,24 @@
 
 #include "xEngine.h"
 
+extern const char PATH_PLAYER_SHEET[];
+
+extern const char PATH_CHICKEN_SHEET[];
+extern const char PATH_SHEEP_SHEET[];
+extern const char PATH_PIG_SHEET[];
+extern const char PATH_COW_SHEET[];
+
+extern const char PATH_MAP[];
+extern const char PATH_TERRAIN[];
+extern const char PATH_WORLD_OBJECTS[];
+extern const char PATH_SPRITE_SHEET[];
+
 /* ---------- Source Rectangles ----------*/
+
+extern const xRectangle SPRITE_CHICKEN;
+extern const xRectangle SPRITE_SHEEP;
+extern const xRectangle SPRITE_PIG;
+extern const xRectangle SPRITE_COW;
 
 extern const xRectangle SPRITE_HOUSE;
 
@@ -20,7 +37,5 @@ extern const xRectangle SPRITE_TREE_LARGE;
 extern const xRectangle SPRITE_STONE_SMALL;
 extern const xRectangle SPRITE_STONE_MEDIUM;
 extern const xRectangle SPRITE_STONE_LARGE;
-
-extern const xRectangle SPRITE_COW;
 
 #endif
