@@ -37,8 +37,6 @@ void xInitAnimal(Animal *animal);
 
 void xUpdateAnimal(Animal *animal);
 
-void xDrawAnimal(Animal *animal);
-
 void xMoveAnimal(Animal *animal);
 
 void xUnloadAnimal(Animal *animal);

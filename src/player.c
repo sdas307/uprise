@@ -97,12 +97,12 @@ void xInitPlayer(Player *player)
     SetTextureFilter(player->gameObject.texture, TEXTURE_FILTER_POINT);
     player->interval = 0.10f;
 
-    player->gameObject.source = (Rectangle) {0, 0, frameWidth, frameHeight};
-    player->gameObject.dest = (Rectangle) {config.x, config.y, frameWidth * 4, frameHeight * 4};
+    player->gameObject.source = (xRectangle) {0, 0, frameWidth, frameHeight};
+    player->gameObject.dest = (xRectangle) {config.x, config.y, frameWidth * 4, frameHeight * 4};
 
     player->gameObject.active = true;
 
-    player->gameObject.collider = (Rectangle)
+    player->gameObject.collider = (xRectangle)
     {
         player->gameObject.dest.x + 42,
         player->gameObject.dest.y + 80,

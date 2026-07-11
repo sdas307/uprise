@@ -10,7 +10,13 @@ void xInitAnimal(Animal *animal)
 
     animal->gameObject.dest = (xRectangle) {64*8, 64*6, 64*2 - 24, 64*2 - 42};
     
-    animal->gameObject.collider = (xRectangle) {8, 15, 5, 15};
+    animal->gameObject.collider = (xRectangle)
+    {
+        animal->gameObject.dest.x + 16,
+        animal->gameObject.dest.y + 50,
+        animal->gameObject.dest.width - 32,
+        30
+    };
 
     animal->gameObject.depth = animal->gameObject.collider.y + animal->gameObject.collider.height;
 
@@ -39,11 +45,6 @@ void xMoveAnimal(Animal *animal)
     if (animal->gameObject.dest.x < (animalMoveArea.x + animalMoveArea.width))
     {
         animal->gameObject.dest.x += animal->speed;
+        animal->gameObject.collider.x += animal->speed;
     }
-}
-
-void xDrawAnimal(Animal *animal)
-{
-    DrawTexturePro(animal->gameObject.texture, animal->gameObject.source, animal->gameObject.dest, ZERO_POSITION, 0.0f, WHITE);
-    DrawRectangleLines(animal->gameObject.dest.x, animal->gameObject.dest.y, animal->gameObject.dest.width, animal->gameObject.dest.height, RED);
 }
