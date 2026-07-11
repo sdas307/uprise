@@ -21,4 +21,6 @@ extern const xRectangle SPRITE_STONE_SMALL;
 extern const xRectangle SPRITE_STONE_MEDIUM;
 extern const xRectangle SPRITE_STONE_LARGE;
 
+extern const xRectangle SPRITE_COW;
+
 #endif

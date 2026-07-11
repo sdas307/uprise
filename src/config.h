@@ -7,6 +7,7 @@ extern const int SCREEN_WIDTH;
 extern const int SCREEN_HEIGHT;
 
 extern const char PATH_PLAYER_SHEET[];
+extern const char PATH_COW_SHEET[];
 extern const char PATH_MAP[];
 extern const char PATH_TERRAIN[];
 extern const char PATH_WORLD_OBJECTS[];

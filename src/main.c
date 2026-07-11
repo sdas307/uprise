@@ -3,9 +3,11 @@
 #include "player.h"
 #include "world.h"
 #include "render.h"
+#include "animals.h"
 
 Player player;
 World world;
+Animal animal;
 
 int main(void)
 {
@@ -13,6 +15,7 @@ int main(void)
 
     xInitPlayer(&player);
     xInitWorld(&world);
+    xInitAnimal(&animal);
 
     xLoadWorld(&world);
 
@@ -23,6 +26,7 @@ int main(void)
         // ---------------- UPDATE ----------------
 
         xUpdatePlayer(&player, &world);
+        xUpdateAnimal(&animal);
 
         // ---------------- DRAW ----------------
 
@@ -30,7 +34,7 @@ int main(void)
 
             ClearBackground(GRAY);
 
-            xRenderScene(&world, &player);
+            xRenderScene(&world, &player, &animal);
             
             DrawCircle(GetMouseX(), GetMouseY(), 10, RED);
 

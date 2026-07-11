@@ -20,7 +20,7 @@ static void xRenderTerrain(World *world);
 
 /* ---------- Implementation ---------- */
 
-void xRenderScene(World *world, Player *player)
+void xRenderScene(World *world, Player *player, Animal *animal)
 {
     xGameObject *renderList[MAX_RENDERABLES];
     int renderCount = 0;
