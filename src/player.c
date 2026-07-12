@@ -101,6 +101,8 @@ void xInitPlayer(Player *player)
     player->gameObject.source = (xRectangle) {0, 0, frameWidth, frameHeight};
     player->gameObject.dest = (xRectangle) {config.x, config.y, frameWidth * 4, frameHeight * 4};
 
+    player->gameObject.type = OBJECT_PLAYER;
+
     player->gameObject.active = true;
 
     player->gameObject.collider = (xRectangle)

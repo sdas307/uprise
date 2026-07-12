@@ -41,5 +41,7 @@ void xLoadWorld(World *world, AnimalManager *manager)
 
     xAddRock(world, ROCK_SMALL, (xRectangle){64*2 - 26, 64*6 - 21, SPRITE_ROCK_SMALL.width, SPRITE_ROCK_SMALL.height });
 
-    xSpawnCow(manager, (xRectangle){400, 400, 64*2 - 30, 64*2 - 42});
+    xSpawnCow(manager, (xRectangle){464, 400-128, SPRITE_COW.width, SPRITE_COW.height});
+
+    xSpawnChicken(manager, (xRectangle){400, 400, SPRITE_CHICKEN.width, SPRITE_CHICKEN.height});
 }

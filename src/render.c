@@ -1,6 +1,8 @@
 #include "render.h"
 #include "config.h"
 
+#include <stdio.h>
+
 /* ---------- Signatures ---------- */
 
 #define MAX_RENDERABLES 256
@@ -53,9 +55,10 @@ void xRenderScene(World *world, Player *player, AnimalManager *manager)
     {
         xGameObject *object = renderList[i];
 
-        bool isPlayer = (object == &player->gameObject);
+        bool isObjectPlayer = (object->type == OBJECT_PLAYER);
+        bool isObjectAnimal = (object->type == OBJECT_ANIMAL);
 
-        bool isBehindObject = (object->depth > player->gameObject.depth);
+        bool isPlayerBehindObject = (object->depth > player->gameObject.depth);
 
         xRectangle fadeArea = xGetFadeArea(object);
 
@@ -63,7 +66,7 @@ void xRenderScene(World *world, Player *player, AnimalManager *manager)
 
         xColor tint = WHITE;
 
-        if (!isPlayer && isBehindObject && overlapsPlayer)
+        if (!isObjectPlayer && !isObjectAnimal && isPlayerBehindObject && overlapsPlayer)
         {
             tint = Fade(WHITE, 0.5f);
         }

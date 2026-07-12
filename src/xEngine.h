@@ -23,6 +23,14 @@ typedef struct xTransform
 
 } xTransform;
 
+typedef enum xObjectType
+{
+    OBJECT_PLAYER,
+    OBJECT_ANIMAL,
+    OBJECT_WORLD_OBJECT
+
+} xObjectType;
+
 typedef struct xGameObject
 {
     // xSprite sprite;          // Sprite to draw.
@@ -33,6 +41,8 @@ typedef struct xGameObject
     Rectangle source;
     Rectangle dest;
     Rectangle collider;
+
+    xObjectType type;
 
     int depth;              // Depth of the object (y + height).
 

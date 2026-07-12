@@ -13,6 +13,8 @@ static void xAddObject(World *world, xRectangle source, xRectangle dest, xRectan
     object->source = source;
     object->dest = dest;
 
+    object->type = OBJECT_WORLD_OBJECT;
+
     object->collider = collider;
 
     object->depth = collider.y + collider.height;

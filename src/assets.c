@@ -17,17 +17,17 @@ const char PATH_SPRITE_SHEET[] = "assets/uprise_spritesheet/spritesheet.png";
 
 const xRectangle SPRITE_CHICKEN =
 {
-    64, 64, 64, 64
+    8, 8, 64-12, 64 - 8
 };
 
 const xRectangle SPRITE_SHEEP = 
 {
-    64, 64, 64, 64
+    0, 0, 64, 64
 };
 
 const xRectangle SPRITE_PIG = 
 {
-    64, 64, 64, 64
+    0, 0, 64, 64
 };
 
 const xRectangle SPRITE_COW =

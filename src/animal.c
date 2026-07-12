@@ -26,6 +26,8 @@ static void xInitAnimal(Animal *animal)
     animal->state = ANIMAL_IDLE;
     animal->direction = ANIMAL_LEFT;
 
+    animal->gameObject.type = OBJECT_ANIMAL;
+
     animal->gameObject.active = true;
 }
 
@@ -93,10 +95,10 @@ void xSpawnChicken(AnimalManager *manager, xRectangle dest)
 
     animal->gameObject.collider = (xRectangle)
     {
-        animal->gameObject.dest.x + 16,
-        animal->gameObject.dest.y + 50,
-        animal->gameObject.dest.width - 32,
-        30
+        animal->gameObject.dest.x + 8,
+        animal->gameObject.dest.y + 32,
+        animal->gameObject.dest.width - 24,
+        16
     };
 
     animal->gameObject.depth = animal->gameObject.collider.y + animal->gameObject.collider.height;
