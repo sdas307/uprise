@@ -7,7 +7,7 @@
 
 Player player;
 World world;
-Animal animal;
+AnimalManager manager;
 
 int main(void)
 {
@@ -16,7 +16,7 @@ int main(void)
     xInitPlayer(&player);
     xInitWorld(&world);
 
-    xLoadWorld(&world);
+    xLoadWorld(&world, &manager);
 
     SetTargetFPS(60);
 
@@ -32,7 +32,7 @@ int main(void)
 
             ClearBackground(GRAY);
 
-            xRenderScene(&world, &player, &animal);
+            xRenderScene(&world, &player, &manager);
             
             DrawCircle(GetMouseX(), GetMouseY(), 10, RED);
 

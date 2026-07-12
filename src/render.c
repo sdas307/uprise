@@ -20,7 +20,7 @@ static void xRenderTerrain(World *world);
 
 /* ---------- Implementation ---------- */
 
-void xRenderScene(World *world, Player *player, Animal *animal)
+void xRenderScene(World *world, Player *player, AnimalManager *manager)
 {
     xGameObject *renderList[MAX_RENDERABLES];
     int renderCount = 0;
@@ -31,6 +31,7 @@ void xRenderScene(World *world, Player *player, Animal *animal)
     for (int i = 0; i < world->objectCount; i++)
     {
         renderList[renderCount++] = &world->objects[i];
+        renderList[renderCount++] = &manager->animals[i].gameObject;
     }
 
     // Add player

@@ -1,7 +1,7 @@
 Tomorrow
 
-[ ] AnimalManager initialization
-[ ] Render animals
-[ ] Animal update loop
-[ ] Animal animation
+[ ] AnimalManager initialization & update
+[ ] Render animals through AnimalManager
+[ ] Animal update loop ??
+[ ] Animal sprites animation
 [ ] Animal wandering AI

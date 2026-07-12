@@ -27,13 +27,12 @@ typedef enum AnimalDirection
     ANIMAL_RIGHT
 
 } AnimalDirection;
+
 typedef struct Animal
 {
     xGameObject gameObject;
 
     float interval;
-
-    AnimalType type;
 
     AnimalState state;
 

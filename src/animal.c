@@ -2,11 +2,19 @@
 #include "config.h"
 #include "assets.h"
 
+#include <stdio.h>
+
 /* ---------- Signatures ----------*/
 
 static void xMoveAnimal(Animal *animal);
 
 static void xInitAnimal(Animal *animal);
+
+static void xAnimateAnimal(Animal *animal);
+
+static float deltaTime = 0.0f;
+static float randomInterval = 0.0f;
+static float r = 0.0f;
 
 
 /* ---------- Implementation ----------*/
@@ -23,12 +31,44 @@ static void xInitAnimal(Animal *animal)
 
 void xUpdateAnimal(Animal *animal)
 {
+    xAnimateAnimal(animal);
     xMoveAnimal(animal);
 }
 
 static void xMoveAnimal(Animal *animal)
 {
+    int randomValue = GetRandomValue(0, 3);
+    r += GetFrameTime();
 
+    if (r >= randomValue)
+    {
+        animal->state = GetRandomValue(ANIMAL_IDLE, ANIMAL_MOVING);
+    }
+
+    if (animal->state == ANIMAL_MOVING)
+    {
+        animal->direction = GetRandomValue(ANIMAL_LEFT, ANIMAL_RIGHT);
+    }
+    
+    if (animal->direction == ANIMAL_LEFT)
+        animal->gameObject.dest.x -= animal->speed;
+
+    if (animal->direction == ANIMAL_RIGHT)
+        animal->gameObject.dest.x += animal->speed;
+
+}
+
+static void xAnimateAnimal(Animal *animal)
+{
+    deltaTime += GetFrameTime();
+
+    if (deltaTime >= animal->interval)
+    {
+        animal->gameObject.source.x += 64;
+        animal->gameObject.source.y += 64;
+    }
+
+    deltaTime -= animal->interval;
 }
 
 void xUnloadAnimal(Animal *animal)
@@ -136,6 +176,7 @@ void xSpawnCow(AnimalManager *manager, xRectangle dest)
     animal->gameObject.texture = LoadTexture(PATH_COW_SHEET);
 
     animal->gameObject.source = SPRITE_COW;
+    
     animal->gameObject.dest = dest;
 
     animal->gameObject.collider = (xRectangle)
