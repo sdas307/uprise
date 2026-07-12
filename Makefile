@@ -2,7 +2,7 @@ CC = gcc
 
 SHELL := cmd.exe
 
-CFLAGS = -Iinclude
+CFLAGS = -g -Iinclude
 
 LDFLAGS = -Llib -lraylib -lopengl32 -lgdi32 -lwinmm
 

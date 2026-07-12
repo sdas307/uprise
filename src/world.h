@@ -3,6 +3,7 @@
 
 #include "raylib.h"
 #include "xEngine.h"
+#include "animal.h"
 
 #define MAX_OBJECTS 128
 
@@ -100,7 +101,7 @@ typedef enum YellowFlowerPotStage
 void xInitWorld(World *world);
 
 /// Place all objects in world space.
-void xLoadWorld(World *world);
+void xLoadWorld(World *world, AnimalManager *manager);
 
 /// Free world textures from GPU.
 void xUnloadWorld(World *world);

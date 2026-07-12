@@ -1,5 +1,6 @@
 #include "player.h"
 #include "config.h"
+#include "assets.h"
 
 #include "raymath.h"
 #include <stdio.h>
@@ -7,7 +8,7 @@
 /* ---------- Signatures ---------- */
 
 /// Check collisions between player and world objects
-static bool xCheckCollision(World *world, Rectangle collider);
+static bool xCheckCollision(World *world, xRectangle collider);
 
 /// Move player based on user input.
 static void xMovePlayer(Player *player, World *world);
@@ -97,12 +98,14 @@ void xInitPlayer(Player *player)
     SetTextureFilter(player->gameObject.texture, TEXTURE_FILTER_POINT);
     player->interval = 0.10f;
 
-    player->gameObject.source = (Rectangle) {0, 0, frameWidth, frameHeight};
-    player->gameObject.dest = (Rectangle) {config.x, config.y, frameWidth * 4, frameHeight * 4};
+    player->gameObject.source = (xRectangle) {0, 0, frameWidth, frameHeight};
+    player->gameObject.dest = (xRectangle) {config.x, config.y, frameWidth * 4, frameHeight * 4};
+
+    player->gameObject.type = OBJECT_PLAYER;
 
     player->gameObject.active = true;
 
-    player->gameObject.collider = (Rectangle)
+    player->gameObject.collider = (xRectangle)
     {
         player->gameObject.dest.x + 42,
         player->gameObject.dest.y + 80,
@@ -211,7 +214,7 @@ static void xMovePlayer(Player *player, World *world)
     }
 }
 
-bool xCheckCollision(World *world, Rectangle collider)
+static bool xCheckCollision(World *world, xRectangle collider)
 {
     for (int i=0; i < world->objectCount; i++)
     {

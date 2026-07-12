@@ -1,6 +1,8 @@
 #include "base.h"
 #include "assets.h"
 
+
+
 /* ---------- Destination Rectangles ----------*/
 
 static const xRectangle largeTrees[] =
