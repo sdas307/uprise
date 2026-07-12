@@ -4,10 +4,14 @@
 #include "world.h"
 #include "render.h"
 #include "animal.h"
+#include "base.h"
+
+#include <stdio.h>
 
 Player player;
 World world;
 AnimalManager manager;
+BaseConfig config;
 
 int main(void)
 {
@@ -17,6 +21,8 @@ int main(void)
     xInitWorld(&world);
 
     xLoadWorld(&world, &manager);
+
+    xBaseInit(&config);
 
     SetTargetFPS(60);
 
