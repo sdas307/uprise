@@ -1,4 +1,5 @@
 #include "base.h"
+#include "assets.h"
 
 /* ---------- Destination Rectangles ----------*/
 
@@ -26,8 +27,8 @@ static const xRectangle smallTrees[] =
 
 /* ---------------------------------------------*/
 
-
-void xLoadTreesLarge(World *world)
+/// Loads all large trees at their world positions.
+static void xLoadTreesLarge(World *world)
 {
     for (int i=0; i<ARRAY_COUNT(largeTrees); i++)
     {
@@ -35,7 +36,8 @@ void xLoadTreesLarge(World *world)
     }
 }
 
-void xLoadTreesSmall(World *world)
+/// Loads all small trees at their world positions.
+static void xLoadTreesSmall(World *world)
 {
     for (int i=0; i<ARRAY_COUNT(smallTrees); i++)
     {
@@ -43,7 +45,25 @@ void xLoadTreesSmall(World *world)
     }
 }
 
-void xLoadHouse(World *world)
+/// Loads house at world positions.
+static void xLoadHouse(World *world)
 {
     xAddHouse(world, house);
+}
+
+void xLoadBaseMap(World *world, AnimalManager *manager)
+{
+    xLoadTreesLarge(world);
+
+    xLoadHouse(world);
+
+    xLoadTreesSmall(world);
+
+    xAddLightPost(world, (xRectangle){64*6 + 16, 64*4, SPRITE_LIGHT_POST.width, SPRITE_LIGHT_POST.height});
+
+    xAddRock(world, ROCK_SMALL, (xRectangle){64*2 - 26, 64*6 - 21, SPRITE_ROCK_SMALL.width, SPRITE_ROCK_SMALL.height });
+
+    xSpawnCow(manager, (xRectangle){464, 400-128, SPRITE_COW.width, SPRITE_COW.height});
+
+    xSpawnChicken(manager, (xRectangle){400, 400, SPRITE_CHICKEN.width, SPRITE_CHICKEN.height});
 }

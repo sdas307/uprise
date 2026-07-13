@@ -16,10 +16,6 @@ void xAddLightPost(World *world, xRectangle dest);
 
 void xAddRock(World *world, RockType type, xRectangle dest);
 
-void xLoadTreesLarge(World *world);
-
-void xLoadTreesSmall(World *world);
-
 void xAddMushroom(World *world, xRectangle dest);
 
 #endif
