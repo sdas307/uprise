@@ -58,6 +58,8 @@ void xRenderScene(World *world, Player *player, AnimalManager *manager)
         bool isObjectPlayer = (object->type == OBJECT_PLAYER);
         bool isObjectAnimal = (object->type == OBJECT_ANIMAL);
 
+        // TODO: MUSHROOM NOT TO BE FADED #############################
+
         bool isPlayerBehindObject = (object->depth > player->gameObject.depth);
 
         xRectangle fadeArea = xGetFadeArea(object);

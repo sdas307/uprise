@@ -20,4 +20,6 @@ void xLoadTreesLarge(World *world);
 
 void xLoadTreesSmall(World *world);
 
+void xAddMushroom(World *world, xRectangle dest);
+
 #endif

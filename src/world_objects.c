@@ -176,3 +176,21 @@ void xAddTree(World *world, TreeStage stage, xRectangle dest)
 
     xAddObject(world, source, dest, collider);
 }
+
+void xAddMushroom(World *world, xRectangle dest)
+{
+    xRectangle source;
+    xRectangle collider;
+
+    source = SPRITE_MUSHROOM;
+
+    collider = (xRectangle)
+    {
+        dest.x + 4,
+        dest.y + 20,
+        dest.width - 8,
+        8
+    };
+
+    xAddObject(world, source, dest, collider);
+}

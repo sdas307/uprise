@@ -1,7 +1,4 @@
 #include "base.h"
-#include "assets.h"
-
-
 
 /* ---------- Destination Rectangles ----------*/
 

@@ -10,6 +10,7 @@ const char PATH_COW_SHEET[] = "assets/animals/cow/cow.png";
 
 const char PATH_MAP[] = "assets/maps/map1.png";
 const char PATH_TERRAIN[] = "assets/maps/terrain.png";
+const char PATH_FOREST[] = "assets/maps/map_forest.png";
 const char PATH_WORLD_OBJECTS[] = "assets/maps/world_objects_transparent.png";
 const char PATH_SPRITE_SHEET[] = "assets/uprise_spritesheet/spritesheet.png";
 
@@ -116,4 +117,12 @@ const xRectangle SPRITE_STONE_LARGE =
     64 * 3,
     64,
     64
+};
+
+const xRectangle SPRITE_MUSHROOM = 
+{
+    64 * 2 + 16,
+    64 * 7 + 20,
+    64 - 32,
+    64 - 32
 };

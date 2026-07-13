@@ -12,6 +12,7 @@ extern const char PATH_COW_SHEET[];
 
 extern const char PATH_MAP[];
 extern const char PATH_TERRAIN[];
+extern const char PATH_FOREST[];
 extern const char PATH_WORLD_OBJECTS[];
 extern const char PATH_SPRITE_SHEET[];
 
@@ -37,5 +38,7 @@ extern const xRectangle SPRITE_TREE_LARGE;
 extern const xRectangle SPRITE_STONE_SMALL;
 extern const xRectangle SPRITE_STONE_MEDIUM;
 extern const xRectangle SPRITE_STONE_LARGE;
+
+extern const xRectangle SPRITE_MUSHROOM;
 
 #endif
