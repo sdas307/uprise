@@ -63,6 +63,14 @@ const xRectangle SPRITE_TREE_CUT =
     64
 };
 
+const xRectangle SPRITE_TREE_STUMP =
+{
+    64 * 0 + 20,
+    64 * 8 + 16,
+    64 - 20 - 16,
+    64 - 16 - 16
+};
+
 const xRectangle SPRITE_TREE_SMALL =
 {
     64 * 5 + 15,

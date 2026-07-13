@@ -45,7 +45,5 @@ void xLoadWorld(World *world, AnimalManager *manager)
 
     // xSpawnChicken(manager, (xRectangle){400, 400, SPRITE_CHICKEN.width, SPRITE_CHICKEN.height});
 
-    xAddMushroom(world, (xRectangle){400, 400, SPRITE_MUSHROOM.width, SPRITE_MUSHROOM.height});
-    xAddMushroom(world, (xRectangle){464, 400, SPRITE_MUSHROOM.width, SPRITE_MUSHROOM.height});
-    xAddMushroom(world, (xRectangle){464 + 64, 400, SPRITE_MUSHROOM.width, SPRITE_MUSHROOM.height});
+    xLoadForestMap(world);
 }
