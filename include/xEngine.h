@@ -27,6 +27,7 @@ typedef enum xObjectType
 {
     OBJECT_PLAYER,
     OBJECT_ANIMAL,
+    OBJECT_MUSHROOM,
     OBJECT_WORLD_OBJECT
 
 } xObjectType;

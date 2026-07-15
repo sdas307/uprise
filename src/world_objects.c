@@ -137,7 +137,14 @@ void xAddTree(World *world, TreeStage stage, xRectangle dest)
     switch (stage)
     {
     case TREE_STUMP:
-        source = (xRectangle){64 * 0, 64 * 8, 64, 64};
+        source = SPRITE_TREE_STUMP;
+        
+        collider = (xRectangle){
+            dest.x,
+            dest.y + dest.height - 16,
+            dest.width - 2,
+            8
+        };
         break;
 
     case TREE_CUT:
@@ -173,6 +180,24 @@ void xAddTree(World *world, TreeStage stage, xRectangle dest)
         };
         break;
     }
+
+    xAddObject(world, source, dest, collider);
+}
+
+void xAddMushroom(World *world, xRectangle dest)
+{
+    xRectangle source;
+    xRectangle collider;
+
+    source = SPRITE_MUSHROOM;
+
+    collider = (xRectangle)
+    {
+        dest.x + 4,
+        dest.y + 20,
+        dest.width - 8,
+        8
+    };
 
     xAddObject(world, source, dest, collider);
 }

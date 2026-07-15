@@ -41,7 +41,6 @@ typedef struct PlayerSave
 } PlayerSave;
 
 static float deltaTime = 0.0f;
-// static const float interval = 0.10f;
 
 static const int totalFrames = 6;
 static const int frameWidth = 32;
