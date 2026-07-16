@@ -143,7 +143,7 @@ static void xMovePlayer(Player *player, World *world)
 
     if (IsKeyDown(KEY_W) && player->gameObject.dest.y >= 0)
     {
-        player->state = PLAYER_WALKING;
+        player->state = PLAYER_WALK;
         player->direction = PLAYER_FACE_BACK;
 
         dy--;
@@ -152,7 +152,7 @@ static void xMovePlayer(Player *player, World *world)
 
     if (IsKeyDown(KEY_S) && player->gameObject.dest.y <= SCREEN_HEIGHT - frameHeight * 4)
     {
-        player->state = PLAYER_WALKING;
+        player->state = PLAYER_WALK;
         player->direction = PLAYER_FACE_FRONT;
 
         dy++;
@@ -161,7 +161,7 @@ static void xMovePlayer(Player *player, World *world)
 
     if (IsKeyDown(KEY_A) && player->gameObject.dest.x >= 0)
     {
-        player->state = PLAYER_WALKING;
+        player->state = PLAYER_WALK;
         player->direction = PLAYER_FACE_LEFT;
 
         player->gameObject.flip = true;
@@ -172,7 +172,7 @@ static void xMovePlayer(Player *player, World *world)
 
     if (IsKeyDown(KEY_D) && player->gameObject.dest.x <= SCREEN_WIDTH - frameWidth * 4)
     {
-        player->state = PLAYER_WALKING;
+        player->state = PLAYER_WALK;
         player->direction = PLAYER_FACE_RIGHT;
 
         player->gameObject.flip = false;
@@ -253,7 +253,7 @@ static void xUpdatePlayerAnimation(Player *player)
         }
     }
 
-    else if (player->state == PLAYER_WALKING)
+    else if (player->state == PLAYER_WALK)
     {
         // Select the correct animation row.
         switch (player->direction)
