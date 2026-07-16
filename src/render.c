@@ -113,8 +113,7 @@ static void xRenderObject(xGameObject *object, xColor tint)
 
     if (object->flip)
     {
-        drawSource.x += drawSource.width;
-        drawSource.width *= -1;
+        drawSource.width = -drawSource.width;
     }
 
     DrawTexturePro(object->texture, drawSource, object->dest, ZERO_POSITION, 0.0f, tint);

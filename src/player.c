@@ -10,11 +10,19 @@
 /// Check collisions between player and world objects
 static bool xCheckCollision(World *world, xRectangle collider);
 
+static void xReadPlayerInput(Player *player);
+
+static void xUpdatePlayerState(Player *player);
+
 /// Move player based on user input.
 static void xMovePlayer(Player *player, World *world);
 
 /// Update player sprites to show animation.
 static void xUpdatePlayerAnimation(Player *player);
+
+static int xGetAnimationLength(PlayerState state);
+
+static int xGetAnimationRow(PlayerState state, PlayerDirection direction);
 
 
 /* ---------- Implementation ---------- */
@@ -39,12 +47,6 @@ typedef struct PlayerSave
     bool flip;
 
 } PlayerSave;
-
-static float deltaTime = 0.0f;
-
-static const int totalFrames = 6;
-static const int frameWidth = 32;
-static const int frameHeight = 32;
 
 /** Player Object is made in main file,
  * here we simply define all funcitons and
@@ -95,10 +97,17 @@ void xInitPlayer(Player *player)
 
     player->gameObject.texture = LoadTexture(PATH_PLAYER_SHEET);
     SetTextureFilter(player->gameObject.texture, TEXTURE_FILTER_POINT);
+
     player->interval = 0.10f;
 
-    player->gameObject.source = (xRectangle) {0, 0, frameWidth, frameHeight};
-    player->gameObject.dest = (xRectangle) {config.x, config.y, frameWidth * 4, frameHeight * 4};
+    player->animationTimer = 0.0f;
+    player->currentFrame = 0;
+
+    player->frameWidth = 32;
+    player->frameHeight = 32;
+
+    player->gameObject.source = (xRectangle) {0, 0, player->frameWidth, player->frameHeight};
+    player->gameObject.dest = (xRectangle) {config.x, config.y, player->frameWidth * 4, player->frameHeight * 4};
 
     player->gameObject.type = OBJECT_PLAYER;
 
@@ -124,6 +133,8 @@ void xInitPlayer(Player *player)
 
 void xUpdatePlayer(Player *player, World *world)
 {
+    xReadPlayerInput(player);
+    xUpdatePlayerState(player);
     xMovePlayer(player, world);
     xUpdatePlayerAnimation(player);
     DrawRectangleLinesEx(player->gameObject.dest, 1.0f, RED);
@@ -134,65 +145,92 @@ void xUnloadPlayer(Player *player)
     UnloadTexture(player->gameObject.texture);
 }
 
-static void xMovePlayer(Player *player, World *world)
+static void xReadPlayerInput(Player *player)
 {
-    int dx = 0;     // movement vector's x
-    int dy = 0;     // movement vector's y
+    player->moveX = 0;
+    player->moveY = 0;
 
-    bool moving = false;
+    if (IsKeyDown(KEY_W))
+        player->moveY--;
 
-    if (IsKeyDown(KEY_W) && player->gameObject.dest.y >= 0)
+    if (IsKeyDown(KEY_S))
+        player->moveY++;
+
+    if (IsKeyDown(KEY_A))
+        player->moveX--;
+
+    if (IsKeyDown(KEY_D))
+        player->moveX++;
+
+    if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+        player->attackPressed = true;
+
+}
+
+static void xUpdatePlayerState(Player *player)
+{
+    if (player->state == PLAYER_ATTACK)
     {
-        player->state = PLAYER_WALK;
-        player->direction = PLAYER_FACE_BACK;
-
-        dy--;
-        moving = true;
+        return;
     }
 
-    if (IsKeyDown(KEY_S) && player->gameObject.dest.y <= SCREEN_HEIGHT - frameHeight * 4)
+    if (player->attackPressed)
     {
-        player->state = PLAYER_WALK;
-        player->direction = PLAYER_FACE_FRONT;
+        player->state = PLAYER_ATTACK;
+        player->currentFrame = 0;
+        player->animationTimer = 0.0f;
 
-        dy++;
-        moving = true;
+        player->attackPressed = false;
+
+        return;
     }
 
-    if (IsKeyDown(KEY_A) && player->gameObject.dest.x >= 0)
+    if ((player->moveX != 0) || (player->moveY != 0))
     {
         player->state = PLAYER_WALK;
-        player->direction = PLAYER_FACE_LEFT;
-
-        player->gameObject.flip = true;
-        
-        dx--;
-        moving = true;
     }
-
-    if (IsKeyDown(KEY_D) && player->gameObject.dest.x <= SCREEN_WIDTH - frameWidth * 4)
-    {
-        player->state = PLAYER_WALK;
-        player->direction = PLAYER_FACE_RIGHT;
-
-        player->gameObject.flip = false;
-        
-        dx++;
-        moving = true;
-    }
-
-    if (!moving)
+    else
     {
         player->state = PLAYER_IDLE;
-
-        dx = 0;     // reset dx
-        dy = 0;     // reset dy
     }
-    
+}
+
+static void xMovePlayer(Player *player, World *world)
+{
+    // No movement while attacking.
+    if (player->state == PLAYER_ATTACK)
+        return;
+
+    int dx = player->moveX;
+    int dy = player->moveY;
+
+    // No movement requested.
+    if ((dx == 0) && (dy == 0))
+        return;
+
+    if (dy < 0)
+    {
+        player->direction = PLAYER_FACE_BACK;
+    }
+    else if (dy > 0)
+    {
+        player->direction = PLAYER_FACE_FRONT;
+    }
+
+    if (dx < 0)
+    {
+        player->direction = PLAYER_FACE_LEFT;
+        player->gameObject.flip = true;
+    }
+    else if (dx > 0)
+    {
+        player->direction = PLAYER_FACE_RIGHT;
+        player->gameObject.flip = false;
+    }
+
     // Create a movement vector from player input.
     // Essentially copy values every frame (only 2 (int) floats: x, y)
     xVector2 movement = {dx, dy};
-    xRectangle nextCollider;
 
     if (Vector2Length(movement) == 0)
         return;
@@ -200,7 +238,7 @@ static void xMovePlayer(Player *player, World *world)
     // Normalize diagonal movement to maintain a constant speed.
     movement = Vector2Normalize(movement);
 
-    nextCollider = player->gameObject.collider;
+    xRectangle nextCollider = player->gameObject.collider;
     nextCollider.x += movement.x * player->speed;
     nextCollider.y += movement.y * player->speed;
 
@@ -210,6 +248,8 @@ static void xMovePlayer(Player *player, World *world)
         player->gameObject.dest.y += movement.y * player->speed;
 
         player->gameObject.collider = nextCollider;
+
+        player->gameObject.depth = player->gameObject.collider.y + player->gameObject.collider.height;
     }
 }
 
@@ -233,64 +273,56 @@ static void xUpdatePlayerAnimation(Player *player)
 {
     // ---------------- SELECT SPRITE ROW ----------------
 
-    if (player->state == PLAYER_IDLE)
-    {
-        // Select the correct animation row.
-        switch (player->direction)
-        {
-        case PLAYER_FACE_FRONT:
-            player->gameObject.source.y = frameHeight * 0;
-            break;
+    int totalFrames = xGetAnimationLength(player->state);
 
-        case PLAYER_FACE_LEFT:
-        case PLAYER_FACE_RIGHT:
-            player->gameObject.source.y = frameHeight * 1;
-            break;
-
-        case PLAYER_FACE_BACK:
-            player->gameObject.source.y = frameHeight * 2;
-            break;
-        }
-    }
-
-    else if (player->state == PLAYER_WALK)
-    {
-        // Select the correct animation row.
-        switch (player->direction)
-        {
-        case PLAYER_FACE_FRONT:
-            player->gameObject.source.y = frameHeight * 3;
-            break;
-
-        case PLAYER_FACE_LEFT:
-        case PLAYER_FACE_RIGHT:
-            player->gameObject.source.y = frameHeight * 4;
-            break;
-
-        case PLAYER_FACE_BACK:
-            player->gameObject.source.y = frameHeight * 5;
-            break;
-        }
-    }
 
     // ---------------- ANIMATION TIMER ----------------
 
     // Advance to the next animation frame.
-    deltaTime += GetFrameTime();
+    player->animationTimer += GetFrameTime();
 
-    if (deltaTime >= player->interval)
+    while (player->animationTimer >= player->interval)
     {
-        player->gameObject.source.x += frameWidth;
+        player->currentFrame++;
 
-        if (player->gameObject.source.x >= frameWidth * totalFrames)
+        if (player->state == PLAYER_ATTACK)
         {
-            player->gameObject.source.x = 0;
+            // Play attack animation once.
+            if (player->currentFrame >= totalFrames)
+            {
+                player->currentFrame = 0;
+
+                // Return to the correct state.
+                if ((player->moveX != 0 || player->moveY != 0))
+                {
+                    player->state = PLAYER_WALK;
+                }
+                else
+                {
+                    player->state = PLAYER_IDLE;
+                }
+            }
+        }
+        else 
+        {   
+            // Loop idle/walk animation.
+            if (player->currentFrame >= totalFrames)
+            {
+                player->currentFrame = 0;
+            }
         }
 
-        deltaTime -= player->interval;
+        player->animationTimer -= player->interval;
     }
 
-    player->gameObject.source.width = frameWidth;
+    player->gameObject.source.y =
+        xGetAnimationRow(player->state, player->direction)
+        * player->frameHeight;
+
+    player->gameObject.source.x = player->currentFrame * player->frameWidth;
+    
+    player->gameObject.source.width = player->frameWidth;
+    player->gameObject.source.height = player->frameHeight;
 }
 
 bool xSavePlayer(const Player *player)
@@ -351,4 +383,84 @@ bool xLoadPlayer(Player *player)
 
     // After data has been read from file, return true.
     return true;
+}
+
+static int xGetAnimationLength(PlayerState state)
+{
+    switch (state)
+    {
+        case PLAYER_ATTACK:
+            return 4;
+        
+        case PLAYER_IDLE:
+        case PLAYER_WALK:
+            return 6;
+
+        default:
+            return 0;
+    }
+}
+
+static int xGetAnimationRow(PlayerState state, PlayerDirection direction)
+{
+    switch (state)
+    {
+        case PLAYER_IDLE:
+
+            switch (direction)
+            {
+                case PLAYER_FACE_FRONT:
+                    return 0;
+                
+                case PLAYER_FACE_LEFT:
+                case PLAYER_FACE_RIGHT:
+                    return 1;
+
+                case PLAYER_FACE_BACK:
+                    return 2;
+
+                default:
+                    return 0;
+
+            }
+
+        case PLAYER_WALK:
+            
+            switch (direction)
+            {
+                case PLAYER_FACE_FRONT:
+                    return 3;
+
+                case PLAYER_FACE_LEFT:
+                case PLAYER_FACE_RIGHT:
+                    return 4;
+
+                case PLAYER_FACE_BACK:
+                    return 5;
+                
+                default:
+                    return 3;
+
+            }
+
+        case PLAYER_ATTACK:
+            
+            switch (direction)
+            {
+                case PLAYER_FACE_FRONT:
+                    return 6;
+
+                case PLAYER_FACE_LEFT:
+                case PLAYER_FACE_RIGHT:
+                    return 7;
+
+                case PLAYER_FACE_BACK:
+                    return 8;
+
+                default:
+                    return 6;
+            }
+    }
+
+    return 0;
 }
