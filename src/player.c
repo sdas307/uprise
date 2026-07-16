@@ -10,8 +10,10 @@
 /// Check collisions between player and world objects
 static bool xCheckCollision(World *world, xRectangle collider);
 
+/// Handle user input (keyboard/mouse).
 static void xReadPlayerInput(Player *player);
 
+/// Update player state based on user input.
 static void xUpdatePlayerState(Player *player);
 
 /// Move player based on user input.
@@ -20,8 +22,10 @@ static void xMovePlayer(Player *player, World *world);
 /// Update player sprites to show animation.
 static void xUpdatePlayerAnimation(Player *player);
 
+/// Get the number of frames for animation.
 static int xGetAnimationLength(PlayerState state);
 
+// Get the row index of the animation in question.
 static int xGetAnimationRow(PlayerState state, PlayerDirection direction);
 
 
@@ -124,7 +128,7 @@ void xInitPlayer(Player *player)
     player->gameObject.depth = player->gameObject.collider.y + player->gameObject.collider.height;
 
     player->speed = config.speed;
-    printf("speed = %d", config.speed);
+    // printf("speed = %d", config.speed);
     
     player->state = PLAYER_IDLE;
     player->direction = PLAYER_FACE_FRONT;
