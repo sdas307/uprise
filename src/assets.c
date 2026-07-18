@@ -19,8 +19,8 @@ const char PATH_SPRITE_SHEET[] = "assets/uprise_spritesheet/spritesheet.png";
 const xRectangle SPRITE_CHICKEN =
 {
     0, 0,
-    64 - 4,
-    64 - 8
+    64,
+    64
 };
 
 const xRectangle SPRITE_SHEEP = 
