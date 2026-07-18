@@ -1,11 +1,19 @@
 
 
+==========================================================================
+__18.7.26__
+[ ] Animal assets source rectangle improvement (keeping in mind biggest sprite in the spritesheet).
+[ ] Animal collision functions.
+[ ] Animal wandering AI.
+==========================================================================
+
+
 
 ==========================================================================
 __15.7.26__
-[ ] Finalize Player strcut -> Remove globals.
-[ ] Animals should update sprites.
-[ ] Animal wandering AI.
+[o] Finalize Player strcut -> Remove globals.
+[o] Animals should update sprites.
+[x] Animal wandering AI.
 ==========================================================================
 
 
