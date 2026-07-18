@@ -1,5 +1,5 @@
 #include "world_objects.h"
-#include "assets.h"
+#include "sprites.h"
 
 static void xAddObject(World *world, xRectangle source, xRectangle dest, xRectangle collider)
 {
@@ -25,7 +25,7 @@ static void xAddObject(World *world, xRectangle source, xRectangle dest, xRectan
 
 void xAddHouse(World *world, xRectangle dest)
 {
-    xRectangle source = SPRITE_HOUSE;
+    xRectangle source = RECT_HOUSE;
     xRectangle collider =
     {
         dest.x,
@@ -39,7 +39,7 @@ void xAddHouse(World *world, xRectangle dest)
 
 void xAddLightPost(World *world, xRectangle dest)
 {
-    xRectangle source = SPRITE_LIGHT_POST;
+    xRectangle source = RECT_LIGHT_POST;
     xRectangle collider =
     {
         dest.x,
@@ -59,7 +59,7 @@ void xAddRock(World *world, RockType type, xRectangle dest)
     switch (type)
     {
         case ROCK_SMALL:
-        source = SPRITE_ROCK_SMALL;
+        source = RECT_ROCK_SMALL;
 
         collider = (xRectangle){
             dest.x + 8,
@@ -70,7 +70,7 @@ void xAddRock(World *world, RockType type, xRectangle dest)
         break;
 
         case ROCK_LARGE:
-        source = SPRITE_ROCK_LARGE;
+        source = RECT_ROCK_LARGE;
 
         collider = (xRectangle){
             dest.x,
@@ -93,7 +93,7 @@ void xAddStone(World *world, StoneType type, xRectangle dest)
     switch (type)
     {
     case STONE_SMALL:
-        source = SPRITE_STONE_SMALL;
+        source = RECT_STONE_SMALL;
 
         collider = (xRectangle){
             dest.x + 12,
@@ -104,7 +104,7 @@ void xAddStone(World *world, StoneType type, xRectangle dest)
         break;
 
     case STONE_MEDIUM:
-        source = SPRITE_STONE_MEDIUM;
+        source = RECT_STONE_MEDIUM;
 
         collider = (xRectangle){
             dest.x + 14,
@@ -115,7 +115,7 @@ void xAddStone(World *world, StoneType type, xRectangle dest)
         break;
 
     case STONE_LARGE:
-        source = SPRITE_STONE_LARGE;
+        source = RECT_STONE_LARGE;
 
         collider = (xRectangle){
             dest.x + 8,
@@ -137,7 +137,7 @@ void xAddTree(World *world, TreeStage stage, xRectangle dest)
     switch (stage)
     {
     case TREE_STUMP:
-        source = SPRITE_TREE_STUMP;
+        source = RECT_TREE_STUMP;
         
         collider = (xRectangle){
             dest.x,
@@ -148,7 +148,7 @@ void xAddTree(World *world, TreeStage stage, xRectangle dest)
         break;
 
     case TREE_CUT:
-        source = SPRITE_TREE_CUT;
+        source = RECT_TREE_CUT;
 
         collider = (xRectangle){
             dest.x + 4,
@@ -159,7 +159,7 @@ void xAddTree(World *world, TreeStage stage, xRectangle dest)
         break;
 
     case TREE_SMALL:
-        source = SPRITE_TREE_SMALL;
+        source = RECT_TREE_SMALL;
 
         collider = (xRectangle){
             dest.x + dest.width / 2 - 15,
@@ -170,7 +170,7 @@ void xAddTree(World *world, TreeStage stage, xRectangle dest)
         break;
 
     case TREE_LARGE:
-        source = SPRITE_TREE_LARGE;
+        source = RECT_TREE_LARGE;
 
         collider = (xRectangle){
             dest.x + dest.width/2 - 26,
@@ -189,7 +189,7 @@ void xAddMushroom(World *world, xRectangle dest)
     xRectangle source;
     xRectangle collider;
 
-    source = SPRITE_MUSHROOM;
+    source = RECT_MUSHROOM;
 
     collider = (xRectangle)
     {

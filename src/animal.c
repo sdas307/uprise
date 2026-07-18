@@ -1,6 +1,7 @@
 #include "animal.h"
 #include "config.h"
 #include "assets.h"
+#include "sprites.h"
 
 #include <stdio.h>
 
@@ -139,13 +140,13 @@ void xSpawnChicken(AnimalManager *manager, xRectangle dest)
     animal->gameObject.texture = LoadTexture(PATH_CHICKEN_SHEET);
     SetTextureFilter(animal->gameObject.texture, TEXTURE_FILTER_POINT);
 
-    animal->gameObject.source = SPRITE_CHICKEN;
+    animal->gameObject.source = RECT_CHICKEN;
     animal->gameObject.dest = dest;
 
     animal->gameObject.collider = (xRectangle)
     {
         animal->gameObject.dest.x + 12,
-        animal->gameObject.dest.y + 40,
+        animal->gameObject.dest.y + 36,
         animal->gameObject.dest.width - 24,
         16
     };
@@ -173,7 +174,7 @@ void xSpawnSheep(AnimalManager *manager, xRectangle dest)
     animal->gameObject.texture = LoadTexture(PATH_SHEEP_SHEET);
     SetTextureFilter(animal->gameObject.texture, TEXTURE_FILTER_POINT);
 
-    animal->gameObject.source = SPRITE_SHEEP;
+    animal->gameObject.source = RECT_SHEEP;
     animal->gameObject.dest = dest;
 
     animal->gameObject.collider = (xRectangle)
@@ -207,7 +208,7 @@ void xSpawnPig(AnimalManager *manager, xRectangle dest)
     animal->gameObject.texture = LoadTexture(PATH_PIG_SHEET);
     SetTextureFilter(animal->gameObject.texture, TEXTURE_FILTER_POINT);
 
-    animal->gameObject.source = SPRITE_PIG;
+    animal->gameObject.source = RECT_PIG;
     animal->gameObject.dest = dest;
 
     animal->gameObject.collider = (xRectangle)
@@ -241,14 +242,14 @@ void xSpawnCow(AnimalManager *manager, xRectangle dest)
 
     animal->gameObject.texture = LoadTexture(PATH_COW_SHEET);
 
-    animal->gameObject.source = SPRITE_COW;
+    animal->gameObject.source = RECT_COW;
     
     animal->gameObject.dest = dest;
 
     animal->gameObject.collider = (xRectangle)
     {
         animal->gameObject.dest.x + 36,
-        animal->gameObject.dest.y + 76,
+        animal->gameObject.dest.y + 66,
         animal->gameObject.dest.width - 64,
         30
     };

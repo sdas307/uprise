@@ -119,9 +119,9 @@ void xInitPlayer(Player *player)
 
     player->gameObject.collider = (xRectangle)
     {
-        player->gameObject.dest.x + 42,
+        player->gameObject.dest.x + 44,
         player->gameObject.dest.y + 80,
-        40,
+        38,
         12,
     };
 
