@@ -12,16 +12,23 @@ static void xInitAnimal(Animal *animal);
 
 static void xAnimateAnimal(Animal *animal);
 
-static float deltaTime = 0.0f;
+static int xGetAnimationLength(AnimalState state);
+
+static int xGetAnimationRow(AnimalState state);
+
 static float randomInterval = 0.0f;
 static float r = 0.0f;
+static int randomValue = 0;
 
 
 /* ---------- Implementation ----------*/
 
 static void xInitAnimal(Animal *animal)
 {
-    animal->interval = 0.10f;
+    animal->animationInterval = 0.6f;
+    animal->animationTimer = 0.0f;
+
+    animal->currentFrame = 0;
 
     animal->state = ANIMAL_IDLE;
     animal->direction = ANIMAL_LEFT;
@@ -39,38 +46,86 @@ void xUpdateAnimal(Animal *animal)
 
 static void xMoveAnimal(Animal *animal)
 {
-    int randomValue = GetRandomValue(0, 3);
-    r += GetFrameTime();
+    // if (randomValue == 0)
+    //     randomValue = GetRandomValue(0, 3);
 
-    if (r >= randomValue)
-    {
-        animal->state = GetRandomValue(ANIMAL_IDLE, ANIMAL_MOVING);
-    }
+    // if (randomValue > 3)
+    //     randomValue = GetRandomValue(0, 3);
 
-    if (animal->state == ANIMAL_MOVING)
-    {
-        animal->direction = GetRandomValue(ANIMAL_LEFT, ANIMAL_RIGHT);
-    }
+    // r += GetFrameTime();
+
+    // if (r >= randomValue)
+    // {
+    //     animal->state = GetRandomValue(ANIMAL_IDLE, ANIMAL_MOVING);
+    //     r = 0;
+    // }
+
+    // if (animal->state == ANIMAL_MOVING)
+    // {
+    //     animal->direction = GetRandomValue(ANIMAL_LEFT, ANIMAL_RIGHT);
+    // }
     
-    if (animal->direction == ANIMAL_LEFT)
-        animal->gameObject.dest.x -= animal->speed;
+    // if (animal->direction == ANIMAL_LEFT)
+    // {
+    //     animal->gameObject.flip = false;
+    //     animal->gameObject.dest.x -= animal->speed;
+    // }
 
-    if (animal->direction == ANIMAL_RIGHT)
-        animal->gameObject.dest.x += animal->speed;
+    // if (animal->direction == ANIMAL_RIGHT)
+    // {
+    //     animal->gameObject.flip = true;
+    //     animal->gameObject.dest.x += animal->speed;
+    // }
 
 }
 
 static void xAnimateAnimal(Animal *animal)
 {
-    deltaTime += GetFrameTime();
+    int totalFrames = xGetAnimationLength(animal->state);
 
-    if (deltaTime >= animal->interval)
+    animal->animationTimer += GetFrameTime();
+
+    switch (animal->state)
     {
-        animal->gameObject.source.x += 64;
-        animal->gameObject.source.y += 64;
+        case ANIMAL_IDLE:
+        case ANIMAL_MOVING:
+        default:
+
+            while (animal->animationTimer >= animal->animationInterval)
+            {
+                animal->currentFrame++;
+                animal->animationTimer -= animal->animationInterval;
+            }
+
+            if (animal->currentFrame >= totalFrames)
+            {
+                animal->currentFrame = 0;
+            }
+            
+        break;
     }
 
-    deltaTime -= animal->interval;
+    animal->gameObject.source.x = animal->currentFrame * animal->frameWidth;
+
+    animal->gameObject.source.y = xGetAnimationLength(animal->state);
+
+    animal->gameObject.source.width = animal->frameWidth;
+    animal->gameObject.source.height = animal->frameHeight;
+
+    // if (deltaTime >= animal->interval)
+    // {
+    //     animal->gameObject.source.x += 64;
+    //     animal->gameObject.source.y += 64;
+
+    //     if (animal->gameObject.source.x > 64)
+    //         animal->gameObject.source.x = 0.0f;
+
+    //     if (animal->gameObject.source.y > 64)
+    //         animal->gameObject.source.y = 0.0f;
+
+    //     if (animal->gameObject.flip)
+    //         animal->gameObject.source.width *= -1;
+    // }
 }
 
 void xUnloadAnimal(Animal *animal)
@@ -80,12 +135,15 @@ void xUnloadAnimal(Animal *animal)
 
 void xSpawnChicken(AnimalManager *manager, xRectangle dest)
 {
+    // If max number of animals are present, return.
     if (manager->animalCount >= MAX_ANIMALS)
         return;
 
     Animal *animal = &manager->animals[manager->animalCount++];
 
     xInitAnimal(animal);
+    animal->frameWidth = 64;
+    animal->frameHeight = 64;
 
     animal->type = ANIMAL_CHICKEN;
 
@@ -111,12 +169,15 @@ void xSpawnChicken(AnimalManager *manager, xRectangle dest)
 
 void xSpawnSheep(AnimalManager *manager, xRectangle dest)
 {
+    // If max number of animals are present, return.
     if (manager->animalCount >= MAX_ANIMALS)
         return;
 
     Animal *animal = &manager->animals[manager->animalCount++];
 
     xInitAnimal(animal);
+    animal->frameWidth = 128;
+    animal->frameHeight = 128;
 
     animal->type = ANIMAL_SHEEP;
 
@@ -142,12 +203,15 @@ void xSpawnSheep(AnimalManager *manager, xRectangle dest)
 
 void xSpawnPig(AnimalManager *manager, xRectangle dest)
 {
+    // If max number of animals are present, return.
     if (manager->animalCount >= MAX_ANIMALS)
         return;
 
     Animal *animal = &manager->animals[manager->animalCount++];
 
     xInitAnimal(animal);
+    animal->frameWidth = 128;
+    animal->frameHeight = 128;
 
     animal->type = ANIMAL_PIG;
 
@@ -173,6 +237,7 @@ void xSpawnPig(AnimalManager *manager, xRectangle dest)
 
 void xSpawnCow(AnimalManager *manager, xRectangle dest)
 {
+    // If max number of animals are present, return.
     if (manager->animalCount >= MAX_ANIMALS)
         return;
 
@@ -180,6 +245,8 @@ void xSpawnCow(AnimalManager *manager, xRectangle dest)
     Animal *animal = &manager->animals[manager->animalCount++];
 
     xInitAnimal(animal);
+    animal->frameWidth = 128;
+    animal->frameHeight = 128;
 
     animal->type = ANIMAL_COW;
 
@@ -202,4 +269,34 @@ void xSpawnCow(AnimalManager *manager, xRectangle dest)
     animal->speed = 2;
     animal->gameObject.flip = false;
 
+}
+
+static int xGetAnimationLength(AnimalState state)
+{
+    switch (state)
+    {
+        case ANIMAL_IDLE:
+            return 2;
+        
+        case ANIMAL_MOVING:
+            return 2;
+
+        default:
+            return 2;
+    }
+}
+
+static int xGetAnimationRow(AnimalState state)
+{
+    switch (state)
+    {
+        case ANIMAL_IDLE:
+            return 0;
+        
+        case ANIMAL_MOVING:
+            return 1;
+
+        default:
+            return 0;
+    }
 }

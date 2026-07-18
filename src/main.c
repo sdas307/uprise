@@ -25,6 +25,8 @@ int main(void)
         // ---------------- UPDATE ----------------
 
         xUpdatePlayer(&player, &world);
+        xUpdateAnimal(&manager.animals[0]);
+        xUpdateAnimal(&manager.animals[1]);
 
         // ---------------- DRAW ----------------
 

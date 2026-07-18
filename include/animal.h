@@ -32,7 +32,11 @@ typedef struct Animal
 {
     xGameObject gameObject;
 
-    float interval;
+    float animationInterval;
+    float animationTimer;
+    int currentFrame;
+    int frameWidth;
+    int frameHeight;
 
     AnimalType type;
 
