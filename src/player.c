@@ -25,7 +25,7 @@ static void xUpdatePlayerAnimation(Player *player);
 /// Get the number of frames for animation.
 static int xGetAnimationLength(PlayerState state);
 
-// Get the row index of the animation in question.
+/// Get the row index of the animation in question.
 static int xGetAnimationRow(PlayerState state, PlayerDirection direction);
 
 

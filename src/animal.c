@@ -6,14 +6,18 @@
 
 /* ---------- Signatures ----------*/
 
-static void xMoveAnimal(Animal *animal);
-
 static void xInitAnimal(Animal *animal);
 
+/// Move animal based on wandering AI logic.
+static void xMoveAnimal(Animal *animal);
+
+/// Update animal sprites to show animation.
 static void xAnimateAnimal(Animal *animal);
 
+/// Get the number of frames for animation.
 static int xGetAnimationLength(AnimalState state);
 
+/// Get the row index of the animation in question.
 static int xGetAnimationRow(AnimalState state);
 
 static float randomInterval = 0.0f;
@@ -111,21 +115,6 @@ static void xAnimateAnimal(Animal *animal)
 
     animal->gameObject.source.width = animal->frameWidth;
     animal->gameObject.source.height = animal->frameHeight;
-
-    // if (deltaTime >= animal->interval)
-    // {
-    //     animal->gameObject.source.x += 64;
-    //     animal->gameObject.source.y += 64;
-
-    //     if (animal->gameObject.source.x > 64)
-    //         animal->gameObject.source.x = 0.0f;
-
-    //     if (animal->gameObject.source.y > 64)
-    //         animal->gameObject.source.y = 0.0f;
-
-    //     if (animal->gameObject.flip)
-    //         animal->gameObject.source.width *= -1;
-    // }
 }
 
 void xUnloadAnimal(Animal *animal)
@@ -155,8 +144,8 @@ void xSpawnChicken(AnimalManager *manager, xRectangle dest)
 
     animal->gameObject.collider = (xRectangle)
     {
-        animal->gameObject.dest.x + 8,
-        animal->gameObject.dest.y + 32,
+        animal->gameObject.dest.x + 12,
+        animal->gameObject.dest.y + 40,
         animal->gameObject.dest.width - 24,
         16
     };
@@ -258,9 +247,9 @@ void xSpawnCow(AnimalManager *manager, xRectangle dest)
 
     animal->gameObject.collider = (xRectangle)
     {
-        animal->gameObject.dest.x + 16,
-        animal->gameObject.dest.y + 50,
-        animal->gameObject.dest.width - 32,
+        animal->gameObject.dest.x + 36,
+        animal->gameObject.dest.y + 76,
+        animal->gameObject.dest.width - 64,
         30
     };
 
