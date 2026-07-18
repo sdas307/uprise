@@ -34,6 +34,8 @@ typedef struct Animal
 
     float interval;
 
+    AnimalType type;
+
     AnimalState state;
 
     AnimalDirection direction;

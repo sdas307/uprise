@@ -87,6 +87,8 @@ void xSpawnChicken(AnimalManager *manager, xRectangle dest)
 
     xInitAnimal(animal);
 
+    animal->type = ANIMAL_CHICKEN;
+
     animal->gameObject.texture = LoadTexture(PATH_CHICKEN_SHEET);
     SetTextureFilter(animal->gameObject.texture, TEXTURE_FILTER_POINT);
 
@@ -115,6 +117,8 @@ void xSpawnSheep(AnimalManager *manager, xRectangle dest)
     Animal *animal = &manager->animals[manager->animalCount++];
 
     xInitAnimal(animal);
+
+    animal->type = ANIMAL_SHEEP;
 
     animal->gameObject.texture = LoadTexture(PATH_SHEEP_SHEET);
     SetTextureFilter(animal->gameObject.texture, TEXTURE_FILTER_POINT);
@@ -145,6 +149,8 @@ void xSpawnPig(AnimalManager *manager, xRectangle dest)
 
     xInitAnimal(animal);
 
+    animal->type = ANIMAL_PIG;
+
     animal->gameObject.texture = LoadTexture(PATH_PIG_SHEET);
     SetTextureFilter(animal->gameObject.texture, TEXTURE_FILTER_POINT);
 
@@ -174,6 +180,8 @@ void xSpawnCow(AnimalManager *manager, xRectangle dest)
     Animal *animal = &manager->animals[manager->animalCount++];
 
     xInitAnimal(animal);
+
+    animal->type = ANIMAL_COW;
 
     animal->gameObject.texture = LoadTexture(PATH_COW_SHEET);
 
