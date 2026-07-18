@@ -107,7 +107,7 @@ static void xAnimateAnimal(Animal *animal)
 
     animal->gameObject.source.x = animal->currentFrame * animal->frameWidth;
 
-    animal->gameObject.source.y = xGetAnimationLength(animal->state) * animal->frameHeight;
+    animal->gameObject.source.y = xGetAnimationRow(animal->state) * animal->frameHeight;
 
     animal->gameObject.source.width = animal->frameWidth;
     animal->gameObject.source.height = animal->frameHeight;
