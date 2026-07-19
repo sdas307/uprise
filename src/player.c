@@ -102,7 +102,7 @@ void xInitPlayer(Player *player)
     player->gameObject.texture = LoadTexture(PATH_PLAYER_SHEET);
     SetTextureFilter(player->gameObject.texture, TEXTURE_FILTER_POINT);
 
-    player->interval = 0.10f;
+    player->interval = 0.15f;
 
     player->animationTimer = 0.0f;
     player->currentFrame = 0;
@@ -154,8 +154,16 @@ static void xReadPlayerInput(Player *player)
     player->moveX = 0;
     player->moveY = 0;
 
+    if (IsKeyDown(KEY_LEFT_SHIFT))
+        player->speed = 5;
+
+    if (IsKeyReleased(KEY_LEFT_SHIFT))
+        player->speed = 3;
+
     if (IsKeyDown(KEY_W))
+    {
         player->moveY--;
+    }
 
     if (IsKeyDown(KEY_S))
         player->moveY++;
