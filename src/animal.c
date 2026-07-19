@@ -30,6 +30,8 @@ static int randomValue = 0;
 
 static void xInitAnimal(Animal *animal)
 {
+    animal->gameObject.type = OBJECT_ANIMAL;
+    
     animal->animationInterval = 0.6f;
     animal->animationTimer = 0.0f;
 
@@ -37,8 +39,6 @@ static void xInitAnimal(Animal *animal)
 
     animal->state = ANIMAL_IDLE;
     animal->direction = ANIMAL_LEFT;
-
-    animal->gameObject.type = OBJECT_ANIMAL;
 
     animal->gameObject.active = true;
 }
