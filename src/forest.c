@@ -145,7 +145,7 @@ static void xLoadRocks(World *world)
 
 static void xLoadTreesCut(World *world)
 {
-    for (int i=0; i<ARRAY_COUNT(posRocksSmall); i++)
+    for (int i=0; i<ARRAY_COUNT(posTreeCuts); i++)
     {
         xRectangle temp =
         {
@@ -161,7 +161,7 @@ static void xLoadTreesCut(World *world)
 
 static void xLoadTreesStump(World *world)
 {
-    for (int i=0; i<ARRAY_COUNT(posRocksSmall); i++)
+    for (int i=0; i<ARRAY_COUNT(posTreeStumps); i++)
     {
         xRectangle temp =
         {
