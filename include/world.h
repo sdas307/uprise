@@ -15,13 +15,25 @@ typedef struct Terrain
 
 } Terrain;
 
+typedef struct Entity
+{
+    xGameObject gameObject;
+    
+    int hp;
+    bool collidable;
+    bool harvestable;
+    bool destructible;
+    bool fadeable;
+
+} Entity;
+
 typedef struct World
 {
     Terrain terrain;    /// Terrain Image and position rectangles.
 
     Texture2D spriteSheet;  /// Objects sprite sheet.
 
-    xGameObject objects[MAX_OBJECTS];
+    Entity entities[MAX_OBJECTS];
     int objectCount;
 
 } World;

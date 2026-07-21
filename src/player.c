@@ -273,10 +273,10 @@ static bool xCheckCollision(World *world, xRectangle collider)
 {
     for (int i=0; i < world->objectCount; i++)
     {
-        if (!world->objects[i].active)
+        if (!world->entities[i].gameObject.active)
             continue;
 
-        if (xCheckCollisionAABB(collider, world->objects[i].collider))
+        if (xCheckCollisionAABB(collider, world->entities[i].gameObject.collider))
         {
             return true;
         }

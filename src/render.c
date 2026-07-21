@@ -32,7 +32,7 @@ void xRenderScene(World *world, Player *player, AnimalManager *manager)
     // Add world objects
     for (int i = 0; i < world->objectCount; i++)
     {
-        renderList[renderCount++] = &world->objects[i];
+        renderList[renderCount++] = &world->entities[i].gameObject;
         renderList[renderCount++] = &manager->animals[i].gameObject;
     }
 

@@ -6,7 +6,7 @@ static void xAddObject(World *world, xRectangle source, xRectangle dest, xRectan
     if (world->objectCount >= MAX_OBJECTS)
         return;
 
-    xGameObject *object = &world->objects[world->objectCount++];
+    xGameObject *object = &world->entities[world->objectCount++].gameObject;
 
     object->texture = world->spriteSheet;
 
