@@ -23,12 +23,13 @@ typedef struct xTransform
 
 } xTransform;
 
+/* Special cases are adressed here. */
 typedef enum xObjectType
 {
     OBJECT_PLAYER,
     OBJECT_ANIMAL,
     OBJECT_MUSHROOM,
-    OBJECT_WORLD_OBJECT
+    OBJECT_ENTITY
 
 } xObjectType;
 

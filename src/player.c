@@ -154,6 +154,18 @@ static void xReadPlayerInput(Player *player)
     player->moveX = 0;
     player->moveY = 0;
 
+    // Shift held down -> Faster movement speed.
+    if (IsKeyDown(KEY_LEFT_SHIFT))
+    {
+        player->speed = 5;
+    }
+
+    // Shift released -> Usual movement speed.
+    if (IsKeyReleased(KEY_LEFT_SHIFT))
+    {
+        player->speed = 3;
+    }
+
     if (IsKeyDown(KEY_W))
         player->moveY--;
 
@@ -259,12 +271,12 @@ static void xMovePlayer(Player *player, World *world)
 
 static bool xCheckCollision(World *world, xRectangle collider)
 {
-    for (int i=0; i < world->objectCount; i++)
+    for (int i=0; i < world->entityCount; i++)
     {
-        if (!world->objects[i].active)
+        if (!world->entities[i].gameObject.active)
             continue;
 
-        if (xCheckCollisionAABB(collider, world->objects[i].collider))
+        if (xCheckCollisionAABB(collider, world->entities[i].gameObject.collider))
         {
             return true;
         }

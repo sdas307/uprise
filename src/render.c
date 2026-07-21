@@ -29,10 +29,15 @@ void xRenderScene(World *world, Player *player, AnimalManager *manager)
 
     xRenderTerrain(world);
 
-    // Add world objects
-    for (int i = 0; i < world->objectCount; i++)
+    // Add world objects.
+    for (int i = 0; i < world->entityCount; i++)
     {
-        renderList[renderCount++] = &world->objects[i];
+        renderList[renderCount++] = &world->entities[i].gameObject;
+    }
+
+    // Add animals.
+    for (int i = 0; i < manager->animalCount; i++)
+    {
         renderList[renderCount++] = &manager->animals[i].gameObject;
     }
 
@@ -67,6 +72,8 @@ void xRenderScene(World *world, Player *player, AnimalManager *manager)
         bool overlapsPlayer = xCheckCollisionAABB(fadeArea, player->gameObject.collider);
 
         xColor tint = WHITE;
+
+        // DrawRectangleLinesEx(fadeArea, 2, GREEN);
 
         if (!isObjectPlayer && !isObjectAnimal && isPlayerBehindObject && overlapsPlayer)
         {

@@ -44,6 +44,7 @@ typedef struct Animal
 
     AnimalDirection direction;
 
+    int hp;
     int speed;
 
 } Animal;
