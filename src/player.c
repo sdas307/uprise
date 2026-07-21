@@ -154,6 +154,17 @@ static void xReadPlayerInput(Player *player)
     player->moveX = 0;
     player->moveY = 0;
 
+    // Shift -> Faster movement.
+    if (IsKeyDown(KEY_LEFT_SHIFT))
+    {
+        player->speed = 5;
+    }
+
+    if (IsKeyReleased(KEY_LEFT_SHIFT))
+    {
+        player->speed = 3;
+    }
+
     if (IsKeyDown(KEY_W))
         player->moveY--;
 
