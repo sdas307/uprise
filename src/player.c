@@ -271,7 +271,7 @@ static void xMovePlayer(Player *player, World *world)
 
 static bool xCheckCollision(World *world, xRectangle collider)
 {
-    for (int i=0; i < world->objectCount; i++)
+    for (int i=0; i < world->entityCount; i++)
     {
         if (!world->entities[i].gameObject.active)
             continue;

@@ -1,7 +1,6 @@
 #ifndef MAP_OBJECTS_H
 #define MAP_OBJECTS_H
 
-#include "raylib.h"
 #include "xEngine.h"
 #include "animal.h"
 
@@ -15,9 +14,45 @@ typedef struct Terrain
 
 } Terrain;
 
+typedef enum EntityID
+{
+    ENTITY_HOUSE,
+    ENTITY_LIGHT_POST,
+
+    ENTITY_TREE_SMALL,
+    ENTITY_TREE_LARGE,
+    ENTITY_TREE_CUT,
+    ENTITY_TREE_STUMP,
+    ENTITY_TREE_LOG,
+
+    ENTITY_MUSHROOM,
+    ENTITY_FLOWER_RED,
+    ENTITY_FLOWER_YELLOW,
+
+    ENTITY_POTTED_FLOWER_RED,
+    ENTITY_POTTED_FLOWER_YELLOW,
+
+    ENTITY_ROCK_SMALL,
+    ENTITY_ROCK_LARGE,
+
+    ENTITY_STONE_SMALL,
+    ENTITY_STONE_MEDIUM,
+    ENTITY_STONE_LARGE,
+
+    ENTITY_CROP_WHEAT,
+    ENTITY_CROP_CARROT,
+
+    ENTITY_SIGN_WHEAT,
+    ENTITY_SIGN_CARROT
+
+} EntityID;
+
+extern EntityID entityID;
+
 typedef struct Entity
 {
     xGameObject gameObject;
+    EntityID id;
     
     int hp;
     bool collidable;
@@ -34,7 +69,7 @@ typedef struct World
     Texture2D spriteSheet;  /// Objects sprite sheet.
 
     Entity entities[MAX_OBJECTS];
-    int objectCount;
+    int entityCount;
 
 } World;
 
@@ -72,7 +107,7 @@ typedef enum CarrotStage
     
 } CarrotStage;
 
-typedef enum RedFlowerStage
+typedef enum FlowerRedStage
 {
     RED_FLOWER_STAGE_1,
     RED_FLOWER_STAGE_2,
@@ -81,32 +116,32 @@ typedef enum RedFlowerStage
 
 } RedFlowerStage;
 
-typedef enum YellowFlowerStage
+typedef enum FlowerYellowStage
 {
     YELLOW_FLOWER_STAGE_1,
     YELLOW_FLOWER_STAGE_2,
     YELLOW_FLOWER_STAGE_3,
     YELLOW_FLOWER_STAGE_4,
 
-} YellowFlowerStage;
+} FlowerYellowStage;
 
-typedef enum RedFlowerPotStage
+typedef enum PottedFlowerRedStage
 {
     RED_FLOWER_POT_STAGE_1,
     RED_FLOWER_POT_STAGE_2,
     RED_FLOWER_POT_STAGE_3,
     RED_FLOWER_POT_STAGE_4,
 
-} RedFlowerPotStage;
+} PottedFlowerRedStage;
 
-typedef enum YellowFlowerPotStage
+typedef enum PottedFlowerYellowStage
 {
     YELLOW_FLOWER_POT_STAGE_1,
     YELLOW_FLOWER_POT_STAGE_2,
     YELLOW_FLOWER_POT_STAGE_3,
     YELLOW_FLOWER_POT_STAGE_4,
 
-} YellowFlowerPotStage;
+}  PottedFlowerYellowStage;
 #pragma endregion
 
 /// Initialize world.

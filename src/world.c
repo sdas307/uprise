@@ -20,7 +20,7 @@ void xInitWorld(World *world)
     world->spriteSheet = LoadTexture(PATH_SPRITE_SHEET);
     SetTextureFilter(world->spriteSheet, TEXTURE_FILTER_POINT);
 
-    world->objectCount = 0;
+    world->entityCount = 0;
 }
 
 void xUnloadWorld(World *world)

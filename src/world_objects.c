@@ -1,19 +1,19 @@
 #include "world_objects.h"
 #include "sprites.h"
 
-static void xAddObject(World *world, xRectangle source, xRectangle dest, xRectangle collider)
+static void xAddObject(World *world, EntityID id, xRectangle source, xRectangle dest, xRectangle collider)
 {
-    if (world->objectCount >= MAX_OBJECTS)
+    if (world->entityCount >= MAX_OBJECTS)
         return;
 
-    xGameObject *object = &world->entities[world->objectCount++].gameObject;
+    xGameObject *object = &world->entities[world->entityCount++].gameObject;
 
     object->texture = world->spriteSheet;
 
     object->source = source;
     object->dest = dest;
 
-    object->type = OBJECT_WORLD_OBJECT;
+    object->type = OBJECT_ENTITY;
 
     object->collider = collider;
 
@@ -25,6 +25,7 @@ static void xAddObject(World *world, xRectangle source, xRectangle dest, xRectan
 
 void xAddHouse(World *world, xRectangle dest)
 {
+    EntityID id = ENTITY_HOUSE;
     xRectangle source = RECT_HOUSE;
     xRectangle collider =
     {
@@ -34,11 +35,12 @@ void xAddHouse(World *world, xRectangle dest)
         128
     };
 
-    xAddObject(world, source, dest, collider);
+    xAddObject(world, id, source, dest, collider);
 }
 
 void xAddLightPost(World *world, xRectangle dest)
 {
+    EntityID id = ENTITY_LIGHT_POST;
     xRectangle source = RECT_LIGHT_POST;
     xRectangle collider =
     {
@@ -48,7 +50,7 @@ void xAddLightPost(World *world, xRectangle dest)
         20
     };
     
-    xAddObject(world, source, dest, collider);
+    xAddObject(world, id, source, dest, collider);
 }
 
 void xAddRock(World *world, RockType type, xRectangle dest)
@@ -56,9 +58,13 @@ void xAddRock(World *world, RockType type, xRectangle dest)
     xRectangle source;
     xRectangle collider;
 
+    EntityID id;
+
     switch (type)
     {
         case ROCK_SMALL:
+
+        id = ENTITY_ROCK_SMALL;
         source = RECT_ROCK_SMALL;
 
         collider = (xRectangle){
@@ -70,6 +76,8 @@ void xAddRock(World *world, RockType type, xRectangle dest)
         break;
 
         case ROCK_LARGE:
+        
+        id = ENTITY_ROCK_LARGE;
         source = RECT_ROCK_LARGE;
 
         collider = (xRectangle){
@@ -81,7 +89,7 @@ void xAddRock(World *world, RockType type, xRectangle dest)
         break;
     }
 
-    xAddObject(world, source, dest, collider);
+    xAddObject(world, id, source, dest, collider);
 
 }
 
@@ -90,43 +98,51 @@ void xAddStone(World *world, StoneType type, xRectangle dest)
     xRectangle source;
     xRectangle collider;
 
+    EntityID id;
+
     switch (type)
     {
-    case STONE_SMALL:
-        source = RECT_STONE_SMALL;
+        case STONE_SMALL:
 
-        collider = (xRectangle){
-            dest.x + 12,
-            dest.y + 36,
-            38,
-            20,
-        };
+        id = STONE_SMALL;
+            source = RECT_STONE_SMALL;
+
+            collider = (xRectangle){
+                dest.x + 12,
+                dest.y + 36,
+                38,
+                20,
+            };
+            break;
+
+        case STONE_MEDIUM:
+
+            id = STONE_MEDIUM;
+            source = RECT_STONE_MEDIUM;
+
+            collider = (xRectangle){
+                dest.x + 14,
+                dest.y + 36,
+                42,
+                20,
+            };
         break;
 
-    case STONE_MEDIUM:
-        source = RECT_STONE_MEDIUM;
+        case STONE_LARGE:
 
-        collider = (xRectangle){
-            dest.x + 14,
-            dest.y + 36,
-            42,
-            20,
-        };
-        break;
+            id = STONE_LARGE;
+            source = RECT_STONE_LARGE;
 
-    case STONE_LARGE:
-        source = RECT_STONE_LARGE;
-
-        collider = (xRectangle){
-            dest.x + 8,
-            dest.y + 36,
-            50,
-            20,
-        };
+            collider = (xRectangle){
+                dest.x + 8,
+                dest.y + 36,
+                50,
+                20,
+            };
         break;
     }
 
-    xAddObject(world, source, dest, collider);
+    xAddObject(world, id, source, dest, collider);
 }
 
 void xAddTree(World *world, TreeStage stage, xRectangle dest)
@@ -134,54 +150,64 @@ void xAddTree(World *world, TreeStage stage, xRectangle dest)
     xRectangle source;
     xRectangle collider;
 
+    EntityID id;
+
     switch (stage)
     {
-    case TREE_STUMP:
-        source = RECT_TREE_STUMP;
-        
-        collider = (xRectangle){
-            dest.x,
-            dest.y + dest.height - 16,
-            dest.width - 2,
-            8
-        };
+        case TREE_STUMP:
+
+        id = ENTITY_TREE_STUMP;
+            source = RECT_TREE_STUMP;
+            
+            collider = (xRectangle){
+                dest.x,
+                dest.y + dest.height - 16,
+                dest.width - 2,
+                8
+            };
         break;
 
-    case TREE_CUT:
-        source = RECT_TREE_CUT;
+        case TREE_CUT:
 
-        collider = (xRectangle){
-            dest.x + 4,
-            dest.y + 38,
-            56,
-            20,
-        };
+            id = ENTITY_TREE_CUT;
+            source = RECT_TREE_CUT;
+
+            collider = (xRectangle){
+                dest.x + 4,
+                dest.y + 38,
+                56,
+                20,
+            };
         break;
 
-    case TREE_SMALL:
-        source = RECT_TREE_SMALL;
+        case TREE_SMALL:
 
-        collider = (xRectangle){
-            dest.x + dest.width / 2 - 15,
-            dest.y + 90,
-            28,
-            20,
-        };
+            id = ENTITY_TREE_SMALL;
+            source = RECT_TREE_SMALL;
+
+            collider = (xRectangle){
+                dest.x + dest.width / 2 - 15,
+                dest.y + 90,
+                28,
+                20,
+            };
         break;
 
-    case TREE_LARGE:
-        source = RECT_TREE_LARGE;
+        case TREE_LARGE:
 
-        collider = (xRectangle){
-            dest.x + dest.width/2 - 26,
-            dest.y + 206,
-            58,
-            20,
-        };
+            id = ENTITY_TREE_LARGE;
+            source = RECT_TREE_LARGE;
+
+            collider = (xRectangle){
+                dest.x + dest.width/2 - 26,
+                dest.y + 206,
+                58,
+                20,
+            };
         break;
     }
 
-    xAddObject(world, source, dest, collider);
+    xAddObject(world, id, source, dest, collider);
 }
 
 void xAddMushroom(World *world, xRectangle dest)
@@ -189,6 +215,7 @@ void xAddMushroom(World *world, xRectangle dest)
     xRectangle source;
     xRectangle collider;
 
+    EntityID id = ENTITY_MUSHROOM;
     source = RECT_MUSHROOM;
 
     collider = (xRectangle)
@@ -199,5 +226,5 @@ void xAddMushroom(World *world, xRectangle dest)
         8
     };
 
-    xAddObject(world, source, dest, collider);
+    xAddObject(world, id, source, dest, collider);
 }
