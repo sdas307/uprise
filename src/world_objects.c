@@ -15,6 +15,21 @@ static void xAddObject(World *world, EntityID id, xRectangle source, xRectangle 
 
     object->type = OBJECT_ENTITY;
 
+    // Trigger the special case of not wanting collision/fade effect.
+    switch (id)
+    {
+        case ENTITY_MUSHROOM:
+        case ENTITY_ROCK_SMALL:
+            object->fadeable = false;;
+            object->collidable = false;
+            break;
+        
+        default:
+            object->fadeable = true;
+            object->collidable = true;
+            break;
+    }
+
     object->collider = collider;
 
     object->depth = collider.y + collider.height;

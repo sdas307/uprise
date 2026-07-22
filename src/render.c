@@ -63,7 +63,7 @@ void xRenderScene(World *world, Player *player, AnimalManager *manager)
         bool isObjectPlayer = (object->type == OBJECT_PLAYER);
         bool isObjectAnimal = (object->type == OBJECT_ANIMAL);
 
-        // TODO: MUSHROOM NOT TO BE FADED #############################
+        bool fadeEffect = (object->fadeable);
 
         bool isPlayerBehindObject = (object->depth > player->gameObject.depth);
 
@@ -73,9 +73,9 @@ void xRenderScene(World *world, Player *player, AnimalManager *manager)
 
         xColor tint = WHITE;
 
-        // DrawRectangleLinesEx(fadeArea, 2, GREEN);
+        // DrawRectangleLinesEx(fadeArea, 2.0f, GREEN);
 
-        if (!isObjectPlayer && !isObjectAnimal && isPlayerBehindObject && overlapsPlayer)
+        if (!isObjectPlayer && !isObjectAnimal && isPlayerBehindObject && overlapsPlayer && fadeEffect)
         {
             tint = Fade(WHITE, 0.5f);
         }

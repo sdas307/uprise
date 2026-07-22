@@ -4,6 +4,7 @@
 #include "world.h"
 #include "render.h"
 #include "animal.h"
+#include <stdio.h>
 
 Player player;
 World world;
@@ -14,9 +15,14 @@ int main(void)
     xInitWindow();
 
     xInitPlayer(&player);
-    xInitWorld(&world);
 
+    printf("\n\nInit World!\n\n");
+    xInitWorld(&world);
+    printf("\n\nDone Init World!\n\n");
+
+    printf("\n\nLoading World!\n\n");
     xLoadWorld(&world, &manager);
+    printf("\n\nLoaded World!\n\n");
 
     SetTargetFPS(60);
 
@@ -25,8 +31,11 @@ int main(void)
         // ---------------- UPDATE ----------------
 
         xUpdatePlayer(&player, &world);
-        xUpdateAnimal(&manager.animals[0]);
-        xUpdateAnimal(&manager.animals[1]);
+        
+        for (int i = 0; i < manager.animalCount; i++)
+        {
+            xUpdateAnimal(&manager.animals[i]);
+        }
 
         // ---------------- DRAW ----------------
 
