@@ -1,6 +1,8 @@
 #include "world_objects.h"
 #include "sprites.h"
 
+static void xSetFadeCollision(xGameObject *object, EntityID id);
+
 static void xAddObject(World *world, EntityID id, xRectangle source, xRectangle dest, xRectangle collider)
 {
     if (world->entityCount >= MAX_OBJECTS)
@@ -16,19 +18,7 @@ static void xAddObject(World *world, EntityID id, xRectangle source, xRectangle 
     object->type = OBJECT_ENTITY;
 
     // Trigger the special case of not wanting collision/fade effect.
-    switch (id)
-    {
-        case ENTITY_MUSHROOM:
-        case ENTITY_ROCK_SMALL:
-            object->fadeable = false;;
-            object->collidable = false;
-            break;
-        
-        default:
-            object->fadeable = true;
-            object->collidable = true;
-            break;
-    }
+    xSetFadeCollision(object, id);
 
     object->collider = collider;
 
@@ -242,4 +232,22 @@ void xAddMushroom(World *world, xRectangle dest)
     };
 
     xAddObject(world, id, source, dest, collider);
+}
+
+static void xSetFadeCollision(xGameObject *object, EntityID id)
+{
+    switch (id)
+        {
+            case ENTITY_MUSHROOM:
+            case ENTITY_ROCK_SMALL:
+            case ENTITY_TREE_STUMP:
+                object->fadeable = false;;
+                object->collidable = false;
+                break;
+            
+            default:
+                object->fadeable = true;
+                object->collidable = true;
+                break;
+        }
 }
