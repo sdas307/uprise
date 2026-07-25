@@ -1,13 +1,13 @@
 #include "world_objects.h"
 #include "sprites.h"
 
-/* ---------- Signatures ---------- */
+/* -------------------- Signatures -------------------- */
 
 static void xSetFadeCollision(xGameObject *object, EntityID id);
 
 static bool xAlwaysBelowPlayer(EntityID id);
 
-/* ---------- ----------- ---------- */
+/* -------------------- ----------- -------------------- */
 
 
 static void xAddObject(World *world, EntityID id, xRectangle source, xRectangle dest, xRectangle collider)

@@ -59,10 +59,8 @@ typedef struct Entity
     EntityID id;
     
     int hp;
-    bool collidable;
     bool harvestable;
     bool destructible;
-    bool fadeable;
 
 } Entity;
 

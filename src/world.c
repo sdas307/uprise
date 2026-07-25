@@ -5,8 +5,6 @@
 #include "base.h"
 #include "forest.h"
 
-/* ---------- Implementation ---------- */
-
 void xInitWorld(World *world)
 {
     // Initialize terrain
