@@ -3,7 +3,6 @@
 #include "sprites.h"
 
 #pragma region Destination Rectangles
-
 static const xRectangle largeTrees[] =
 {
     { 64*5 + 15, -32, 64 * 3 - 27, 64 * 4 },
@@ -25,7 +24,6 @@ static const xRectangle smallTrees[] =
 {
     { 64-9, 64*4 + 20, 64*2 - 34, 64*2 }
 };
-
 #pragma endregion
 
 /// Loads all large trees at their world positions.
