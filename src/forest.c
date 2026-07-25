@@ -175,8 +175,43 @@ static void xLoadTreesStump(World *world)
     }
 }
 
+static void xLoadPond6x6(World *world)
+{
+
+    xRectangle dest = 
+    {
+        posPonds[0].x,
+        posPonds[0].y,
+        64 * 6,
+        64 * 5
+    };
+
+    xAddPond6x6(world, dest);
+}
+
+static void xLoadScreenBoundary(World *world)
+{
+    // Left Margin
+    xRectangle dest = {-1, 0, 7, GetScreenHeight()};
+    xAddEmptyObject(world, dest);
+
+    // Top Margin
+    dest = (xRectangle){0, 63, GetScreenWidth(), 1};
+    xAddEmptyObject(world, dest);
+
+    // Right Margin
+    dest = (xRectangle){GetScreenWidth() - 8, 0, 1, GetScreenHeight()};
+    xAddEmptyObject(world, dest);
+
+    // Bottom Margin
+    dest = (xRectangle){0, GetScreenHeight() - 48, GetScreenWidth(), 1};
+    xAddEmptyObject(world, dest);    
+}
+
 void xLoadForestMap(World *world)
 {
+    xLoadScreenBoundary(world);
+    xLoadPond6x6(world);
     xLoadTreesLarge1(world);
     xLoadTreesSmall1(world);
     xLoadMushrooms(world);

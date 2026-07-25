@@ -43,7 +43,11 @@ typedef enum EntityID
     ENTITY_CROP_CARROT,
 
     ENTITY_SIGN_WHEAT,
-    ENTITY_SIGN_CARROT
+    ENTITY_SIGN_CARROT,
+
+    ENTITY_POND_6x6,
+
+    ENTITY_EMPTY_OBJECT
 
 } EntityID;
 
@@ -55,10 +59,8 @@ typedef struct Entity
     EntityID id;
     
     int hp;
-    bool collidable;
     bool harvestable;
     bool destructible;
-    bool fadeable;
 
 } Entity;
 

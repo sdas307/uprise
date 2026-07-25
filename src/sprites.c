@@ -133,4 +133,12 @@ const xRectangle RECT_MUSHROOM =
     64 - 32
 };
 
+const xRectangle RECT_POND =
+{
+    64  * 14,
+    64  * 11,
+    64 * 6,
+    64 * 5
+};
+
 #pragma endregion

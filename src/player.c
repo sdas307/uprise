@@ -10,6 +10,8 @@
 /// Check collisions between player and world objects
 static bool xCheckCollision(World *world, xRectangle collider);
 
+// static bool xOutsideScreen(Player *player, xRectangle collider);
+
 /// Handle user input (keyboard/mouse).
 static void xReadPlayerInput(Player *player);
 
@@ -269,6 +271,21 @@ static void xMovePlayer(Player *player, World *world)
     }
 }
 
+// static bool xOutsideScreen(Player *player, xRectangle collider)
+// {
+//     if (
+//         (player->gameObject.dest.x >= 0) &&
+//         (player->gameObject.dest.x + player->gameObject.dest.width <= SCREEN_WIDTH) &&
+//         (player->gameObject.dest.y >= 0) &&
+//         (player->gameObject.dest.y + player->gameObject.dest.height <= SCREEN_HEIGHT)
+//     )
+//     {
+//         return false;
+//     }
+    
+//     return true;
+// }
+
 static bool xCheckCollision(World *world, xRectangle collider)
 {
     for (int i=0; i < world->entityCount; i++)
@@ -276,6 +293,9 @@ static bool xCheckCollision(World *world, xRectangle collider)
         if (!world->entities[i].gameObject.active)
             continue;
 
+        if (!world->entities[i].gameObject.collidable)
+            continue;
+        
         if (xCheckCollisionAABB(collider, world->entities[i].gameObject.collider))
         {
             return true;
