@@ -13,7 +13,8 @@ static void xAddObject(World *world, EntityID id, xRectangle source, xRectangle 
 
     xGameObject *object = &world->entities[world->entityCount++].gameObject;
 
-    object->texture = world->spriteSheet;
+    if (id != ENTITY_EMPTY_OBJECT)
+        object->texture = world->spriteSheet;
 
     object->source = source;
     object->dest = dest;
@@ -294,6 +295,16 @@ void xAddPond6x6(World *world, xRectangle dest)
         64 * 5,
         64 * 4
     };
+
+    xAddObject(world, id, source, dest, collider);
+}
+
+void xAddEmptyObject(World *world, xRectangle dest)
+{
+    xRectangle source = {0, 0, 0, 0};
+    EntityID id = ENTITY_EMPTY_OBJECT;
+
+    xRectangle collider = dest;
 
     xAddObject(world, id, source, dest, collider);
 }
