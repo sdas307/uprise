@@ -49,7 +49,7 @@ typedef struct xGameObject
     int depth;              // Depth of the object (y + height).
 
     bool collidable;        // Whether collisions are active.
-    bool fadeable;        // Whether to fade on overlap.
+    bool fadeable;          // Whether to fade on overlap.
     bool flip;              // Whether to flip the sprite horizontally.
     bool active;            // Whether to draw on screen.
 

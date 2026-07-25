@@ -43,7 +43,9 @@ typedef enum EntityID
     ENTITY_CROP_CARROT,
 
     ENTITY_SIGN_WHEAT,
-    ENTITY_SIGN_CARROT
+    ENTITY_SIGN_CARROT,
+
+    ENTITY_POND_6x6
 
 } EntityID;
 

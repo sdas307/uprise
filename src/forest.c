@@ -175,8 +175,23 @@ static void xLoadTreesStump(World *world)
     }
 }
 
+static void xLoadPond6x6(World *world)
+{
+
+    xRectangle dest = 
+    {
+        posPonds[0].x,
+        posPonds[0].y,
+        64 * 6,
+        64 * 5
+    };
+
+    xAddPond6x6(world, dest);
+}
+
 void xLoadForestMap(World *world)
 {
+    xLoadPond6x6(world);
     xLoadTreesLarge1(world);
     xLoadTreesSmall1(world);
     xLoadMushrooms(world);

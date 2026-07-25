@@ -78,6 +78,8 @@ extern const xRectangle RECT_STONE_LARGE;
 
 extern const xRectangle RECT_MUSHROOM;
 
+extern const xRectangle RECT_POND;
+
 #pragma endregion
 
 #endif

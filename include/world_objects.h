@@ -18,4 +18,6 @@ void xAddRock(World *world, RockType type, xRectangle dest);
 
 void xAddMushroom(World *world, xRectangle dest);
 
+void xAddPond6x6(World *world, xRectangle dest);
+
 #endif

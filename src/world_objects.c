@@ -3,6 +3,9 @@
 
 static void xSetFadeCollision(xGameObject *object, EntityID id);
 
+static bool xAlwaysBelowPlayer(EntityID id);
+
+
 static void xAddObject(World *world, EntityID id, xRectangle source, xRectangle dest, xRectangle collider)
 {
     if (world->entityCount >= MAX_OBJECTS)
@@ -22,10 +25,55 @@ static void xAddObject(World *world, EntityID id, xRectangle source, xRectangle 
 
     object->collider = collider;
 
-    object->depth = collider.y + collider.height;
+    if (xAlwaysBelowPlayer(id))
+    {
+        object->depth = 0;
+    }
+    else
+    {
+        object->depth = collider.y + collider.height;
+    }
+    
 
     object->flip = false;
     object->active = true;
+}
+
+static void xSetFadeCollision(xGameObject *object, EntityID id)
+{
+    switch (id)
+        {
+            case ENTITY_MUSHROOM:
+            case ENTITY_ROCK_SMALL:
+            case ENTITY_TREE_STUMP:
+                object->fadeable = false;
+                object->collidable = false;
+            break;
+
+            case ENTITY_POND_6x6:
+                object->fadeable = false;
+                object->collidable = true;
+            break;
+            
+            default:
+                object->fadeable = true;
+                object->collidable = true;
+                break;
+        }
+}
+
+static bool xAlwaysBelowPlayer(EntityID id)
+{
+    switch (id)
+    {
+        case ENTITY_POND_6x6:
+            return true;
+        break;
+
+        default:
+            return false;
+        break;
+    }
 }
 
 void xAddHouse(World *world, xRectangle dest)
@@ -234,20 +282,18 @@ void xAddMushroom(World *world, xRectangle dest)
     xAddObject(world, id, source, dest, collider);
 }
 
-static void xSetFadeCollision(xGameObject *object, EntityID id)
+void xAddPond6x6(World *world, xRectangle dest)
 {
-    switch (id)
-        {
-            case ENTITY_MUSHROOM:
-            case ENTITY_ROCK_SMALL:
-            case ENTITY_TREE_STUMP:
-                object->fadeable = false;;
-                object->collidable = false;
-                break;
-            
-            default:
-                object->fadeable = true;
-                object->collidable = true;
-                break;
-        }
+    xRectangle source = RECT_POND;
+    EntityID id = ENTITY_POND_6x6;
+
+    xRectangle collider = 
+    {
+        dest.x + 32,
+        dest.y + 32,
+        64 * 5,
+        64 * 4
+    };
+
+    xAddObject(world, id, source, dest, collider);
 }
