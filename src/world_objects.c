@@ -1,9 +1,13 @@
 #include "world_objects.h"
 #include "sprites.h"
 
+/* ---------- Signatures ---------- */
+
 static void xSetFadeCollision(xGameObject *object, EntityID id);
 
 static bool xAlwaysBelowPlayer(EntityID id);
+
+/* ---------- ----------- ---------- */
 
 
 static void xAddObject(World *world, EntityID id, xRectangle source, xRectangle dest, xRectangle collider)
@@ -26,7 +30,7 @@ static void xAddObject(World *world, EntityID id, xRectangle source, xRectangle 
 
     object->collider = collider;
 
-    if (xAlwaysBelowPlayer(id))
+    if (xAlwaysBelowPlayer(id) || id == ENTITY_EMPTY_OBJECT)
     {
         object->depth = 0;
     }
@@ -34,7 +38,6 @@ static void xAddObject(World *world, EntityID id, xRectangle source, xRectangle 
     {
         object->depth = collider.y + collider.height;
     }
-    
 
     object->flip = false;
     object->active = true;
@@ -52,6 +55,7 @@ static void xSetFadeCollision(xGameObject *object, EntityID id)
             break;
 
             case ENTITY_POND_6x6:
+            case ENTITY_EMPTY_OBJECT:
                 object->fadeable = false;
                 object->collidable = true;
             break;
