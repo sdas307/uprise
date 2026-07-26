@@ -440,9 +440,9 @@ void xAddHighGroundBottomLeft(World *world, xRectangle dest)
     xRectangle collider =
     {
         dest.x + 28,
-        dest.y,
-        dest.width ,
-        dest.height - 32,
+        dest.y + 12,
+        dest.width - 36,
+        dest.height - 44,
     };
 
     xAddObject(world, id, source, dest, collider);
