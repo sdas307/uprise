@@ -8,7 +8,7 @@
 void xInitWorld(World *world)
 {
     // Initialize terrain
-    world->terrain.texture = LoadTexture(PATH_FOREST);
+    world->terrain.texture = LoadTexture(PATH_BASE);
     SetTextureFilter(world->terrain.texture, TEXTURE_FILTER_POINT);
 
     world->terrain.source = (xRectangle){0, 0, 1024, 832};
@@ -29,7 +29,7 @@ void xUnloadWorld(World *world)
 
 void xLoadWorld(World *world, AnimalManager *manager)
 {
-    // xLoadBaseMap(world, manager);
+    xLoadBaseMap(world, manager);
 
-    xLoadForestMap(world);
+    // xLoadForestMap(world);
 }

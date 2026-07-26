@@ -317,7 +317,7 @@ void xAddGroundBlock(World *world, xRectangle dest)
         dest.x + 16,
         dest.y + 20,
         dest.width - 32,
-        dest.height - 28
+        dest.height - 36
     };
 
     xAddObject(world, id, source, dest, collider);
