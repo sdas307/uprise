@@ -20,6 +20,8 @@ static void xAddObject(World *world, EntityID id, xRectangle source, xRectangle 
     if (id != ENTITY_EMPTY_OBJECT)
         object->texture = world->spriteSheet;
 
+    // ##### ADD EMTPY OBJECT SPRITESHEET #####
+
     object->source = source;
     object->dest = dest;
 
@@ -55,6 +57,8 @@ static void xSetFadeCollision(xGameObject *object, EntityID id)
             break;
 
             case ENTITY_POND_6x6:
+            case ENTITY_GROUND_BLOCK:
+            case ENTITY_HIGH_GROUND_BLOCK:
             case ENTITY_EMPTY_OBJECT:
                 object->fadeable = false;
                 object->collidable = true;
@@ -72,6 +76,8 @@ static bool xAlwaysBelowPlayer(EntityID id)
     switch (id)
     {
         case ENTITY_POND_6x6:
+        case ENTITY_GROUND_BLOCK:
+        case ENTITY_HIGH_GROUND_BLOCK:
             return true;
         break;
 
@@ -303,6 +309,22 @@ void xAddPond6x6(World *world, xRectangle dest)
     xAddObject(world, id, source, dest, collider);
 }
 
+void xAddGroundBlock(World *world, xRectangle dest)
+{
+    xRectangle source = RECT_GROUND_BLOCK;
+    EntityID id = ENTITY_GROUND_BLOCK;
+
+    xRectangle collider =
+    {
+        dest.x + 16,
+        dest.y + 20,
+        dest.width - 32,
+        dest.height - 36
+    };
+
+    xAddObject(world, id, source, dest, collider);
+}
+
 void xAddEmptyObject(World *world, xRectangle dest)
 {
     xRectangle source = {0, 0, 0, 0};
@@ -312,3 +334,150 @@ void xAddEmptyObject(World *world, xRectangle dest)
 
     xAddObject(world, id, source, dest, collider);
 }
+
+#pragma region Add High Ground
+void xAddHighGroundTopLeft(World *world, xRectangle dest)
+{
+    xRectangle source = RECT_HIGH_GROUND_TOP_LEFT;
+    EntityID id = ENTITY_HIGH_GROUND_BLOCK;
+
+    xRectangle collider =
+    {
+        dest.x + 28,
+        dest.y + 28,
+        dest.width - 28,
+        dest.height - 28,
+    };
+
+    xAddObject(world, id, source, dest, collider);
+}
+
+void xAddHighGroundTopCenter(World *world, xRectangle dest)
+{
+    xRectangle source = RECT_HIGH_GROUND_TOP_CENTER;
+    EntityID id = ENTITY_HIGH_GROUND_BLOCK;
+
+    xRectangle collider =
+    {
+        dest.x,
+        dest.y + 28,
+        dest.width,
+        dest.height - 40,
+    };
+
+    xAddObject(world, id, source, dest, collider);
+}
+
+void xAddHighGroundTopRight(World *world, xRectangle dest)
+{
+    xRectangle source = RECT_HIGH_GROUND_TOP_RIGHT;
+    EntityID id = ENTITY_HIGH_GROUND_BLOCK;
+
+    xRectangle collider =
+    {
+        dest.x + 8,
+        dest.y + 28,
+        dest.width - 28,
+        dest.height - 36,
+    };
+
+    xAddObject(world, id, source, dest, collider);
+}
+
+void xAddHighGroundCenterLeft(World *world, xRectangle dest)
+{
+    xRectangle source = RECT_HIGH_GROUND_CENTER_LEFT;
+    EntityID id = ENTITY_HIGH_GROUND_BLOCK;
+
+    xRectangle collider =
+    {
+        dest.x + 28,
+        dest.y,
+        dest.width - 28 - 16,
+        dest.height,
+    };
+
+    xAddObject(world, id, source, dest, collider);
+}
+
+void xAddHighGroundCenterCenter(World *world, xRectangle dest)
+{
+    xRectangle source = RECT_HIGH_GROUND_CENTER_CENTER;
+    EntityID id = ENTITY_HIGH_GROUND_BLOCK;
+
+    xRectangle collider =
+    {
+        dest.x,
+        dest.y,
+        dest.width,
+        dest.height,
+    };
+
+    xAddObject(world, id, source, dest, collider);
+}
+
+void xAddHighGroundCenterRight(World *world, xRectangle dest)
+{
+    xRectangle source = RECT_HIGH_GROUND_CENTER_RIGHT;
+    EntityID id = ENTITY_HIGH_GROUND_BLOCK;
+
+    xRectangle collider =
+    {
+        dest.x + 16,
+        dest.y,
+        dest.width - 24,
+        dest.height,
+    };
+
+    xAddObject(world, id, source, dest, collider);
+}
+
+void xAddHighGroundBottomLeft(World *world, xRectangle dest)
+{
+    xRectangle source = RECT_HIGH_GROUND_BOTTOM_LEFT;
+    EntityID id = ENTITY_HIGH_GROUND_BLOCK;
+
+    xRectangle collider =
+    {
+        dest.x + 28,
+        dest.y,
+        dest.width ,
+        dest.height - 32,
+    };
+
+    xAddObject(world, id, source, dest, collider);
+}
+
+void xAddHighGroundBottomCenter(World *world, xRectangle dest)
+{
+    xRectangle source = RECT_HIGH_GROUND_BOTTOM_CENTER;
+    EntityID id = ENTITY_HIGH_GROUND_BLOCK;
+
+    xRectangle collider =
+    {
+        dest.x,
+        dest.y + 16,
+        dest.width,
+        dest.height - 32 - 16,
+    };
+
+    xAddObject(world, id, source, dest, collider);
+}
+
+void xAddHighGroundBottomRight(World *world, xRectangle dest)
+{
+    xRectangle source = RECT_HIGH_GROUND_BOTTOM_RIGHT;
+    EntityID id = ENTITY_HIGH_GROUND_BLOCK;
+
+    xRectangle collider =
+    {
+        dest.x + 8,
+        dest.y + 8,
+        dest.width - 28,
+        dest.height - 40,
+    };
+
+    xAddObject(world, id, source, dest, collider);
+}
+
+#pragma endregion

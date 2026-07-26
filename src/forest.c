@@ -35,6 +35,11 @@ static const xVector2 posPonds[] =
     { 320, 256 },
 };
 
+static const xVector2 posGroundBlocks[] =
+{
+    { 0, 0 },
+};
+
 static const xVector2 posLogs[] =
 {
     { 796, 84 },
@@ -177,7 +182,6 @@ static void xLoadTreesStump(World *world)
 
 static void xLoadPond6x6(World *world)
 {
-
     xRectangle dest = 
     {
         posPonds[0].x,
@@ -187,6 +191,19 @@ static void xLoadPond6x6(World *world)
     };
 
     xAddPond6x6(world, dest);
+}
+
+static void xLoadGroundBlock(World *world)
+{
+    xRectangle dest = 
+    {
+        posGroundBlocks[0].x,
+        posGroundBlocks[0].y,
+        RECT_GROUND_BLOCK.width,
+        RECT_GROUND_BLOCK.height
+    };
+    
+    xAddGroundBlock(world, dest);
 }
 
 static void xLoadScreenBoundary(World *world)
@@ -212,6 +229,7 @@ void xLoadForestMap(World *world)
 {
     xLoadScreenBoundary(world);
     xLoadPond6x6(world);
+    xLoadGroundBlock(world);
     xLoadTreesLarge1(world);
     xLoadTreesSmall1(world);
     xLoadMushrooms(world);

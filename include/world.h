@@ -47,6 +47,9 @@ typedef enum EntityID
 
     ENTITY_POND_6x6,
 
+    ENTITY_GROUND_BLOCK,
+    ENTITY_HIGH_GROUND_BLOCK,
+
     ENTITY_EMPTY_OBJECT
 
 } EntityID;
