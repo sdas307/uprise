@@ -51,7 +51,6 @@ extern const xRectangle RECT_COW;
 #pragma region Buildings
 
 extern const xRectangle RECT_HOUSE;
-
 extern const xRectangle RECT_LIGHT_POST;
 
 #pragma endregion
@@ -59,21 +58,15 @@ extern const xRectangle RECT_LIGHT_POST;
 #pragma region World Objects
 
 extern const xRectangle RECT_TREE_CUT;
-
 extern const xRectangle RECT_TREE_STUMP;
-
 extern const xRectangle RECT_TREE_SMALL;
-
 extern const xRectangle RECT_TREE_LARGE;
 
 extern const xRectangle RECT_ROCK_SMALL;
-
 extern const xRectangle RECT_ROCK_LARGE;
 
 extern const xRectangle RECT_STONE_SMALL;
-
 extern const xRectangle RECT_STONE_MEDIUM;
-
 extern const xRectangle RECT_STONE_LARGE;
 
 extern const xRectangle RECT_MUSHROOM;
@@ -81,6 +74,15 @@ extern const xRectangle RECT_MUSHROOM;
 extern const xRectangle RECT_POND;
 
 extern const xRectangle RECT_GROUND_BLOCK;
+extern const xRectangle RECT_HIGH_GROUND_TOP_LEFT;
+extern const xRectangle RECT_HIGH_GROUND_TOP_CENTER;
+extern const xRectangle RECT_HIGH_GROUND_TOP_RIGHT;
+extern const xRectangle RECT_HIGH_GROUND_CENTER_LEFT;
+extern const xRectangle RECT_HIGH_GROUND_CENTER_CENTER;
+extern const xRectangle RECT_HIGH_GROUND_CENTER_RIGHT;
+extern const xRectangle RECT_HIGH_GROUND_BOTTOM_LEFT;
+extern const xRectangle RECT_HIGH_GROUND_BOTTOM_CENTER;
+extern const xRectangle RECT_HIGH_GROUND_BOTTOM_RIGHT;
 
 #pragma endregion
 

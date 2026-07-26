@@ -149,4 +149,76 @@ const xRectangle RECT_GROUND_BLOCK =
     64 * 2
 };
 
+const xRectangle RECT_HIGH_GROUND_TOP_LEFT =
+{
+    64 * 8,
+    64 * 11,
+    64,
+    64
+};
+
+const xRectangle RECT_HIGH_GROUND_TOP_CENTER =
+{
+    64 * 9,
+    64 * 11,
+    64,
+    64
+};
+
+const xRectangle RECT_HIGH_GROUND_TOP_RIGHT =
+{
+    64 * 10,
+    64 * 11,
+    64,
+    64
+};
+
+const xRectangle RECT_HIGH_GROUND_CENTER_LEFT =
+{
+    64 * 8,
+    64 * 12,
+    64,
+    64
+};
+
+const xRectangle RECT_HIGH_GROUND_CENTER_CENTER =
+{
+    64 * 9,
+    64 * 12,
+    64,
+    64
+};
+
+const xRectangle RECT_HIGH_GROUND_CENTER_RIGHT =
+{
+    64 * 10,
+    64 * 12,
+    64,
+    64
+};
+
+const xRectangle RECT_HIGH_GROUND_BOTTOM_LEFT =
+{
+    64 * 8,
+    64 * 13,
+    64,
+    64
+};
+
+const xRectangle RECT_HIGH_GROUND_BOTTOM_CENTER =
+{
+    64 * 9,
+    64 * 13,
+    64,
+    64
+};
+
+const xRectangle RECT_HIGH_GROUND_BOTTOM_RIGHT =
+{
+    64 * 10,
+    64 * 13,
+    64,
+    64
+};
+
 #pragma endregion

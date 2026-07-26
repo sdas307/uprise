@@ -72,7 +72,7 @@ static void xLoadHouse(World *world)
         RECT_HOUSE.width,
         RECT_HOUSE.height
     };
-    
+
     xAddHouse(world, temp);
 }
 
@@ -137,8 +137,94 @@ static void xLoadGroundBlocks(World *world)
     xAddGroundBlock(world, dest);
 }
 
+static void xLoadHighGround(World *world)
+{
+    // Top-Left
+    xRectangle dest =
+    {
+        0,
+        0,
+        64,
+        64
+    };
+    xAddHighGroundTopLeft(world, dest);
+
+    // Bottom-Left
+    dest = (xRectangle)
+    {
+        0,
+        GetScreenHeight() - 64,
+        64,
+        64
+    }; 
+    xAddHighGroundBottomLeft(world, dest);
+
+    // Bottom-Right
+    dest = (xRectangle)
+    {
+        GetScreenWidth() - 64,
+        GetScreenHeight() - 64,
+        64,
+        64
+    };
+    xAddHighGroundBottomRight(world, dest);
+
+    // Top-Right
+    dest = (xRectangle)
+    {
+        GetScreenWidth() - 64,
+        0,
+        64,
+        64
+    };
+    xAddHighGroundTopRight(world, dest);
+
+    // Top high ground blocks
+    for (int i = 1; i <= 14; i++)
+    {
+        xRectangle temp =
+        {
+            i * 64,
+            0,
+            64,
+            64
+        };
+
+        xAddHighGroundTopCenter(world, temp);
+    }
+
+    // Left high ground blocks
+    for (int i = 1; i <= 11; i++)
+    {
+        xRectangle temp =
+        {
+            0,
+            i * 64,
+            64,
+            64
+        };
+
+        xAddHighGroundCenterLeft(world, temp);
+    }
+
+    // Bottom high ground blocks
+    for (int i = 1; i <= 14; i++)
+    {
+        xRectangle temp =
+        {
+            i * 64,
+            768,
+            64,
+            64
+        };
+
+        xAddHighGroundBottomCenter(world, temp);
+    }
+}
+
 void xLoadBaseMap(World *world, AnimalManager *manager)
 {
+    xLoadHighGround(world);
     xLoadTreesLarge(world);
     xLoadHouse(world);
     xLoadTreesSmall(world);
