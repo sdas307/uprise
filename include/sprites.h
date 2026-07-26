@@ -80,6 +80,8 @@ extern const xRectangle RECT_MUSHROOM;
 
 extern const xRectangle RECT_POND;
 
+extern const xRectangle RECT_GROUND_BLOCK;
+
 #pragma endregion
 
 #endif

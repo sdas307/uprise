@@ -141,4 +141,12 @@ const xRectangle RECT_POND =
     64 * 5
 };
 
+const xRectangle RECT_GROUND_BLOCK =
+{
+    64 * 8,
+    64 * 14,
+    64 * 2,
+    64 * 2
+};
+
 #pragma endregion

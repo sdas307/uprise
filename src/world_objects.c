@@ -20,6 +20,8 @@ static void xAddObject(World *world, EntityID id, xRectangle source, xRectangle 
     if (id != ENTITY_EMPTY_OBJECT)
         object->texture = world->spriteSheet;
 
+    // ##### ADD EMTPY OBJECT SPRITESHEET #####
+
     object->source = source;
     object->dest = dest;
 
@@ -55,6 +57,7 @@ static void xSetFadeCollision(xGameObject *object, EntityID id)
             break;
 
             case ENTITY_POND_6x6:
+            case ENTITY_GROUND_BLOCK:
             case ENTITY_EMPTY_OBJECT:
                 object->fadeable = false;
                 object->collidable = true;
@@ -72,6 +75,7 @@ static bool xAlwaysBelowPlayer(EntityID id)
     switch (id)
     {
         case ENTITY_POND_6x6:
+        case ENTITY_GROUND_BLOCK:
             return true;
         break;
 
@@ -298,6 +302,22 @@ void xAddPond6x6(World *world, xRectangle dest)
         dest.y + 32,
         64 * 5,
         64 * 4
+    };
+
+    xAddObject(world, id, source, dest, collider);
+}
+
+void xAddGroundBlock(World *world, xRectangle dest)
+{
+    xRectangle source = RECT_GROUND_BLOCK;
+    EntityID id = ENTITY_GROUND_BLOCK;
+
+    xRectangle collider =
+    {
+        dest.x + 16,
+        dest.y + 20,
+        dest.width - 32,
+        dest.height - 28
     };
 
     xAddObject(world, id, source, dest, collider);
