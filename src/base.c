@@ -28,7 +28,7 @@ static const xVector2 posGroundBlocks[] =
 
 #pragma endregion
 
-/// Loads all large trees at their world positions.
+/// Load all large trees at their world coordinates.
 static void xLoadTreesLarge(World *world)
 {
     for (int i=0; i<ARRAY_COUNT(posLargeTrees); i++)
@@ -45,7 +45,7 @@ static void xLoadTreesLarge(World *world)
     }
 }
 
-/// Loads all small trees at their world positions.
+/// Load all small trees at their world coordinates.
 static void xLoadTreesSmall(World *world)
 {
     for (int i=0; i<ARRAY_COUNT(posSmallTrees); i++)
@@ -62,7 +62,7 @@ static void xLoadTreesSmall(World *world)
     }
 }
 
-/// Loads house at world positions.
+/// Load house at world coordinates.
 static void xLoadHouse(World *world)
 {
     xRectangle temp =
@@ -76,6 +76,7 @@ static void xLoadHouse(World *world)
     xAddHouse(world, temp);
 }
 
+/// Load light posts at world coordinates.
 static void xLoadLightPost(World *world)
 {
     xRectangle dest =
@@ -89,6 +90,7 @@ static void xLoadLightPost(World *world)
     xAddLightPost(world, dest);
 }
 
+/// Load rocks at world coordinates.
 static void xLoadRocks(World *world)
 {
     xRectangle dest =
@@ -102,6 +104,7 @@ static void xLoadRocks(World *world)
     xAddRock(world, ROCK_SMALL, dest);
 }
 
+/// Load animals at world coordinates.
 static void xLoadAnimals(AnimalManager *manager)
 {
     xRectangle dest =
@@ -123,6 +126,7 @@ static void xLoadAnimals(AnimalManager *manager)
     xSpawnChicken(manager, dest);
 }
 
+/// Load ground blocks at world coordinates.
 static void xLoadGroundBlocks(World *world)
 {
 
@@ -137,6 +141,7 @@ static void xLoadGroundBlocks(World *world)
     xAddGroundBlock(world, dest);
 }
 
+/// Load high ground terrain blocks at world coordinates.
 static void xLoadHighGround(World *world)
 {
     // Top-Left
@@ -222,6 +227,7 @@ static void xLoadHighGround(World *world)
     }
 }
 
+/// Load all elements of base map in their world positions. 
 void xLoadBaseMap(World *world, AnimalManager *manager)
 {
     xLoadHighGround(world);

@@ -7,6 +7,7 @@
 
 /* ---------- Signatures ----------*/
 
+/// Initialize animal with default values 
 static void xInitAnimal(Animal *animal);
 
 /// Move animal based on wandering AI logic.

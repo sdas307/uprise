@@ -1,7 +1,7 @@
 #include "world.h"
 #include "config.h"
 #include "assets.h"
-#include "world_objects.h"
+#include "entities.h"
 #include "base.h"
 #include "forest.h"
 

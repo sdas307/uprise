@@ -1,8 +1,6 @@
 #ifndef ASSETS_H
 #define ASSETS_H
 
-#include "xEngine.h"
-
 extern const char PATH_PLAYER_SHEET[];
 
 extern const char PATH_CHICKEN_SHEET[];

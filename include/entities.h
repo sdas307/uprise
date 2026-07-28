@@ -1,5 +1,5 @@
-#ifndef WORLD_OBJECT_H
-#define WORLD_OBJECTS_H
+#ifndef ENTITIES_H
+#define ENTITIES_H
 
 #include "world.h"
 #include "xEngine.h"

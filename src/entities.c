@@ -1,4 +1,4 @@
-#include "world_objects.h"
+#include "entities.h"
 #include "sprites.h"
 
 /* -------------------- Signatures -------------------- */
