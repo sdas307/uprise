@@ -25,6 +25,15 @@ static const xVector2 posGroundBlocks[] =
 {
     { 832, 64 }
 };
+// #########################################################
+// Collider rects for high ground.
+static const Rectangle highGround[] =
+{
+    {   0,   0, 1024,  64 },
+    {   0,  64,   64, 704 },
+    {  64, 704,  640,  64 },
+    { 896, 704,  128,  64 },
+};
 
 #pragma endregion
 
