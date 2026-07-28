@@ -10,7 +10,7 @@ static bool xAlwaysBelowPlayer(EntityID id);
 /* -------------------- ----------- -------------------- */
 
 
-static void xAddObject(World *world, EntityID id, xRectangle source, xRectangle dest, xRectangle collider)
+static void xAddEntity(World *world, EntityID id, xRectangle source, xRectangle dest, xRectangle collider)
 {
     if (world->entityCount >= MAX_OBJECTS)
         return;
@@ -99,7 +99,7 @@ void xAddHouse(World *world, xRectangle dest)
         128
     };
 
-    xAddObject(world, id, source, dest, collider);
+    xAddEntity(world, id, source, dest, collider);
 }
 
 void xAddLightPost(World *world, xRectangle dest)
@@ -114,7 +114,7 @@ void xAddLightPost(World *world, xRectangle dest)
         20
     };
     
-    xAddObject(world, id, source, dest, collider);
+    xAddEntity(world, id, source, dest, collider);
 }
 
 void xAddRock(World *world, RockType type, xRectangle dest)
@@ -153,7 +153,7 @@ void xAddRock(World *world, RockType type, xRectangle dest)
         break;
     }
 
-    xAddObject(world, id, source, dest, collider);
+    xAddEntity(world, id, source, dest, collider);
 
 }
 
@@ -206,7 +206,7 @@ void xAddStone(World *world, StoneType type, xRectangle dest)
         break;
     }
 
-    xAddObject(world, id, source, dest, collider);
+    xAddEntity(world, id, source, dest, collider);
 }
 
 void xAddTree(World *world, TreeStage stage, xRectangle dest)
@@ -271,7 +271,7 @@ void xAddTree(World *world, TreeStage stage, xRectangle dest)
         break;
     }
 
-    xAddObject(world, id, source, dest, collider);
+    xAddEntity(world, id, source, dest, collider);
 }
 
 void xAddMushroom(World *world, xRectangle dest)
@@ -290,7 +290,7 @@ void xAddMushroom(World *world, xRectangle dest)
         8
     };
 
-    xAddObject(world, id, source, dest, collider);
+    xAddEntity(world, id, source, dest, collider);
 }
 
 void xAddPond6x6(World *world, xRectangle dest)
@@ -306,7 +306,7 @@ void xAddPond6x6(World *world, xRectangle dest)
         64 * 4
     };
 
-    xAddObject(world, id, source, dest, collider);
+    xAddEntity(world, id, source, dest, collider);
 }
 
 void xAddGroundBlock(World *world, xRectangle dest)
@@ -322,7 +322,7 @@ void xAddGroundBlock(World *world, xRectangle dest)
         dest.height - 36
     };
 
-    xAddObject(world, id, source, dest, collider);
+    xAddEntity(world, id, source, dest, collider);
 }
 
 void xAddEmptyObject(World *world, xRectangle dest)
@@ -332,7 +332,7 @@ void xAddEmptyObject(World *world, xRectangle dest)
 
     xRectangle collider = dest;
 
-    xAddObject(world, id, source, dest, collider);
+    xAddEntity(world, id, source, dest, collider);
 }
 
 #pragma region Add High Ground
@@ -349,7 +349,7 @@ void xAddHighGroundTopLeft(World *world, xRectangle dest)
         dest.height - 28,
     };
 
-    xAddObject(world, id, source, dest, collider);
+    xAddEntity(world, id, source, dest, collider);
 }
 
 void xAddHighGroundTopCenter(World *world, xRectangle dest)
@@ -365,7 +365,7 @@ void xAddHighGroundTopCenter(World *world, xRectangle dest)
         dest.height - 40,
     };
 
-    xAddObject(world, id, source, dest, collider);
+    xAddEntity(world, id, source, dest, collider);
 }
 
 void xAddHighGroundTopRight(World *world, xRectangle dest)
@@ -381,7 +381,7 @@ void xAddHighGroundTopRight(World *world, xRectangle dest)
         dest.height - 36,
     };
 
-    xAddObject(world, id, source, dest, collider);
+    xAddEntity(world, id, source, dest, collider);
 }
 
 void xAddHighGroundCenterLeft(World *world, xRectangle dest)
@@ -397,7 +397,7 @@ void xAddHighGroundCenterLeft(World *world, xRectangle dest)
         dest.height,
     };
 
-    xAddObject(world, id, source, dest, collider);
+    xAddEntity(world, id, source, dest, collider);
 }
 
 void xAddHighGroundCenterCenter(World *world, xRectangle dest)
@@ -413,7 +413,7 @@ void xAddHighGroundCenterCenter(World *world, xRectangle dest)
         dest.height,
     };
 
-    xAddObject(world, id, source, dest, collider);
+    xAddEntity(world, id, source, dest, collider);
 }
 
 void xAddHighGroundCenterRight(World *world, xRectangle dest)
@@ -429,7 +429,7 @@ void xAddHighGroundCenterRight(World *world, xRectangle dest)
         dest.height,
     };
 
-    xAddObject(world, id, source, dest, collider);
+    xAddEntity(world, id, source, dest, collider);
 }
 
 void xAddHighGroundBottomLeft(World *world, xRectangle dest)
@@ -445,7 +445,7 @@ void xAddHighGroundBottomLeft(World *world, xRectangle dest)
         dest.height - 44,
     };
 
-    xAddObject(world, id, source, dest, collider);
+    xAddEntity(world, id, source, dest, collider);
 }
 
 void xAddHighGroundBottomCenter(World *world, xRectangle dest)
@@ -461,7 +461,7 @@ void xAddHighGroundBottomCenter(World *world, xRectangle dest)
         dest.height - 32 - 16,
     };
 
-    xAddObject(world, id, source, dest, collider);
+    xAddEntity(world, id, source, dest, collider);
 }
 
 void xAddHighGroundBottomRight(World *world, xRectangle dest)
@@ -477,7 +477,7 @@ void xAddHighGroundBottomRight(World *world, xRectangle dest)
         dest.height - 40,
     };
 
-    xAddObject(world, id, source, dest, collider);
+    xAddEntity(world, id, source, dest, collider);
 }
 
 #pragma endregion
