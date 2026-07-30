@@ -325,7 +325,7 @@ void xAddGroundBlock(World *world, xRectangle dest)
     xAddEntity(world, id, source, dest, collider);
 }
 
-void xAddEmptyObject(World *world, xRectangle dest)
+void xAddEmptyEntity(World *world, xRectangle dest)
 {
     xRectangle source = {0, 0, 0, 0};
     EntityID id = ENTITY_EMPTY_OBJECT;

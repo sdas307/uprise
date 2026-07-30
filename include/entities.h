@@ -22,7 +22,7 @@ void xAddPond6x6(World *world, xRectangle dest);
 
 void xAddGroundBlock(World *world, xRectangle dest);
 
-void xAddEmptyObject(World *world, xRectangle dest);
+void xAddEmptyEntity(World *world, xRectangle dest);
 
 void xAddHighGroundTopLeft(World *world, xRectangle dest);
 

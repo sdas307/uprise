@@ -248,7 +248,7 @@ static void xHighGroundColliders(World *world, xRectangle const highGround[])
         highGround[0].width - 48,
         highGround[0].height - 40,
     };
-    xAddEmptyObject(world, collider);
+    xAddEmptyEntity(world, collider);
 
     // Left column
     collider = (xRectangle)
@@ -258,7 +258,7 @@ static void xHighGroundColliders(World *world, xRectangle const highGround[])
         highGround[1].width - 44,
         highGround[1].height - 32,
     };
-    xAddEmptyObject(world, collider);
+    xAddEmptyEntity(world, collider);
 
     // Bottom row
     collider = (xRectangle)
@@ -268,7 +268,7 @@ static void xHighGroundColliders(World *world, xRectangle const highGround[])
         highGround[2].width + 16,
         highGround[2].height - 48,
     };
-    xAddEmptyObject(world, collider);
+    xAddEmptyEntity(world, collider);
 
     // Bottom row (leftover)
     collider = (xRectangle)
@@ -278,7 +278,7 @@ static void xHighGroundColliders(World *world, xRectangle const highGround[])
         highGround[3].width - 48,
         highGround[3].height - 48,
     };
-    xAddEmptyObject(world, collider);
+    xAddEmptyEntity(world, collider);
 }
 
 /// Load all elements of base map in their world positions. 

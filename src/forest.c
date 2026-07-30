@@ -215,19 +215,19 @@ static void xLoadScreenBoundary(World *world)
 {
     // Left Margin
     xRectangle dest = {-1, 0, 7, GetScreenHeight()};
-    xAddEmptyObject(world, dest);
+    xAddEmptyEntity(world, dest);
 
     // Top Margin
     dest = (xRectangle){0, 63, GetScreenWidth(), 1};
-    xAddEmptyObject(world, dest);
+    xAddEmptyEntity(world, dest);
 
     // Right Margin
     dest = (xRectangle){GetScreenWidth() - 8, 0, 1, GetScreenHeight()};
-    xAddEmptyObject(world, dest);
+    xAddEmptyEntity(world, dest);
 
     // Bottom Margin
     dest = (xRectangle){0, GetScreenHeight() - 48, GetScreenWidth(), 1};
-    xAddEmptyObject(world, dest);    
+    xAddEmptyEntity(world, dest);    
 }
 
 /// Load all elements of forest map. 
