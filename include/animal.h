@@ -32,6 +32,9 @@ typedef struct Animal
 {
     xGameObject gameObject;
 
+    int moveX;
+    int moveY;
+
     float animationInterval;
     float animationTimer;
     int currentFrame;
@@ -43,6 +46,10 @@ typedef struct Animal
     AnimalState state;
 
     AnimalDirection direction;
+
+    float randomInterval;           // The duration of the state.
+    int randomStateTimer;           // Random time value from 0 to max state timer.
+    int stateTimerMax;              // Max value for state timer.
 
     int hp;
     int speed;
@@ -56,7 +63,10 @@ typedef struct AnimalManager
 
 } AnimalManager;
 
-void xUpdateAnimal(Animal *animal);
+struct World;
+typedef struct World World;
+
+void xUpdateAnimal(Animal *animal, World *world);
 
 void xUnloadAnimal(Animal *animal);
 

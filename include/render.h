@@ -1,7 +1,6 @@
 #ifndef RENDER_H
 #define RENDER_H
 
-#include "xEngine.h"
 #include "player.h"
 #include "world.h"
 #include "animal.h"

@@ -1,5 +1,6 @@
 #include "render.h"
 #include "config.h"
+#include "xEngine.h"
 
 #include <stdio.h>
 
@@ -75,7 +76,7 @@ void xRenderScene(World *world, Player *player, AnimalManager *manager)
 
         // DrawRectangleLinesEx(fadeArea, 2.0f, GREEN);
 
-        if (!isObjectPlayer && !isObjectAnimal && isPlayerBehindObject && overlapsPlayer && fadeEffect)
+        if (!isObjectPlayer && isPlayerBehindObject && overlapsPlayer && fadeEffect)
         {
             tint = Fade(WHITE, 0.5f);
         }

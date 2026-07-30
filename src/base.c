@@ -1,6 +1,7 @@
 #include "base.h"
 #include "assets.h"
 #include "sprites.h"
+#include "animal.h"
 
 #pragma region Destination Rectangles
 static const xVector2 posLargeTrees[] =
@@ -25,7 +26,7 @@ static const xVector2 posGroundBlocks[] =
 {
     { 832, 64 }
 };
-// #########################################################
+
 // Collider rects for high ground.
 static const xRectangle highGround[] =
 {
@@ -128,6 +129,15 @@ static void xLoadAnimals(AnimalManager *manager)
     dest = (xRectangle)
     {
         400,
+        400,
+        RECT_CHICKEN.width,
+        RECT_CHICKEN.height
+    };
+    xSpawnChicken(manager, dest);
+
+    dest = (xRectangle)
+    {
+        464,
         400,
         RECT_CHICKEN.width,
         RECT_CHICKEN.height

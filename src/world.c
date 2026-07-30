@@ -1,4 +1,5 @@
 #include "world.h"
+#include "animal.h"
 #include "config.h"
 #include "assets.h"
 #include "entities.h"

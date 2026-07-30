@@ -2,19 +2,30 @@
 #include "config.h"
 #include "assets.h"
 #include "sprites.h"
+#include "raymath.h"
+#include "world.h"
 
 #include <stdio.h>
 
 /* ---------- Signatures ----------*/
 
-/// Initialize animal with default values 
+/// Initialize animal with default values
 static void xInitAnimal(Animal *animal);
 
 /// Move animal based on wandering AI logic.
-static void xMoveAnimal(Animal *animal);
+static void xMoveAnimal(Animal *animal, World *world);
 
 /// Update animal sprites to show animation.
 static void xAnimateAnimal(Animal *animal);
+
+/// Reset all AI movement related values.
+static void xResetMoveValues(Animal *animal);
+
+/// Set moveX value based on state and direction.
+static void xSetAnimalMoveX(Animal *animal);
+
+/// Check animal collision with world entities.
+static bool xAnimalCheckCollision(World *world, xRectangle collider);
 
 /// Get the number of frames for animation.
 static int xGetAnimationLength(AnimalState state);
@@ -22,17 +33,15 @@ static int xGetAnimationLength(AnimalState state);
 /// Get the row index of the animation in question.
 static int xGetAnimationRow(AnimalState state);
 
-static float randomInterval = 0.0f;
-static float r = 0.0f;
-static int randomValue = 0;
-
-
 /* ---------- Implementation ----------*/
 
 static void xInitAnimal(Animal *animal)
 {
     animal->gameObject.type = OBJECT_ANIMAL;
-    
+
+    animal->moveX = 0;
+    animal->moveY = 0;
+
     animal->animationInterval = 0.6f;
     animal->animationTimer = 0.0f;
 
@@ -41,48 +50,91 @@ static void xInitAnimal(Animal *animal)
     animal->state = ANIMAL_IDLE;
     animal->direction = ANIMAL_LEFT;
 
+    animal->randomInterval = 0.0f;
+    animal->randomStateTimer = 0;
+
     animal->gameObject.active = true;
+    animal->gameObject.collidable = true;
 }
 
-void xUpdateAnimal(Animal *animal)
+void xUpdateAnimal(Animal *animal, World *world)
 {
     xAnimateAnimal(animal);
-    xMoveAnimal(animal);
+    xMoveAnimal(animal, world);
 }
 
-static void xMoveAnimal(Animal *animal)
+static void xMoveAnimal(Animal *animal, World *world)
 {
-    // if (randomValue == 0)
-    //     randomValue = GetRandomValue(0, 3);
+    if (animal->randomInterval > animal->randomStateTimer)
+    {
+        xResetMoveValues(animal);
+    }
 
-    // if (randomValue > 3)
-    //     randomValue = GetRandomValue(0, 3);
+    animal->randomInterval += GetFrameTime();
 
-    // r += GetFrameTime();
+    xSetAnimalMoveX(animal);
 
-    // if (r >= randomValue)
-    // {
-    //     animal->state = GetRandomValue(ANIMAL_IDLE, ANIMAL_MOVING);
-    //     r = 0;
-    // }
+    xVector2 movement = {animal->moveX, animal->moveY};
+    // printf("\n\n moveX: %d\n\n", animal->moveX);
 
-    // if (animal->state == ANIMAL_MOVING)
-    // {
-    //     animal->direction = GetRandomValue(ANIMAL_LEFT, ANIMAL_RIGHT);
-    // }
-    
-    // if (animal->direction == ANIMAL_LEFT)
-    // {
-    //     animal->gameObject.flip = false;
-    //     animal->gameObject.dest.x -= animal->speed;
-    // }
+    if (Vector2Length(movement) == 0)
+        return;
 
-    // if (animal->direction == ANIMAL_RIGHT)
-    // {
-    //     animal->gameObject.flip = true;
-    //     animal->gameObject.dest.x += animal->speed;
-    // }
+    // Normalize diagonal movement to maintain a constant speed.
+    // movement = Vector2Normalize(movement);
 
+    xRectangle nextCollider = animal->gameObject.collider;
+    nextCollider.x += movement.x * animal->speed;
+
+    if (!xAnimalCheckCollision(world, nextCollider))
+    {
+        animal->gameObject.dest.x += movement.x * animal->speed;
+
+        animal->gameObject.collider = nextCollider;
+    }
+}
+
+static void xResetMoveValues(Animal *animal)
+{
+    animal->randomInterval = 0;
+    animal->randomStateTimer = GetRandomValue(0, animal->stateTimerMax);
+
+    animal->moveX = 0;
+    animal->moveY = 0;
+
+    animal->state = GetRandomValue(ANIMAL_IDLE, ANIMAL_MOVING);
+    animal->direction = GetRandomValue(ANIMAL_LEFT, ANIMAL_RIGHT);
+}
+
+static void xSetAnimalMoveX(Animal *animal)
+{
+    switch (animal->state)
+    {
+    case ANIMAL_IDLE:
+        animal->moveX = 0;
+    break;
+
+    case ANIMAL_MOVING:
+
+        switch (animal->direction)
+        {
+        case ANIMAL_LEFT:
+            animal->gameObject.flip = false;
+            animal->moveX = -1;
+        break;
+
+        case ANIMAL_RIGHT:
+            animal->gameObject.flip = true;
+            animal->moveX = 1;
+        break;
+
+        default:
+            animal->moveX = 0;
+        break;
+        }
+
+        break;
+    }
 }
 
 static void xAnimateAnimal(Animal *animal)
@@ -93,21 +145,21 @@ static void xAnimateAnimal(Animal *animal)
 
     switch (animal->state)
     {
-        case ANIMAL_IDLE:
-        case ANIMAL_MOVING:
-        default:
+    case ANIMAL_IDLE:
+    case ANIMAL_MOVING:
+    default:
 
-            while (animal->animationTimer >= animal->animationInterval)
-            {
-                animal->currentFrame++;
-                animal->animationTimer -= animal->animationInterval;
-            }
+        while (animal->animationTimer >= animal->animationInterval)
+        {
+            animal->currentFrame++;
+            animal->animationTimer -= animal->animationInterval;
+        }
 
-            if (animal->currentFrame >= totalFrames)
-            {
-                animal->currentFrame = 0;
-            }
-            
+        if (animal->currentFrame >= totalFrames)
+        {
+            animal->currentFrame = 0;
+        }
+
         break;
     }
 
@@ -117,6 +169,25 @@ static void xAnimateAnimal(Animal *animal)
 
     animal->gameObject.source.width = animal->frameWidth;
     animal->gameObject.source.height = animal->frameHeight;
+}
+
+static bool xAnimalCheckCollision(World *world, xRectangle collider)
+{
+    for (int i = 0; i <= world->entityCount; i++)
+    {
+        if (!world->entities[i].gameObject.active)
+            continue;
+
+        if (!world->entities[i].gameObject.collidable)
+            continue;
+
+        if (xCheckCollisionAABB(collider, world->entities[i].gameObject.collider))
+        {
+            return true;
+        }
+    }
+
+    return false;
 }
 
 void xUnloadAnimal(Animal *animal)
@@ -144,15 +215,15 @@ void xSpawnChicken(AnimalManager *manager, xRectangle dest)
     animal->gameObject.source = RECT_CHICKEN;
     animal->gameObject.dest = dest;
 
-    animal->gameObject.collider = (xRectangle)
-    {
+    animal->gameObject.collider = (xRectangle){
         animal->gameObject.dest.x + 12,
         animal->gameObject.dest.y + 36,
         animal->gameObject.dest.width - 24,
-        16
-    };
+        16};
 
     animal->gameObject.depth = animal->gameObject.collider.y + animal->gameObject.collider.height;
+
+    animal->stateTimerMax = 1;
 
     animal->speed = 2;
     animal->gameObject.flip = false;
@@ -178,13 +249,11 @@ void xSpawnSheep(AnimalManager *manager, xRectangle dest)
     animal->gameObject.source = RECT_SHEEP;
     animal->gameObject.dest = dest;
 
-    animal->gameObject.collider = (xRectangle)
-    {
+    animal->gameObject.collider = (xRectangle){
         animal->gameObject.dest.x + 16,
         animal->gameObject.dest.y + 50,
         animal->gameObject.dest.width - 32,
-        30
-    };
+        30};
 
     animal->gameObject.depth = animal->gameObject.collider.y + animal->gameObject.collider.height;
 
@@ -212,13 +281,11 @@ void xSpawnPig(AnimalManager *manager, xRectangle dest)
     animal->gameObject.source = RECT_PIG;
     animal->gameObject.dest = dest;
 
-    animal->gameObject.collider = (xRectangle)
-    {
+    animal->gameObject.collider = (xRectangle){
         animal->gameObject.dest.x + 16,
         animal->gameObject.dest.y + 50,
         animal->gameObject.dest.width - 32,
-        30
-    };
+        30};
 
     animal->gameObject.depth = animal->gameObject.collider.y + animal->gameObject.collider.height;
 
@@ -244,36 +311,35 @@ void xSpawnCow(AnimalManager *manager, xRectangle dest)
     animal->gameObject.texture = LoadTexture(PATH_COW_SHEET);
 
     animal->gameObject.source = RECT_COW;
-    
+
     animal->gameObject.dest = dest;
 
-    animal->gameObject.collider = (xRectangle)
-    {
+    animal->gameObject.collider = (xRectangle){
         animal->gameObject.dest.x + 36,
         animal->gameObject.dest.y + 66,
         animal->gameObject.dest.width - 64,
-        30
-    };
+        30};
 
     animal->gameObject.depth = animal->gameObject.collider.y + animal->gameObject.collider.height;
 
+    animal->stateTimerMax = 3;
+
     animal->speed = 2;
     animal->gameObject.flip = false;
-
 }
 
 static int xGetAnimationLength(AnimalState state)
 {
     switch (state)
     {
-        case ANIMAL_IDLE:
-            return 2;
-        
-        case ANIMAL_MOVING:
-            return 2;
+    case ANIMAL_IDLE:
+        return 2;
 
-        default:
-            return 2;
+    case ANIMAL_MOVING:
+        return 2;
+
+    default:
+        return 2;
     }
 }
 
@@ -281,13 +347,13 @@ static int xGetAnimationRow(AnimalState state)
 {
     switch (state)
     {
-        case ANIMAL_IDLE:
-            return 0;
-        
-        case ANIMAL_MOVING:
-            return 1;
+    case ANIMAL_IDLE:
+        return 0;
 
-        default:
-            return 0;
+    case ANIMAL_MOVING:
+        return 1;
+
+    default:
+        return 0;
     }
 }

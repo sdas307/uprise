@@ -2,7 +2,6 @@
 #define MAP_OBJECTS_H
 
 #include "xEngine.h"
-#include "animal.h"
 
 #define MAX_OBJECTS 128
 
@@ -148,6 +147,9 @@ typedef enum PottedFlowerYellowStage
 
 }  PottedFlowerYellowStage;
 #pragma endregion
+
+struct AnimalManager;
+typedef struct AnimalManager AnimalManager;
 
 /// Initialize world.
 void xInitWorld(World *world);
