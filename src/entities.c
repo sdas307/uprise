@@ -335,7 +335,7 @@ void xAddEmptyObject(World *world, xRectangle dest)
     xAddEntity(world, id, source, dest, collider);
 }
 
-#pragma region Add High Ground
+#pragma region Add High Ground (Inactive)
 void xAddHighGroundTopLeft(World *world, xRectangle dest)
 {
     xRectangle source = RECT_HIGH_GROUND_TOP_LEFT;
