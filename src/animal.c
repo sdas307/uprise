@@ -18,11 +18,11 @@ static void xAnimalWandering(Animal *animal, World *world);
 /// Update animal sprites to show animation.
 static void xAnimateAnimal(Animal *animal);
 
-/// Reset all AI movement related values.
-static void xResetMoveValues(Animal *animal);
+// /// Reset all AI movement related values.
+// static void xResetMoveValues(Animal *animal);
 
-/// Set moveX value based on state and direction.
-static void xSetAnimalMoveX(Animal *animal);
+// /// Set moveX value based on state and direction.
+// static void xSetAnimalMoveX(Animal *animal);
 
 /// Set target values (x and y) for the animal.
 static void xAnimalSetTarget(Animal *animal);
@@ -85,15 +85,7 @@ static void xAnimalWandering(Animal *animal, World *world)
     {
         xAnimalSetTarget(animal);
         animal->isTargetSet = true;
-    }
-
-    if (animal->targetX > animal->gameObject.dest.x)
-    {
-        animal->gameObject.flip = true;
-    }
-    else
-    {
-        animal->gameObject.flip = false;
+        animal->state = ANIMAL_MOVING;
     }
 
     xVector2 movement =
@@ -107,6 +99,7 @@ static void xAnimalWandering(Animal *animal, World *world)
     
     float distance = Vector2Length(movement);
 
+    // Reached target point.
     if (distance < animal->speed)
     {
         animal->gameObject.dest.x = animal->targetX;
@@ -116,6 +109,17 @@ static void xAnimalWandering(Animal *animal, World *world)
     }
 
     movement = Vector2Normalize(movement);
+
+    // Moving right
+    if (movement.x > 0)
+    {
+        animal->gameObject.flip = true;
+    }
+    // Moving left
+    else
+    {
+        animal->gameObject.flip = false;
+    }
 
     xRectangle nextCollider = animal->gameObject.collider;
     nextCollider.x += movement.x * animal->speed;
