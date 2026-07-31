@@ -35,8 +35,9 @@ typedef struct Animal
     int moveX;
     int moveY;
 
-    float animationInterval;
-    float animationTimer;
+    float animIdleInterval;
+    float animMovingInterval;
+    float animTimer;
     int currentFrame;
     int frameWidth;
     int frameHeight;

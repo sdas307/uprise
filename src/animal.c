@@ -42,8 +42,9 @@ static void xInitAnimal(Animal *animal)
     animal->moveX = 0;
     animal->moveY = 0;
 
-    animal->animationInterval = 0.6f;
-    animal->animationTimer = 0.0f;
+    animal->animIdleInterval = 0.6f;
+    animal->animMovingInterval = 0.20f;
+    animal->animTimer = 0.0f;
 
     animal->currentFrame = 0;
 
@@ -141,18 +142,17 @@ static void xAnimateAnimal(Animal *animal)
 {
     int totalFrames = xGetAnimationLength(animal->state);
 
-    animal->animationTimer += GetFrameTime();
+    animal->animTimer += GetFrameTime();
 
     switch (animal->state)
     {
-    case ANIMAL_IDLE:
-    case ANIMAL_MOVING:
-    default:
 
-        while (animal->animationTimer >= animal->animationInterval)
+    case ANIMAL_IDLE:
+
+        while (animal->animTimer >= animal->animIdleInterval)
         {
             animal->currentFrame++;
-            animal->animationTimer -= animal->animationInterval;
+            animal->animTimer -= animal->animIdleInterval;
         }
 
         if (animal->currentFrame >= totalFrames)
@@ -160,7 +160,21 @@ static void xAnimateAnimal(Animal *animal)
             animal->currentFrame = 0;
         }
 
-        break;
+    break;
+    case ANIMAL_MOVING:
+
+        while (animal->animTimer >= animal->animMovingInterval)
+        {
+            animal->currentFrame++;
+            animal->animTimer -= animal->animMovingInterval;
+        }
+
+        if (animal->currentFrame >= totalFrames)
+        {
+            animal->currentFrame = 0;
+        }
+
+    break;
     }
 
     animal->gameObject.source.x = animal->currentFrame * animal->frameWidth;
