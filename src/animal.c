@@ -27,6 +27,9 @@ static void xAnimateAnimal(Animal *animal);
 /// Set target values (x and y) for the animal.
 static void xAnimalSetTarget(Animal *animal);
 
+/// Whether to stay idle based on percentages. 
+static bool xStayIdle();
+
 /// Check animal collision with world entities.
 static bool xAnimalCheckCollision(World *world, xRectangle collider);
 
@@ -35,6 +38,8 @@ static int xGetAnimationLength(AnimalState state);
 
 /// Get the row index of the animation in question.
 static int xGetAnimationRow(AnimalState state);
+
+static const int idlePercent = 30;
 
 const xRectangle wanderZone = 
 {
@@ -56,6 +61,9 @@ static void xInitAnimal(Animal *animal)
     animal->targetX = 0.0f;
     animal->targetY = 0.0f;
     animal->isTargetSet = false;
+    animal->isIdleSet = false;
+    animal->idleDuration = 0;
+    animal->dt = 0.0f;
 
     animal->animIdleInterval = 0.6f;
     animal->animMovingInterval = 0.20f;
@@ -81,11 +89,20 @@ void xUpdateAnimal(Animal *animal, World *world)
 
 static void xAnimalWandering(Animal *animal, World *world)
 {
-    if (!animal->isTargetSet)
+    if (!animal->isTargetSet && !animal->isIdleSet)
     {
-        xAnimalSetTarget(animal);
-        animal->isTargetSet = true;
-        animal->state = ANIMAL_MOVING;
+        if (xStayIdle() == false)
+        {
+            xAnimalSetTarget(animal);
+            animal->isTargetSet = true;
+            animal->state = ANIMAL_MOVING;
+        }
+        else
+        {
+            animal->idleDuration = GetRandomValue(1, 3);
+            animal->isIdleSet = true;
+            animal->state = ANIMAL_IDLE;
+        }
     }
 
     xVector2 movement =
@@ -94,45 +111,50 @@ static void xAnimalWandering(Animal *animal, World *world)
         animal->targetY - animal->gameObject.dest.y
     };
 
-    if (Vector2Length(movement) == 0)
-        return;
-    
     float distance = Vector2Length(movement);
+    
+    if (distance == 0)
+        return;
 
-    // Reached target point.
-    if (distance < animal->speed)
+    if (animal->isIdleSet)
     {
-        animal->gameObject.dest.x = animal->targetX;
-        animal->gameObject.dest.y = animal->targetY;
+        animal->dt += GetFrameTime();
 
-        animal->isTargetSet = false;
+        if (animal->dt > animal->idleDuration)
+        {
+            animal->isIdleSet = false;
+            animal->dt = 0;
+        }
     }
-
-    movement = Vector2Normalize(movement);
-
-    // Moving right
-    if (movement.x > 0)
+    else if (animal->isTargetSet)
     {
-        animal->gameObject.flip = true;
-    }
-    // Moving left
-    else
-    {
-        animal->gameObject.flip = false;
-    }
+        // Reached target point.
+        if (distance < animal->speed)
+        {
+            animal->gameObject.dest.x = animal->targetX;
+            animal->gameObject.dest.y = animal->targetY;
 
-    xRectangle nextCollider = animal->gameObject.collider;
-    nextCollider.x += movement.x * animal->speed;
-    nextCollider.y += movement.y * animal->speed;
+            animal->isTargetSet = false;
+        }
 
-    if (!xAnimalCheckCollision(world, nextCollider))
-    {
-        animal->gameObject.dest.x += movement.x * animal->speed;
-        animal->gameObject.dest.y += movement.y * animal->speed;
+        movement = Vector2Normalize(movement);
 
-        animal->gameObject.collider = nextCollider;
+        // If moving right -> flip.
+        animal->gameObject.flip = (movement.x > 0);
 
-        animal->gameObject.depth = animal->gameObject.collider.y + animal->gameObject.collider.height;
+        xRectangle nextCollider = animal->gameObject.collider;
+        nextCollider.x += movement.x * animal->speed;
+        nextCollider.y += movement.y * animal->speed;
+
+        if (!xAnimalCheckCollision(world, nextCollider))
+        {
+            animal->gameObject.dest.x += movement.x * animal->speed;
+            animal->gameObject.dest.y += movement.y * animal->speed;
+
+            animal->gameObject.collider = nextCollider;
+
+            animal->gameObject.depth = animal->gameObject.collider.y + animal->gameObject.collider.height;
+        }
     }
 }
 
@@ -140,6 +162,16 @@ static void xAnimalSetTarget(Animal *animal)
 {
     animal->targetX = GetRandomValue((int)wanderZone.x, (int)(wanderZone.x + wanderZone.width));
     animal->targetY = GetRandomValue((int)wanderZone.y, (int)(wanderZone.y + wanderZone.height));
+}
+
+static bool xStayIdle()
+{
+    int random = GetRandomValue(1, 100);
+
+    if (random >= idlePercent)
+        return true;
+    else
+        return false;
 }
 
 #pragma region Old Movement Logic (time-based)
@@ -333,7 +365,7 @@ void xSpawnChicken(AnimalManager *manager, xRectangle dest)
 
     // animal->stateTimerMax = 1;
 
-    animal->speed = 2;
+    animal->speed = 1;
     animal->gameObject.flip = false;
 }
 
@@ -432,7 +464,7 @@ void xSpawnCow(AnimalManager *manager, xRectangle dest)
 
     // animal->stateTimerMax = 2;
 
-    animal->speed = 2;
+    animal->speed = 1;
     animal->gameObject.flip = false;
 }
 

@@ -34,12 +34,15 @@ typedef struct Animal
 {
     xGameObject gameObject;
 
-    int moveX;
-    int moveY;
+    int moveX;                      // Direction x component.
+    int moveY;                      // Direction y component.
 
     float targetX;                  // Animal AI wandering target x.
     float targetY;                  // Animal AI wandering target y.
     bool isTargetSet;               // Target set flag.
+    bool isIdleSet;                 // Idle flag.
+    int idleDuration;               // Duration to remain idle for.
+    float dt;                       // Variable to use as delta time.
 
     float animIdleInterval;         // Idle animation interval.
     float animMovingInterval;       // Moving animation interval.

@@ -128,6 +128,33 @@ static void xLoadAnimals(AnimalManager *manager)
 
     dest = (xRectangle)
     {
+        764,
+        640,
+        RECT_SHEEP.width,
+        RECT_SHEEP.height
+    };
+    xSpawnSheep(manager, dest);
+
+    dest = (xRectangle)
+    {
+        640,
+        640,
+        RECT_PIG.width,
+        RECT_PIG.height
+    };
+    xSpawnPig(manager, dest);
+
+    dest = (xRectangle)
+    {
+        700,
+        600,
+        RECT_COW.width,
+        RECT_COW.height
+    };
+    xSpawnCow(manager, dest);
+
+    dest = (xRectangle)
+    {
         400,
         400,
         RECT_CHICKEN.width,
@@ -139,6 +166,24 @@ static void xLoadAnimals(AnimalManager *manager)
     {
         464,
         400,
+        RECT_CHICKEN.width,
+        RECT_CHICKEN.height
+    };
+    xSpawnChicken(manager, dest);
+
+    dest = (xRectangle)
+    {
+        600,
+        464,
+        RECT_CHICKEN.width,
+        RECT_CHICKEN.height
+    };
+    xSpawnChicken(manager, dest);
+
+    dest = (xRectangle)
+    {
+        650,
+        500,
         RECT_CHICKEN.width,
         RECT_CHICKEN.height
     };
