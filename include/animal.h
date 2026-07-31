@@ -37,9 +37,13 @@ typedef struct Animal
     int moveX;
     int moveY;
 
-    float animIdleInterval;
-    float animMovingInterval;
-    float animTimer;
+    float targetX;                  // Animal AI wandering target x.
+    float targetY;                  // Animal AI wandering target y.
+    bool isTargetSet;               // Target set flag.
+
+    float animIdleInterval;         // Idle animation interval.
+    float animMovingInterval;       // Moving animation interval.
+    float animTimer;                // Animation duration counter.
     int currentFrame;
     int frameWidth;
     int frameHeight;
@@ -50,9 +54,9 @@ typedef struct Animal
 
     AnimalDirection direction;
 
-    float randomInterval;           // The duration of the state.
-    int randomStateTimer;           // Random time value from 0 to max state timer.
-    int stateTimerMax;              // Max value for state timer.
+    // float randomInterval;           // The duration of the state.
+    // int randomStateTimer;           // Random time value from 0 to max state timer.
+    // int stateTimerMax;              // Max value for state timer.
 
     int hp;
     int speed;
@@ -68,6 +72,8 @@ typedef struct AnimalManager
 
 struct World;
 typedef struct World World;
+
+extern const xRectangle wanderZone;
 
 void xUpdateAnimal(Animal *animal, World *world);
 
