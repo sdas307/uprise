@@ -12,13 +12,16 @@ const xRectangle RECT_CHICKEN =
 const xRectangle RECT_SHEEP = 
 {
     0, 0,
-    64,
-    64
+    128,
+    128
 };
 
 const xRectangle RECT_PIG = 
 {
-    0, 0, 64, 64
+    0,
+    0,
+    128,
+    128
 };
 
 const xRectangle RECT_COW =

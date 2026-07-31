@@ -24,7 +24,9 @@ typedef enum AnimalState
 typedef enum AnimalDirection
 {
     ANIMAL_LEFT,
-    ANIMAL_RIGHT
+    ANIMAL_RIGHT,
+    ANIMAL_UP,
+    ANIMAL_DOWN
 
 } AnimalDirection;
 
@@ -32,8 +34,19 @@ typedef struct Animal
 {
     xGameObject gameObject;
 
-    float animationInterval;
-    float animationTimer;
+    int moveX;                      // Direction x component.
+    int moveY;                      // Direction y component.
+
+    float targetX;                  // Animal AI wandering target x.
+    float targetY;                  // Animal AI wandering target y.
+    bool isTargetSet;               // Target set flag.
+    bool isIdleSet;                 // Idle flag.
+    int idleDuration;               // Duration to remain idle for.
+    float dt;                       // Variable to use as delta time.
+
+    float animIdleInterval;         // Idle animation interval.
+    float animMovingInterval;       // Moving animation interval.
+    float animTimer;                // Animation duration counter.
     int currentFrame;
     int frameWidth;
     int frameHeight;
@@ -43,6 +56,10 @@ typedef struct Animal
     AnimalState state;
 
     AnimalDirection direction;
+
+    // float randomInterval;           // The duration of the state.
+    // int randomStateTimer;           // Random time value from 0 to max state timer.
+    // int stateTimerMax;              // Max value for state timer.
 
     int hp;
     int speed;
@@ -56,7 +73,12 @@ typedef struct AnimalManager
 
 } AnimalManager;
 
-void xUpdateAnimal(Animal *animal);
+struct World;
+typedef struct World World;
+
+extern const xRectangle wanderZone;
+
+void xUpdateAnimal(Animal *animal, World *world);
 
 void xUnloadAnimal(Animal *animal);
 

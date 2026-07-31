@@ -1,5 +1,5 @@
-#ifndef WORLD_OBJECT_H
-#define WORLD_OBJECTS_H
+#ifndef ENTITIES_H
+#define ENTITIES_H
 
 #include "world.h"
 #include "xEngine.h"
@@ -22,7 +22,7 @@ void xAddPond6x6(World *world, xRectangle dest);
 
 void xAddGroundBlock(World *world, xRectangle dest);
 
-void xAddEmptyObject(World *world, xRectangle dest);
+void xAddEmptyEntity(World *world, xRectangle dest);
 
 void xAddHighGroundTopLeft(World *world, xRectangle dest);
 

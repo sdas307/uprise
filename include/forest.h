@@ -2,7 +2,7 @@
 #define FOREST_H
 
 #include "xEngine.h"
-#include "world_objects.h"
+#include "entities.h"
 
 // void xLoadTreesLarge1(World *world);
 

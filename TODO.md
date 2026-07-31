@@ -1,6 +1,15 @@
 
 
 ==========================================================================
+__30.7.26__
+[o] Animal collision functions - Added (only with world entities, ignores player/animals).
+[o] Animal wandering AI - x-axis implementation (time-based) done.
+[ ] Animal wandering AI - y-axis
+[ ] Buggy timer issues - timer not consistent with intended results.
+==========================================================================
+
+
+==========================================================================
 __18.7.26__
 [ ] Animal assets source rectangle improvement (keeping in mind biggest sprite in the spritesheet).
 [ ] Animal collision functions.

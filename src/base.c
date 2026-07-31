@@ -1,6 +1,7 @@
 #include "base.h"
 #include "assets.h"
 #include "sprites.h"
+#include "animal.h"
 
 #pragma region Destination Rectangles
 static const xVector2 posLargeTrees[] =
@@ -26,9 +27,18 @@ static const xVector2 posGroundBlocks[] =
     { 832, 64 }
 };
 
+// Collider rects for high ground.
+static const xRectangle highGround[] =
+{
+    {   0,   0, 1024,  64 },
+    {   0,  64,   64, 704 },
+    {  64, 704,  640,  64 },
+    { 896, 704,  128,  64 },
+};
+
 #pragma endregion
 
-/// Loads all large trees at their world positions.
+/// Load all large trees at their world coordinates.
 static void xLoadTreesLarge(World *world)
 {
     for (int i=0; i<ARRAY_COUNT(posLargeTrees); i++)
@@ -45,7 +55,7 @@ static void xLoadTreesLarge(World *world)
     }
 }
 
-/// Loads all small trees at their world positions.
+/// Load all small trees at their world coordinates.
 static void xLoadTreesSmall(World *world)
 {
     for (int i=0; i<ARRAY_COUNT(posSmallTrees); i++)
@@ -62,7 +72,7 @@ static void xLoadTreesSmall(World *world)
     }
 }
 
-/// Loads house at world positions.
+/// Load house at world coordinates.
 static void xLoadHouse(World *world)
 {
     xRectangle temp =
@@ -76,6 +86,7 @@ static void xLoadHouse(World *world)
     xAddHouse(world, temp);
 }
 
+/// Load light posts at world coordinates.
 static void xLoadLightPost(World *world)
 {
     xRectangle dest =
@@ -89,6 +100,7 @@ static void xLoadLightPost(World *world)
     xAddLightPost(world, dest);
 }
 
+/// Load rocks at world coordinates.
 static void xLoadRocks(World *world)
 {
     xRectangle dest =
@@ -102,6 +114,7 @@ static void xLoadRocks(World *world)
     xAddRock(world, ROCK_SMALL, dest);
 }
 
+/// Load animals at world coordinates.
 static void xLoadAnimals(AnimalManager *manager)
 {
     xRectangle dest =
@@ -115,14 +128,69 @@ static void xLoadAnimals(AnimalManager *manager)
 
     dest = (xRectangle)
     {
+        764,
+        640,
+        RECT_SHEEP.width,
+        RECT_SHEEP.height
+    };
+    xSpawnSheep(manager, dest);
+
+    dest = (xRectangle)
+    {
+        640,
+        640,
+        RECT_PIG.width,
+        RECT_PIG.height
+    };
+    xSpawnPig(manager, dest);
+
+    dest = (xRectangle)
+    {
+        700,
+        600,
+        RECT_COW.width,
+        RECT_COW.height
+    };
+    xSpawnCow(manager, dest);
+
+    dest = (xRectangle)
+    {
         400,
         400,
         RECT_CHICKEN.width,
         RECT_CHICKEN.height
     };
     xSpawnChicken(manager, dest);
+
+    dest = (xRectangle)
+    {
+        464,
+        400,
+        RECT_CHICKEN.width,
+        RECT_CHICKEN.height
+    };
+    xSpawnChicken(manager, dest);
+
+    dest = (xRectangle)
+    {
+        600,
+        464,
+        RECT_CHICKEN.width,
+        RECT_CHICKEN.height
+    };
+    xSpawnChicken(manager, dest);
+
+    dest = (xRectangle)
+    {
+        650,
+        500,
+        RECT_CHICKEN.width,
+        RECT_CHICKEN.height
+    };
+    xSpawnChicken(manager, dest);
 }
 
+/// Load ground blocks at world coordinates.
 static void xLoadGroundBlocks(World *world)
 {
 
@@ -137,6 +205,8 @@ static void xLoadGroundBlocks(World *world)
     xAddGroundBlock(world, dest);
 }
 
+#pragma region Load High Ground (Inactive Function)
+/// Load high ground terrain blocks at world coordinates.
 static void xLoadHighGround(World *world)
 {
     // Top-Left
@@ -221,10 +291,56 @@ static void xLoadHighGround(World *world)
         xAddHighGroundBottomCenter(world, temp);
     }
 }
+#pragma endregion
 
+static void xHighGroundColliders(World *world, xRectangle const highGround[])
+{
+    // Top row
+    xRectangle collider =
+    {
+        highGround[0].x + 48,
+        highGround[0].y + 28,
+        highGround[0].width - 48,
+        highGround[0].height - 40,
+    };
+    xAddEmptyEntity(world, collider);
+
+    // Left column
+    collider = (xRectangle)
+    {
+        highGround[1].x + 28,
+        highGround[1].y - 16,
+        highGround[1].width - 44,
+        highGround[1].height - 32,
+    };
+    xAddEmptyEntity(world, collider);
+
+    // Bottom row
+    collider = (xRectangle)
+    {
+        highGround[2].x - 16,
+        highGround[2].y + 16,
+        highGround[2].width + 16,
+        highGround[2].height - 48,
+    };
+    xAddEmptyEntity(world, collider);
+
+    // Bottom row (leftover)
+    collider = (xRectangle)
+    {
+        highGround[3].x,
+        highGround[3].y + 16,
+        highGround[3].width - 48,
+        highGround[3].height - 48,
+    };
+    xAddEmptyEntity(world, collider);
+}
+
+/// Load all elements of base map in their world positions. 
 void xLoadBaseMap(World *world, AnimalManager *manager)
 {
-    xLoadHighGround(world);
+    xHighGroundColliders(world, highGround);
+    // xLoadHighGround(world);
     xLoadTreesLarge(world);
     xLoadHouse(world);
     xLoadTreesSmall(world);

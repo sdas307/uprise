@@ -1,5 +1,6 @@
 #include "render.h"
 #include "config.h"
+#include "xEngine.h"
 
 #include <stdio.h>
 
@@ -75,7 +76,7 @@ void xRenderScene(World *world, Player *player, AnimalManager *manager)
 
         // DrawRectangleLinesEx(fadeArea, 2.0f, GREEN);
 
-        if (!isObjectPlayer && !isObjectAnimal && isPlayerBehindObject && overlapsPlayer && fadeEffect)
+        if (!isObjectPlayer && isPlayerBehindObject && overlapsPlayer && fadeEffect)
         {
             tint = Fade(WHITE, 0.5f);
         }
@@ -125,7 +126,8 @@ static void xRenderObject(xGameObject *object, xColor tint)
 
     DrawTexturePro(object->texture, drawSource, object->dest, ZERO_POSITION, 0.0f, tint);
     // DrawRectangleLinesEx(object->collider, 1.0f, RED);
-    // DrawRectangleLinesEx(object->dest, 1.0f, RED);
+    // DrawRectangleLinesEx(object->dest, 1.0f, GREEN);
+    // DrawRectangleLinesEx(wanderZone, 1.0f, BLUE);
 }
 
 static xRectangle xGetFadeArea(xGameObject *object)

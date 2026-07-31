@@ -1,14 +1,15 @@
 #include "world.h"
+#include "animal.h"
 #include "config.h"
 #include "assets.h"
-#include "world_objects.h"
+#include "entities.h"
 #include "base.h"
 #include "forest.h"
 
 void xInitWorld(World *world)
 {
     // Initialize terrain
-    world->terrain.texture = LoadTexture(PATH_FOREST);
+    world->terrain.texture = LoadTexture(PATH_BASE);
     SetTextureFilter(world->terrain.texture, TEXTURE_FILTER_POINT);
 
     world->terrain.source = (xRectangle){0, 0, 1024, 832};
