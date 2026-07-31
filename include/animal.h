@@ -24,7 +24,9 @@ typedef enum AnimalState
 typedef enum AnimalDirection
 {
     ANIMAL_LEFT,
-    ANIMAL_RIGHT
+    ANIMAL_RIGHT,
+    ANIMAL_UP,
+    ANIMAL_DOWN
 
 } AnimalDirection;
 

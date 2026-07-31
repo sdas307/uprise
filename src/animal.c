@@ -82,16 +82,20 @@ static void xMoveAnimal(Animal *animal, World *world)
         return;
 
     // Normalize diagonal movement to maintain a constant speed.
-    // movement = Vector2Normalize(movement);
+    movement = Vector2Normalize(movement);
 
     xRectangle nextCollider = animal->gameObject.collider;
     nextCollider.x += movement.x * animal->speed;
+    nextCollider.y += movement.y * animal->speed;
 
     if (!xAnimalCheckCollision(world, nextCollider))
     {
         animal->gameObject.dest.x += movement.x * animal->speed;
+        animal->gameObject.dest.y += movement.y * animal->speed;
 
         animal->gameObject.collider = nextCollider;
+
+        animal->gameObject.depth = animal->gameObject.collider.y + animal->gameObject.collider.height;
     }
 }
 
@@ -104,7 +108,7 @@ static void xResetMoveValues(Animal *animal)
     animal->moveY = 0;
 
     animal->state = GetRandomValue(ANIMAL_IDLE, ANIMAL_MOVING);
-    animal->direction = GetRandomValue(ANIMAL_LEFT, ANIMAL_RIGHT);
+    animal->direction = GetRandomValue(ANIMAL_LEFT, ANIMAL_DOWN);
 }
 
 static void xSetAnimalMoveX(Animal *animal)
@@ -127,6 +131,14 @@ static void xSetAnimalMoveX(Animal *animal)
         case ANIMAL_RIGHT:
             animal->gameObject.flip = true;
             animal->moveX = 1;
+        break;
+
+        case ANIMAL_UP:
+            animal->moveY = -1;
+        break;
+
+        case ANIMAL_DOWN:
+            animal->moveY = 1;
         break;
 
         default:
@@ -336,7 +348,7 @@ void xSpawnCow(AnimalManager *manager, xRectangle dest)
 
     animal->gameObject.depth = animal->gameObject.collider.y + animal->gameObject.collider.height;
 
-    animal->stateTimerMax = 3;
+    animal->stateTimerMax = 2;
 
     animal->speed = 2;
     animal->gameObject.flip = false;
