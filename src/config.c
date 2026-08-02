@@ -9,7 +9,7 @@ const char PATH_SAVEFILE[] = "../saves/save.xp";
 
 const Vector2 ZERO_POSITION = {0, 0};
 
-void xInitWindow()
+void xInitWindow(void)
 {
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, WINDOW_TITLE);
     Image WindowIcon = LoadImage(GAME_ICON);

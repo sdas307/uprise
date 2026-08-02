@@ -55,6 +55,7 @@ typedef struct xGameObject
 
 } xGameObject;
 
+typedef Camera2D xCamera2D;             /// Alias: raylib's Camera2D
 typedef Rectangle xRectangle;           /// Alias: raylib's Rectangle
 typedef Vector2 xVector2;               /// Alias: raylib's Vector2
 typedef Color xColor;                   /// Alias: raylib's Color

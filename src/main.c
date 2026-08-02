@@ -1,11 +1,13 @@
 #include "raylib.h"
 #include "config.h"
+#include "camera.h"
 #include "player.h"
 #include "world.h"
 #include "render.h"
 #include "animal.h"
 #include <stdio.h>
 
+xCamera2D camera;
 Player player;
 World world;
 AnimalManager manager;
@@ -15,6 +17,8 @@ int main(void)
     xInitWindow();
 
     xInitPlayer(&player);
+
+    xInitCamera(&camera, &player.gameObject);
 
     printf("\n\nInit World!\n\n");
     xInitWorld(&world);
@@ -31,6 +35,8 @@ int main(void)
         // ---------------- UPDATE ----------------
 
         xUpdatePlayer(&player, &world);
+
+        xUpdateCamera(&camera, &player.gameObject);
         
         for (int i = 0; i < manager.animalCount; i++)
         {
@@ -43,8 +49,13 @@ int main(void)
 
             ClearBackground(GRAY);
 
-            xRenderScene(&world, &player, &manager);
-            
+            BeginMode2D(camera);
+
+                xRenderScene(&world, &player, &manager);
+                xCameraDebugLines(&camera);
+                
+            EndMode2D();
+
             DrawCircle(GetMouseX(), GetMouseY(), 10, RED);
 
         EndDrawing();
