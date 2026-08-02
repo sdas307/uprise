@@ -12,8 +12,11 @@ void xInitWorld(World *world)
     world->terrain.texture = LoadTexture(PATH_BASE);
     SetTextureFilter(world->terrain.texture, TEXTURE_FILTER_POINT);
 
-    world->terrain.source = (xRectangle){0, 0, 1024, 832};
-    world->terrain.dest = (xRectangle){0, 0, 1024, 832};
+    // world->terrain.source = (xRectangle){0, 0, 1024, 832};
+    // world->terrain.dest = (xRectangle){0, 0, 1024, 832};
+
+    world->terrain.source = (xRectangle){0, 0,3072, 1664};
+    world->terrain.dest = (xRectangle){0, 0, 3072, 1664};
 
     // Initialize world objects sprite sheet
     world->spriteSheet = LoadTexture(PATH_SPRITE_SHEET);
