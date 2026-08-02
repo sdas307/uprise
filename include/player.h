@@ -39,6 +39,7 @@ typedef struct Player
     PlayerDirection direction; /// Current facing direction.
 
     bool attackPressed;
+    bool isRunning;
 
     int moveX;
     int moveY;

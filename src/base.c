@@ -138,7 +138,7 @@ static void xLoadAnimals(AnimalManager *manager)
     dest = (xRectangle)
     {
         640,
-        640,
+        632,
         RECT_PIG.width,
         RECT_PIG.height
     };

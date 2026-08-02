@@ -119,6 +119,9 @@ void xInitPlayer(Player *player)
 
     player->gameObject.active = true;
 
+    player->attackPressed = false;
+    player->isRunning = false;
+
     player->gameObject.collider = (xRectangle)
     {
         player->gameObject.dest.x + 44,
@@ -159,12 +162,14 @@ static void xReadPlayerInput(Player *player)
     // Shift held down -> Faster movement speed.
     if (IsKeyDown(KEY_LEFT_SHIFT))
     {
+        player->isRunning = true;
         player->speed = 5;
     }
 
     // Shift released -> Usual movement speed.
     if (IsKeyReleased(KEY_LEFT_SHIFT))
     {
+        player->isRunning = false;
         player->speed = 3;
     }
 
@@ -316,6 +321,8 @@ static void xUpdatePlayerAnimation(Player *player)
 
     // Advance to the next animation frame.
     player->animationTimer += GetFrameTime();
+
+    player->interval = player->isRunning ? 0.08f : 0.10f;
 
     while (player->animationTimer >= player->interval)
     {

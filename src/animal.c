@@ -46,7 +46,7 @@ const xRectangle wanderZone =
     64 * 7,
     64 * 4,
     64 * 7,
-    64 * 4
+    64 * 5
 };
 
 /* ---------- Implementation ----------*/
@@ -359,7 +359,8 @@ void xSpawnChicken(AnimalManager *manager, xRectangle dest)
         animal->gameObject.dest.x + 12,
         animal->gameObject.dest.y + 36,
         animal->gameObject.dest.width - 24,
-        16};
+        16
+    };
 
     animal->gameObject.depth = animal->gameObject.collider.y + animal->gameObject.collider.height;
 
@@ -390,10 +391,11 @@ void xSpawnSheep(AnimalManager *manager, xRectangle dest)
     animal->gameObject.dest = dest;
 
     animal->gameObject.collider = (xRectangle){
-        animal->gameObject.dest.x + 16,
-        animal->gameObject.dest.y + 50,
-        animal->gameObject.dest.width - 32,
-        30};
+        animal->gameObject.dest.x + 36,
+        animal->gameObject.dest.y + 68,
+        animal->gameObject.dest.width - 72,
+        20
+    };
 
     animal->gameObject.depth = animal->gameObject.collider.y + animal->gameObject.collider.height;
 
@@ -422,10 +424,11 @@ void xSpawnPig(AnimalManager *manager, xRectangle dest)
     animal->gameObject.dest = dest;
 
     animal->gameObject.collider = (xRectangle){
-        animal->gameObject.dest.x + 16,
-        animal->gameObject.dest.y + 50,
-        animal->gameObject.dest.width - 32,
-        30};
+        animal->gameObject.dest.x + 36,
+        animal->gameObject.dest.y + 68,
+        animal->gameObject.dest.width - 72,
+        20
+    };
 
     animal->gameObject.depth = animal->gameObject.collider.y + animal->gameObject.collider.height;
 
@@ -455,10 +458,11 @@ void xSpawnCow(AnimalManager *manager, xRectangle dest)
     animal->gameObject.dest = dest;
 
     animal->gameObject.collider = (xRectangle){
-        animal->gameObject.dest.x + 36,
-        animal->gameObject.dest.y + 66,
-        animal->gameObject.dest.width - 64,
-        30};
+        animal->gameObject.dest.x + 28,
+        animal->gameObject.dest.y + 72,
+        animal->gameObject.dest.width - 56,
+        24
+    };
 
     animal->gameObject.depth = animal->gameObject.collider.y + animal->gameObject.collider.height;
 
