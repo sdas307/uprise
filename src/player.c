@@ -105,6 +105,8 @@ void xInitPlayer(Player *player)
     SetTextureFilter(player->gameObject.texture, TEXTURE_FILTER_POINT);
 
     player->interval = 0.10f;
+    player->walkInterval = 0.10f;
+    player->runInterval = 0.09f;
 
     player->animationTimer = 0.0f;
     player->currentFrame = 0;
@@ -134,6 +136,8 @@ void xInitPlayer(Player *player)
 
     player->speed = config.speed;
     // printf("speed = %d", config.speed);
+    player->walkSpeed = 3;
+    player->runSpeed = 5;
     
     player->state = PLAYER_IDLE;
     player->direction = PLAYER_FACE_FRONT;
@@ -163,14 +167,14 @@ static void xReadPlayerInput(Player *player)
     if (IsKeyDown(KEY_LEFT_SHIFT))
     {
         player->isRunning = true;
-        player->speed = 5;
+        player->speed = player->runSpeed;
     }
 
     // Shift released -> Usual movement speed.
     if (IsKeyReleased(KEY_LEFT_SHIFT))
     {
         player->isRunning = false;
-        player->speed = 3;
+        player->speed = player->walkSpeed;
     }
 
     if (IsKeyDown(KEY_W))
@@ -322,7 +326,8 @@ static void xUpdatePlayerAnimation(Player *player)
     // Advance to the next animation frame.
     player->animationTimer += GetFrameTime();
 
-    player->interval = player->isRunning ? 0.08f : 0.10f;
+    // If player is running, set the interval to a faster rate.
+    player->interval = player->isRunning ? player->runInterval : player->walkInterval;
 
     while (player->animationTimer >= player->interval)
     {
