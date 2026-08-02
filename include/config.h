@@ -11,6 +11,6 @@ extern const char PATH_SAVEFILE[];
 
 extern const xVector2 ZERO_POSITION;
 
-void xInitWindow();
+void xInitWindow(void);
 
 #endif

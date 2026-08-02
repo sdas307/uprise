@@ -105,6 +105,8 @@ void xInitPlayer(Player *player)
     SetTextureFilter(player->gameObject.texture, TEXTURE_FILTER_POINT);
 
     player->interval = 0.10f;
+    player->walkInterval = 0.10f;
+    player->runInterval = 0.09f;
 
     player->animationTimer = 0.0f;
     player->currentFrame = 0;
@@ -119,6 +121,9 @@ void xInitPlayer(Player *player)
 
     player->gameObject.active = true;
 
+    player->attackPressed = false;
+    player->isRunning = false;
+
     player->gameObject.collider = (xRectangle)
     {
         player->gameObject.dest.x + 44,
@@ -131,6 +136,8 @@ void xInitPlayer(Player *player)
 
     player->speed = config.speed;
     // printf("speed = %d", config.speed);
+    player->walkSpeed = 3;
+    player->runSpeed = 5;
     
     player->state = PLAYER_IDLE;
     player->direction = PLAYER_FACE_FRONT;
@@ -143,7 +150,7 @@ void xUpdatePlayer(Player *player, World *world)
     xUpdatePlayerState(player);
     xMovePlayer(player, world);
     xUpdatePlayerAnimation(player);
-    DrawRectangleLinesEx(player->gameObject.dest, 1.0f, RED);
+    // DrawRectangleLinesEx(player->gameObject.dest, 1.0f, RED);
 }
 
 void xUnloadPlayer(Player *player)
@@ -159,13 +166,15 @@ static void xReadPlayerInput(Player *player)
     // Shift held down -> Faster movement speed.
     if (IsKeyDown(KEY_LEFT_SHIFT))
     {
-        player->speed = 5;
+        player->isRunning = true;
+        player->speed = player->runSpeed;
     }
 
     // Shift released -> Usual movement speed.
     if (IsKeyReleased(KEY_LEFT_SHIFT))
     {
-        player->speed = 3;
+        player->isRunning = false;
+        player->speed = player->walkSpeed;
     }
 
     if (IsKeyDown(KEY_W))
@@ -316,6 +325,9 @@ static void xUpdatePlayerAnimation(Player *player)
 
     // Advance to the next animation frame.
     player->animationTimer += GetFrameTime();
+
+    // If player is running, set the interval to a faster rate.
+    player->interval = player->isRunning ? player->runInterval : player->walkInterval;
 
     while (player->animationTimer >= player->interval)
     {

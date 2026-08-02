@@ -28,6 +28,8 @@ typedef struct Player
     xGameObject gameObject;
 
     float interval;             /// Animation interval.
+    float runInterval;
+    float walkInterval;
 
     float animationTimer;
     int currentFrame;
@@ -39,11 +41,14 @@ typedef struct Player
     PlayerDirection direction; /// Current facing direction.
 
     bool attackPressed;
+    bool isRunning;
 
     int moveX;
     int moveY;
 
-    int speed;      /// Player's movement speed.
+    int speed;          /// Player's movement speed.
+    int walkSpeed;      /// Player's walking movement speed.
+    int runSpeed;      /// Player's running movement speed.
 
 } Player;
 
