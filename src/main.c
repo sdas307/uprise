@@ -7,7 +7,7 @@
 #include "animal.h"
 #include <stdio.h>
 
-xCamera2D camera;
+xGameCamera gameCamera;
 Player player;
 World world;
 AnimalManager manager;
@@ -18,7 +18,7 @@ int main(void)
 
     xInitPlayer(&player);
 
-    xInitCamera(&camera, &player.gameObject);
+    xInitCamera(&gameCamera, &player.gameObject);
 
     printf("\n\nInit World!\n\n");
     xInitWorld(&world);
@@ -36,7 +36,7 @@ int main(void)
 
         xUpdatePlayer(&player, &world);
 
-        xUpdateCamera(&camera, &player.gameObject);
+        xUpdateCamera(&gameCamera, &player.gameObject);
         
         for (int i = 0; i < manager.animalCount; i++)
         {
@@ -49,7 +49,7 @@ int main(void)
 
             ClearBackground(GRAY);
 
-            BeginMode2D(camera);
+            BeginMode2D(gameCamera.camera);
 
                 xRenderScene(&world, &player, &manager);
                 // xCameraDebugLines(&camera);
