@@ -46,7 +46,7 @@ extern const xVector2 treesSmall[];
 extern const int treesSmallCount;
 
 extern const xVector2 treeStumps[];
-extern const int treeStmpsCount;
+extern const int treeStumpsCount;
 
 extern const xVector2 flowersYellow3[];
 extern const int flowersYellow3Count;

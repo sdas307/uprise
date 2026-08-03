@@ -38,6 +38,23 @@ static void xLoadTreesSmall(World *world)
     }
 }
 
+/// Load all tree stumps at their world coordinates. 
+static void xLoadTreeStumps(World *world)
+{
+    for (int i=0; i<treeStumpsCount; i++)
+    {
+        xRectangle temp =
+        {
+            treeStumps[i].x,
+            treeStumps[i].y,
+            RECT_TREE_CUT.width,
+            RECT_TREE_CUT.height
+        };
+
+        xAddTree(world, TREE_CUT, temp);
+    }
+}
+
 /// Load house at world coordinates.
 static void xLoadHouse(World *world)
 {
@@ -212,6 +229,7 @@ void xLoadBaseMap(World *world, AnimalManager *manager)
     xLoadTreesLarge(world);
     xLoadHouse(world);
     xLoadTreesSmall(world);
+    xLoadTreeStumps(world);
     xLoadGroundBlocks(world);
     xLoadRocks(world);
     xLoadLightPost(world);

@@ -93,18 +93,19 @@ const int rocksSmallCount = ARRAY_COUNT(rocksSmall);
 
 const xVector2 treesLarge[] =
 {
-    { 332, 0 },
-    { 392, 0 },
-    { 592, 0 },
-    { 652, 0 },
-    { 984, 0 },
-    { 1044, 0 },
-    { 2124, 0 },
-    { 2184, 0 },
-    { 2960, 0 },
-    { 2896, 0 },
+    { 332, -32 },
+    { 392, -32 },
+    { 592, -32 },
+    { 652, -32 },
+    { 984, -32 },
+    { 1044, -32 },
+    { 2124, -32 },
+    { 2184, -32 },
+    { 2960, -64 },
+    { 2896, -64 },
     { 2832, 4 },
-    { 2712, 0 },
+    { 2960, 4 },
+    { 2712, -128 },
     { 2960, 68 },
 };
 const int treesLargeCount = ARRAY_COUNT(treesLarge);
@@ -126,7 +127,7 @@ const xVector2 treeStumps[] =
     { 2816, 200 },
     { 2752, 136 },
 };
-const int treeStmpsCount = ARRAY_COUNT(treeStumps);
+const int treeStumpsCount = ARRAY_COUNT(treeStumps);
 
 const xVector2 flowersYellow3[] =
 {
