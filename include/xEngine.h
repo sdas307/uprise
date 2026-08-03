@@ -58,6 +58,8 @@ typedef struct xGameObject
 typedef Camera2D xCamera2D;             /// Alias: raylib's Camera2D
 typedef Rectangle xRectangle;           /// Alias: raylib's Rectangle
 typedef Vector2 xVector2;               /// Alias: raylib's Vector2
+typedef Vector3 xVector3;               /// Alias: raylib's Vector3
+typedef Vector4 xVector4;               /// Alias: raylib's Vector4
 typedef Color xColor;                   /// Alias: raylib's Color
 
 /// @brief Check collision between two axis-aligned bounding boxes (AABB).

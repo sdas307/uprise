@@ -22,6 +22,8 @@ void xAddPond6x6(World *world, xRectangle dest);
 
 void xAddGroundBlock(World *world, xRectangle dest);
 
+void xAddFlower(World *world, FlowerColor color, FlowerStage stage, xRectangle dest);
+
 void xAddEmptyEntity(World *world, xRectangle dest);
 
 void xAddHighGroundTopLeft(World *world, xRectangle dest);
