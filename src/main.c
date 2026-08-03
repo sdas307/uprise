@@ -52,7 +52,7 @@ int main(void)
             BeginMode2D(camera);
 
                 xRenderScene(&world, &player, &manager);
-                xCameraDebugLines(&camera);
+                // xCameraDebugLines(&camera);
                 
             EndMode2D();
 

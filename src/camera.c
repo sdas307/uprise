@@ -22,12 +22,26 @@ void xInitCamera(xCamera2D *camera, const xGameObject *player)
 
 void xUpdateCamera(xCamera2D *camera, const xGameObject *player)
 {
+    xVector2 playerCenter = {0, 0};
+    playerCenter.x = player->dest.x + player->dest.width / 2.0f;
+    playerCenter.y = player->dest.y + player->dest.height / 2.0f;
+
+    if (playerCenter.x <= GetScreenWidth()/2)
+        camera->target.x = 512;
+    else
+        camera->target.x = player->dest.x + player->dest.width / 2.0f;
+        
+    if (playerCenter.y <= GetScreenHeight()/2)
+        camera->target.y = 416;
+    else
+        camera->target.y = player->dest.y + player->dest.height / 2.0f;
+
     // Track object every frame.
-    camera->target = (xVector2)
-    {
-        player->dest.x + player->dest.width / 2.0f,
-        player->dest.y + player->dest.height / 2.0f
-    };
+    // camera->target = (xVector2)
+    // {
+    //     player->dest.x + player->dest.width / 2.0f,
+    //     player->dest.y + player->dest.height / 2.0f
+    // };
 }
 
 void xCameraDebugLines(xCamera2D *camera)
