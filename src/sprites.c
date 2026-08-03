@@ -136,6 +136,70 @@ const xRectangle RECT_MUSHROOM =
     64 - 32
 };
 
+const xRectangle RECT_FLOWER_RED_1 =
+{
+    64 * 3,
+    64 * 7,
+    64,
+    64
+};
+
+const xRectangle RECT_FLOWER_RED_2 =
+{
+    64 * 3,
+    64 * 8,
+    64,
+    64
+};
+
+const xRectangle RECT_FLOWER_RED_3 =
+{
+    64 * 3,
+    64 * 9,
+    64,
+    64
+};
+
+const xRectangle RECT_FLOWER_RED_4 =
+{
+    64 * 3,
+    64 * 10,
+    64,
+    64
+};
+
+const xRectangle RECT_FLOWER_YELLOW_1 =
+{
+    64 * 4,
+    64 * 7,
+    64,
+    64
+};
+
+const xRectangle RECT_FLOWER_YELLOW_2 =
+{
+    64 * 4,
+    64 * 8,
+    64,
+    64
+};
+
+const xRectangle RECT_FLOWER_YELLOW_3 =
+{
+    64 * 4,
+    64 * 9,
+    64,
+    64
+};
+
+const xRectangle RECT_FLOWER_YELLOW_4 =
+{
+    64 * 4,
+    64 * 10,
+    64,
+    64
+};
+
 const xRectangle RECT_POND =
 {
     64  * 14,

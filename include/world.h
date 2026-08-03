@@ -111,41 +111,22 @@ typedef enum CarrotStage
     
 } CarrotStage;
 
-typedef enum FlowerRedStage
+typedef enum FlowerColor
 {
-    RED_FLOWER_STAGE_1,
-    RED_FLOWER_STAGE_2,
-    RED_FLOWER_STAGE_3,
-    RED_FLOWER_STAGE_4,
+    FLOWER_RED,
+    FLOWER_YELLOW
 
-} RedFlowerStage;
+} FlowerColor;
 
-typedef enum FlowerYellowStage
+typedef enum FlowerStage
 {
-    YELLOW_FLOWER_STAGE_1,
-    YELLOW_FLOWER_STAGE_2,
-    YELLOW_FLOWER_STAGE_3,
-    YELLOW_FLOWER_STAGE_4,
+    FLOWER_STAGE_1,
+    FLOWER_STAGE_2,
+    FLOWER_STAGE_3,
+    FLOWER_STAGE_4
 
-} FlowerYellowStage;
+} FlowerStage;
 
-typedef enum PottedFlowerRedStage
-{
-    RED_FLOWER_POT_STAGE_1,
-    RED_FLOWER_POT_STAGE_2,
-    RED_FLOWER_POT_STAGE_3,
-    RED_FLOWER_POT_STAGE_4,
-
-} PottedFlowerRedStage;
-
-typedef enum PottedFlowerYellowStage
-{
-    YELLOW_FLOWER_POT_STAGE_1,
-    YELLOW_FLOWER_POT_STAGE_2,
-    YELLOW_FLOWER_POT_STAGE_3,
-    YELLOW_FLOWER_POT_STAGE_4,
-
-}  PottedFlowerYellowStage;
 #pragma endregion
 
 struct AnimalManager;

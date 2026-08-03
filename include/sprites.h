@@ -71,6 +71,16 @@ extern const xRectangle RECT_STONE_LARGE;
 
 extern const xRectangle RECT_MUSHROOM;
 
+extern const xRectangle RECT_FLOWER_RED_1;
+extern const xRectangle RECT_FLOWER_RED_2;
+extern const xRectangle RECT_FLOWER_RED_3;
+extern const xRectangle RECT_FLOWER_RED_4;
+
+extern const xRectangle RECT_FLOWER_YELLOW_1;
+extern const xRectangle RECT_FLOWER_YELLOW_2;
+extern const xRectangle RECT_FLOWER_YELLOW_3;
+extern const xRectangle RECT_FLOWER_YELLOW_4;
+
 extern const xRectangle RECT_POND;
 
 extern const xRectangle RECT_GROUND_BLOCK;
