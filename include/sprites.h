@@ -61,6 +61,7 @@ extern const xRectangle RECT_TREE_CUT;
 extern const xRectangle RECT_TREE_STUMP;
 extern const xRectangle RECT_TREE_SMALL;
 extern const xRectangle RECT_TREE_LARGE;
+extern const xRectangle RECT_TREE_LOG;
 
 extern const xRectangle RECT_ROCK_SMALL;
 extern const xRectangle RECT_ROCK_LARGE;

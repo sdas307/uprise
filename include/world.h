@@ -27,7 +27,7 @@ typedef enum EntityID
     ENTITY_MUSHROOM,
     ENTITY_FLOWER,
     ENTITY_POTTED_FLOWER,
-    
+
     ENTITY_ROCK_SMALL,
     ENTITY_ROCK_LARGE,
 
@@ -88,7 +88,8 @@ typedef enum TreeStage
     TREE_STUMP,
     TREE_CUT,
     TREE_SMALL,
-    TREE_LARGE
+    TREE_LARGE,
+    TREE_LOG
     
 } TreeStage;
 

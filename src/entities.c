@@ -268,6 +268,19 @@ void xAddTree(World *world, TreeStage stage, xRectangle dest)
             20,
         };
         break;
+
+    case TREE_LOG:
+        
+        id = ENTITY_TREE_LOG;
+        source = RECT_TREE_LOG;
+
+        collider = (xRectangle)
+        {
+            dest.x + 16,
+            dest.y + 32,
+            dest.width - 32,
+            20
+        };
     }
 
     xAddEntity(world, id, source, dest, collider);

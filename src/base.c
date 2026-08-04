@@ -88,9 +88,10 @@ static void xLoadFlowers(World *world)
     }
 }
 
-/// Load all large trees at their world coordinates.
-static void xLoadTreesLarge(World *world)
+/// Load all trees at their world coordinates.
+static void xLoadTrees(World *world)
 {
+    // Load large trees.
     for (int i=0; i<treesLargeCount; i++)
     {
         xRectangle temp =
@@ -103,11 +104,8 @@ static void xLoadTreesLarge(World *world)
 
         xAddTree(world, TREE_LARGE, temp);
     }
-}
 
-/// Load all small trees at their world coordinates.
-static void xLoadTreesSmall(World *world)
-{
+    // Load small trees.
     for (int i=0; i<treesSmallCount; i++)
     {
         xRectangle temp =
@@ -120,11 +118,8 @@ static void xLoadTreesSmall(World *world)
 
         xAddTree(world, TREE_SMALL, temp);
     }
-}
 
-/// Load all tree stumps at their world coordinates. 
-static void xLoadTreeStumps(World *world)
-{
+    // Load tree stumps.
     for (int i=0; i<treeStumpsCount; i++)
     {
         xRectangle temp =
@@ -136,6 +131,20 @@ static void xLoadTreeStumps(World *world)
         };
 
         xAddTree(world, TREE_CUT, temp);
+    }
+
+    // Load tree logs.
+    for (int i=0; i<treeLogsCount; i++)
+    {
+        xRectangle temp =
+        {
+            treeLogs[i].x,
+            treeLogs[i].y,
+            RECT_TREE_LOG.width,
+            RECT_TREE_LOG.height
+        };
+
+        xAddTree(world, TREE_LOG, temp);
     }
 }
 
@@ -311,10 +320,8 @@ void xLoadBaseMap(World *world, AnimalManager *manager)
     xHighGroundColliders(world, highGround);
     xLoadFlowers(world); 
     // xLoadHighGround(world);
-    xLoadTreesLarge(world);
+    xLoadTrees(world);
     xLoadHouse(world);
-    xLoadTreesSmall(world);
-    xLoadTreeStumps(world);
     xLoadGroundBlocks(world);
     xLoadRocks(world);
     xLoadLightPost(world);

@@ -90,6 +90,14 @@ const xRectangle RECT_TREE_LARGE =
     64 * 4
 };
 
+const xRectangle RECT_TREE_LOG =
+{
+    0,
+    64 * 7,
+    64 * 2,
+    64
+};
+
 const xRectangle RECT_ROCK_SMALL = 
 {
     64 * 1 + 8,

@@ -65,12 +65,12 @@ const xVector2 lampPosts[] =
 const int lampPostsCount = ARRAY_COUNT(lampPosts);
 
 
-const xVector2 logs[] =
+const xVector2 treeLogs[] =
 {
     { 2896, 268 },
     { 2640, 76 },
 };
-const int logsCount = ARRAY_COUNT(logs);
+const int treeLogsCount = ARRAY_COUNT(treeLogs);
 
 
 const xVector2 pond[] =

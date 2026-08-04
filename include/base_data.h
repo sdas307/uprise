@@ -28,8 +28,8 @@ extern const xRectangle highGround[];
 extern const xVector2 lampPosts[];
 extern const int lampPostsCount;
 
-extern const xVector2 logs[];
-extern const int logsCount;
+extern const xVector2 treeLogs[];
+extern const int treeLogsCount;
 
 extern const xVector2 pond[];
 
