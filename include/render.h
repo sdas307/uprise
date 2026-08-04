@@ -5,7 +5,7 @@
 #include "world.h"
 #include "animal.h"
 
-/// Renders the scene with player and game objects.
+/// Render the scene with all game objects.
 void xRenderScene(World *world, Player *player, AnimalManager *manager);
 
 #endif

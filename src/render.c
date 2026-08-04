@@ -45,14 +45,6 @@ void xRenderScene(World *world, Player *player, AnimalManager *manager)
     // Add player
     renderList[renderCount++] = &player->gameObject;
 
-    // Compute depths
-    // for (int i = 0; i < renderCount; i++)
-    // {
-    //     renderList[i]->depth =
-    //         renderList[i]->collider.y +
-    //         renderList[i]->collider.height;
-    // }
-
     // Sort by depth
     xSortRenderOrder(renderList, renderCount);
 

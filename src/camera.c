@@ -3,8 +3,8 @@
 
 /* -------------------- Signatures -------------------- */
 
+/// Clamp camera to follow object and stay within defined world bounds.
 static void xClampCamera(xGameCamera *gameCamera, const xGameObject *object, xVector2 objectCenter);
-
 
 /* -------------------- Implementation -------------------- */
 

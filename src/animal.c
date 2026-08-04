@@ -18,12 +18,6 @@ static void xAnimalWandering(Animal *animal, World *world);
 /// Update animal sprites to show animation.
 static void xAnimateAnimal(Animal *animal);
 
-// /// Reset all AI movement related values.
-// static void xResetMoveValues(Animal *animal);
-
-// /// Set moveX value based on state and direction.
-// static void xSetAnimalMoveX(Animal *animal);
-
 /// Set target values (x and y) for the animal.
 static void xAnimalSetTarget(Animal *animal);
 
@@ -174,96 +168,6 @@ static bool xStayIdle()
         return false;
 }
 
-#pragma region Old Movement Logic (time-based)
-// static void xAnimalAIWandering(Animal *animal, World *world)
-// {
-//     if (animal->randomInterval > animal->randomStateTimer)
-//     {
-//         xResetMoveValues(animal);
-//     }
-
-//     animal->randomInterval += GetFrameTime();
-
-//     xSetAnimalMoveX(animal);
-
-//     xVector2 movement = {animal->moveX, animal->moveY};
-//     // printf("\n\n moveX: %d\n\n", animal->moveX);
-
-//     if (Vector2Length(movement) == 0)
-//         return;
-
-//     // Normalize diagonal movement to maintain a constant speed.
-//     movement = Vector2Normalize(movement);
-
-//     xRectangle nextCollider = animal->gameObject.collider;
-//     nextCollider.x += movement.x * animal->speed;
-//     nextCollider.y += movement.y * animal->speed;
-
-//     if (!xAnimalCheckCollision(world, nextCollider))
-//     {
-//         animal->gameObject.dest.x += movement.x * animal->speed;
-//         animal->gameObject.dest.y += movement.y * animal->speed;
-
-//         animal->gameObject.collider = nextCollider;
-
-//         animal->gameObject.depth = animal->gameObject.collider.y + animal->gameObject.collider.height;
-//     }
-// }
-
-// static void xResetMoveValues(Animal *animal)
-// {
-//     animal->randomInterval = 0;
-//     animal->randomStateTimer = GetRandomValue(0, animal->stateTimerMax);
-
-//     animal->moveX = 0;
-//     animal->moveY = 0;
-
-//     animal->state = GetRandomValue(ANIMAL_IDLE, ANIMAL_MOVING);
-//     animal->direction = GetRandomValue(ANIMAL_LEFT, ANIMAL_DOWN);
-// }
-
-// static void xSetAnimalMoveX(Animal *animal)
-// {
-//     switch (animal->state)
-//     {
-//     case ANIMAL_IDLE:
-//         animal->moveX = 0;
-//     break;
-
-//     case ANIMAL_MOVING:
-
-//         switch (animal->direction)
-//         {
-//         case ANIMAL_LEFT:
-//             animal->gameObject.flip = false;
-//             animal->moveX = -1;
-//         break;
-
-//         case ANIMAL_RIGHT:
-//             animal->gameObject.flip = true;
-//             animal->moveX = 1;
-//         break;
-
-//         case ANIMAL_UP:
-//             animal->moveY = -1;
-//         break;
-
-//         case ANIMAL_DOWN:
-//             animal->moveY = 1;
-//         break;
-
-//         default:
-//             animal->moveX = 0;
-//         break;
-//         }
-
-//         break;
-//     }
-// }
-#pragma endregion
-
-
-
 static void xAnimateAnimal(Animal *animal)
 {
     int totalFrames = xGetAnimationLength(animal->state);
@@ -286,7 +190,7 @@ static void xAnimateAnimal(Animal *animal)
             animal->currentFrame = 0;
         }
 
-    break;
+        break;
     case ANIMAL_MOVING:
 
         while (animal->animTimer >= animal->animMovingInterval)
@@ -300,7 +204,7 @@ static void xAnimateAnimal(Animal *animal)
             animal->currentFrame = 0;
         }
 
-    break;
+        break;
     }
 
     animal->gameObject.source.x = animal->currentFrame * animal->frameWidth;
@@ -363,8 +267,6 @@ void xSpawnChicken(AnimalManager *manager, xRectangle dest)
     };
 
     animal->gameObject.depth = animal->gameObject.collider.y + animal->gameObject.collider.height;
-
-    // animal->stateTimerMax = 1;
 
     animal->speed = 1;
     animal->gameObject.flip = false;
@@ -465,8 +367,6 @@ void xSpawnCow(AnimalManager *manager, xRectangle dest)
     };
 
     animal->gameObject.depth = animal->gameObject.collider.y + animal->gameObject.collider.height;
-
-    // animal->stateTimerMax = 2;
 
     animal->speed = 1;
     animal->gameObject.flip = false;

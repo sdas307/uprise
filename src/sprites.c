@@ -1,5 +1,7 @@
 #include "sprites.h"
 
+/* ---------- Source Rectangles ----------*/
+
 #pragma region Animal Sprites
 
 const xRectangle RECT_CHICKEN =

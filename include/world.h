@@ -68,7 +68,7 @@ typedef struct Entity
 
 typedef struct World
 {
-    Terrain terrain;    /// Terrain Image and position rectangles.
+    Terrain terrain;        /// Terrain Image and position rectangles.
 
     Texture2D spriteSheet;  /// Objects sprite sheet.
 

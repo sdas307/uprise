@@ -8,8 +8,8 @@
 typedef struct CameraBoundary
 {
     int up;
-    int left;
     int down;
+    int left;
     int right;
 
 } CameraBoundary;
