@@ -17,9 +17,13 @@ static void xAddEntity(World *world, EntityID id, xRectangle source, xRectangle 
     xGameObject *object = &world->entities[world->entityCount++].gameObject;
 
     if (id != ENTITY_EMPTY_OBJECT)
+    {
         object->texture = world->spriteSheet;
-
-    // ##### ADD EMTPY OBJECT SPRITESHEET #####
+    }
+    else if (id == ENTITY_EMPTY_OBJECT)
+    {
+        object->texture = (Texture2D){0}; // Empty texture
+    }
 
     object->source = source;
     object->dest = dest;
@@ -31,7 +35,7 @@ static void xAddEntity(World *world, EntityID id, xRectangle source, xRectangle 
 
     object->collider = collider;
 
-    if (xAlwaysBelowPlayer(id) || id == ENTITY_EMPTY_OBJECT)
+    if (xAlwaysBelowPlayer(id))
     {
         object->depth = 0;
     }
@@ -74,6 +78,7 @@ static bool xAlwaysBelowPlayer(EntityID id)
 {
     switch (id)
     {
+    case ENTITY_EMPTY_OBJECT:
     case ENTITY_POND_6x6:
     case ENTITY_GROUND_BLOCK:
     case ENTITY_HIGH_GROUND_BLOCK:

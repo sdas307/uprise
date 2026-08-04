@@ -73,7 +73,8 @@ void xRenderScene(World *world, Player *player, AnimalManager *manager)
             tint = Fade(WHITE, 0.5f);
         }
 
-        xRenderObject(object, tint);
+        if (object->type != ENTITY_EMPTY_OBJECT)
+            xRenderObject(object, tint);
     }
 }
 
