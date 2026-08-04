@@ -25,12 +25,9 @@ typedef enum EntityID
     ENTITY_TREE_LOG,
 
     ENTITY_MUSHROOM,
-    ENTITY_FLOWER_RED,
-    ENTITY_FLOWER_YELLOW,
-
-    ENTITY_POTTED_FLOWER_RED,
-    ENTITY_POTTED_FLOWER_YELLOW,
-
+    ENTITY_FLOWER,
+    ENTITY_POTTED_FLOWER,
+    
     ENTITY_ROCK_SMALL,
     ENTITY_ROCK_LARGE,
 
@@ -118,14 +115,14 @@ typedef enum FlowerColor
 
 } FlowerColor;
 
-typedef enum FlowerStage
+typedef enum FlowerType
 {
-    FLOWER_STAGE_1,
-    FLOWER_STAGE_2,
-    FLOWER_STAGE_3,
-    FLOWER_STAGE_4
+    FLOWER_1,
+    FLOWER_2,
+    FLOWER_3,
+    FLOWER_4
 
-} FlowerStage;
+} FlowerType;
 
 #pragma endregion
 

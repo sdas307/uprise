@@ -55,6 +55,7 @@ static void xSetFadeCollision(xGameObject *object, EntityID id)
     case ENTITY_MUSHROOM:
     case ENTITY_ROCK_SMALL:
     case ENTITY_TREE_STUMP:
+    case ENTITY_FLOWER:
         object->fadeable = false;
         object->collidable = false;
         break;
@@ -319,72 +320,73 @@ void xAddGroundBlock(World *world, xRectangle dest)
     xAddEntity(world, id, source, dest, collider);
 }
 
-void xAddFlower(World *world, FlowerColor color, FlowerStage stage, xRectangle dest)
+void xAddFlower(World *world, FlowerColor color, FlowerType type, xRectangle dest)
 {
     xRectangle source;
     EntityID id;
 
     if (color == FLOWER_RED)
     {
-        id = ENTITY_FLOWER_RED;
+        id = ENTITY_FLOWER;
 
-        switch (stage)
+        switch (type)
         {
-        case FLOWER_STAGE_1:
+        case FLOWER_1:
             source = RECT_FLOWER_RED_1;
-        break;
+            break;
 
-        case FLOWER_STAGE_2:
+        case FLOWER_2:
             source = RECT_FLOWER_RED_2;
-        break;
+            break;
 
-        case FLOWER_STAGE_3:
+        case FLOWER_3:
             source = RECT_FLOWER_RED_3;
-        break;
+            break;
 
-        case FLOWER_STAGE_4:
+        case FLOWER_4:
             source = RECT_FLOWER_RED_4;
-        break;
+            break;
 
         default:
             source = RECT_FLOWER_RED_1;
-        break;
+            break;
         }
     }
     else if (color == FLOWER_YELLOW)
     {
-        id = ENTITY_FLOWER_YELLOW;
+        id = ENTITY_FLOWER;
 
-        switch (stage)
+        switch (type)
         {
-        case FLOWER_STAGE_1:
+        case FLOWER_1:
             source = RECT_FLOWER_YELLOW_1;
-        break;
+            break;
 
-        case FLOWER_STAGE_2:
+        case FLOWER_2:
             source = RECT_FLOWER_YELLOW_2;
-        break;
+            break;
 
-        case FLOWER_STAGE_3:
+        case FLOWER_3:
             source = RECT_FLOWER_YELLOW_3;
-        break;
+            break;
 
-        case FLOWER_STAGE_4:
+        case FLOWER_4:
             source = RECT_FLOWER_YELLOW_4;
-        break;
+            break;
 
         default:
             source = RECT_FLOWER_YELLOW_1;
-        break;
+            break;
         }
     }
 
     xRectangle collider =
         {
-            dest.x + 4,
-            dest.y + 20,
-            dest.width - 8,
-            8};
+            dest.x + 16,
+            dest.y + 36,
+            30,
+            16
+        };
 
     xAddEntity(world, id, source, dest, collider);
 }

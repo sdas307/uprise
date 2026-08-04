@@ -4,6 +4,90 @@
 #include "animal.h"
 #include "base_data.h"
 
+/// Load all flowers at their world coordinates.
+static void xLoadFlowers(World *world)
+{
+    for (int i=0; i<flowersRed1Count; i++)
+    {
+        FlowerColor color = FLOWER_RED;
+        FlowerType type = FLOWER_1;
+
+        xRectangle dest =
+        {
+            flowersRed1[i].x,
+            flowersRed1[i].y,
+            RECT_FLOWER_RED_1.width,
+            RECT_FLOWER_RED_1.height
+        };
+
+        xAddFlower(world, color, type, dest);
+    }
+
+    for (int i=0; i<flowersRed3Count; i++)
+    {
+        FlowerColor color = FLOWER_RED;
+        FlowerType type = FLOWER_3;
+
+        xRectangle dest =
+        {
+            flowersRed3[i].x,
+            flowersRed3[i].y,
+            RECT_FLOWER_RED_3.width,
+            RECT_FLOWER_RED_3.height
+        };
+
+        xAddFlower(world, color, type, dest);
+    }
+
+    for (int i=0; i<flowersYellow2Count; i++)
+    {
+        FlowerColor color = FLOWER_YELLOW;
+        FlowerType type = FLOWER_2;
+
+        xRectangle dest =
+        {
+            flowersYellow2[i].x,
+            flowersYellow2[i].y,
+            RECT_FLOWER_YELLOW_2.width,
+            RECT_FLOWER_YELLOW_2.height
+        };
+
+        xAddFlower(world, color, type, dest);
+    }
+
+    for (int i=0; i<flowersYellow3Count; i++)
+    {
+        FlowerColor color = FLOWER_YELLOW;
+        FlowerType type = FLOWER_3;
+
+        xRectangle dest =
+        {
+            flowersYellow3[i].x,
+            flowersYellow3[i].y,
+            RECT_FLOWER_YELLOW_3.width,
+            RECT_FLOWER_YELLOW_3.height
+        };
+
+        xAddFlower(world, color, type, dest);
+    }
+
+    for (int i=0; i<flowersRed4Count; i++)
+    {
+        FlowerColor color = FLOWER_RED;
+        FlowerType type = FLOWER_4;
+
+        xRectangle dest =
+        {
+            flowersRed4[i].x,
+            flowersRed4[i].y,
+            RECT_FLOWER_RED_4.width,
+            RECT_FLOWER_RED_4.height
+        };
+
+        xAddFlower(world, color, type, dest);
+    }
+}
+
 /// Load all large trees at their world coordinates.
 static void xLoadTreesLarge(World *world)
 {
@@ -225,6 +309,7 @@ static void xHighGroundColliders(World *world, xRectangle const highGround[])
 void xLoadBaseMap(World *world, AnimalManager *manager)
 {
     xHighGroundColliders(world, highGround);
+    xLoadFlowers(world); 
     // xLoadHighGround(world);
     xLoadTreesLarge(world);
     xLoadHouse(world);
