@@ -1,11 +1,19 @@
 
 
 ==========================================================================
+__3.8.26__
+[ ] All world entities should be renderable.
+[ ] Farming Test.
+[ ] Camera smoothing.
+[ ] Continue world building.
+==========================================================================
+
+==========================================================================
 __30.7.26__
 [o] Animal collision functions - Added (only with world entities, ignores player/animals).
 [o] Animal wandering AI - x-axis implementation (time-based) done.
-[ ] Animal wandering AI - y-axis
-[ ] Buggy timer issues - timer not consistent with intended results.
+[o] Animal wandering AI - y-axis
+[o] Buggy timer issues - timer not consistent with intended results.
 ==========================================================================
 
 

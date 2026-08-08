@@ -4,6 +4,6 @@
 #include "xEngine.h"
 #include "entities.h"
 
-void xLoadBaseMap(World *world, AnimalManager *manager);
+void xLoadBaseMap(World *world);
 
 #endif

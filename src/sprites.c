@@ -1,5 +1,7 @@
 #include "sprites.h"
 
+/* ---------- Source Rectangles ----------*/
+
 #pragma region Animal Sprites
 
 const xRectangle RECT_CHICKEN =
@@ -36,12 +38,12 @@ const xRectangle RECT_COW =
 
 #pragma region Buildings
 
-const xRectangle RECT_HOUSE =
+const xRectangle RECT_HOUSE_WOOD_CABIN =
 {
-    64 * 15,
-    62,
-    64 * 5 - 40,
-    64 * 7
+    64 * 0,
+    64 * 24,
+    64 * 7,
+    64 * 6
 };
 
 const xRectangle RECT_LIGHT_POST =
@@ -80,12 +82,20 @@ const xRectangle RECT_TREE_SMALL =
     64 * 2
 };
 
-const xRectangle RECT_TREE_LARGE =
+const xRectangle RECT_TREE_OAK_LARGE =
 {
-    64 * 8 + 16,
-    64 * 1 - 1,
-    64 * 3 - 27,
-    64 * 4
+    64 * 7,
+    64 * 0,
+    64 * 4,
+    64 * 5
+};
+
+const xRectangle RECT_TREE_LOG =
+{
+    0,
+    64 * 7,
+    64 * 2,
+    64
 };
 
 const xRectangle RECT_ROCK_SMALL = 
@@ -128,12 +138,36 @@ const xRectangle RECT_STONE_LARGE =
     64
 };
 
-const xRectangle RECT_MUSHROOM = 
+const xRectangle RECT_GRASS_TUFT =
 {
-    64 * 2 + 16,
-    64 * 7 + 20,
-    64 - 32,
-    64 - 32
+    64 * 8,
+    64 * 5,
+    64,
+    64
+};
+
+const xRectangle RECT_MUSHROOM_RED = 
+{
+    64 * 0,
+    64 * 22,
+    64,
+    64
+};
+
+const xRectangle RECT_MUSHROOM_BLUE = 
+{
+    64 * 14,
+    64 * 22,
+    64,
+    64
+};
+
+const xRectangle RECT_MUSHROOM_NAKED = 
+{
+    64 * 21,
+    64 * 23,
+    64,
+    64
 };
 
 const xRectangle RECT_FLOWER_RED_1 =

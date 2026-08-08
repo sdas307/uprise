@@ -1,0 +1,21 @@
+{
+    "name": "world-coordinate-exporter",
+    "displayName": "World Coordinate Exporter",
+    "description": "Export layer positions from Aseprite as C coordinate arrays.",
+    "version": "0.1.0",
+    "author": {
+        "name": "King Xavid"
+    },
+    "publisher": "kingxavid",
+    "license": "MIT",
+    "categories": [
+        "Scripts"
+    ],
+    "contributes": {
+        "scripts": [
+            {
+                "path": "./main.lua"
+            }
+        ]
+    }
+}

@@ -18,18 +18,27 @@ typedef enum EntityID
     ENTITY_HOUSE,
     ENTITY_LIGHT_POST,
 
-    ENTITY_TREE_SMALL,
-    ENTITY_TREE_LARGE,
-    ENTITY_TREE_CUT,
-    ENTITY_TREE_STUMP,
-    ENTITY_TREE_LOG,
+    ENTITY_TREE_BIRCH_CUT,
+    ENTITY_TREE_BIRCH_SMALL,
+    ENTITY_TREE_BIRCH_MEDIUM,
+    ENTITY_TREE_BIRCH_LARGE,
+    
+    ENTITY_TREE_OAK_CUT,
+    ENTITY_TREE_OAK_SMALL,
+    ENTITY_TREE_OAK_MEDIUM,
+    ENTITY_TREE_OAK_LARGE,
 
+    ENTITY_TREE_SPRUCE_CUT,
+    ENTITY_TREE_SPRUCE_SMALL,
+    ENTITY_TREE_SPRUCE_MEDIUM,
+    ENTITY_TREE_SPRUCE_LARGE,
+
+    ENTITY_DECOR_LOG,
+
+    ENTITY_GRASS,
     ENTITY_MUSHROOM,
-    ENTITY_FLOWER_RED,
-    ENTITY_FLOWER_YELLOW,
-
-    ENTITY_POTTED_FLOWER_RED,
-    ENTITY_POTTED_FLOWER_YELLOW,
+    ENTITY_FLOWER,
+    ENTITY_POTTED_FLOWER,
 
     ENTITY_ROCK_SMALL,
     ENTITY_ROCK_LARGE,
@@ -66,11 +75,37 @@ typedef struct Entity
 
 } Entity;
 
+typedef enum SpriteSheets
+{
+    SHEET_STRUCTURE_HOUSE_WOOD,
+    SHEET_STRUCTURE_FENCE_POSTS,
+    SHEET_STRUCTURE_BRIDGE_WALLS,
+
+    SHEET_NATURE_TREE,
+    SHEET_NATURE_GRASSLANDS,
+    SHEET_NATURE_GRASS_WILDFLOWERS,
+    SHEET_NATURE_CROPS_FRUITS,
+    SHEET_NATURE_FLOWER_MUSHROOMS,
+    SHEET_NATURE_CLIFF,
+    SHEET_NATURE_WATER,
+    SHEET_NATURE_WATERFALL,
+    
+    SHEET_CAVE_CAVE,
+
+    SHEET_WEATHER_WEATHER_EFFECTS,
+
+    SHEET_COUNT
+
+} SpriteSheets;
+
+#define MAX_SHEETS 16
+
 typedef struct World
 {
-    Terrain terrain;    /// Terrain Image and position rectangles.
+    Terrain terrain;        /// Terrain image and position rectangles.
 
-    Texture2D spriteSheet;  /// Objects sprite sheet.
+    // Spritesheets
+    Texture2D spritesheets[MAX_SHEETS];
 
     Entity entities[MAX_OBJECTS];
     int entityCount;
@@ -78,6 +113,24 @@ typedef struct World
 } World;
 
 #pragma region Types of World Objects
+
+typedef enum HouseType
+{
+    HOUSE_TYPE_WOOD_1,
+    HOUSE_TYPE_WOOD_2,
+    HOUSE_TYPE_WOOD_3,
+    HOUSE_TYPE_WOOD_CABIN,
+
+} HouseType;
+
+typedef enum MushroomType
+{
+    MUSHROOM_TYPE_RED,
+    MUSHROOM_TYPE_BLUE,
+    MUSHROOM_TYPE_NAKED
+
+} MushroomType;
+
 typedef enum StoneType
 {
     STONE_SMALL,
@@ -86,12 +139,20 @@ typedef enum StoneType
     
 } StoneType;
 
+typedef enum TreeType
+{
+    TREE_TYPE_BIRCH,
+    TREE_TYPE_OAK,
+    TREE_TYPE_SPRUCE
+
+} TreeType;
+
 typedef enum TreeStage
 {
-    TREE_STUMP,
-    TREE_CUT,
-    TREE_SMALL,
-    TREE_LARGE
+    TREE_STAGE_CUT,
+    TREE_STAGE_SMALL,
+    TREE_STAGE_MEDIUM,
+    TREE_STAGE_LARGE
     
 } TreeStage;
 
@@ -118,14 +179,14 @@ typedef enum FlowerColor
 
 } FlowerColor;
 
-typedef enum FlowerStage
+typedef enum FlowerType
 {
-    FLOWER_STAGE_1,
-    FLOWER_STAGE_2,
-    FLOWER_STAGE_3,
-    FLOWER_STAGE_4
+    FLOWER_1,
+    FLOWER_2,
+    FLOWER_3,
+    FLOWER_4
 
-} FlowerStage;
+} FlowerType;
 
 #pragma endregion
 

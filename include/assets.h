@@ -14,4 +14,9 @@ extern const char PATH_FOREST[];
 extern const char PATH_WORLD_OBJECTS[];
 extern const char PATH_SPRITE_SHEET[];
 
+extern const char PATH_START_BASE[];
+
+extern const char *PATH_SPRITESHEETS[];
+extern const int path_spritesheets_size;
+
 #endif
