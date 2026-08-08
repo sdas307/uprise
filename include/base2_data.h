@@ -29,9 +29,6 @@ extern const int highGroundStairsCount;
 extern const xVector2 house[];
 extern const int houseCount;
 
-extern const xVector2 treeFruitLarge[];
-extern const int treeFruitLargeCount;
-
 extern const xVector2 wildflower1[];
 extern const int wildflower1Count;
 

@@ -50,7 +50,7 @@ extern const xRectangle RECT_COW;
 
 #pragma region Buildings
 
-extern const xRectangle RECT_HOUSE;
+extern const xRectangle RECT_HOUSE_WOOD_1;
 extern const xRectangle RECT_LIGHT_POST;
 
 #pragma endregion
@@ -70,7 +70,9 @@ extern const xRectangle RECT_STONE_SMALL;
 extern const xRectangle RECT_STONE_MEDIUM;
 extern const xRectangle RECT_STONE_LARGE;
 
-extern const xRectangle RECT_MUSHROOM;
+extern const xRectangle RECT_MUSHROOM_RED;
+extern const xRectangle RECT_MUSHROOM_BLUE;
+extern const xRectangle RECT_MUSHROOM_NAKED;
 
 extern const xRectangle RECT_FLOWER_RED_1;
 extern const xRectangle RECT_FLOWER_RED_2;
