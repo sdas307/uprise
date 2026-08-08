@@ -6,15 +6,17 @@
 
 void xAddStone(World *world, StoneType type, xRectangle dest);
 
-void xAddTree(World *world, TreeStage stage, xRectangle dest);
+void xAddTree(World *world, TreeType type, TreeStage stage, xRectangle dest);
 
-void xAddHouse(World *world, xRectangle dest);
+void xAddHouse(World *world, HouseType type, xRectangle dest);
 
 void xAddLightPost(World *world, xRectangle dest);
 
 void xAddRock(World *world, RockType type, xRectangle dest);
 
-void xAddMushroom(World *world, xRectangle dest);
+void xAddGrassTuft(World *world, xRectangle dest);
+
+void xAddMushroom(World *world, MushroomType type, xRectangle dest);
 
 void xAddPond6x6(World *world, xRectangle dest);
 

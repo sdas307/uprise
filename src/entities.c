@@ -101,13 +101,14 @@ void xAddHouse(World *world, HouseType type, xRectangle dest)
     
     switch (type)
     {
-    case HOUSE_TYPE_WOOD_1:
-        source = RECT_HOUSE_WOOD_1;
-        spritesheet = &world->houseWood_spriteSheet;
+    case HOUSE_TYPE_WOOD_CABIN:
+        source = RECT_HOUSE_WOOD_CABIN;
+        spritesheet = &world->spritesheets[SHEET_STRUCTURE_HOUSE_WOOD];
         break;
     
     default:
-        source = RECT_HOUSE_WOOD_1;
+        source = RECT_HOUSE_WOOD_CABIN;
+        spritesheet = &world->spritesheets[SHEET_STRUCTURE_HOUSE_WOOD];
         break;
     }
 
@@ -122,21 +123,21 @@ void xAddHouse(World *world, HouseType type, xRectangle dest)
     xCreateEntity(world, id, spritesheet, source, dest, collider);
 }
 
-void xAddLightPost(World *world, xRectangle dest)
-{
-    EntityID id = ENTITY_LIGHT_POST;
-    xRectangle source = RECT_LIGHT_POST;
-    Texture2D *spritesheet = &world->fencePosts_spriteSheet;
-    xRectangle collider =
-        {
-            dest.x,
-            dest.y + dest.height - 20,
-            dest.width,
-            20
-        };
+// void xAddLightPost(World *world, xRectangle dest)
+// {
+//     EntityID id = ENTITY_LIGHT_POST;
+//     xRectangle source = RECT_LIGHT_POST;
+//     Texture2D *spritesheet = &world->fencePosts_spriteSheet;
+//     xRectangle collider =
+//         {
+//             dest.x,
+//             dest.y + dest.height - 20,
+//             dest.width,
+//             20
+//         };
 
-    xCreateEntity(world, id, spritesheet, source, dest, collider);
-}
+//     xCreateEntity(world, id, spritesheet, source, dest, collider);
+// }
 
 // void xAddRock(World *world, RockType type, xRectangle dest)
 // {
@@ -228,87 +229,81 @@ void xAddLightPost(World *world, xRectangle dest)
 //     xCreateEntity(world, id, source, dest, collider);
 // }
 
-// void xAddTree(World *world, TreeStage stage, xRectangle dest)
-// {
-//     xRectangle source;
-//     xRectangle collider;
+void xAddTree(World *world, TreeType type, TreeStage stage, xRectangle dest)
+{
+    xRectangle source;
+    xRectangle collider;
+    Texture2D *spritesheet = &world->spritesheets[SHEET_NATURE_TREE];
 
-//     EntityID id;
+    EntityID id;
 
-//     switch (stage)
-//     {
-//     case TREE_STUMP:
+    switch (type)
+    {
+    case TREE_TYPE_BIRCH:
+        /* code */
+        break;
+    
+    case TREE_TYPE_OAK:
 
-//         id = ENTITY_TREE_STUMP;
-//         source = RECT_TREE_STUMP;
+        switch (stage)
+        {
+        case TREE_STAGE_LARGE:
+            
+        id = ENTITY_TREE_OAK_LARGE;
 
-//         collider = (xRectangle){
-//             dest.x,
-//             dest.y + dest.height - 16,
-//             dest.width - 2,
-//             8};
-//         break;
+            source = RECT_TREE_OAK_LARGE;
 
-//     case TREE_CUT:
+            collider = (xRectangle)
+            {
+                dest.x + dest.width / 2 - 26,
+                dest.y + 206,
+                58,
+                20,
+            };
+            break;
 
-//         id = ENTITY_TREE_CUT;
-//         source = RECT_TREE_CUT;
+        default:
 
-//         collider = (xRectangle){
-//             dest.x + 4,
-//             dest.y + 38,
-//             56,
-//             20,
-//         };
-//         break;
+            source = RECT_TREE_OAK_LARGE;
 
-//     case TREE_SMALL:
+            collider = (xRectangle)
+            {
+                dest.x + dest.width / 2 - 26,
+                dest.y + 206,
+                58,
+                20,
+            };
+            break;
+        }
+        break;
 
-//         id = ENTITY_TREE_SMALL;
-//         source = RECT_TREE_SMALL;
+    default:
+        source = RECT_TREE_OAK_LARGE;
+        break;
+    }
 
-//         collider = (xRectangle){
-//             dest.x + dest.width / 2 - 15,
-//             dest.y + 90,
-//             28,
-//             20,
-//         };
-//         break;
+    xCreateEntity(world, id, spritesheet, source, dest, collider);
+}
 
-//     case TREE_LARGE:
+xRectangle collider = {0};
 
-//         id = ENTITY_TREE_LARGE;
-//         source = RECT_TREE_LARGE;
+void xAddGrassTuft(World *world, xRectangle dest)
+{
+    Texture2D *spritesheet = &world->spritesheets[SHEET_NATURE_GRASS_WILDFLOWERS];
+    xRectangle source = RECT_GRASS_TUFT;
 
-//         collider = (xRectangle){
-//             dest.x + dest.width / 2 - 26,
-//             dest.y + 206,
-//             58,
-//             20,
-//         };
-//         break;
+    xRectangle collider = 
+    {
+        0
+    };
 
-//     case TREE_LOG:
-        
-//         id = ENTITY_TREE_LOG;
-//         source = RECT_TREE_LOG;
-
-//         collider = (xRectangle)
-//         {
-//             dest.x + 16,
-//             dest.y + 32,
-//             dest.width - 32,
-//             20
-//         };
-//     }
-
-//     xCreateEntity(world, id, source, dest, collider);
-// }
+    xCreateEntity(world, ENTITY_GRASS, spritesheet, source, dest, collider);
+}
 
 void xAddMushroom(World *world, MushroomType type, xRectangle dest)
 {
     xRectangle source;
-    Texture2D *spritesheet = &world->flowersMushrooms_spriteSheet;
+    Texture2D *spritesheet = &world->spritesheets[SHEET_NATURE_FLOWER_MUSHROOMS];
 
     EntityID id = ENTITY_MUSHROOM;
     
@@ -436,6 +431,7 @@ void xAddMushroom(World *world, MushroomType type, xRectangle dest)
 // void xAddEmptyEntity(World *world, xRectangle dest)
 // {
 //     xRectangle source = {0, 0, 0, 0};
+//     Texture2D *spritesheet = &(Texture2D){0};
 //     EntityID id = ENTITY_EMPTY_OBJECT;
 
 //     xRectangle collider = dest;

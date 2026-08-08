@@ -2,146 +2,163 @@
 
 const xVector2 house[] =
 {
-    { 116, -58 },
+    { 108, 148 },
 };
 const int houseCount = ARRAY_COUNT(house);
 
-const xRectangle dirtBlocks[] =
+const xVector2 grass1[] =
 {
-    { 1152, 192, 640, 384 },
+    { 2880, 128 },
+    { 1600, 192 },
+    { 1728, 384 },
+    { 0, 448 },
+    { 2240, 576 },
+    { 896, 640 },
+    { 256, 704 },
+    { 2944, 832 },
+    { 1856, 896 },
+    { 1920, 896 },
+    { 1920, 1088 },
+    { 64, 1216 },
+    { 768, 1344 },
+    { 896, 1408 },
+    { 2048, 1472 },
+    { 128, 1536 },
+    { 2176, 1536 },
 };
-const int dirtBlocksCount = ARRAY_COUNT(dirtBlocks);
+const int grass1Count = ARRAY_COUNT(grass1);
 
-const xVector2 fences[] =
+const xVector2 grass2[] =
 {
-    { 1152, 204 },
+    { 1856, 192 },
+    { 512, 320 },
+    { 1024, 320 },
+    { 64, 512 },
+    { 2880, 640 },
+    { 320, 832 },
+    { 640, 832 },
+    { 1152, 832 },
+    { 1408, 832 },
+    { 2240, 896 },
+    { 384, 1088 },
+    { 1024, 1216 },
+    { 1472, 1216 },
+    { 2304, 1216 },
+    { 1280, 1536 },
+    { 2816, 1536 },
+    { 1344, 1600 },
 };
+const int grass2Count = ARRAY_COUNT(grass2);
 
-const xVector2 flowersRed1[] =
+const xVector2 grass3[] =
 {
-    { 1040, 272 },
-    { 1232, 144 },
-    { 1360, 80 },
-    { 1616, 80 },
-    { 1872, 592 },
+    { 2432, 64 },
+    { 1152, 256 },
+    { 1600, 320 },
+    { 448, 512 },
+    { 2752, 576 },
+    { 2048, 640 },
+    { 448, 960 },
+    { 1152, 960 },
+    { 2560, 960 },
+    { 1216, 1024 },
+    { 1408, 1152 },
+    { 2688, 1280 },
+    { 2176, 1344 },
+    { 128, 1408 },
+    { 1216, 1472 },
+    { 2432, 1600 },
 };
-const int flowersRed1Count = ARRAY_COUNT(flowersRed1);
+const int grass3Count = ARRAY_COUNT(grass3);
 
-const xVector2 flowersRed3[] =
+const xRectangle hedgeContinuous[] =
 {
-    { 848, 1416 },
-    { 208, 1160 },
-    { 1360, 968 },
-    { 2320, 968 },
-    { 2768, 1160 },
-    { 2640, 584 },
-    { 2192, 200 },
+    { 0, 0, 768, 64 },
+    { 448, 256, 64, 192 },
 };
-const int flowersRed3Count = ARRAY_COUNT(flowersRed3);
+const int hedgeContinuousCount = ARRAY_COUNT(hedgeContinuous);
 
-const xVector2 flowersRed4[] =
-{
-    { 1032, 776 },
-    { 1800, 712 },
-};
-const int flowersRed4Count = ARRAY_COUNT(flowersRed4);
 
-const xVector2 groundBlocks[] =
+const xVector2 hedges[] =
 {
-    { 832, 64 },
+    { 0, 64 },
+    { 0, 128 },
 };
-const int groundBlocksCount = ARRAY_COUNT(groundBlocks);
+const int hedgesCount = ARRAY_COUNT(hedges);
+
 
 const xRectangle highGround[] =
 {
-    { 0, 0, 3008, 64 },
-    { 0, 64, 64, 1472 },
+    { 704, 0, 64, 256 },
+    { 0, 192, 576, 64 },
+    { 0, 256, 64, 128 },
 };
+const int highGroundCount = ARRAY_COUNT(highGround);
 
-const xVector2 lampPosts[] =
+
+const xVector2 highGroundStairs[] =
 {
-    { 400, 228 },
+    { 576, 192 },
 };
-const int lampPostsCount = ARRAY_COUNT(lampPosts);
+const int highGroundStairsCount = ARRAY_COUNT(highGroundStairs);
 
-
-const xVector2 treeLogs[] =
+const Vector2 treesOakLarge[] =
 {
-    { 2896, 268 },
-    { 2640, 76 },
+    { 748, -128 },
+    { 812, -128 },
 };
-const int treeLogsCount = ARRAY_COUNT(treeLogs);
+const int treesOakLargeCount = ARRAY_COUNT(treesOakLarge);
 
-
-const xVector2 pond[] =
+const xVector2 wildflower1[] =
 {
-    { 1152, 64 },
+    { 1728, 64 },
+    { 832, 192 },
+    { 1344, 384 },
+    { 2176, 384 },
+    { 896, 512 },
+    { 512, 640 },
+    { 1664, 640 },
+    { 2752, 704 },
+    { 128, 960 },
+    { 1152, 1024 },
+    { 2560, 1216 },
+    { 256, 1280 },
+    { 768, 1536 },
+    { 1664, 1536 },
+    { 64, 1600 },
 };
+const int wildflower1Count = ARRAY_COUNT(wildflower1);
 
-const xVector2 rocksLarge[] =
+const xVector2 wildflower2[] =
 {
-    { 1136, 492 },
+    { 2688, 0 },
+    { 1344, 64 },
+    { 2240, 192 },
+    { 512, 256 },
+    { 2752, 448 },
+    { 0, 640 },
+    { 960, 704 },
+    { 2368, 768 },
+    { 1664, 832 },
+    { 576, 1216 },
+    { 0, 1344 },
+    { 1856, 1344 },
+    { 2880, 1344 },
+    { 1024, 1536 },
 };
-const int rocksLargeCount = ARRAY_COUNT(rocksLarge);
+const int wildflower2Count = ARRAY_COUNT(wildflower2);
 
 
-const xVector2 rocksSmall[] =
+const xVector2 wildflower3[] =
 {
-    { 108, 368 },
+    { 64, 64 },
+    { 640, 128 },
+    { 1024, 192 },
+    { 2496, 320 },
+    { 384, 896 },
+    { 2048, 1216 },
+    { 1344, 1408 },
+    { 448, 1536 },
+    { 2688, 1600 },
 };
-const int rocksSmallCount = ARRAY_COUNT(rocksSmall);
-
-const xVector2 treesLarge[] =
-{
-    { 332, -32 },
-    { 392, -32 },
-    { 592, -32 },
-    { 652, -32 },
-    { 984, -32 },
-    { 1044, -32 },
-    { 2124, -32 },
-    { 2184, -32 },
-    { 2960, -64 },
-    { 2896, -64 },
-    { 2832, 4 },
-    { 2960, 4 },
-    { 2712, -128 },
-    { 2960, 68 },
-};
-const int treesLargeCount = ARRAY_COUNT(treesLarge);
-
-const xVector2 treesSmall[] =
-{
-    { 56, 276 },
-    { 2704, 384 },
-    { 2640, 384 },
-    { 2640, 448 },
-    { 2704, 448 },
-    { 2768, 384 },
-    { 2768, 448}
-};
-const int treesSmallCount = ARRAY_COUNT(treesSmall);
-
-const xVector2 treeStumps[] =
-{
-    { 2816, 200 },
-    { 2752, 136 },
-};
-const int treeStumpsCount = ARRAY_COUNT(treeStumps);
-
-const xVector2 flowersYellow3[] =
-{
-    { 1488, 136 },
-    { 1808, 136 },
-    { 1744, 72 },
-};
-const int flowersYellow3Count = ARRAY_COUNT(flowersYellow3);
-
-const xVector2 flowersYellow2[] =
-{
-    { 1040, 208 },
-    { 1296, 144 },
-    { 1232, 80 },
-    { 2000, 528 },
-};
-const int flowersYellow2Count = ARRAY_COUNT(flowersYellow2);
+const int wildflower3Count = ARRAY_COUNT(wildflower3);

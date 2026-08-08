@@ -50,7 +50,7 @@ extern const xRectangle RECT_COW;
 
 #pragma region Buildings
 
-extern const xRectangle RECT_HOUSE_WOOD_1;
+extern const xRectangle RECT_HOUSE_WOOD_CABIN;
 extern const xRectangle RECT_LIGHT_POST;
 
 #pragma endregion
@@ -60,7 +60,9 @@ extern const xRectangle RECT_LIGHT_POST;
 extern const xRectangle RECT_TREE_CUT;
 extern const xRectangle RECT_TREE_STUMP;
 extern const xRectangle RECT_TREE_SMALL;
-extern const xRectangle RECT_TREE_LARGE;
+
+extern const xRectangle RECT_TREE_OAK_LARGE;
+
 extern const xRectangle RECT_TREE_LOG;
 
 extern const xRectangle RECT_ROCK_SMALL;
@@ -69,6 +71,8 @@ extern const xRectangle RECT_ROCK_LARGE;
 extern const xRectangle RECT_STONE_SMALL;
 extern const xRectangle RECT_STONE_MEDIUM;
 extern const xRectangle RECT_STONE_LARGE;
+
+extern const xRectangle RECT_GRASS_TUFT;
 
 extern const xRectangle RECT_MUSHROOM_RED;
 extern const xRectangle RECT_MUSHROOM_BLUE;

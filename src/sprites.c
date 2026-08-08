@@ -38,7 +38,7 @@ const xRectangle RECT_COW =
 
 #pragma region Buildings
 
-const xRectangle RECT_HOUSE_WOOD_1 =
+const xRectangle RECT_HOUSE_WOOD_CABIN =
 {
     64 * 0,
     64 * 24,
@@ -82,12 +82,12 @@ const xRectangle RECT_TREE_SMALL =
     64 * 2
 };
 
-const xRectangle RECT_TREE_LARGE =
+const xRectangle RECT_TREE_OAK_LARGE =
 {
-    64 * 8 + 16,
-    64 * 1 - 1,
-    64 * 3 - 27,
-    64 * 4
+    64 * 7,
+    64 * 0,
+    64 * 4,
+    64 * 5
 };
 
 const xRectangle RECT_TREE_LOG =
@@ -134,6 +134,14 @@ const xRectangle RECT_STONE_LARGE =
 {
     64 * 0,
     64 * 3,
+    64,
+    64
+};
+
+const xRectangle RECT_GRASS_TUFT =
+{
+    64 * 8,
+    64 * 5,
     64,
     64
 };

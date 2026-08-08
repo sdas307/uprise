@@ -35,6 +35,7 @@ typedef enum EntityID
 
     ENTITY_DECOR_LOG,
 
+    ENTITY_GRASS,
     ENTITY_MUSHROOM,
     ENTITY_FLOWER,
     ENTITY_POTTED_FLOWER,
@@ -74,32 +75,37 @@ typedef struct Entity
 
 } Entity;
 
+typedef enum SpriteSheets
+{
+    SHEET_STRUCTURE_HOUSE_WOOD,
+    SHEET_STRUCTURE_FENCE_POSTS,
+    SHEET_STRUCTURE_BRIDGE_WALLS,
+
+    SHEET_NATURE_TREE,
+    SHEET_NATURE_GRASSLANDS,
+    SHEET_NATURE_GRASS_WILDFLOWERS,
+    SHEET_NATURE_CROPS_FRUITS,
+    SHEET_NATURE_FLOWER_MUSHROOMS,
+    SHEET_NATURE_CLIFF,
+    SHEET_NATURE_WATER,
+    SHEET_NATURE_WATERFALL,
+    
+    SHEET_CAVE_CAVE,
+
+    SHEET_WEATHER_WEATHER_EFFECTS,
+
+    SHEET_COUNT
+
+} SpriteSheets;
+
+#define MAX_SHEETS 16
+
 typedef struct World
 {
     Terrain terrain;        /// Terrain image and position rectangles.
 
-    // House spritesheet
-    Texture2D houseWood_spriteSheet;
-
-    // Nature spritesheets
-    Texture2D trees_spriteSheet;
-    Texture2D cliffs_spriteSheet;
-    Texture2D cropFruits_spriteSheet;
-    Texture2D flowersMushrooms_spriteSheet;
-    Texture2D grassWildflowers_spriteSheet;
-    Texture2D grasslands_spriteSheet;
-    Texture2D water_spriteSheet;
-    Texture2D waterfall_spriteSheet;
-
-    // Structure spritesheets
-    Texture2D fencePosts_spriteSheet;
-    Texture2D bridgesWalls_spriteSheet;
-
-    // Cave spritesheets
-    Texture2D cave_spriteSheet;
-
-    // Weather spritesheets
-    Texture2D weatherEffects_spriteSheet;
+    // Spritesheets
+    Texture2D spritesheets[MAX_SHEETS];
 
     Entity entities[MAX_OBJECTS];
     int entityCount;
@@ -132,6 +138,14 @@ typedef enum StoneType
     STONE_LARGE
     
 } StoneType;
+
+typedef enum TreeType
+{
+    TREE_TYPE_BIRCH,
+    TREE_TYPE_OAK,
+    TREE_TYPE_SPRUCE
+
+} TreeType;
 
 typedef enum TreeStage
 {

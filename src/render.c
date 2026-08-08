@@ -36,11 +36,11 @@ void xRenderScene(World *world, Player *player, AnimalManager *manager)
         renderList[renderCount++] = &world->entities[i].gameObject;
     }
 
-    // Add animals.
-    for (int i = 0; i < manager->animalCount; i++)
-    {
-        renderList[renderCount++] = &manager->animals[i].gameObject;
-    }
+    // // Add animals.
+    // for (int i = 0; i < manager->animalCount; i++)
+    // {
+    //     renderList[renderCount++] = &manager->animals[i].gameObject;
+    // }
 
     // Add player
     renderList[renderCount++] = &player->gameObject;
@@ -54,7 +54,7 @@ void xRenderScene(World *world, Player *player, AnimalManager *manager)
         xGameObject *object = renderList[i];
 
         bool isObjectPlayer = (object->type == OBJECT_PLAYER);
-        bool isObjectAnimal = (object->type == OBJECT_ANIMAL);
+        // bool isObjectAnimal = (object->type == OBJECT_ANIMAL);
 
         bool fadeEffect = (object->fadeable);
 
@@ -118,9 +118,9 @@ static void xRenderObject(xGameObject *object, xColor tint)
     }
 
     DrawTexturePro(object->texture, drawSource, object->dest, ZERO_POSITION, 0.0f, tint);
-    // DrawRectangleLinesEx(object->collider, 1.0f, RED);
-    // DrawRectangleLinesEx(object->dest, 1.0f, GREEN);
-    // DrawRectangleLinesEx(wanderZone, 1.0f, BLUE);
+    DrawRectangleLinesEx(object->collider, 1.0f, RED);
+    DrawRectangleLinesEx(object->dest, 1.0f, GREEN);
+    DrawRectangleLinesEx(wanderZone, 1.0f, BLUE);
 }
 
 static xRectangle xGetFadeArea(xGameObject *object)
