@@ -7,14 +7,14 @@
 #include "animal.h"
 #include <stdio.h>
 
+bool showFPS = false;
+
 int main(void)
 {
     xGameCamera gameCamera;
     Player player;
     World world;
     AnimalManager manager;
-
-    bool showFPS = false;
 
     xInitWindow();
 
