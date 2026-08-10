@@ -7,13 +7,15 @@
 #include "animal.h"
 #include <stdio.h>
 
-xGameCamera gameCamera;
-Player player;
-World world;
-AnimalManager manager;
-
 int main(void)
 {
+    xGameCamera gameCamera;
+    Player player;
+    World world;
+    AnimalManager manager;
+
+    bool showFPS = false;
+
     xInitWindow();
 
     xInitPlayer(&player);
@@ -58,11 +60,15 @@ int main(void)
 
             DrawCircle(GetMouseX(), GetMouseY(), 10, RED);
 
+            if (showFPS)
+                DrawText(TextFormat("FPS: %d", GetFPS()), 10, 10, 20, WHITE);
+
         EndDrawing();
     }
 
     xUnloadPlayer(&player);
     xUnloadWorld(&world);
+    // xUnloadAnimal(&manager);
 
     CloseWindow();
 

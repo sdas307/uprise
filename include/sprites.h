@@ -1,7 +1,9 @@
 #ifndef SPRITES_H
 #define SPRITES_H
 
-#include "xEngine.h"
+#include "sprites_animals.h"
+#include "sprites_buildings.h"
+#include "sprites_nature.h"
 
 // ########## TRY THIS FOR ANIMATED OBJECTS ##########
 
@@ -35,72 +37,5 @@
 
 /// Get sprite source rectangle.
 // const xRectangle *xGetSprite(SpriteID id);
-
-#pragma region Animal Sprites
-
-extern const xRectangle RECT_CHICKEN;
-
-extern const xRectangle RECT_SHEEP;
-
-extern const xRectangle RECT_PIG;
-
-extern const xRectangle RECT_COW;
-
-#pragma endregion
-
-#pragma region Buildings
-
-extern const xRectangle RECT_HOUSE_WOOD_CABIN;
-extern const xRectangle RECT_LIGHT_POST;
-
-#pragma endregion
-
-#pragma region World Objects
-
-extern const xRectangle RECT_TREE_CUT;
-extern const xRectangle RECT_TREE_STUMP;
-extern const xRectangle RECT_TREE_SMALL;
-
-extern const xRectangle RECT_TREE_OAK_LARGE;
-
-extern const xRectangle RECT_TREE_LOG;
-
-extern const xRectangle RECT_ROCK_SMALL;
-extern const xRectangle RECT_ROCK_LARGE;
-
-extern const xRectangle RECT_STONE_SMALL;
-extern const xRectangle RECT_STONE_MEDIUM;
-extern const xRectangle RECT_STONE_LARGE;
-
-extern const xRectangle RECT_GRASS_TUFT;
-
-extern const xRectangle RECT_MUSHROOM_RED;
-extern const xRectangle RECT_MUSHROOM_BLUE;
-extern const xRectangle RECT_MUSHROOM_NAKED;
-
-extern const xRectangle RECT_FLOWER_RED_1;
-extern const xRectangle RECT_FLOWER_RED_2;
-extern const xRectangle RECT_FLOWER_RED_3;
-extern const xRectangle RECT_FLOWER_RED_4;
-
-extern const xRectangle RECT_FLOWER_YELLOW_1;
-extern const xRectangle RECT_FLOWER_YELLOW_2;
-extern const xRectangle RECT_FLOWER_YELLOW_3;
-extern const xRectangle RECT_FLOWER_YELLOW_4;
-
-extern const xRectangle RECT_POND;
-
-extern const xRectangle RECT_GROUND_BLOCK;
-extern const xRectangle RECT_HIGH_GROUND_TOP_LEFT;
-extern const xRectangle RECT_HIGH_GROUND_TOP_CENTER;
-extern const xRectangle RECT_HIGH_GROUND_TOP_RIGHT;
-extern const xRectangle RECT_HIGH_GROUND_CENTER_LEFT;
-extern const xRectangle RECT_HIGH_GROUND_CENTER_CENTER;
-extern const xRectangle RECT_HIGH_GROUND_CENTER_RIGHT;
-extern const xRectangle RECT_HIGH_GROUND_BOTTOM_LEFT;
-extern const xRectangle RECT_HIGH_GROUND_BOTTOM_CENTER;
-extern const xRectangle RECT_HIGH_GROUND_BOTTOM_RIGHT;
-
-#pragma endregion
 
 #endif
