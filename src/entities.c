@@ -1,14 +1,6 @@
 #include "entities.h"
 #include "sprites.h"
 
-/* -------------------- Signatures -------------------- */
-
-static void xSetFadeCollision(xGameObject *object, EntityID id);
-
-static bool xAlwaysBelowPlayer(EntityID id);
-
-/* -------------------- ----------- -------------------- */
-
 static void xCreateEntity(World *world, const EntityInfo *info)
 {
     if (world->entityCount >= MAX_OBJECTS)
@@ -21,6 +13,7 @@ static void xCreateEntity(World *world, const EntityInfo *info)
     object->source = info->source;
     object->dest = info->dest;
     object->collider = info->collider;
+    object->fadeArea = info->fadeArea;
 
     object->type = OBJECT_ENTITY;
 
@@ -61,6 +54,14 @@ void xAddHouse(World *world, HouseType type, xRectangle dest)
             128
         };
 
+        info.fadeArea = (xRectangle)
+        {
+            dest.x + 64,
+            dest.y + 64,
+            dest.width - 128,
+            dest.height - 128
+        };
+
         break;
     
     default:
@@ -94,6 +95,14 @@ void xAddLightPost(World *world, xRectangle dest)
         dest.y + dest.height - 28,
         dest.width - 28,
         20
+    };
+
+    info.fadeArea = (xRectangle)
+    {
+        dest.x + 28,
+        dest.y + 48,
+        dest.width - 52,
+        dest.height - 24 - 48
     };
 
     xCreateEntity(world, &info);
@@ -225,6 +234,15 @@ void xAddTree(World *world, TreeType type, TreeStage stage, xRectangle dest)
                 64,
                 20,
             };
+
+            info.fadeArea = (xRectangle)
+            {
+                dest.x + 44 + 10,
+                dest.y + 40,
+                dest.width - 44 - 52 - 20,
+                dest.height - 40 - 64 - 20 - 36
+            };
+
             break;
 
         default:
@@ -281,6 +299,11 @@ void xAddGrassTuft(World *world, xRectangle dest)
         0
     };
 
+    info.fadeArea = (xRectangle)
+    {
+        0
+    };
+
     xCreateEntity(world, &info);
 }
 
@@ -309,12 +332,17 @@ void xAddMushroom(World *world, MushroomType type, xRectangle dest)
     }
 
     info.collider = (xRectangle)
-        {
-            dest.x + 4,
-            dest.y + 20,
-            dest.width - 8,
-            8
-        };
+    {
+        dest.x + 4,
+        dest.y + 20,
+        dest.width - 8,
+        8
+    };
+
+    info.fadeArea = (xRectangle)
+    {
+        0
+    };
 
     xCreateEntity(world, &info);
 }

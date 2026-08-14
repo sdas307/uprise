@@ -46,23 +46,24 @@ typedef struct Animation
 
 typedef struct xGameObject
 {
-    // xSprite sprite;          // Sprite to draw.
-    // xTransform tranform;     // Transformations to be made.
+    // xSprite sprite;          /// Sprite to draw.
+    // xTransform tranform;     /// Transformations to be made.
 
     Texture2D texture;
     
     Rectangle source;
     Rectangle dest;
     Rectangle collider;
+    Rectangle fadeArea;         /// Collision results in object fading.
 
-    xObjectType type;       // Uprise object type.
+    xObjectType type;       /// Uprise object type.
 
-    int depth;              // Depth of the object (y + height).
+    int depth;              /// Depth of the object (y + height).
 
-    bool collidable;        // Whether collisions are active.
-    bool fadeable;          // Whether to fade on overlap.
-    bool flip;              // Whether to flip the sprite horizontally.
-    bool active;            // Whether to draw on screen.
+    bool collidable;        /// Whether collisions are active.
+    bool fadeable;          /// Whether to fade on overlap.
+    bool flip;              /// Whether to flip the sprite horizontally.
+    bool active;            /// Whether to draw on screen.
 
 } xGameObject;
 

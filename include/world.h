@@ -71,6 +71,7 @@ typedef struct EntityInfo
     xRectangle source;
     xRectangle dest;
     xRectangle collider;
+    xRectangle fadeArea;
 
     bool fadeable;
     bool collidable;
