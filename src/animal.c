@@ -256,7 +256,7 @@ void xSpawnChicken(AnimalManager *manager, xRectangle dest)
     animal->gameObject.texture = LoadTexture(PATH_CHICKEN_SHEET);
     SetTextureFilter(animal->gameObject.texture, TEXTURE_FILTER_POINT);
 
-    animal->gameObject.source = RECT_CHICKEN;
+    animal->gameObject.source = SRC_CHICKEN;
     animal->gameObject.dest = dest;
 
     animal->gameObject.collider = (xRectangle){
@@ -289,7 +289,7 @@ void xSpawnSheep(AnimalManager *manager, xRectangle dest)
     animal->gameObject.texture = LoadTexture(PATH_SHEEP_SHEET);
     SetTextureFilter(animal->gameObject.texture, TEXTURE_FILTER_POINT);
 
-    animal->gameObject.source = RECT_SHEEP;
+    animal->gameObject.source = SRC_SHEEP;
     animal->gameObject.dest = dest;
 
     animal->gameObject.collider = (xRectangle){
@@ -322,7 +322,7 @@ void xSpawnPig(AnimalManager *manager, xRectangle dest)
     animal->gameObject.texture = LoadTexture(PATH_PIG_SHEET);
     SetTextureFilter(animal->gameObject.texture, TEXTURE_FILTER_POINT);
 
-    animal->gameObject.source = RECT_PIG;
+    animal->gameObject.source = SRC_PIG;
     animal->gameObject.dest = dest;
 
     animal->gameObject.collider = (xRectangle){
@@ -355,7 +355,7 @@ void xSpawnCow(AnimalManager *manager, xRectangle dest)
 
     animal->gameObject.texture = LoadTexture(PATH_COW_SHEET);
 
-    animal->gameObject.source = RECT_COW;
+    animal->gameObject.source = SRC_COW;
 
     animal->gameObject.dest = dest;
 

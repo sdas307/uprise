@@ -8,9 +8,6 @@
 
 #define MAX_RENDERABLES 256
 
-/// Return the fade area for the object.
-static xRectangle xGetFadeArea(xGameObject *object);
-
 /// Render object with color tint or opactiy.
 static void xRenderObject(xGameObject *object, xColor tint);
 
@@ -119,22 +116,10 @@ static void xRenderObject(xGameObject *object, xColor tint)
     }
 
     DrawTexturePro(object->texture, drawSource, object->dest, ZERO_POSITION, 0.0f, tint);
-    DrawRectangleLinesEx(object->collider, 1.0f, RED);
-    DrawRectangleLinesEx(object->dest, 1.0f, GREEN);
-    DrawRectangleLinesEx(object->fadeArea, 1.0f, BLACK);
+    // DrawRectangleLinesEx(object->collider, 1.0f, RED);
+    // DrawRectangleLinesEx(object->dest, 1.0f, GREEN);
+    // DrawRectangleLinesEx(object->fadeArea, 1.0f, BLACK);
 
 
     // DrawRectangleLinesEx(wanderZone, 1.0f, BLUE);
-}
-
-static xRectangle xGetFadeArea(xGameObject *object)
-{
-    return (
-        (xRectangle)
-        {
-            object->dest.x,
-            object->dest.y,
-            object->dest.width,
-            object->dest.height
-    });
 }

@@ -14,8 +14,8 @@ static void xLoadTrees(World *world)
         {
             treesOakLarge[i].x,
             treesOakLarge[i].y,
-            RECT_TREE_OAK_LARGE.width,
-            RECT_TREE_OAK_LARGE.height
+            SRC_TREE_OAK_LARGE.width,
+            SRC_TREE_OAK_LARGE.height
         };
 
         xAddTree(world, TREE_TYPE_OAK, TREE_STAGE_LARGE, temp);
@@ -29,8 +29,8 @@ static void xLoadHouse(World *world)
     {
         house[0].x,
         house[0].y,
-        RECT_HOUSE_WOOD_CABIN.width,
-        RECT_HOUSE_WOOD_CABIN.height
+        SRC_HOUSE_WOOD_CABIN.width,
+        SRC_HOUSE_WOOD_CABIN.height
     };
 
     xAddHouse(world, HOUSE_TYPE_WOOD_CABIN, temp);
@@ -43,8 +43,8 @@ static void xLoadHouse(World *world)
 //     {
 //         64 * 6 + 16,
 //         64 * 4,
-//         RECT_LIGHT_POST.width,
-//         RECT_LIGHT_POST.height
+//         SRC_LIGHT_POST.width,
+//         SRC_LIGHT_POST.height
 //     };
 
 //     xAddLightPost(world, dest);
@@ -57,8 +57,8 @@ static void xLoadHouse(World *world)
 //     {
 //         64*2 - 26,
 //         64*6 - 21,
-//         RECT_ROCK_SMALL.width,
-//         RECT_ROCK_SMALL.height
+//         SRC_ROCK_SMALL.width,
+//         SRC_ROCK_SMALL.height
 //     };
 
 //     xAddRock(world, ROCK_SMALL, dest);
@@ -71,8 +71,8 @@ static void xLoadHouse(World *world)
 //     {
 //         464,
 //         400-128,
-//         RECT_COW.width,
-//         RECT_COW.height
+//         SRC_COW.width,
+//         SRC_COW.height
 //     };
 //     xSpawnCow(manager, dest);
 
@@ -80,8 +80,8 @@ static void xLoadHouse(World *world)
 //     {
 //         764,
 //         640,
-//         RECT_SHEEP.width,
-//         RECT_SHEEP.height
+//         SRC_SHEEP.width,
+//         SRC_SHEEP.height
 //     };
 //     xSpawnSheep(manager, dest);
 
@@ -89,8 +89,8 @@ static void xLoadHouse(World *world)
 //     {
 //         640,
 //         632,
-//         RECT_PIG.width,
-//         RECT_PIG.height
+//         SRC_PIG.width,
+//         SRC_PIG.height
 //     };
 //     xSpawnPig(manager, dest);
 
@@ -98,8 +98,8 @@ static void xLoadHouse(World *world)
 //     {
 //         700,
 //         600,
-//         RECT_COW.width,
-//         RECT_COW.height
+//         SRC_COW.width,
+//         SRC_COW.height
 //     };
 //     xSpawnCow(manager, dest);
 
@@ -107,8 +107,8 @@ static void xLoadHouse(World *world)
 //     {
 //         400,
 //         400,
-//         RECT_CHICKEN.width,
-//         RECT_CHICKEN.height
+//         SRC_CHICKEN.width,
+//         SRC_CHICKEN.height
 //     };
 //     xSpawnChicken(manager, dest);
 
@@ -116,8 +116,8 @@ static void xLoadHouse(World *world)
 //     {
 //         464,
 //         400,
-//         RECT_CHICKEN.width,
-//         RECT_CHICKEN.height
+//         SRC_CHICKEN.width,
+//         SRC_CHICKEN.height
 //     };
 //     xSpawnChicken(manager, dest);
 
@@ -125,8 +125,8 @@ static void xLoadHouse(World *world)
 //     {
 //         600,
 //         464,
-//         RECT_CHICKEN.width,
-//         RECT_CHICKEN.height
+//         SRC_CHICKEN.width,
+//         SRC_CHICKEN.height
 //     };
 //     xSpawnChicken(manager, dest);
 
@@ -134,8 +134,8 @@ static void xLoadHouse(World *world)
 //     {
 //         650,
 //         500,
-//         RECT_CHICKEN.width,
-//         RECT_CHICKEN.height
+//         SRC_CHICKEN.width,
+//         SRC_CHICKEN.height
 //     };
 //     xSpawnChicken(manager, dest);
 // }
@@ -181,8 +181,8 @@ static void xLoadGrass1(World *world)
         {
             grass1[i].x,
             grass1[i].y,
-            RECT_GRASS_TUFT.width,
-            RECT_GRASS_TUFT.height
+            SRC_GRASS_TUFT.width,
+            SRC_GRASS_TUFT.height
         };
 
         xAddGrassTuft(world, temp);
@@ -197,8 +197,8 @@ static void xLoadLightPosts(World *world)
         {
             lightPosts[i].x,
             lightPosts[i].y,
-            RECT_LIGHT_POST_WOOD_1.width,
-            RECT_LIGHT_POST_WOOD_1.height
+            SRC_LIGHT_POST_WOOD_1.width,
+            SRC_LIGHT_POST_WOOD_1.height
         };
 
         xAddLightPost(world, temp);
@@ -229,8 +229,8 @@ static void xLoadStairs(World *world)
         {
             highGroundStairs[i].x,
             highGroundStairs[i].y,
-            RECT_STAIRS_GROUND.width,
-            RECT_STAIRS_GROUND.height
+            SRC_STAIRS_GROUND.width,
+            SRC_STAIRS_GROUND.height
         };
 
         xAddStairs(world, temp);

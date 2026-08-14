@@ -2,7 +2,7 @@
 
 /* --------------- CHICKEN SPRITES --------------- */
 
-const xRectangle RECT_CHICKEN =
+const xRectangle SRC_CHICKEN =
 {
     0,
     0,
@@ -10,7 +10,7 @@ const xRectangle RECT_CHICKEN =
     64 * 2
 };
 
-const xRectangle RECT_CHICKEN_WHITE_1 =
+const xRectangle SRC_CHICKEN_WHITE_1 =
 {
     0,
     0,
@@ -18,7 +18,7 @@ const xRectangle RECT_CHICKEN_WHITE_1 =
     64 * 2
 };
 
-const xRectangle RECT_CHICKEN_WHITE_2 =
+const xRectangle SRC_CHICKEN_WHITE_2 =
 {
     64 * 17,
     0,
@@ -26,7 +26,7 @@ const xRectangle RECT_CHICKEN_WHITE_2 =
     64 * 2
 };
 
-const xRectangle RECT_CHICKEN_OFF_WHITE =
+const xRectangle SRC_CHICKEN_OFF_WHITE =
 {
     64 * 34,
     0,
@@ -34,7 +34,7 @@ const xRectangle RECT_CHICKEN_OFF_WHITE =
     64 * 2
 };
 
-const xRectangle RECT_CHICKEN_YELLOW_1 =
+const xRectangle SRC_CHICKEN_YELLOW_1 =
 {
     64 * 51,
     0,
@@ -42,7 +42,7 @@ const xRectangle RECT_CHICKEN_YELLOW_1 =
     64 * 2
 };
 
-const xRectangle RECT_CHICKEN_YELLOW_2 =
+const xRectangle SRC_CHICKEN_YELLOW_2 =
 {
     64 * 68,
     0,
@@ -50,7 +50,7 @@ const xRectangle RECT_CHICKEN_YELLOW_2 =
     64 * 2
 };
 
-const xRectangle RECT_CHICKEN_LIGHT_BROWN_1 =
+const xRectangle SRC_CHICKEN_LIGHT_BROWN_1 =
 {
     64 * 85,
     0,
@@ -58,7 +58,7 @@ const xRectangle RECT_CHICKEN_LIGHT_BROWN_1 =
     64 * 2
 };
 
-const xRectangle RECT_CHICKEN_LIGHT_BROWN_2 =
+const xRectangle SRC_CHICKEN_LIGHT_BROWN_2 =
 {
     64 * 102,
     0,
@@ -66,7 +66,7 @@ const xRectangle RECT_CHICKEN_LIGHT_BROWN_2 =
     64 * 2
 };
 
-const xRectangle RECT_CHICKEN_BROWN_1 =
+const xRectangle SRC_CHICKEN_BROWN_1 =
 {
     64 * 119,
     0,
@@ -74,7 +74,7 @@ const xRectangle RECT_CHICKEN_BROWN_1 =
     64 * 2
 };
 
-const xRectangle RECT_CHICKEN_BROWN_2 =
+const xRectangle SRC_CHICKEN_BROWN_2 =
 {
     64 * 136,
     0,
@@ -82,7 +82,7 @@ const xRectangle RECT_CHICKEN_BROWN_2 =
     64 * 2
 };
 
-const xRectangle RECT_CHICKEN_DARK_BROWN_1 =
+const xRectangle SRC_CHICKEN_DARK_BROWN_1 =
 {
     64 * 153,
     0,
@@ -90,7 +90,7 @@ const xRectangle RECT_CHICKEN_DARK_BROWN_1 =
     64 * 2
 };
 
-const xRectangle RECT_CHICKEN_DARK_BROWN_2 =
+const xRectangle SRC_CHICKEN_DARK_BROWN_2 =
 {
     64 * 170,
     0,
@@ -98,7 +98,7 @@ const xRectangle RECT_CHICKEN_DARK_BROWN_2 =
     64 * 2
 };
 
-const xRectangle RECT_CHICKEN_BLACK_1 =
+const xRectangle SRC_CHICKEN_BLACK_1 =
 {
     64 * 187,
     0,
@@ -106,7 +106,7 @@ const xRectangle RECT_CHICKEN_BLACK_1 =
     64 * 2
 };
 
-const xRectangle RECT_CHICKEN_BLACK_2 =
+const xRectangle SRC_CHICKEN_BLACK_2 =
 {
     64 * 204,
     0,
@@ -119,7 +119,7 @@ const xRectangle RECT_CHICKEN_BLACK_2 =
 
 /* --------------- SHEEP SPRITES --------------- */
 
-const xRectangle RECT_SHEEP = 
+const xRectangle SRC_SHEEP = 
 {
     0,
     0,
@@ -127,7 +127,7 @@ const xRectangle RECT_SHEEP =
     62 * 2
 };
 
-const xRectangle RECT_SHEEP_WHITE = 
+const xRectangle SRC_SHEEP_WHITE = 
 {
     0,
     0,
@@ -135,7 +135,7 @@ const xRectangle RECT_SHEEP_WHITE =
     62 * 2
 };
 
-const xRectangle RECT_SHEEP_RED = 
+const xRectangle SRC_SHEEP_RED = 
 {
     64 * 17,
     0,
@@ -143,7 +143,7 @@ const xRectangle RECT_SHEEP_RED =
     62 * 2
 };
 
-const xRectangle RECT_SHEEP_YELLOW = 
+const xRectangle SRC_SHEEP_YELLOW = 
 {
     64 * 34,
     0,
@@ -151,7 +151,7 @@ const xRectangle RECT_SHEEP_YELLOW =
     62 * 2
 };
 
-const xRectangle RECT_SHEEP_GREEN = 
+const xRectangle SRC_SHEEP_GREEN = 
 {
     64 * 51,
     0,
@@ -159,7 +159,7 @@ const xRectangle RECT_SHEEP_GREEN =
     62 * 2
 };
 
-const xRectangle RECT_SHEEP_BLUE = 
+const xRectangle SRC_SHEEP_BLUE = 
 {
     64 * 68,
     0,
@@ -167,7 +167,7 @@ const xRectangle RECT_SHEEP_BLUE =
     62 * 2
 };
 
-const xRectangle RECT_SHEEP_PURPLE = 
+const xRectangle SRC_SHEEP_PURPLE = 
 {
     64 * 85,
     0,
@@ -175,7 +175,7 @@ const xRectangle RECT_SHEEP_PURPLE =
     62 * 2
 };
 
-const xRectangle RECT_SHEEP_GRAY = 
+const xRectangle SRC_SHEEP_GRAY = 
 {
     64 * 102,
     0,
@@ -188,7 +188,7 @@ const xRectangle RECT_SHEEP_GRAY =
 
 /* --------------- PIG SPRITES --------------- */
 
-const xRectangle RECT_PIG = 
+const xRectangle SRC_PIG = 
 {
     64 * 0,
     0,
@@ -196,7 +196,7 @@ const xRectangle RECT_PIG =
     64 * 2
 };
 
-const xRectangle RECT_PIG_PINK = 
+const xRectangle SRC_PIG_PINK = 
 {
     64 * 0,
     0,
@@ -204,7 +204,7 @@ const xRectangle RECT_PIG_PINK =
     64 * 2
 };
 
-const xRectangle RECT_PIG_PINK_MUDDY = 
+const xRectangle SRC_PIG_PINK_MUDDY = 
 {
     64 * 19,
     0,
@@ -212,7 +212,7 @@ const xRectangle RECT_PIG_PINK_MUDDY =
     64 * 2
 };
 
-const xRectangle RECT_PIG_LIGHT_GRAY = 
+const xRectangle SRC_PIG_LIGHT_GRAY = 
 {
     64 * 38,
     0,
@@ -220,7 +220,7 @@ const xRectangle RECT_PIG_LIGHT_GRAY =
     64 * 2
 };
 
-const xRectangle RECT_PIG_LIGHT_GRAY_MUDDY = 
+const xRectangle SRC_PIG_LIGHT_GRAY_MUDDY = 
 {
     64 * 57,
     0,
@@ -228,7 +228,7 @@ const xRectangle RECT_PIG_LIGHT_GRAY_MUDDY =
     64 * 2
 };
 
-const xRectangle RECT_PIG_BLUE = 
+const xRectangle SRC_PIG_BLUE = 
 {
     64 * 76,
     0,
@@ -236,7 +236,7 @@ const xRectangle RECT_PIG_BLUE =
     64 * 2
 };
 
-const xRectangle RECT_PIG_BLUE_MUDDY = 
+const xRectangle SRC_PIG_BLUE_MUDDY = 
 {
     64 * 95,
     0,
@@ -244,7 +244,7 @@ const xRectangle RECT_PIG_BLUE_MUDDY =
     64 * 2
 };
 
-const xRectangle RECT_PIG_GRAY = 
+const xRectangle SRC_PIG_GRAY = 
 {
     64 * 114,
     0,
@@ -252,7 +252,7 @@ const xRectangle RECT_PIG_GRAY =
     64 * 2
 };
 
-const xRectangle RECT_PIG_GRAY_MUDDY = 
+const xRectangle SRC_PIG_GRAY_MUDDY = 
 {
     64 * 133,
     0,
@@ -260,7 +260,7 @@ const xRectangle RECT_PIG_GRAY_MUDDY =
     64 * 2
 };
 
-const xRectangle RECT_PIG_BLACK = 
+const xRectangle SRC_PIG_BLACK = 
 {
     64 * 152,
     0,
@@ -268,7 +268,7 @@ const xRectangle RECT_PIG_BLACK =
     64 * 2
 };
 
-const xRectangle RECT_PIG_BLACK_MUDDY = 
+const xRectangle SRC_PIG_BLACK_MUDDY = 
 {
     64 * 171,
     0,
@@ -281,7 +281,7 @@ const xRectangle RECT_PIG_BLACK_MUDDY =
 
 /* --------------- COW SPRITES --------------- */
 
-const xRectangle RECT_COW =
+const xRectangle SRC_COW =
 {
     64 * 0,
     0,
@@ -289,7 +289,7 @@ const xRectangle RECT_COW =
     64 * 2
 };
 
-const xRectangle RECT_COW_OFF_WHITE =
+const xRectangle SRC_COW_OFF_WHITE =
 {
     64 * 0,
     0,
@@ -297,7 +297,7 @@ const xRectangle RECT_COW_OFF_WHITE =
     64 * 2
 };
 
-const xRectangle RECT_COW_LIGHT_BROWN =
+const xRectangle SRC_COW_LIGHT_BROWN =
 {
     64 * 17,
     0,
@@ -305,7 +305,7 @@ const xRectangle RECT_COW_LIGHT_BROWN =
     64 * 2
 };
 
-const xRectangle RECT_COW_BROWN =
+const xRectangle SRC_COW_BROWN =
 {
     64 * 34,
     0,
@@ -313,7 +313,7 @@ const xRectangle RECT_COW_BROWN =
     64 * 2
 };
 
-const xRectangle RECT_COW_DARK_BROWN =
+const xRectangle SRC_COW_DARK_BROWN =
 {
     64 * 51,
     0,
@@ -321,7 +321,7 @@ const xRectangle RECT_COW_DARK_BROWN =
     64 * 2
 };
 
-const xRectangle RECT_COW_LIGHT_GRAY =
+const xRectangle SRC_COW_LIGHT_GRAY =
 {
     64 * 68,
     0,
@@ -329,7 +329,7 @@ const xRectangle RECT_COW_LIGHT_GRAY =
     64 * 2
 };
 
-const xRectangle RECT_COW_BLUE =
+const xRectangle SRC_COW_BLUE =
 {
     64 * 85,
     0,
@@ -337,7 +337,7 @@ const xRectangle RECT_COW_BLUE =
     64 * 2
 };
 
-const xRectangle RECT_COW_BLACK =
+const xRectangle SRC_COW_BLACK =
 {
     64 * 102,
     0,
@@ -350,7 +350,7 @@ const xRectangle RECT_COW_BLACK =
 
 /* --------------- INSECT SPRITES --------------- */
 
-const xRectangle RECT_BEE =
+const xRectangle SRC_BEE =
 {
     64 * 0,
     0,
@@ -358,7 +358,7 @@ const xRectangle RECT_BEE =
     64
 };
 
-const xRectangle RECT_BEEHIVE =
+const xRectangle SRC_BEEHIVE =
 {
     64 * 0,
     64 * 2,
@@ -366,7 +366,7 @@ const xRectangle RECT_BEEHIVE =
     64
 };
 
-const xRectangle RECT_BEE_NEST =
+const xRectangle SRC_BEE_NEST =
 {
     64 * 0,
     64 * 3,
@@ -374,7 +374,7 @@ const xRectangle RECT_BEE_NEST =
     64
 };
 
-const xRectangle RECT_BEE_HOUSE =
+const xRectangle SRC_BEE_HOUSE =
 {
     64 * 2,
     64 * 2,
@@ -382,7 +382,7 @@ const xRectangle RECT_BEE_HOUSE =
     64
 };
 
-const xRectangle RECT_BUTTERFLY =
+const xRectangle SRC_BUTTERFLY =
 {
     64 * 4,
     0,

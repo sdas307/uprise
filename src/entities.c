@@ -43,7 +43,7 @@ void xAddHouse(World *world, HouseType type, xRectangle dest)
     {
     case HOUSE_TYPE_WOOD_CABIN:
 
-        info.source = RECT_HOUSE_WOOD_CABIN;
+        info.source = SRC_HOUSE_WOOD_CABIN;
         info.spritesheet = &world->spritesheets[SHEET_STRUCTURE_HOUSE_WOOD];
 
         info.collider = (xRectangle)
@@ -66,7 +66,7 @@ void xAddHouse(World *world, HouseType type, xRectangle dest)
     
     default:
 
-        info.source = RECT_HOUSE_WOOD_CABIN;
+        info.source = SRC_HOUSE_WOOD_CABIN;
         info.spritesheet = &world->spritesheets[SHEET_STRUCTURE_HOUSE_WOOD];
 
         break;
@@ -80,7 +80,7 @@ void xAddLightPost(World *world, xRectangle dest)
     EntityInfo info =
     {
         .id = ENTITY_LIGHT_POST,
-        .source = RECT_LIGHT_POST_WOOD_1,
+        .source = SRC_LIGHT_POST_WOOD_1,
         .spritesheet = &world->spritesheets[SHEET_STRUCTURE_FENCE_POSTS],
         .dest = dest,
         .fadeable = true,
@@ -120,7 +120,7 @@ void xAddLightPost(World *world, xRectangle dest)
 //     case ROCK_SMALL:
 
 //         id = ENTITY_ROCK_SMALL;
-//         source = RECT_ROCK_SMALL;
+//         source = SRC_ROCK_SMALL;
 
 //         collider = (xRectangle){
 //             dest.x + 8,
@@ -133,7 +133,7 @@ void xAddLightPost(World *world, xRectangle dest)
 //     case ROCK_LARGE:
 
 //         id = ENTITY_ROCK_LARGE;
-//         source = RECT_ROCK_LARGE;
+//         source = SRC_ROCK_LARGE;
 
 //         collider = (xRectangle){
 //             dest.x,
@@ -158,7 +158,7 @@ void xAddLightPost(World *world, xRectangle dest)
 //     case STONE_SMALL:
 
 //         id = STONE_SMALL;
-//         source = RECT_STONE_SMALL;
+//         source = SRC_STONE_SMALL;
 
 //         collider = (xRectangle){
 //             dest.x + 12,
@@ -171,7 +171,7 @@ void xAddLightPost(World *world, xRectangle dest)
 //     case STONE_MEDIUM:
 
 //         id = STONE_MEDIUM;
-//         source = RECT_STONE_MEDIUM;
+//         source = SRC_STONE_MEDIUM;
 
 //         collider = (xRectangle){
 //             dest.x + 14,
@@ -184,7 +184,7 @@ void xAddLightPost(World *world, xRectangle dest)
 //     case STONE_LARGE:
 
 //         id = STONE_LARGE;
-//         source = RECT_STONE_LARGE;
+//         source = SRC_STONE_LARGE;
 
 //         collider = (xRectangle){
 //             dest.x + 8,
@@ -225,7 +225,7 @@ void xAddTree(World *world, TreeType type, TreeStage stage, xRectangle dest)
             
             info.id = ENTITY_TREE_OAK_LARGE;
 
-            info.source = RECT_TREE_OAK_LARGE;
+            info.source = SRC_TREE_OAK_LARGE;
 
             info.collider = (xRectangle)
             {
@@ -249,7 +249,7 @@ void xAddTree(World *world, TreeType type, TreeStage stage, xRectangle dest)
 
             info.id = ENTITY_TREE_OAK_LARGE;
 
-            info.source = RECT_TREE_OAK_LARGE;
+            info.source = SRC_TREE_OAK_LARGE;
 
             info.collider = (xRectangle)
             {
@@ -264,7 +264,7 @@ void xAddTree(World *world, TreeType type, TreeStage stage, xRectangle dest)
 
     default:
 
-        info.source = RECT_TREE_OAK_LARGE;
+        info.source = SRC_TREE_OAK_LARGE;
 
         info.collider = (xRectangle)
         {
@@ -285,7 +285,7 @@ void xAddGrassTuft(World *world, xRectangle dest)
     {
         .id = ENTITY_GRASS,
         .spritesheet = &world->spritesheets[SHEET_NATURE_GRASS_WILDFLOWERS],
-        .source = RECT_GRASS_TUFT,
+        .source = SRC_GRASS_TUFT,
         .dest = dest,
         .fadeable = false,
         .collidable = false,
@@ -324,7 +324,7 @@ void xAddMushroom(World *world, MushroomType type, xRectangle dest)
     switch (type)
     {
     case MUSHROOM_TYPE_RED:
-        info.source = RECT_MUSHROOM_RED;
+        info.source = SRC_MUSHROOM_RED;
         break;
     
     default:
@@ -377,7 +377,7 @@ void xAddStairs(World *world, xRectangle dest)
     {
         .id = ENTITY_STAIRS,
         .spritesheet = &world->spritesheets[SHEET_NATURE_GRASSLANDS],
-        .source = RECT_STAIRS_GROUND,
+        .source = SRC_STAIRS_GROUND,
         .dest = dest,
         .fadeable = false,
         .collidable = false,
@@ -416,35 +416,35 @@ void xAddHedge(World *world, HedgePiece piece, xRectangle dest)
     switch (piece)
     {
     case HEDGE_VER_TOP:
-        info.source = RECT_HEDGE_VER_TOP;
+        info.source = SRC_HEDGE_VER_TOP;
         break;
     
     case HEDGE_VER_CENTER:
-        info.source = RECT_HEDGE_VER_CENTER;
+        info.source = SRC_HEDGE_VER_CENTER;
         break;
 
     case HEDGE_VER_BOTTOM:
-        info.source = RECT_HEDGE_VER_BOTTOM;
+        info.source = SRC_HEDGE_VER_BOTTOM;
         break;
 
     case HEDGE_HOR_LEFT:
-        info.source = RECT_HEDGE_HOR_LEFT;
+        info.source = SRC_HEDGE_HOR_LEFT;
         break;
     
     case HEDGE_HOR_CENTER:
-        info.source = RECT_HEDGE_HOR_CENTER;
+        info.source = SRC_HEDGE_HOR_CENTER;
         break;
     
     case HEDGE_HOR_RIGHT:
-        info.source = RECT_HEDGE_HOR_RIGHT;
+        info.source = SRC_HEDGE_HOR_RIGHT;
         break;
 
     case HEDGE_SINGLE:
-        info.source = RECT_HEDGE_SINGLE;
+        info.source = SRC_HEDGE_SINGLE;
         break;
     
     default:
-        info.source = RECT_HEDGE_SINGLE;
+        info.source = SRC_HEDGE_SINGLE;
         break;
     }
 
@@ -463,23 +463,23 @@ void xAddHedge(World *world, HedgePiece piece, xRectangle dest)
 //         switch (type)
 //         {
 //         case FLOWER_1:
-//             source = RECT_FLOWER_RED_1;
+//             source = SRC_FLOWER_RED_1;
 //             break;
 
 //         case FLOWER_2:
-//             source = RECT_FLOWER_RED_2;
+//             source = SRC_FLOWER_RED_2;
 //             break;
 
 //         case FLOWER_3:
-//             source = RECT_FLOWER_RED_3;
+//             source = SRC_FLOWER_RED_3;
 //             break;
 
 //         case FLOWER_4:
-//             source = RECT_FLOWER_RED_4;
+//             source = SRC_FLOWER_RED_4;
 //             break;
 
 //         default:
-//             source = RECT_FLOWER_RED_1;
+//             source = SRC_FLOWER_RED_1;
 //             break;
 //         }
 //     }
@@ -490,23 +490,23 @@ void xAddHedge(World *world, HedgePiece piece, xRectangle dest)
 //         switch (type)
 //         {
 //         case FLOWER_1:
-//             source = RECT_FLOWER_YELLOW_1;
+//             source = SRC_FLOWER_YELLOW_1;
 //             break;
 
 //         case FLOWER_2:
-//             source = RECT_FLOWER_YELLOW_2;
+//             source = SRC_FLOWER_YELLOW_2;
 //             break;
 
 //         case FLOWER_3:
-//             source = RECT_FLOWER_YELLOW_3;
+//             source = SRC_FLOWER_YELLOW_3;
 //             break;
 
 //         case FLOWER_4:
-//             source = RECT_FLOWER_YELLOW_4;
+//             source = SRC_FLOWER_YELLOW_4;
 //             break;
 
 //         default:
-//             source = RECT_FLOWER_YELLOW_1;
+//             source = SRC_FLOWER_YELLOW_1;
 //             break;
 //         }
 //     }

@@ -110,8 +110,8 @@ const int highGroundStairsCount = ARRAY_COUNT(highGroundStairs);
 
 const Vector2 treesOakLarge[] =
 {
-    { 748, -128 },
-    { 812, -128 },
+    { 704, -128 },
+    { 768, -128 },
 };
 const int treesOakLargeCount = ARRAY_COUNT(treesOakLarge);
 

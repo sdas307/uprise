@@ -2,7 +2,7 @@
 
 /* --------------- HOUSE --------------- */
 
-const xRectangle RECT_HOUSE_WOOD_CABIN =
+const xRectangle SRC_HOUSE_WOOD_CABIN =
 {
     64 * 0,
     64 * 24,
@@ -15,7 +15,7 @@ const xRectangle RECT_HOUSE_WOOD_CABIN =
 
 /* --------------- LIGHT POST --------------- */
 
-const xRectangle RECT_LIGHT_POST_WOOD_1 =
+const xRectangle SRC_LIGHT_POST_WOOD_1 =
 {
     64 * 7,
     64 * 22,
@@ -23,7 +23,7 @@ const xRectangle RECT_LIGHT_POST_WOOD_1 =
     64 * 3
 };
 
-const xRectangle RECT_LIGHT_POST_WOOD_2 =
+const xRectangle SRC_LIGHT_POST_WOOD_2 =
 {
     64 * 7,
     64 * 25,
@@ -31,7 +31,7 @@ const xRectangle RECT_LIGHT_POST_WOOD_2 =
     64 * 3
 };
 
-const xRectangle RECT_LIGHT_POST_WOOD_3 =
+const xRectangle SRC_LIGHT_POST_WOOD_3 =
 {
     64 * 7,
     64 * 28,
@@ -39,7 +39,7 @@ const xRectangle RECT_LIGHT_POST_WOOD_3 =
     64 * 3
 };
 
-const xRectangle RECT_LIGHT_POST_STONE_1 =
+const xRectangle SRC_LIGHT_POST_STONE_1 =
 {
     64 * 7,
     64 * 13,
@@ -47,7 +47,7 @@ const xRectangle RECT_LIGHT_POST_STONE_1 =
     64 * 3
 };
 
-const xRectangle RECT_LIGHT_POST_STONE_2 =
+const xRectangle SRC_LIGHT_POST_STONE_2 =
 {
     64 * 7,
     64 * 16,
@@ -55,7 +55,7 @@ const xRectangle RECT_LIGHT_POST_STONE_2 =
     64 * 3
 };
 
-const xRectangle RECT_LIGHT_POST_STONE_3 =
+const xRectangle SRC_LIGHT_POST_STONE_3 =
 {
     64 * 7,
     64 * 19,

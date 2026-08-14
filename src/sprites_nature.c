@@ -1,6 +1,8 @@
 #include "sprites_nature.h"
 
-const xRectangle RECT_STAIRS_GROUND =
+/* --------------- TERRAIN SPRITES --------------- */
+
+const xRectangle SRC_STAIRS_GROUND =
 {
     64 * 22,
     64 * 0,
@@ -8,7 +10,7 @@ const xRectangle RECT_STAIRS_GROUND =
     64 * 2
 };
 
-const xRectangle RECT_STAIRS_STONE =
+const xRectangle SRC_STAIRS_STONE =
 {
     64 * 22,
     64 * 5,
@@ -16,7 +18,7 @@ const xRectangle RECT_STAIRS_STONE =
     64 * 2
 };
 
-const xRectangle RECT_HEDGE_VER_TOP =
+const xRectangle SRC_HEDGE_VER_TOP =
 {
     64 * 12,
     64 * 5,
@@ -24,7 +26,7 @@ const xRectangle RECT_HEDGE_VER_TOP =
     64
 };
 
-const xRectangle RECT_HEDGE_VER_CENTER =
+const xRectangle SRC_HEDGE_VER_CENTER =
 {
     64 * 12,
     64 * 6,
@@ -32,7 +34,7 @@ const xRectangle RECT_HEDGE_VER_CENTER =
     64
 };
 
-const xRectangle RECT_HEDGE_VER_BOTTOM =
+const xRectangle SRC_HEDGE_VER_BOTTOM =
 {
     64 * 12,
     64 * 7,
@@ -40,7 +42,7 @@ const xRectangle RECT_HEDGE_VER_BOTTOM =
     64
 };
 
-const xRectangle RECT_HEDGE_HOR_LEFT =
+const xRectangle SRC_HEDGE_HOR_LEFT =
 {
     64 * 13,
     64 * 5,
@@ -48,7 +50,7 @@ const xRectangle RECT_HEDGE_HOR_LEFT =
     64
 };
 
-const xRectangle RECT_HEDGE_HOR_CENTER =
+const xRectangle SRC_HEDGE_HOR_CENTER =
 {
     64 * 14,
     64 * 5,
@@ -56,7 +58,7 @@ const xRectangle RECT_HEDGE_HOR_CENTER =
     64
 };
 
-const xRectangle RECT_HEDGE_HOR_RIGHT =
+const xRectangle SRC_HEDGE_HOR_RIGHT =
 {
     64 * 15,
     64 * 5,
@@ -64,7 +66,7 @@ const xRectangle RECT_HEDGE_HOR_RIGHT =
     64
 };
 
-const xRectangle RECT_HEDGE_SINGLE =
+const xRectangle SRC_HEDGE_SINGLE =
 {
     64 * 12,
     64 * 8,
@@ -72,12 +74,15 @@ const xRectangle RECT_HEDGE_SINGLE =
     64
 };
 
+/* --------------- --------------- --------------- */
+
+
 /* --------------- TREE SPRITES --------------- */
 
 // BIRCH TREE --|
 //              v
 
-const xRectangle RECT_TREE_BIRCH_CUT =
+const xRectangle SRC_TREE_BIRCH_CUT =
 {
     64 * 0,
     64 * 2,
@@ -85,7 +90,7 @@ const xRectangle RECT_TREE_BIRCH_CUT =
     64
 };
 
-const xRectangle RECT_TREE_BIRCH_SMALL =
+const xRectangle SRC_TREE_BIRCH_SMALL =
 {
     64 * 5 + 15,
     64 * 5,
@@ -93,7 +98,7 @@ const xRectangle RECT_TREE_BIRCH_SMALL =
     64 * 2
 };
 
-const xRectangle RECT_TREE_BIRCH_MEDIUM =
+const xRectangle SRC_TREE_BIRCH_MEDIUM =
 {
     64 * 7,
     64 * 0,
@@ -101,7 +106,7 @@ const xRectangle RECT_TREE_BIRCH_MEDIUM =
     64 * 5
 };
 
-const xRectangle RECT_TREE_BIRCH_LARGE =
+const xRectangle SRC_TREE_BIRCH_LARGE =
 {
     64 * 7,
     64 * 0,
@@ -112,7 +117,7 @@ const xRectangle RECT_TREE_BIRCH_LARGE =
 // OAK TREE --|
 //            v
 
-const xRectangle RECT_TREE_OAK_CUT =
+const xRectangle SRC_TREE_OAK_CUT =
 {
     64 * 0,
     64 * 2,
@@ -120,7 +125,7 @@ const xRectangle RECT_TREE_OAK_CUT =
     64
 };
 
-const xRectangle RECT_TREE_OAK_SMALL =
+const xRectangle SRC_TREE_OAK_SMALL =
 {
     64 * 5 + 15,
     64 * 5,
@@ -128,7 +133,7 @@ const xRectangle RECT_TREE_OAK_SMALL =
     64 * 2
 };
 
-const xRectangle RECT_TREE_OAK_MEDIUM =
+const xRectangle SRC_TREE_OAK_MEDIUM =
 {
     64 * 7,
     64 * 0,
@@ -136,7 +141,7 @@ const xRectangle RECT_TREE_OAK_MEDIUM =
     64 * 5
 };
 
-const xRectangle RECT_TREE_OAK_LARGE =
+const xRectangle SRC_TREE_OAK_LARGE =
 {
     64 * 7,
     64 * 0,
@@ -147,7 +152,7 @@ const xRectangle RECT_TREE_OAK_LARGE =
 // SPRUCE TREE --|
 //               v
 
-const xRectangle RECT_TREE_SPRUCE_CUT =
+const xRectangle SRC_TREE_SPRUCE_CUT =
 {
     64 * 0,
     64 * 2,
@@ -155,7 +160,7 @@ const xRectangle RECT_TREE_SPRUCE_CUT =
     64
 };
 
-const xRectangle RECT_TREE_SPRUCE_SMALL =
+const xRectangle SRC_TREE_SPRUCE_SMALL =
 {
     64 * 5 + 15,
     64 * 5,
@@ -163,7 +168,7 @@ const xRectangle RECT_TREE_SPRUCE_SMALL =
     64 * 2
 };
 
-const xRectangle RECT_TREE_SPRUCE_MEDIUM =
+const xRectangle SRC_TREE_SPRUCE_MEDIUM =
 {
     64 * 7,
     64 * 0,
@@ -171,7 +176,7 @@ const xRectangle RECT_TREE_SPRUCE_MEDIUM =
     64 * 5
 };
 
-const xRectangle RECT_TREE_SPRUCE_LARGE =
+const xRectangle SRC_TREE_SPRUCE_LARGE =
 {
     64 * 7,
     64 * 0,
@@ -179,7 +184,7 @@ const xRectangle RECT_TREE_SPRUCE_LARGE =
     64 * 5
 };
 
-const xRectangle RECT_TREE_LOG =
+const xRectangle SRC_TREE_LOG =
 {
     0,
     64 * 7,
@@ -195,7 +200,7 @@ const xRectangle RECT_TREE_LOG =
 // ROCKS --|
 //         v
 
-const xRectangle RECT_ROCK_SMALL = 
+const xRectangle SRC_ROCK_SMALL = 
 {
     64 * 1 + 8,
     64 * 2 + 20,
@@ -203,7 +208,7 @@ const xRectangle RECT_ROCK_SMALL =
     64 - 36
 };
 
-const xRectangle RECT_ROCK_LARGE = 
+const xRectangle SRC_ROCK_LARGE = 
 {
     64 * 2,
     64 * 2 + 2,
@@ -214,7 +219,7 @@ const xRectangle RECT_ROCK_LARGE =
 // STONE --|
 //         v
 
-const xRectangle RECT_STONE_SMALL =
+const xRectangle SRC_STONE_SMALL =
 {
     64 * 2,
     64 * 3,
@@ -222,7 +227,7 @@ const xRectangle RECT_STONE_SMALL =
     64
 };
 
-const xRectangle RECT_STONE_MEDIUM =
+const xRectangle SRC_STONE_MEDIUM =
 {
     64 * 1,
     64 * 3,
@@ -230,7 +235,7 @@ const xRectangle RECT_STONE_MEDIUM =
     64
 };
 
-const xRectangle RECT_STONE_LARGE = 
+const xRectangle SRC_STONE_LARGE = 
 {
     64 * 0,
     64 * 3,
@@ -243,7 +248,7 @@ const xRectangle RECT_STONE_LARGE =
 
 /* --------------- GRASS/WILDFLOWERS SPRITES --------------- */
 
-const xRectangle RECT_GRASS_TUFT =
+const xRectangle SRC_GRASS_TUFT =
 {
     64 * 8,
     64 * 5,
@@ -259,7 +264,7 @@ const xRectangle RECT_GRASS_TUFT =
 // MUSHROOM --|
 //            v
 
-const xRectangle RECT_MUSHROOM_RED = 
+const xRectangle SRC_MUSHROOM_RED = 
 {
     64 * 0,
     64 * 22,
@@ -267,7 +272,7 @@ const xRectangle RECT_MUSHROOM_RED =
     64
 };
 
-const xRectangle RECT_MUSHROOM_BLUE = 
+const xRectangle SRC_MUSHROOM_BLUE = 
 {
     64 * 14,
     64 * 22,
@@ -275,7 +280,7 @@ const xRectangle RECT_MUSHROOM_BLUE =
     64
 };
 
-const xRectangle RECT_MUSHROOM_NAKED = 
+const xRectangle SRC_MUSHROOM_NAKED = 
 {
     64 * 21,
     64 * 23,
@@ -286,7 +291,7 @@ const xRectangle RECT_MUSHROOM_NAKED =
 // RED FLOWERS --|
 //               v
 
-const xRectangle RECT_FLOWER_RED_1 =
+const xRectangle SRC_FLOWER_RED_1 =
 {
     64 * 3,
     64 * 7,
@@ -294,7 +299,7 @@ const xRectangle RECT_FLOWER_RED_1 =
     64
 };
 
-const xRectangle RECT_FLOWER_RED_2 =
+const xRectangle SRC_FLOWER_RED_2 =
 {
     64 * 3,
     64 * 8,
@@ -302,7 +307,7 @@ const xRectangle RECT_FLOWER_RED_2 =
     64
 };
 
-const xRectangle RECT_FLOWER_RED_3 =
+const xRectangle SRC_FLOWER_RED_3 =
 {
     64 * 3,
     64 * 9,
@@ -310,7 +315,7 @@ const xRectangle RECT_FLOWER_RED_3 =
     64
 };
 
-const xRectangle RECT_FLOWER_RED_4 =
+const xRectangle SRC_FLOWER_RED_4 =
 {
     64 * 3,
     64 * 10,
@@ -321,7 +326,7 @@ const xRectangle RECT_FLOWER_RED_4 =
 // YELLOW FLOWERS --|
 //                  v
 
-const xRectangle RECT_FLOWER_YELLOW_1 =
+const xRectangle SRC_FLOWER_YELLOW_1 =
 {
     64 * 4,
     64 * 7,
@@ -329,7 +334,7 @@ const xRectangle RECT_FLOWER_YELLOW_1 =
     64
 };
 
-const xRectangle RECT_FLOWER_YELLOW_2 =
+const xRectangle SRC_FLOWER_YELLOW_2 =
 {
     64 * 4,
     64 * 8,
@@ -337,7 +342,7 @@ const xRectangle RECT_FLOWER_YELLOW_2 =
     64
 };
 
-const xRectangle RECT_FLOWER_YELLOW_3 =
+const xRectangle SRC_FLOWER_YELLOW_3 =
 {
     64 * 4,
     64 * 9,
@@ -345,7 +350,7 @@ const xRectangle RECT_FLOWER_YELLOW_3 =
     64
 };
 
-const xRectangle RECT_FLOWER_YELLOW_4 =
+const xRectangle SRC_FLOWER_YELLOW_4 =
 {
     64 * 4,
     64 * 10,
