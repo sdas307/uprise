@@ -288,10 +288,60 @@ static void xLoadHedges(World *world)
     
 }
 
+static void xLoadWildflowers(World *world)
+{
+    xRectangle temp = {0};
+    WildflowerVariant variant = WF_VAR_YELLOW_1;
+
+    for (int i = 0; i < wildflower1Count; i++)
+    {
+        temp = (xRectangle)
+        {
+            wildflower1[i].x,
+            wildflower1[i].y,
+            SRC_WF_YELLOW_1.width,
+            SRC_WF_YELLOW_1.height
+        };
+
+        xAddWildflowers(world, variant, temp);
+    }
+
+    variant = WF_VAR_YELLOW_2;
+
+    for (int i = 0; i < wildflower2Count; i++)
+    {
+        temp = (xRectangle)
+        {
+            wildflower2[i].x,
+            wildflower2[i].y,
+            SRC_WF_YELLOW_2.width,
+            SRC_WF_YELLOW_2.height
+        };
+
+        xAddWildflowers(world, variant, temp);
+    }
+
+    variant = WF_VAR_YELLOW_3;
+
+    for (int i = 0; i < wildflower3Count; i++)
+    {
+        temp = (xRectangle)
+        {
+            wildflower3[i].x,
+            wildflower3[i].y,
+            SRC_WF_YELLOW_3.width,
+            SRC_WF_YELLOW_3.height
+        };
+
+        xAddWildflowers(world, variant, temp);
+    }
+}
+
 /// Load all elements of base map in their world positions. 
 void xLoadBaseMap(World *world)
 {
     // xHighGroundColliders(world, highGround);
+    xLoadWildflowers(world);
     xLoadHedges(world);
     xLoadStairs(world);
     xLoadHighGround(world);

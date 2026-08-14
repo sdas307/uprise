@@ -1,5 +1,130 @@
 #include "sprites_nature.h"
 
+/* --------------- TERRAIN DECOR SPRITES --------------- */
+
+const xRectangle SRC_WF_YELLOW_1 =
+{
+    64 * 0,
+    64 * 0,
+    64,
+    64
+};
+
+const xRectangle SRC_WF_YELLOW_2 =
+{
+    64 * 0,
+    64 * 5,
+    64,
+    64
+};
+
+const xRectangle SRC_WF_YELLOW_3 =
+{
+    64 * 8,
+    64 * 0,
+    64,
+    64
+};
+
+const xRectangle SRC_WF_WHITE_1 =
+{
+    64 * 0,
+    64 * 1,
+    64,
+    64
+};
+
+const xRectangle SRC_WF_WHITE_2 =
+{
+    64 * 0,
+    64 * 6,
+    64,
+    64
+};
+
+const xRectangle SRC_WF_WHITE_3 =
+{
+    64 * 8,
+    64 * 1,
+    64,
+    64
+};
+
+const xRectangle SRC_WF_RED_1 =
+{
+    64 * 0,
+    64 * 2,
+    64,
+    64
+};
+
+const xRectangle SRC_WF_RED_2 =
+{
+    64 * 0,
+    64 * 7,
+    64,
+    64
+};
+
+const xRectangle SRC_WF_RED_3 =
+{
+    64 * 8,
+    64 * 2,
+    64,
+    64
+};
+
+const xRectangle SRC_WF_PINK_1 =
+{
+    64 * 0,
+    64 * 4,
+    64,
+    64
+};
+
+const xRectangle SRC_WF_PINK_2 =
+{
+    64 * 0,
+    64 * 9,
+    64,
+    64
+};
+
+const xRectangle SRC_WF_PINK_3 =
+{
+    64 * 8,
+    64 * 4,
+    64,
+    64
+};
+
+const xRectangle SRC_WF_CYAN_1 =
+{
+    64 * 0,
+    64 * 3,
+    64,
+    64
+};
+
+const xRectangle SRC_WF_CYAN_2 =
+{
+    64 * 0,
+    64 * 8,
+    64,
+    64
+};
+
+const xRectangle SRC_WF_CYAN_3 =
+{
+    64 * 8,
+    64 * 3,
+    64,
+    64
+};
+
+/* --------------- --------------- --------------- */
+
+
 /* --------------- TERRAIN SPRITES --------------- */
 
 const xRectangle SRC_STAIRS_GROUND =

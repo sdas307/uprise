@@ -3,6 +3,33 @@
 
 #include "xEngine.h"
 
+/* --------------- TERRAIN DECOR SPRITES --------------- */
+
+extern const xRectangle SRC_WF_YELLOW_1;
+extern const xRectangle SRC_WF_YELLOW_2;
+extern const xRectangle SRC_WF_YELLOW_3;
+
+extern const xRectangle SRC_WF_WHITE_1;
+extern const xRectangle SRC_WF_WHITE_2;
+extern const xRectangle SRC_WF_WHITE_3;
+
+extern const xRectangle SRC_WF_RED_1;
+extern const xRectangle SRC_WF_RED_2;
+extern const xRectangle SRC_WF_RED_3;
+
+extern const xRectangle SRC_WF_PINK_1;
+extern const xRectangle SRC_WF_PINK_2;
+extern const xRectangle SRC_WF_PINK_3;
+
+extern const xRectangle SRC_WF_CYAN_1;
+extern const xRectangle SRC_WF_CYAN_2;
+extern const xRectangle SRC_WF_CYAN_3;
+
+/* --------------- --------------- --------------- */
+
+
+/* --------------- TERRAIN SPRITES --------------- */
+
 extern const xRectangle SRC_STAIRS_GROUND;
 
 extern const xRectangle SRC_STAIRS_STONE;
@@ -16,6 +43,8 @@ extern const xRectangle SRC_HEDGE_HOR_CENTER;
 extern const xRectangle SRC_HEDGE_HOR_RIGHT;
 
 extern const xRectangle SRC_HEDGE_SINGLE;
+
+/* --------------- --------------- --------------- */
 
 
 /* --------------- TREE SPRITES --------------- */

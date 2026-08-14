@@ -20,6 +20,7 @@ typedef enum EntityID
     ENTITY_STAIRS,
 
     ENTITY_HEDGE,
+    ENTITY_WILDFLOWER,
 
     ENTITY_TREE_BIRCH_CUT,
     ENTITY_TREE_BIRCH_SMALL,
@@ -168,6 +169,30 @@ typedef enum HedgePiece
     HEDGE_SINGLE
 
 } HedgePiece;
+
+typedef enum WildflowerVariant
+{
+    WF_VAR_WHITE_1,
+    WF_VAR_WHITE_2,
+    WF_VAR_WHITE_3,
+
+    WF_VAR_YELLOW_1,
+    WF_VAR_YELLOW_2,
+    WF_VAR_YELLOW_3,
+
+    WF_VAR_RED_1,
+    WF_VAR_RED_2,
+    WF_VAR_RED_3,
+
+    WF_VAR_PINK_1,
+    WF_VAR_PINK_2,
+    WF_VAR_PINK_3,
+
+    WF_VAR_CYAN_1,
+    WF_VAR_CYAN_2,
+    WF_VAR_CYAN_3,
+
+} WildflowerVariant;
 
 typedef enum StoneType
 {

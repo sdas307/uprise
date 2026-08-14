@@ -451,6 +451,91 @@ void xAddHedge(World *world, HedgePiece piece, xRectangle dest)
     xCreateEntity(world, &info);
 }
 
+void xAddWildflowers(World *world, WildflowerVariant variant, xRectangle dest)
+{
+    EntityInfo info =
+    {
+        .id = ENTITY_WILDFLOWER,
+        .spritesheet = &world->spritesheets[SHEET_NATURE_GRASS_WILDFLOWERS],
+        .dest = dest,
+        .collider = (xRectangle) {0},
+        .fadeable = false,
+        .collidable = false,
+        .alwaysBelowPlayer = true,
+        .flip = false,
+        .active = true
+    };
+
+    switch (variant)
+    {
+    case WF_VAR_YELLOW_1:
+        info.source = SRC_WF_YELLOW_1;
+        break;
+
+    case WF_VAR_YELLOW_2:
+        info.source = SRC_WF_YELLOW_2;
+        break;
+
+    case WF_VAR_YELLOW_3:
+        info.source = SRC_WF_YELLOW_3;
+        break;
+
+    case WF_VAR_WHITE_1:
+        info.source = SRC_WF_WHITE_1;
+        break;
+
+    case WF_VAR_WHITE_2:
+        info.source = SRC_WF_WHITE_2;
+        break;
+
+    case WF_VAR_WHITE_3:
+        info.source = SRC_WF_WHITE_3;
+        break;
+
+    case WF_VAR_RED_1:
+        info.source = SRC_WF_RED_1;
+        break;
+
+    case WF_VAR_RED_2:
+        info.source = SRC_WF_RED_2;
+        break;
+
+    case WF_VAR_RED_3:
+        info.source = SRC_WF_RED_3;
+        break;
+
+    case WF_VAR_PINK_1:
+        info.source = SRC_WF_PINK_1;
+        break;
+
+    case WF_VAR_PINK_2:
+        info.source = SRC_WF_PINK_2;
+        break;
+
+    case WF_VAR_PINK_3:
+        info.source = SRC_WF_PINK_3;
+        break;
+
+    case WF_VAR_CYAN_1:
+        info.source = SRC_WF_CYAN_1;
+        break;
+
+    case WF_VAR_CYAN_2:
+        info.source = SRC_WF_CYAN_2;
+        break;
+
+    case WF_VAR_CYAN_3:
+        info.source = SRC_WF_CYAN_3;
+        break;
+    
+    default:
+        info.source = SRC_WF_YELLOW_1;
+        break;
+    }
+
+    xCreateEntity(world, &info);
+}
+
 // void xAddFlower(World *world, FlowerColor color, FlowerType type, xRectangle dest)
 // {
 //     xRectangle source;
