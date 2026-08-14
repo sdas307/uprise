@@ -1,5 +1,77 @@
 #include "sprites_nature.h"
 
+const xRectangle RECT_STAIRS_GROUND =
+{
+    64 * 22,
+    64 * 0,
+    64 * 2,
+    64 * 2
+};
+
+const xRectangle RECT_STAIRS_STONE =
+{
+    64 * 22,
+    64 * 5,
+    64 * 2,
+    64 * 2
+};
+
+const xRectangle RECT_HEDGE_VER_TOP =
+{
+    64 * 12,
+    64 * 5,
+    64,
+    64
+};
+
+const xRectangle RECT_HEDGE_VER_CENTER =
+{
+    64 * 12,
+    64 * 6,
+    64,
+    64
+};
+
+const xRectangle RECT_HEDGE_VER_BOTTOM =
+{
+    64 * 12,
+    64 * 7,
+    64,
+    64
+};
+
+const xRectangle RECT_HEDGE_HOR_LEFT =
+{
+    64 * 13,
+    64 * 5,
+    64,
+    64
+};
+
+const xRectangle RECT_HEDGE_HOR_CENTER =
+{
+    64 * 14,
+    64 * 5,
+    64,
+    64
+};
+
+const xRectangle RECT_HEDGE_HOR_RIGHT =
+{
+    64 * 15,
+    64 * 5,
+    64,
+    64
+};
+
+const xRectangle RECT_HEDGE_SINGLE =
+{
+    64 * 12,
+    64 * 8,
+    64,
+    64
+};
+
 /* --------------- TREE SPRITES --------------- */
 
 // BIRCH TREE --|

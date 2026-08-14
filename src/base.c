@@ -205,10 +205,96 @@ static void xLoadLightPosts(World *world)
     }
 }
 
+static void xLoadHighGround(World *world)
+{
+    for (int i = 0; i < highGroundCount; i++)
+    {
+        xRectangle temp =
+        {
+            highGround[i].x,
+            highGround[i].y,
+            highGround[i].width,
+            highGround[i].height,
+        };
+
+        xAddHighGroundBounds(world, temp);
+    }
+}
+
+static void xLoadStairs(World *world)
+{
+    for (int i = 0; i < highGroundStairsCount; i++)
+    {
+        xRectangle temp =
+        {
+            highGroundStairs[i].x,
+            highGroundStairs[i].y,
+            RECT_STAIRS_GROUND.width,
+            RECT_STAIRS_GROUND.height
+        };
+
+        xAddStairs(world, temp);
+    }
+}
+
+static void xLoadHedges(World *world)
+{
+    xRectangle temp = {0, 0, 64, 64};
+    
+    xAddHedge(world, HEDGE_HOR_LEFT, temp);
+
+    for (int i = 64; i < hedgeContinuous->width - 64; i += 64)
+    {
+        temp = (xRectangle)
+        {
+            i,
+            0,
+            64,
+            64
+        };
+
+        xAddHedge(world, HEDGE_HOR_CENTER, temp);
+    }
+
+    temp = (xRectangle)
+    {
+        temp.x + 64,
+        temp.y,
+        temp.width,
+        temp.height
+    };
+
+    xAddHedge(world, HEDGE_HOR_RIGHT, temp);
+
+    temp = (xRectangle)
+    {
+        0,
+        64,
+        temp.width,
+        temp.height
+    };
+
+    xAddHedge(world, HEDGE_SINGLE, temp);
+
+    temp = (xRectangle)
+    {
+        0,
+        128,
+        temp.width,
+        temp.height
+    };
+
+    xAddHedge(world, HEDGE_SINGLE, temp);
+    
+}
+
 /// Load all elements of base map in their world positions. 
 void xLoadBaseMap(World *world)
 {
     // xHighGroundColliders(world, highGround);
+    xLoadHedges(world);
+    xLoadStairs(world);
+    xLoadHighGround(world);
     xLoadLightPosts(world);
     xLoadGrass1(world);
     xLoadTrees(world);

@@ -347,6 +347,110 @@ void xAddMushroom(World *world, MushroomType type, xRectangle dest)
     xCreateEntity(world, &info);
 }
 
+void xAddHighGroundBounds(World *world, xRectangle dest)
+{
+    EntityInfo info =
+    {
+        .id = ENTITY_HIGH_GROUND_BLOCK,
+        .spritesheet = &(Texture2D) {0},
+        .source = (xRectangle) {0},
+        .dest = dest,
+        .fadeable = false,
+        .collidable = true,
+        .active = true
+    };
+
+    info.collider = (xRectangle)
+    {
+        dest.x + 20,
+        dest.y + 24,
+        dest.width - 24,
+        dest.height - 42
+    };
+
+    xCreateEntity(world, &info);
+}
+
+void xAddStairs(World *world, xRectangle dest)
+{
+    EntityInfo info =
+    {
+        .id = ENTITY_STAIRS,
+        .spritesheet = &world->spritesheets[SHEET_NATURE_GRASSLANDS],
+        .source = RECT_STAIRS_GROUND,
+        .dest = dest,
+        .fadeable = false,
+        .collidable = false,
+        .active = true,
+        .alwaysBelowPlayer = true,
+        .flip = false
+    };
+
+    info.collider = (xRectangle) {0};
+
+    xCreateEntity(world, &info);
+}
+
+void xAddHedge(World *world, HedgePiece piece, xRectangle dest)
+{
+    EntityInfo info =
+    {
+        .id = ENTITY_HEDGE,
+        .spritesheet = &world->spritesheets[SHEET_NATURE_TREE],
+        .dest = dest,
+        .fadeable = false,
+        .collidable = true,
+        .alwaysBelowPlayer = false,
+        .active = true,
+        .flip = false
+    };
+
+    info.collider = (xRectangle)
+    {
+        dest.x,
+        dest.y,
+        64,
+        64
+    };
+
+    switch (piece)
+    {
+    case HEDGE_VER_TOP:
+        info.source = RECT_HEDGE_VER_TOP;
+        break;
+    
+    case HEDGE_VER_CENTER:
+        info.source = RECT_HEDGE_VER_CENTER;
+        break;
+
+    case HEDGE_VER_BOTTOM:
+        info.source = RECT_HEDGE_VER_BOTTOM;
+        break;
+
+    case HEDGE_HOR_LEFT:
+        info.source = RECT_HEDGE_HOR_LEFT;
+        break;
+    
+    case HEDGE_HOR_CENTER:
+        info.source = RECT_HEDGE_HOR_CENTER;
+        break;
+    
+    case HEDGE_HOR_RIGHT:
+        info.source = RECT_HEDGE_HOR_RIGHT;
+        break;
+
+    case HEDGE_SINGLE:
+        info.source = RECT_HEDGE_SINGLE;
+        break;
+    
+    default:
+        info.source = RECT_HEDGE_SINGLE;
+        break;
+    }
+
+    xCreateEntity(world, &info);
+}
+
 // void xAddFlower(World *world, FlowerColor color, FlowerType type, xRectangle dest)
 // {
 //     xRectangle source;

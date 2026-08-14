@@ -3,6 +3,21 @@
 
 #include "xEngine.h"
 
+extern const xRectangle RECT_STAIRS_GROUND;
+
+extern const xRectangle RECT_STAIRS_STONE;
+
+extern const xRectangle RECT_HEDGE_VER_TOP;
+extern const xRectangle RECT_HEDGE_VER_CENTER;
+extern const xRectangle RECT_HEDGE_VER_BOTTOM;
+
+extern const xRectangle RECT_HEDGE_HOR_LEFT;
+extern const xRectangle RECT_HEDGE_HOR_CENTER;
+extern const xRectangle RECT_HEDGE_HOR_RIGHT;
+
+extern const xRectangle RECT_HEDGE_SINGLE;
+
+
 /* --------------- TREE SPRITES --------------- */
 
 extern const xRectangle RECT_TREE_BIRCH_CUT;

@@ -18,6 +18,12 @@ void xAddGrassTuft(World *world, xRectangle dest);
 
 void xAddMushroom(World *world, MushroomType type, xRectangle dest);
 
+void xAddHighGroundBounds(World *world, xRectangle dest);
+
+void xAddStairs(World *world, xRectangle dest);
+
+void xAddHedge(World *world, HedgePiece piece, xRectangle dest);
+
 void xAddPond6x6(World *world, xRectangle dest);
 
 void xAddGroundBlock(World *world, xRectangle dest);

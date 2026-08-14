@@ -17,6 +17,9 @@ typedef enum EntityID
 {
     ENTITY_HOUSE,
     ENTITY_LIGHT_POST,
+    ENTITY_STAIRS,
+
+    ENTITY_HEDGE,
 
     ENTITY_TREE_BIRCH_CUT,
     ENTITY_TREE_BIRCH_SMALL,
@@ -151,6 +154,20 @@ typedef enum MushroomType
     MUSHROOM_TYPE_NAKED
 
 } MushroomType;
+
+typedef enum HedgePiece
+{
+    HEDGE_VER_TOP,
+    HEDGE_VER_CENTER,
+    HEDGE_VER_BOTTOM,
+
+    HEDGE_HOR_LEFT,
+    HEDGE_HOR_CENTER,
+    HEDGE_HOR_RIGHT,
+
+    HEDGE_SINGLE
+
+} HedgePiece;
 
 typedef enum StoneType
 {
