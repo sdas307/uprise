@@ -33,6 +33,17 @@ typedef enum xObjectType
 
 } xObjectType;
 
+typedef struct Animation
+{
+    bool active;
+    
+    int currentFrame;
+    int frameCount;
+    float timer;
+    float frameTime;
+
+} Animation;
+
 typedef struct xGameObject
 {
     // xSprite sprite;          // Sprite to draw.

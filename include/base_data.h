@@ -6,6 +6,9 @@
 extern const xVector2 house[];
 extern const int houseCount;
 
+extern const xVector2 lightPosts[];
+extern const int lightPostsCount;
+
 extern const xVector2 grass1[];
 extern const int grass1Count;
 

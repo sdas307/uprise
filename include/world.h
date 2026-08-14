@@ -62,12 +62,32 @@ typedef enum EntityID
 
 } EntityID;
 
-extern EntityID entityID;
+typedef struct EntityInfo
+{
+    EntityID id;
+
+    Texture2D *spritesheet;
+
+    xRectangle source;
+    xRectangle dest;
+    xRectangle collider;
+
+    bool fadeable;
+    bool collidable;
+    bool alwaysBelowPlayer;
+    bool active;
+    bool flip;
+
+} EntityInfo;
 
 typedef struct Entity
 {
     xGameObject gameObject;
     EntityID id;
+
+    Animation animation;
+
+    EntityInfo info;
     
     int hp;
     bool harvestable;

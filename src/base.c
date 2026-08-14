@@ -189,10 +189,27 @@ static void xLoadGrass1(World *world)
     }
 }
 
+static void xLoadLightPosts(World *world)
+{
+    for (int i = 0; i < lightPostsCount; i++)
+    {
+        xRectangle temp =
+        {
+            lightPosts[i].x,
+            lightPosts[i].y,
+            RECT_LIGHT_POST_WOOD_1.width,
+            RECT_LIGHT_POST_WOOD_1.height
+        };
+
+        xAddLightPost(world, temp);
+    }
+}
+
 /// Load all elements of base map in their world positions. 
 void xLoadBaseMap(World *world)
 {
     // xHighGroundColliders(world, highGround);
+    xLoadLightPosts(world);
     xLoadGrass1(world);
     xLoadTrees(world);
     xLoadHouse(world);

@@ -61,6 +61,7 @@ void xRenderScene(World *world, Player *player, AnimalManager *manager)
         bool isPlayerBehindObject = (object->depth > player->gameObject.depth);
 
         xRectangle fadeArea = xGetFadeArea(object);
+        // Every object should contain their own fadeArea info... #######
 
         bool overlapsPlayer = xCheckCollisionAABB(fadeArea, player->gameObject.collider);
 
