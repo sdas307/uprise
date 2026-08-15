@@ -44,7 +44,7 @@ void xUnloadWorld(World *world)
 
 void xLoadWorld(World *world, AnimalManager *manager)
 {
-    xLoadBaseMap(world);
+    xLoadBaseMap(world, manager);
 
     // xLoadForestMap(world);
 }

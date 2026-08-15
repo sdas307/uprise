@@ -33,11 +33,11 @@ void xRenderScene(World *world, Player *player, AnimalManager *manager)
         renderList[renderCount++] = &world->entities[i].gameObject;
     }
 
-    // // Add animals.
-    // for (int i = 0; i < manager->animalCount; i++)
-    // {
-    //     renderList[renderCount++] = &manager->animals[i].gameObject;
-    // }
+    // Add animals.
+    for (int i = 0; i < manager->animalCount; i++)
+    {
+        renderList[renderCount++] = &manager->animals[i].gameObject;
+    }
 
     // Add player
     renderList[renderCount++] = &player->gameObject;
@@ -51,14 +51,13 @@ void xRenderScene(World *world, Player *player, AnimalManager *manager)
         xGameObject *object = renderList[i];
 
         bool isObjectPlayer = (object->type == OBJECT_PLAYER);
-        // bool isObjectAnimal = (object->type == OBJECT_ANIMAL);
+        bool isObjectAnimal = (object->type == OBJECT_ANIMAL);
 
         bool fadeEffect = (object->fadeable);
 
         bool isPlayerBehindObject = (object->depth > player->gameObject.depth);
 
         //xRectangle fadeArea = xGetFadeArea(object);
-        // Every object should contain their own fadeArea info... #######
 
         bool overlapsPlayer = xCheckCollisionAABB(object->fadeArea, player->gameObject.collider);
 

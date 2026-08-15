@@ -338,9 +338,10 @@ static void xLoadWildflowers(World *world)
 }
 
 /// Load all elements of base map in their world positions. 
-void xLoadBaseMap(World *world)
+void xLoadBaseMap(World *world, AnimalManager *manager)
 {
     // xHighGroundColliders(world, highGround);
+
     xLoadWildflowers(world);
     xLoadHedges(world);
     xLoadStairs(world);

@@ -3,7 +3,7 @@
 
 #include "xEngine.h"
 
-#define MAX_OBJECTS 128
+#define MAX_OBJECTS 256
 
 typedef struct Terrain
 {

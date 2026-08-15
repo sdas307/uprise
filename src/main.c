@@ -20,6 +20,7 @@ int main(void)
     xInitWindow();
 
     xInitPlayer(&player);
+    
 
     xInitCamera(&gameCamera, &player.gameObject);
 

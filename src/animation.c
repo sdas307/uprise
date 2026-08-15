@@ -21,11 +21,6 @@ static void Animate(xGameObject *object)
 
     if (!animation->active)
         return;
-
-    printf("frames=%p current=%d count=%d\n",
-           (void *)animation->frames,
-           animation->currentFrame,
-           animation->frameCount);
     
     animation->timer += GetFrameTime();
 
