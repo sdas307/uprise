@@ -84,7 +84,7 @@ void xAddLightPost(World *world, xRectangle dest)
     EntityInfo info =
     {
         .id = ENTITY_LIGHT_POST,
-        .source = SRC_LIGHT_POST_WOOD_1,
+        .source = SRC_LIGHT_POST_WOOD_1[0],
         .spritesheet = &world->spritesheets[SHEET_STRUCTURE_FENCE_POSTS],
         .dest = dest,
         .fadeable = true,
@@ -95,7 +95,12 @@ void xAddLightPost(World *world, xRectangle dest)
 
     Animation animation =
     {
-        0
+        .active = true,
+        .frameCount = 6,
+        .frames = SRC_LIGHT_POST_WOOD_1,
+        .currentFrame = 0,
+        .frameTime = 0.25f,
+        .timer = 0.0f
     };
 
     info.collider = (xRectangle)

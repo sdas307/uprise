@@ -197,8 +197,8 @@ static void xLoadLightPosts(World *world)
         {
             lightPosts[i].x,
             lightPosts[i].y,
-            SRC_LIGHT_POST_WOOD_1.width,
-            SRC_LIGHT_POST_WOOD_1.height
+            SRC_LIGHT_POST_WOOD_1[0].width,
+            SRC_LIGHT_POST_WOOD_1[0].height
         };
 
         xAddLightPost(world, temp);
@@ -340,8 +340,6 @@ static void xLoadWildflowers(World *world)
 /// Load all elements of base map in their world positions. 
 void xLoadBaseMap(World *world, AnimalManager *manager)
 {
-    // xHighGroundColliders(world, highGround);
-
     xLoadWildflowers(world);
     xLoadHedges(world);
     xLoadStairs(world);
