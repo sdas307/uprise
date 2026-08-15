@@ -5,9 +5,9 @@
 
 /* --------------- TERRAIN DECOR SPRITES --------------- */
 
-extern const xRectangle SRC_WF_YELLOW_1;
-extern const xRectangle SRC_WF_YELLOW_2;
-extern const xRectangle SRC_WF_YELLOW_3;
+extern const xRectangle SRC_WF_YELLOW_1[];
+extern const xRectangle SRC_WF_YELLOW_2[];
+extern const xRectangle SRC_WF_YELLOW_3[];
 
 extern const xRectangle SRC_WF_WHITE_1;
 extern const xRectangle SRC_WF_WHITE_2;

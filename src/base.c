@@ -299,8 +299,8 @@ static void xLoadWildflowers(World *world)
         {
             wildflower1[i].x,
             wildflower1[i].y,
-            SRC_WF_YELLOW_1.width,
-            SRC_WF_YELLOW_1.height
+            SRC_WF_YELLOW_1[0].width,
+            SRC_WF_YELLOW_1[0].height
         };
 
         xAddWildflowers(world, variant, temp);
@@ -314,8 +314,8 @@ static void xLoadWildflowers(World *world)
         {
             wildflower2[i].x,
             wildflower2[i].y,
-            SRC_WF_YELLOW_2.width,
-            SRC_WF_YELLOW_2.height
+            SRC_WF_YELLOW_2[0].width,
+            SRC_WF_YELLOW_2[0].height
         };
 
         xAddWildflowers(world, variant, temp);
@@ -329,8 +329,8 @@ static void xLoadWildflowers(World *world)
         {
             wildflower3[i].x,
             wildflower3[i].y,
-            SRC_WF_YELLOW_3.width,
-            SRC_WF_YELLOW_3.height
+            SRC_WF_YELLOW_3[0].width,
+            SRC_WF_YELLOW_3[0].height
         };
 
         xAddWildflowers(world, variant, temp);

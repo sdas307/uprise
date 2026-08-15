@@ -1,7 +1,7 @@
 #include "entities.h"
 #include "sprites.h"
 
-static void xCreateEntity(World *world, const EntityInfo *info)
+static void xCreateEntity(World *world, const EntityInfo *info, const Animation *animation)
 {
     if (world->entityCount >= MAX_OBJECTS)
         return;
@@ -24,6 +24,8 @@ static void xCreateEntity(World *world, const EntityInfo *info)
 
     object->flip = info->flip;
     object->active = info->active;
+
+    object->animation = *animation;
 }
 
 void xAddHouse(World *world, HouseType type, xRectangle dest)
@@ -38,6 +40,8 @@ void xAddHouse(World *world, HouseType type, xRectangle dest)
         .active = true,
         .alwaysBelowPlayer = false
     };
+
+    Animation animation = {0};
     
     switch (type)
     {
@@ -72,7 +76,7 @@ void xAddHouse(World *world, HouseType type, xRectangle dest)
         break;
     }
 
-    xCreateEntity(world, &info);
+    xCreateEntity(world, &info, &animation);
 }
 
 void xAddLightPost(World *world, xRectangle dest)
@@ -87,6 +91,11 @@ void xAddLightPost(World *world, xRectangle dest)
         .collidable = true,
         .active = true,
         .alwaysBelowPlayer = false
+    };
+
+    Animation animation =
+    {
+        0
     };
 
     info.collider = (xRectangle)
@@ -105,7 +114,7 @@ void xAddLightPost(World *world, xRectangle dest)
         dest.height - 24 - 48
     };
 
-    xCreateEntity(world, &info);
+    xCreateEntity(world, &info, &animation);
 }
 
 // void xAddRock(World *world, RockType type, xRectangle dest)
@@ -211,6 +220,8 @@ void xAddTree(World *world, TreeType type, TreeStage stage, xRectangle dest)
         .active = true        
     };
 
+    Animation animation = {0};
+
     switch (type)
     {
     case TREE_TYPE_BIRCH:
@@ -276,7 +287,7 @@ void xAddTree(World *world, TreeType type, TreeStage stage, xRectangle dest)
         break;
     }
 
-    xCreateEntity(world, &info);
+    xCreateEntity(world, &info, &animation);
 }
 
 void xAddGrassTuft(World *world, xRectangle dest)
@@ -294,6 +305,11 @@ void xAddGrassTuft(World *world, xRectangle dest)
         .active = true
     };
 
+    Animation animation =
+    {
+        .active = true,
+    };
+
     info.collider = (xRectangle)
     {
         0
@@ -304,7 +320,7 @@ void xAddGrassTuft(World *world, xRectangle dest)
         0
     };
 
-    xCreateEntity(world, &info);
+    xCreateEntity(world, &info, &animation);
 }
 
 void xAddMushroom(World *world, MushroomType type, xRectangle dest)
@@ -320,6 +336,8 @@ void xAddMushroom(World *world, MushroomType type, xRectangle dest)
         .flip = false,
         .active = true
     };
+
+    Animation animation = {0};
     
     switch (type)
     {
@@ -344,7 +362,7 @@ void xAddMushroom(World *world, MushroomType type, xRectangle dest)
         0
     };
 
-    xCreateEntity(world, &info);
+    xCreateEntity(world, &info, &animation);
 }
 
 void xAddHighGroundBounds(World *world, xRectangle dest)
@@ -360,6 +378,8 @@ void xAddHighGroundBounds(World *world, xRectangle dest)
         .active = true
     };
 
+    Animation animation = {0};
+
     info.collider = (xRectangle)
     {
         dest.x + 20,
@@ -368,7 +388,7 @@ void xAddHighGroundBounds(World *world, xRectangle dest)
         dest.height - 42
     };
 
-    xCreateEntity(world, &info);
+    xCreateEntity(world, &info, &animation);
 }
 
 void xAddStairs(World *world, xRectangle dest)
@@ -385,10 +405,12 @@ void xAddStairs(World *world, xRectangle dest)
         .alwaysBelowPlayer = true,
         .flip = false
     };
+    
+    Animation animation = {0};
 
     info.collider = (xRectangle) {0};
 
-    xCreateEntity(world, &info);
+    xCreateEntity(world, &info, &animation);
 }
 
 void xAddHedge(World *world, HedgePiece piece, xRectangle dest)
@@ -404,6 +426,8 @@ void xAddHedge(World *world, HedgePiece piece, xRectangle dest)
         .active = true,
         .flip = false
     };
+
+    Animation animation = {0};
 
     info.collider = (xRectangle)
     {
@@ -448,7 +472,7 @@ void xAddHedge(World *world, HedgePiece piece, xRectangle dest)
         break;
     }
 
-    xCreateEntity(world, &info);
+    xCreateEntity(world, &info, &animation);
 }
 
 void xAddWildflowers(World *world, WildflowerVariant variant, xRectangle dest)
@@ -466,18 +490,31 @@ void xAddWildflowers(World *world, WildflowerVariant variant, xRectangle dest)
         .active = true
     };
 
+    Animation animation = 
+    {
+        .active = true,
+        .currentFrame = 0,
+        .frameCount = 8,
+        .frames = SRC_WF_YELLOW_1,
+        .frameTime = 0.20f,
+        .timer = 0.0f
+    };
+
     switch (variant)
     {
     case WF_VAR_YELLOW_1:
-        info.source = SRC_WF_YELLOW_1;
+        info.source = SRC_WF_YELLOW_1[0];
+        animation.frames = SRC_WF_YELLOW_1;
         break;
 
     case WF_VAR_YELLOW_2:
-        info.source = SRC_WF_YELLOW_2;
+        info.source = SRC_WF_YELLOW_2[0];
+        animation.frames = SRC_WF_YELLOW_2;
         break;
 
     case WF_VAR_YELLOW_3:
-        info.source = SRC_WF_YELLOW_3;
+        info.source = SRC_WF_YELLOW_3[0];
+        animation.frames = SRC_WF_YELLOW_3;
         break;
 
     case WF_VAR_WHITE_1:
@@ -529,11 +566,11 @@ void xAddWildflowers(World *world, WildflowerVariant variant, xRectangle dest)
         break;
     
     default:
-        info.source = SRC_WF_YELLOW_1;
+        info.source = SRC_WF_YELLOW_1[0];
         break;
     }
 
-    xCreateEntity(world, &info);
+    xCreateEntity(world, &info, &animation);
 }
 
 // void xAddFlower(World *world, FlowerColor color, FlowerType type, xRectangle dest)

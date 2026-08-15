@@ -1,13 +1,14 @@
 #include "raylib.h"
 #include "config.h"
 #include "camera.h"
+#include "animation.h"
 #include "player.h"
 #include "world.h"
 #include "render.h"
 #include "animal.h"
 #include <stdio.h>
 
-bool showFPS = false;
+bool showFPS = true;
 
 int main(void)
 {
@@ -37,6 +38,10 @@ int main(void)
         // ---------------- UPDATE ----------------
 
         xUpdatePlayer(&player, &world);
+
+        printf("\n\nUpdateAnimation();\n\n");
+        xUpdateAnimation(&world);
+        printf("\n\nDone UpdateAnimation();\n\n");
 
         xUpdateCamera(&gameCamera, &player.gameObject);
         

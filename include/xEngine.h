@@ -35,12 +35,17 @@ typedef enum xObjectType
 
 typedef struct Animation
 {
-    bool active;
+    bool active;                /// Animation active?
     
-    int currentFrame;
-    int frameCount;
-    float timer;
-    float frameTime;
+    int currentFrame;           /// Current animation frame.
+    int frameCount;             /// Total frames in the animation.
+    const Rectangle *frames;    /// Frame starting index.
+
+    // int frameWidth;         /// Width of each frame.
+    // int frameHeight;        /// Height of each frame.
+
+    float frameTime;        /// How long each frame remains visible.
+    float timer;            /// Time passed since last frame change.
 
 } Animation;
 
@@ -59,6 +64,8 @@ typedef struct xGameObject
     xObjectType type;       /// Uprise object type.
 
     int depth;              /// Depth of the object (y + height).
+
+    Animation animation;
 
     bool collidable;        /// Whether collisions are active.
     bool fadeable;          /// Whether to fade on overlap.

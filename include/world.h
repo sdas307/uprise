@@ -89,10 +89,6 @@ typedef struct Entity
 {
     xGameObject gameObject;
     EntityID id;
-
-    Animation animation;
-
-    EntityInfo info;
     
     int hp;
     bool harvestable;
