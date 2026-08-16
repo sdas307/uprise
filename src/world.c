@@ -26,6 +26,7 @@ void xInitWorld(World *world)
     for (int i = 0; i < path_spritesheets_size; i++)
     {
         world->spritesheets[i] = LoadTexture(PATH_SPRITESHEETS[i]);
+        SetTextureFilter(world->spritesheets[i], TEXTURE_FILTER_POINT);
     }
 
     world->entityCount = 0;
@@ -43,7 +44,7 @@ void xUnloadWorld(World *world)
 
 void xLoadWorld(World *world, AnimalManager *manager)
 {
-    xLoadBaseMap(world);
+    xLoadBaseMap(world, manager);
 
     // xLoadForestMap(world);
 }

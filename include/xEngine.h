@@ -33,25 +33,44 @@ typedef enum xObjectType
 
 } xObjectType;
 
+typedef struct Animation
+{
+    bool active;                /// Animation active?
+    
+    int currentFrame;           /// Current animation frame.
+    int frameCount;             /// Total frames in the animation.
+    const Rectangle *frames;    /// Frame starting index.
+
+    // int frameWidth;         /// Width of each frame.
+    // int frameHeight;        /// Height of each frame.
+
+    float frameTime;        /// How long each frame remains visible.
+    float timer;            /// Time passed since last frame change.
+
+} Animation;
+
 typedef struct xGameObject
 {
-    // xSprite sprite;          // Sprite to draw.
-    // xTransform tranform;     // Transformations to be made.
+    // xSprite sprite;          /// Sprite to draw.
+    // xTransform tranform;     /// Transformations to be made.
 
     Texture2D texture;
     
     Rectangle source;
     Rectangle dest;
     Rectangle collider;
+    Rectangle fadeArea;         /// Collision results in object fading.
 
-    xObjectType type;       // Uprise object type.
+    xObjectType type;       /// Uprise object type.
 
-    int depth;              // Depth of the object (y + height).
+    int depth;              /// Depth of the object (y + height).
 
-    bool collidable;        // Whether collisions are active.
-    bool fadeable;          // Whether to fade on overlap.
-    bool flip;              // Whether to flip the sprite horizontally.
-    bool active;            // Whether to draw on screen.
+    Animation animation;
+
+    bool collidable;        /// Whether collisions are active.
+    bool fadeable;          /// Whether to fade on overlap.
+    bool flip;              /// Whether to flip the sprite horizontally.
+    bool active;            /// Whether to draw on screen.
 
 } xGameObject;
 

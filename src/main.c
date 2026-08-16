@@ -1,22 +1,26 @@
 #include "raylib.h"
 #include "config.h"
 #include "camera.h"
+#include "animation.h"
 #include "player.h"
 #include "world.h"
 #include "render.h"
 #include "animal.h"
 #include <stdio.h>
 
-xGameCamera gameCamera;
-Player player;
-World world;
-AnimalManager manager;
+bool showFPS = true;
 
 int main(void)
 {
+    xGameCamera gameCamera;
+    Player player;
+    World world;
+    AnimalManager manager;
+
     xInitWindow();
 
     xInitPlayer(&player);
+    
 
     xInitCamera(&gameCamera, &player.gameObject);
 
@@ -35,6 +39,8 @@ int main(void)
         // ---------------- UPDATE ----------------
 
         xUpdatePlayer(&player, &world);
+
+        xUpdateAnimation(&world);
 
         xUpdateCamera(&gameCamera, &player.gameObject);
         
@@ -58,11 +64,15 @@ int main(void)
 
             DrawCircle(GetMouseX(), GetMouseY(), 10, RED);
 
+            if (showFPS)
+                DrawText(TextFormat("FPS: %d", GetFPS()), 10, 10, 20, WHITE);
+
         EndDrawing();
     }
 
     xUnloadPlayer(&player);
     xUnloadWorld(&world);
+    // xUnloadAnimal(&manager);
 
     CloseWindow();
 

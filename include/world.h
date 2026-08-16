@@ -3,7 +3,7 @@
 
 #include "xEngine.h"
 
-#define MAX_OBJECTS 128
+#define MAX_OBJECTS 256
 
 typedef struct Terrain
 {
@@ -17,6 +17,10 @@ typedef enum EntityID
 {
     ENTITY_HOUSE,
     ENTITY_LIGHT_POST,
+    ENTITY_STAIRS,
+
+    ENTITY_HEDGE,
+    ENTITY_WILDFLOWER,
 
     ENTITY_TREE_BIRCH_CUT,
     ENTITY_TREE_BIRCH_SMALL,
@@ -62,7 +66,24 @@ typedef enum EntityID
 
 } EntityID;
 
-extern EntityID entityID;
+typedef struct EntityInfo
+{
+    EntityID id;
+
+    Texture2D *spritesheet;
+
+    xRectangle source;
+    xRectangle dest;
+    xRectangle collider;
+    xRectangle fadeArea;
+
+    bool fadeable;
+    bool collidable;
+    bool alwaysBelowPlayer;
+    bool active;
+    bool flip;
+
+} EntityInfo;
 
 typedef struct Entity
 {
@@ -130,6 +151,52 @@ typedef enum MushroomType
     MUSHROOM_TYPE_NAKED
 
 } MushroomType;
+
+typedef enum HedgePiece
+{
+    HEDGE_VER_TOP,
+    HEDGE_VER_CENTER,
+    HEDGE_VER_BOTTOM,
+
+    HEDGE_HOR_LEFT,
+    HEDGE_HOR_CENTER,
+    HEDGE_HOR_RIGHT,
+
+    HEDGE_SINGLE
+
+} HedgePiece;
+
+typedef enum GrassVariant
+{
+    GRASS_VAR_1,
+    GRASS_VAR_2,
+    GRASS_VAR_3
+
+} GrassVariant;
+
+typedef enum WildflowerVariant
+{
+    WF_VAR_WHITE_1,
+    WF_VAR_WHITE_2,
+    WF_VAR_WHITE_3,
+
+    WF_VAR_YELLOW_1,
+    WF_VAR_YELLOW_2,
+    WF_VAR_YELLOW_3,
+
+    WF_VAR_RED_1,
+    WF_VAR_RED_2,
+    WF_VAR_RED_3,
+
+    WF_VAR_PINK_1,
+    WF_VAR_PINK_2,
+    WF_VAR_PINK_3,
+
+    WF_VAR_CYAN_1,
+    WF_VAR_CYAN_2,
+    WF_VAR_CYAN_3,
+
+} WildflowerVariant;
 
 typedef enum StoneType
 {

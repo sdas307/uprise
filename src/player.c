@@ -177,6 +177,9 @@ static void xReadPlayerInput(Player *player)
         player->speed = player->walkSpeed;
     }
 
+    if (IsKeyPressed(KEY_F11))
+        ToggleFullscreen();
+
     if (IsKeyDown(KEY_W))
         player->moveY--;
 

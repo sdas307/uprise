@@ -2,9 +2,15 @@
 
 const xVector2 house[] =
 {
-    { 108, 148 },
+    { 64, 128 },
 };
 const int houseCount = ARRAY_COUNT(house);
+
+const Vector2 lightPosts[] =
+{
+    { 66, 320 - 32 },
+};
+const int lightPostsCount = ARRAY_COUNT(lightPosts);
 
 const xVector2 grass1[] =
 {
@@ -104,8 +110,8 @@ const int highGroundStairsCount = ARRAY_COUNT(highGroundStairs);
 
 const Vector2 treesOakLarge[] =
 {
-    { 748, -128 },
-    { 812, -128 },
+    { 704, -128 },
+    { 768, -128 },
 };
 const int treesOakLargeCount = ARRAY_COUNT(treesOakLarge);
 

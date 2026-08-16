@@ -8,9 +8,6 @@
 
 #define MAX_RENDERABLES 256
 
-/// Return the fade area for the object.
-static xRectangle xGetFadeArea(xGameObject *object);
-
 /// Render object with color tint or opactiy.
 static void xRenderObject(xGameObject *object, xColor tint);
 
@@ -36,11 +33,11 @@ void xRenderScene(World *world, Player *player, AnimalManager *manager)
         renderList[renderCount++] = &world->entities[i].gameObject;
     }
 
-    // // Add animals.
-    // for (int i = 0; i < manager->animalCount; i++)
-    // {
-    //     renderList[renderCount++] = &manager->animals[i].gameObject;
-    // }
+    // Add animals.
+    for (int i = 0; i < manager->animalCount; i++)
+    {
+        renderList[renderCount++] = &manager->animals[i].gameObject;
+    }
 
     // Add player
     renderList[renderCount++] = &player->gameObject;
@@ -54,15 +51,15 @@ void xRenderScene(World *world, Player *player, AnimalManager *manager)
         xGameObject *object = renderList[i];
 
         bool isObjectPlayer = (object->type == OBJECT_PLAYER);
-        // bool isObjectAnimal = (object->type == OBJECT_ANIMAL);
+        bool isObjectAnimal = (object->type == OBJECT_ANIMAL);
 
         bool fadeEffect = (object->fadeable);
 
         bool isPlayerBehindObject = (object->depth > player->gameObject.depth);
 
-        xRectangle fadeArea = xGetFadeArea(object);
+        //xRectangle fadeArea = xGetFadeArea(object);
 
-        bool overlapsPlayer = xCheckCollisionAABB(fadeArea, player->gameObject.collider);
+        bool overlapsPlayer = xCheckCollisionAABB(object->fadeArea, player->gameObject.collider);
 
         xColor tint = WHITE;
 
@@ -118,19 +115,10 @@ static void xRenderObject(xGameObject *object, xColor tint)
     }
 
     DrawTexturePro(object->texture, drawSource, object->dest, ZERO_POSITION, 0.0f, tint);
-    DrawRectangleLinesEx(object->collider, 1.0f, RED);
-    DrawRectangleLinesEx(object->dest, 1.0f, GREEN);
-    DrawRectangleLinesEx(wanderZone, 1.0f, BLUE);
-}
+    // DrawRectangleLinesEx(object->collider, 1.0f, RED);
+    // DrawRectangleLinesEx(object->dest, 1.0f, GREEN);
+    // DrawRectangleLinesEx(object->fadeArea, 1.0f, BLACK);
 
-static xRectangle xGetFadeArea(xGameObject *object)
-{
-    return (
-        (xRectangle)
-        {
-            object->dest.x,
-            object->dest.y,
-            object->dest.width,
-            object->dest.height
-    });
+
+    // DrawRectangleLinesEx(wanderZone, 1.0f, BLUE);
 }
