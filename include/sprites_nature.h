@@ -5,25 +5,29 @@
 
 /* --------------- TERRAIN DECOR SPRITES --------------- */
 
+extern const xRectangle SRC_GRASS_1[];
+extern const xRectangle SRC_GRASS_2[];
+extern const xRectangle SRC_GRASS_3[];
+
 extern const xRectangle SRC_WF_YELLOW_1[];
 extern const xRectangle SRC_WF_YELLOW_2[];
 extern const xRectangle SRC_WF_YELLOW_3[];
 
-extern const xRectangle SRC_WF_WHITE_1;
-extern const xRectangle SRC_WF_WHITE_2;
-extern const xRectangle SRC_WF_WHITE_3;
+extern const xRectangle SRC_WF_WHITE_1[];
+extern const xRectangle SRC_WF_WHITE_2[];
+extern const xRectangle SRC_WF_WHITE_3[];
 
-extern const xRectangle SRC_WF_RED_1;
-extern const xRectangle SRC_WF_RED_2;
-extern const xRectangle SRC_WF_RED_3;
+extern const xRectangle SRC_WF_RED_1[];
+extern const xRectangle SRC_WF_RED_2[];
+extern const xRectangle SRC_WF_RED_3[];
 
-extern const xRectangle SRC_WF_PINK_1;
-extern const xRectangle SRC_WF_PINK_2;
-extern const xRectangle SRC_WF_PINK_3;
+extern const xRectangle SRC_WF_OFF_WHITE_1[];
+extern const xRectangle SRC_WF_OFF_WHITE_2[];
+extern const xRectangle SRC_WF_OFF_WHITE_3[];
 
-extern const xRectangle SRC_WF_CYAN_1;
-extern const xRectangle SRC_WF_CYAN_2;
-extern const xRectangle SRC_WF_CYAN_3;
+extern const xRectangle SRC_WF_CYAN_1[];
+extern const xRectangle SRC_WF_CYAN_2[];
+extern const xRectangle SRC_WF_CYAN_3[];
 
 /* --------------- --------------- --------------- */
 
@@ -77,12 +81,6 @@ extern const xRectangle SRC_ROCK_LARGE;
 extern const xRectangle SRC_STONE_SMALL;
 extern const xRectangle SRC_STONE_MEDIUM;
 extern const xRectangle SRC_STONE_LARGE;
-
-/* --------------- --------------- --------------- */
-
-/* --------------- GRASS/WILDFLOWER SPRITES --------------- */
-
-extern const xRectangle SRC_GRASS_TUFT;
 
 /* --------------- --------------- --------------- */
 

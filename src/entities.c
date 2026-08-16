@@ -295,13 +295,13 @@ void xAddTree(World *world, TreeType type, TreeStage stage, xRectangle dest)
     xCreateEntity(world, &info, &animation);
 }
 
-void xAddGrassTuft(World *world, xRectangle dest)
+void xAddGrass(World *world, GrassVariant variant, xRectangle dest)
 {
     EntityInfo info =
     {
         .id = ENTITY_GRASS,
         .spritesheet = &world->spritesheets[SHEET_NATURE_GRASS_WILDFLOWERS],
-        .source = SRC_GRASS_TUFT,
+        .source = SRC_GRASS_1[0],
         .dest = dest,
         .fadeable = false,
         .collidable = false,
@@ -312,7 +312,12 @@ void xAddGrassTuft(World *world, xRectangle dest)
 
     Animation animation =
     {
-        .active = true,
+        .active = false,
+        .frameCount = 8,
+        .frames = SRC_GRASS_1,
+        .currentFrame = 0,
+        .frameTime = 0.1f,
+        .timer = 0
     };
 
     info.collider = (xRectangle)
@@ -324,6 +329,27 @@ void xAddGrassTuft(World *world, xRectangle dest)
     {
         0
     };
+
+    switch (variant)
+    {
+    case GRASS_VAR_1:
+        info.source = SRC_GRASS_1[0];
+        animation.frames = SRC_GRASS_1;
+        break;
+
+    case GRASS_VAR_2:
+        info.source = SRC_GRASS_2[0];
+        animation.frames = SRC_GRASS_2;
+        break;
+    
+    case GRASS_VAR_3:
+        info.source = SRC_GRASS_3[0];
+        animation.frames = SRC_GRASS_3;
+        break;
+
+    default:
+        break;
+    }
 
     xCreateEntity(world, &info, &animation);
 }
@@ -497,11 +523,11 @@ void xAddWildflowers(World *world, WildflowerVariant variant, xRectangle dest)
 
     Animation animation = 
     {
-        .active = true,
+        .active = false,
         .currentFrame = 0,
         .frameCount = 8,
         .frames = SRC_WF_YELLOW_1,
-        .frameTime = 0.20f,
+        .frameTime = 0.1f,
         .timer = 0.0f
     };
 
@@ -523,51 +549,51 @@ void xAddWildflowers(World *world, WildflowerVariant variant, xRectangle dest)
         break;
 
     case WF_VAR_WHITE_1:
-        info.source = SRC_WF_WHITE_1;
+        info.source = SRC_WF_WHITE_1[0];
         break;
 
     case WF_VAR_WHITE_2:
-        info.source = SRC_WF_WHITE_2;
+        info.source = SRC_WF_WHITE_2[0];
         break;
 
     case WF_VAR_WHITE_3:
-        info.source = SRC_WF_WHITE_3;
+        info.source = SRC_WF_WHITE_3[0];
         break;
 
     case WF_VAR_RED_1:
-        info.source = SRC_WF_RED_1;
+        info.source = SRC_WF_RED_1[0];
         break;
 
     case WF_VAR_RED_2:
-        info.source = SRC_WF_RED_2;
+        info.source = SRC_WF_RED_2[0];
         break;
 
     case WF_VAR_RED_3:
-        info.source = SRC_WF_RED_3;
+        info.source = SRC_WF_RED_3[0];
         break;
 
     case WF_VAR_PINK_1:
-        info.source = SRC_WF_PINK_1;
+        info.source = SRC_WF_OFF_WHITE_1[0];
         break;
 
     case WF_VAR_PINK_2:
-        info.source = SRC_WF_PINK_2;
+        info.source = SRC_WF_OFF_WHITE_2[0];
         break;
 
     case WF_VAR_PINK_3:
-        info.source = SRC_WF_PINK_3;
+        info.source = SRC_WF_OFF_WHITE_3[0];
         break;
 
     case WF_VAR_CYAN_1:
-        info.source = SRC_WF_CYAN_1;
+        info.source = SRC_WF_CYAN_1[0];
         break;
 
     case WF_VAR_CYAN_2:
-        info.source = SRC_WF_CYAN_2;
+        info.source = SRC_WF_CYAN_2[0];
         break;
 
     case WF_VAR_CYAN_3:
-        info.source = SRC_WF_CYAN_3;
+        info.source = SRC_WF_CYAN_3[0];
         break;
     
     default:

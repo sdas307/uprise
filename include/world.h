@@ -166,6 +166,14 @@ typedef enum HedgePiece
 
 } HedgePiece;
 
+typedef enum GrassVariant
+{
+    GRASS_VAR_1,
+    GRASS_VAR_2,
+    GRASS_VAR_3
+
+} GrassVariant;
+
 typedef enum WildflowerVariant
 {
     WF_VAR_WHITE_1,

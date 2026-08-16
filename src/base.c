@@ -175,17 +175,46 @@ static void xLoadHouse(World *world)
 
 static void xLoadGrass1(World *world)
 {
+    // Grass Variant 1
     for (int i = 0; i < grass1Count; i++)
     {
         xRectangle temp =
         {
             grass1[i].x,
             grass1[i].y,
-            SRC_GRASS_TUFT.width,
-            SRC_GRASS_TUFT.height
+            SRC_GRASS_1[0].width,
+            SRC_GRASS_1[0].height
         };
 
-        xAddGrassTuft(world, temp);
+        xAddGrass(world, GRASS_VAR_1, temp);
+    }
+
+    // Grass Variant 2
+    for (int i = 0; i < grass2Count; i++)
+    {
+        xRectangle temp =
+        {
+            grass2[i].x,
+            grass2[i].y,
+            SRC_GRASS_2[0].width,
+            SRC_GRASS_2[0].height
+        };
+
+        xAddGrass(world, GRASS_VAR_2, temp);
+    }
+
+    // Grass Variant 3
+    for (int i = 0; i < grass3Count; i++)
+    {
+        xRectangle temp =
+        {
+            grass3[i].x,
+            grass3[i].y,
+            SRC_GRASS_3[0].width,
+            SRC_GRASS_3[0].height
+        };
+
+        xAddGrass(world, GRASS_VAR_3, temp);
     }
 }
 

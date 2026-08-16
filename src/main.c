@@ -40,9 +40,7 @@ int main(void)
 
         xUpdatePlayer(&player, &world);
 
-        printf("\n\nUpdateAnimation();\n\n");
         xUpdateAnimation(&world);
-        printf("\n\nDone UpdateAnimation();\n\n");
 
         xUpdateCamera(&gameCamera, &player.gameObject);
         
