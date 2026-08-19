@@ -4,7 +4,8 @@
 __16.8.26__
 [ ] Farming test.
 [ ] Farmlands watering animation.
-[ ] Player watering and collecting animations.
+[o] Player watering.
+[x] Collecting animations.
 [ ] Crop harvesting animation.
 ==========================================================================
 

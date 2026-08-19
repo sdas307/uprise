@@ -107,7 +107,7 @@ void xInitPlayer(Player *player)
     player->interval = 0.10f;
     player->walkInterval = 0.10f;
     player->runInterval = 0.09f;
-    player->waterInterval = 0.25f;
+    player->waterInterval = 0.15f;
 
     player->animationTimer = 0.0f;
     player->currentFrame = 0;
@@ -288,17 +288,24 @@ static void xMovePlayer(Player *player, World *world)
 
     xRectangle nextCollider = player->gameObject.collider;
     nextCollider.x += movement.x * player->speed;
-    nextCollider.y += movement.y * player->speed;
 
     if (!xCheckCollision(world, nextCollider))
     {
         player->gameObject.dest.x += movement.x * player->speed;
-        player->gameObject.dest.y += movement.y * player->speed;
-
-        player->gameObject.collider = nextCollider;
-
-        player->gameObject.depth = player->gameObject.collider.y + player->gameObject.collider.height;
+        player->gameObject.collider.x = nextCollider.x;
     }
+
+    nextCollider = player->gameObject.collider;
+    nextCollider.y += movement.y * player->speed;
+
+    if (!xCheckCollision(world, nextCollider))
+    {
+        player->gameObject.dest.y += movement.y * player->speed;
+        player->gameObject.collider.y = nextCollider.y;
+    }
+
+    player->gameObject.depth = player->gameObject.collider.y + player->gameObject.collider.height;
+
 }
 
 // static bool xOutsideScreen(Player *player, xRectangle collider)
