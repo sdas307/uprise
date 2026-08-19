@@ -107,6 +107,7 @@ void xInitPlayer(Player *player)
     player->interval = 0.10f;
     player->walkInterval = 0.10f;
     player->runInterval = 0.09f;
+    player->waterInterval = 0.25f;
 
     player->animationTimer = 0.0f;
     player->currentFrame = 0;
@@ -122,6 +123,8 @@ void xInitPlayer(Player *player)
     player->gameObject.active = true;
 
     player->attackPressed = false;
+    player->waterPressed = false;
+    player->isWatering = false;
     player->isRunning = false;
 
     player->gameObject.collider = (xRectangle)
@@ -194,12 +197,15 @@ static void xReadPlayerInput(Player *player)
 
     if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
         player->attackPressed = true;
+    
+    if (IsMouseButtonPressed(MOUSE_BUTTON_RIGHT))
+        player->waterPressed = true;
 
 }
 
 static void xUpdatePlayerState(Player *player)
 {
-    if (player->state == PLAYER_ATTACK)
+    if (player->state == PLAYER_ATTACK || player->state == PLAYER_WATERING)
     {
         return;
     }
@@ -211,6 +217,18 @@ static void xUpdatePlayerState(Player *player)
         player->animationTimer = 0.0f;
 
         player->attackPressed = false;
+
+        return;
+    }
+
+    if (player->waterPressed)
+    {
+        player->state = PLAYER_WATERING;
+        player->currentFrame = 0;
+        player->animationTimer = 0.0f;
+
+        player->isWatering = true;
+        player->waterPressed = false;
 
         return;
     }
@@ -228,7 +246,7 @@ static void xUpdatePlayerState(Player *player)
 static void xMovePlayer(Player *player, World *world)
 {
     // No movement while attacking.
-    if (player->state == PLAYER_ATTACK)
+    if (player->state == PLAYER_ATTACK || player->state == PLAYER_WATERING)
         return;
 
     int dx = player->moveX;
@@ -330,7 +348,20 @@ static void xUpdatePlayerAnimation(Player *player)
     player->animationTimer += GetFrameTime();
 
     // If player is running, set the interval to a faster rate.
-    player->interval = player->isRunning ? player->runInterval : player->walkInterval;
+    // player->interval = player->isRunning ? player->runInterval : player->walkInterval;
+
+    if (player->isRunning)
+    {
+        player->interval = player->runInterval;
+    }
+    if (player->isWatering)
+    {
+        player->interval = player->waterInterval;
+    }
+    else
+    {
+        player->interval = player->walkInterval;
+    }
 
     while (player->animationTimer >= player->interval)
     {
@@ -342,6 +373,25 @@ static void xUpdatePlayerAnimation(Player *player)
             if (player->currentFrame >= totalFrames)
             {
                 player->currentFrame = 0;
+
+                // Return to the correct state.
+                if ((player->moveX != 0 || player->moveY != 0))
+                {
+                    player->state = PLAYER_WALK;
+                }
+                else
+                {
+                    player->state = PLAYER_IDLE;
+                }
+            }
+        }
+        else if (player->state == PLAYER_WATERING)
+        {
+            // Play watering animation once.
+            if (player->currentFrame >= totalFrames)
+            {
+                player->currentFrame = 0;
+                player->isWatering = false;
 
                 // Return to the correct state.
                 if ((player->moveX != 0 || player->moveY != 0))
@@ -446,6 +496,9 @@ static int xGetAnimationLength(PlayerState state)
         case PLAYER_IDLE:
         case PLAYER_WALK:
             return 6;
+        
+        case PLAYER_WATERING:
+            return 2;
 
         default:
             return 0;
@@ -510,6 +563,24 @@ static int xGetAnimationRow(PlayerState state, PlayerDirection direction)
 
                 default:
                     return 6;
+            }
+
+        case PLAYER_WATERING:
+            
+            switch (direction)
+            {
+                case PLAYER_FACE_FRONT:
+                    return 10;
+
+                case PLAYER_FACE_LEFT:
+                case PLAYER_FACE_RIGHT:
+                    return 12;
+
+                case PLAYER_FACE_BACK:
+                    return 11;
+                
+                default:
+                    return 10;
             }
     }
 

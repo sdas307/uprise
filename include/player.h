@@ -9,7 +9,8 @@ typedef enum PlayerState
 {
     PLAYER_IDLE,
     PLAYER_WALK,
-    PLAYER_ATTACK
+    PLAYER_ATTACK,
+    PLAYER_WATERING
 
 } PlayerState;
 
@@ -30,6 +31,7 @@ typedef struct Player
     float interval;             /// Animation interval.
     float runInterval;
     float walkInterval;
+    float waterInterval;
 
     float animationTimer;
     int currentFrame;
@@ -41,6 +43,8 @@ typedef struct Player
     PlayerDirection direction; /// Current facing direction.
 
     bool attackPressed;
+    bool waterPressed;
+    bool isWatering;
     bool isRunning;
 
     int moveX;
