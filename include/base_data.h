@@ -2,12 +2,19 @@
 #define BASE_DATA_H
 
 #include "xEngine.h"
+#include "world.h"
 
 extern const xVector2 house[];
 extern const int houseCount;
 
 extern const xVector2 lightPosts[];
 extern const int lightPostsCount;
+
+extern const TileObject cliffColliders[];
+extern const int cliffCollidersCount;
+
+extern const xVector2 cliffStairs[];
+extern const int cliffStairsCount;
 
 extern const xVector2 grass1[];
 extern const int grass1Count;

@@ -144,6 +144,15 @@ typedef enum HouseType
 
 } HouseType;
 
+typedef struct TileObject
+{
+    int x;
+    int y;
+
+    int index;
+
+} TileObject;
+
 typedef enum MushroomType
 {
     MUSHROOM_TYPE_RED,

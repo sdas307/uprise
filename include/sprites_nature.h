@@ -3,6 +3,8 @@
 
 #include "xEngine.h"
 
+extern const xRectangle SRC_CLIFF_STAIRS_WOOD;
+
 /* --------------- TERRAIN DECOR SPRITES --------------- */
 
 extern const xRectangle SRC_GRASS_1[];

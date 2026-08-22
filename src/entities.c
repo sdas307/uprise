@@ -675,13 +675,132 @@ void xAddWildflowers(World *world, WildflowerVariant variant, xRectangle dest)
 //     xCreateEntity(world, id, source, dest, collider);
 // }
 
-// void xAddEmptyEntity(World *world, xRectangle dest)
-// {
-//     xRectangle source = {0, 0, 0, 0};
-//     Texture2D *spritesheet = &(Texture2D){0};
-//     EntityID id = ENTITY_EMPTY_OBJECT;
+void xAddCliffStairs(World *world, xRectangle dest)
+{
+    EntityInfo info =
+    {
+        .source = SRC_CLIFF_STAIRS_WOOD,
+        .spritesheet = &world->spritesheets[SHEET_NATURE_GRASSLANDS],
+        .id = ENTITY_EMPTY_OBJECT,
+        .active = true,
+        .collidable = false,
+        .fadeable = false,
+        .fadeArea = {0},
+        .dest = dest,
+        .alwaysBelowPlayer = true,
+        .collider = dest
+    };
 
-//     xRectangle collider = dest;
+    Animation animation = {0};
 
-//     xCreateEntity(world, id, source, dest, collider);
-// }
+    xCreateEntity(world, &info, &animation);
+}
+
+void xAddCliffCollider(World *world, int index, xRectangle dest)
+{
+    EntityInfo info =
+    {
+        .source = {0},
+        .spritesheet = &(Texture2D){0},
+        .id = ENTITY_EMPTY_OBJECT,
+        .active = true,
+        .collidable = true,
+        .fadeable = false,
+        .fadeArea = {0},
+        .dest = dest
+    };
+
+    Animation animation = {0};
+
+    switch (index)
+    {
+    case 5:
+
+        info.collider = (xRectangle)
+        {
+            .x = dest.x + 24,
+            .y = dest.y,
+            .width = dest.width - 8 - 24,
+            .height = dest.height
+        };
+
+        break;
+
+    case 7:
+
+        info.collider = (xRectangle)
+        {
+            .x = dest.x,
+            .y = dest.y + 24,
+            .width = dest.width,
+            .height = dest.height - 24
+        };
+
+        break;
+
+    case 8:
+
+        info.collider = (xRectangle)
+        {
+            .x = dest.x + 24,
+            .y = dest.y,
+            .width = dest.width - 24 - 8,
+            .height = dest.height
+        };
+
+        break;
+
+    case 10:
+
+        info.collider = (xRectangle)
+        {
+            .x = dest.x,
+            .y = dest.y,
+            .width = dest.width,
+            .height = dest.height
+        };
+
+        break;
+
+    case 11:
+
+        info.collider = (xRectangle)
+        {
+            .x = dest.x,
+            .y = dest.y,
+            .width = dest.width - 16,
+            .height = dest.height
+        };
+
+        break;
+
+    case 13:
+
+        info.collider = (xRectangle)
+        {
+            .x = dest.x,
+            .y = dest.y,
+            .width = dest.width,
+            .height = dest.height
+        };
+
+        break;
+
+    case 14:
+
+        info.collider = (xRectangle)
+        {
+            .x = dest.x,
+            .y = dest.y,
+            .width = dest.width - 16,
+            .height = dest.height - 12
+        };
+
+        break;
+    
+    default:
+        break;
+    }
+
+    xCreateEntity(world, &info, &animation);
+}

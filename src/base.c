@@ -366,8 +366,40 @@ static void xLoadWildflowers(World *world)
     }
 }
 
+static void xLoadCliffColliders(World *world)
+{
+    for (int i = 0; i < cliffCollidersCount; i++)
+    {
+        xRectangle temp = 
+        {
+            cliffColliders[i].x,
+            cliffColliders[i].y,
+            64,
+            64
+        };
+        xAddCliffCollider(world, cliffColliders[i].index, temp);
+    }
+}
+
+static void xLoadCliffStairs(World *world)
+{
+    for (int i = 0; i < cliffStairsCount; i++)
+    {
+        xRectangle temp =
+        {
+            cliffStairs[i].x,
+            cliffStairs[i].y,
+            SRC_CLIFF_STAIRS_WOOD.width,
+            SRC_CLIFF_STAIRS_WOOD.height
+        };
+        xAddCliffStairs(world, temp);
+    }
+}
+
 void xLoadBaseMap(World *world, AnimalManager *manager)
 {
+    xLoadCliffColliders(world);
+    xLoadCliffStairs(world);
     xLoadWildflowers(world);
     xLoadHedges(world);
     xLoadStairs(world);

@@ -1,5 +1,13 @@
 #include "sprites_nature.h"
 
+const xRectangle SRC_CLIFF_STAIRS_WOOD = 
+{
+    24 * 64,
+    6 * 64,
+    64 * 3,
+    64 * 3
+};
+
 /* --------------- TERRAIN DECOR SPRITES --------------- */
 
 const xRectangle SRC_GRASS_1[] =
