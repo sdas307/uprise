@@ -400,21 +400,18 @@ static void xLoadFarmlands(World *world)
 {
     xRectangle temp = {0};
 
-    for (int i = 0; i < farmlandsCount; i++)
+    for (int i = 0; i < farmlandsDryCount; i++)
     {
-        if (farmlands[i].index == 1)
+        temp = (xRectangle)
         {
-            temp = (xRectangle)
-            {
-                farmlands[i].x,
-                farmlands[i].y,
-                64,
-                64
-            };
-            break;
-        }   
+            farmlandsDry[i].x,
+            farmlandsDry[i].y,
+            64,
+            64
+        };
+
+        xAddFarmland(world, farmlandsDry[i].index, temp);
     }
-    xAddFarmland(world, 1, temp);
 }
 
 void xLoadBaseMap(World *world, AnimalManager *manager)

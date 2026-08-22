@@ -5,8 +5,24 @@
 
 extern const xRectangle SRC_CLIFF_STAIRS_WOOD;
 
-extern const xRectangle SRC_FARMLAND_DRY_SINGLE;
-extern const xRectangle SRC_FARMLAND_WET_SINGLE;
+typedef enum farmlandIndex
+{
+    TOP_LEFT,
+    TOP_CENTER,
+    TOP_RIGHT,
+    CENTER_LEFT,
+    CENTER_CENTER,
+    CENTER_RIGHT,
+    BOTTOM_LEFT,
+    BOTTOM_CENTER,
+    BOTTOM_RIGHT,
+
+    FARMLAND_COUNT
+
+} farmlandIndex;
+
+extern const xRectangle SRC_FARMLAND_DRY[];
+extern const xRectangle SRC_FARMLAND_WET[];
 
 /* --------------- TERRAIN DECOR SPRITES --------------- */
 

@@ -825,14 +825,45 @@ void xAddFarmland(World *world, int index, xRectangle dest)
     switch (index)
     {
     case 1:
-        info.source = SRC_FARMLAND_DRY_SINGLE;
+        info.source = SRC_FARMLAND_DRY[TOP_LEFT];
+        break;
+
+    case 2:
+        info.source = SRC_FARMLAND_DRY[TOP_CENTER];
+        break;
+
+    case 3:
+        info.source = SRC_FARMLAND_DRY[TOP_RIGHT];
+        break;
+
+    case 4:
+        info.source = SRC_FARMLAND_DRY[CENTER_LEFT];
+        break;
+
+    case 5:
+        info.source = SRC_FARMLAND_DRY[CENTER_CENTER];
+        break;
+
+    case 6:
+        info.source = SRC_FARMLAND_DRY[CENTER_RIGHT];
+        break;
+
+    case 7:
+        info.source = SRC_FARMLAND_DRY[BOTTOM_LEFT];
+        break;
+
+    case 8:
+        info.source = SRC_FARMLAND_DRY[BOTTOM_CENTER];
+        break;
+
+    case 9:
+        info.source = SRC_FARMLAND_DRY[BOTTOM_RIGHT];
         break;
     
     default:
         info.source = (xRectangle){0};
         break;
     }
-
-
+    
     xCreateEntity(world, &info, &animation);
 }

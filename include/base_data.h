@@ -22,8 +22,11 @@ extern const int upperLayerCount;
 extern const xVector2 upperLayerStairs[];
 extern const int upperLayerStairsCount;
 
-extern const TileObject farmlands[];
-extern const int farmlandsCount;
+extern const TileObject farmlandsDry[];
+extern const int farmlandsDryCount;
+
+extern const TileObject farmlandsWet[];
+extern const int farmlandsWetCount;
 
 extern const xVector2 grass1[];
 extern const int grass1Count;
