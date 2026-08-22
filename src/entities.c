@@ -314,7 +314,7 @@ void xAddGrass(World *world, GrassVariant variant, xRectangle dest)
 
     Animation animation =
     {
-        .active = false,
+        .active = true,
         .frameCount = 8,
         .frames = SRC_GRASS_1,
         .currentFrame = 0,
