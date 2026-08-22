@@ -5,6 +5,9 @@
 
 extern const xRectangle SRC_CLIFF_STAIRS_WOOD;
 
+extern const xRectangle SRC_FARMLAND_DRY_SINGLE;
+extern const xRectangle SRC_FARMLAND_WET_SINGLE;
+
 /* --------------- TERRAIN DECOR SPRITES --------------- */
 
 extern const xRectangle SRC_GRASS_1[];

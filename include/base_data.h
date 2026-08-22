@@ -16,6 +16,15 @@ extern const int cliffCollidersCount;
 extern const xVector2 cliffStairs[];
 extern const int cliffStairsCount;
 
+extern const TileObject upperLayer[];
+extern const int upperLayerCount;
+
+extern const xVector2 upperLayerStairs[];
+extern const int upperLayerStairsCount;
+
+extern const TileObject farmlands[];
+extern const int farmlandsCount;
+
 extern const xVector2 grass1[];
 extern const int grass1Count;
 
@@ -30,12 +39,6 @@ extern const int hedgeContinuousCount;
 
 extern const xVector2 hedges[];
 extern const int hedgesCount;
-
-extern const xRectangle highGround[];
-extern const int highGroundCount;
-
-extern const xVector2 highGroundStairs[];
-extern const int highGroundStairsCount;
 
 extern const Vector2 treesOakLarge[];
 extern const int treesOakLargeCount;

@@ -8,6 +8,22 @@ const xRectangle SRC_CLIFF_STAIRS_WOOD =
     64 * 3
 };
 
+const xRectangle SRC_FARMLAND_DRY_SINGLE =
+{
+    0 * 64,
+    22 * 64,
+    64,
+    64
+};
+
+const xRectangle SRC_FARMLAND_WET_SINGLE =
+{
+    7 * 64,
+    22 * 64,
+    64,
+    64
+};
+
 /* --------------- TERRAIN DECOR SPRITES --------------- */
 
 const xRectangle SRC_GRASS_1[] =

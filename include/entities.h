@@ -32,4 +32,6 @@ void xAddCliffStairs(World *world, xRectangle dest);
 
 void xAddCliffCollider(World *world, int index, xRectangle dest);
 
+void xAddFarmland(World *world, int index, xRectangle dest);
+
 #endif

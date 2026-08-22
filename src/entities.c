@@ -804,3 +804,35 @@ void xAddCliffCollider(World *world, int index, xRectangle dest)
 
     xCreateEntity(world, &info, &animation);
 }
+
+void xAddFarmland(World *world, int index, xRectangle dest)
+{
+    EntityInfo info =
+    {
+        .id = ENTITY_FARMLAND_DRY,
+        .active = true,
+        .spritesheet = &world->spritesheets[SHEET_NATURE_GRASSLANDS],
+        .collidable = false,
+        .collider = dest,
+        .alwaysBelowPlayer = true,
+        .fadeable = false,
+        .fadeArea = {0},
+        .dest = dest
+    };
+
+    Animation animation = {0};
+
+    switch (index)
+    {
+    case 1:
+        info.source = SRC_FARMLAND_DRY_SINGLE;
+        break;
+    
+    default:
+        info.source = (xRectangle){0};
+        break;
+    }
+
+
+    xCreateEntity(world, &info, &animation);
+}

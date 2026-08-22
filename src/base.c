@@ -236,14 +236,14 @@ static void xLoadLightPosts(World *world)
 
 static void xLoadHighGround(World *world)
 {
-    for (int i = 0; i < highGroundCount; i++)
+    for (int i = 0; i < upperLayerCount; i++)
     {
         xRectangle temp =
         {
-            highGround[i].x,
-            highGround[i].y,
-            highGround[i].width,
-            highGround[i].height,
+            upperLayer[i].x,
+            upperLayer[i].y,
+            64,
+            64,
         };
 
         xAddHighGroundBounds(world, temp);
@@ -252,12 +252,12 @@ static void xLoadHighGround(World *world)
 
 static void xLoadStairs(World *world)
 {
-    for (int i = 0; i < highGroundStairsCount; i++)
+    for (int i = 0; i < upperLayerStairsCount; i++)
     {
         xRectangle temp =
         {
-            highGroundStairs[i].x,
-            highGroundStairs[i].y,
+            upperLayerStairs[i].x,
+            upperLayerStairs[i].y,
             SRC_STAIRS_GROUND.width,
             SRC_STAIRS_GROUND.height
         };
@@ -396,8 +396,30 @@ static void xLoadCliffStairs(World *world)
     }
 }
 
+static void xLoadFarmlands(World *world)
+{
+    xRectangle temp = {0};
+
+    for (int i = 0; i < farmlandsCount; i++)
+    {
+        if (farmlands[i].index == 1)
+        {
+            temp = (xRectangle)
+            {
+                farmlands[i].x,
+                farmlands[i].y,
+                64,
+                64
+            };
+            break;
+        }   
+    }
+    xAddFarmland(world, 1, temp);
+}
+
 void xLoadBaseMap(World *world, AnimalManager *manager)
 {
+    xLoadFarmlands(world);
     xLoadCliffColliders(world);
     xLoadCliffStairs(world);
     xLoadWildflowers(world);

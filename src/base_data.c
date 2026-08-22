@@ -37,7 +37,6 @@ const TileObject cliffColliders[] =
     { 576, 704, 7 },
     { 640, 704, 7 },
     { 704, 704, 7 },
-    //{ 768, 704, 7 },
     { 960, 704, 7 },
     { 1024, 704, 7 },
     { 1088, 704, 7 },
@@ -54,7 +53,6 @@ const TileObject cliffColliders[] =
     { 576, 768, 10 },
     { 640, 768, 10 },
     { 704, 768, 10 },
-    //{ 768, 768, 10 },
     { 960, 768, 10 },
     { 1024, 768, 10 },
     { 1088, 768, 13 },
@@ -71,7 +69,6 @@ const TileObject cliffColliders[] =
     { 576, 832, 13 },
     { 640, 832, 13 },
     { 704, 832, 13 },
-    //{ 768, 832, 13 },
     { 960, 832, 13 },
     { 1024, 832, 13 },
     { 1088, 832, 13 },
@@ -84,6 +81,58 @@ const xVector2 cliffStairs[] =
     { 768, 704 },
 };
 const int cliffStairsCount = ARRAY_COUNT(cliffStairs);
+
+const TileObject upperLayer[] =
+{
+    { 704, 0, 4 },
+    { 704, 64, 4 },
+    { 704, 128, 4 },
+    { 0, 192, 1 },
+    { 64, 192, 2 },
+    { 128, 192, 2 },
+    { 192, 192, 2 },
+    { 256, 192, 2 },
+    { 320, 192, 2 },
+    { 384, 192, 2 },
+    { 448, 192, 2 },
+    { 512, 192, 2 },
+    { 704, 192, 12 },
+    { 0, 256, 4 },
+    { 0, 320, 12 }
+};
+const int upperLayerCount = ARRAY_COUNT(upperLayer);
+
+const TileObject farmlands[] =
+{
+    { 1280, 64, 15 },
+    { 1664, 64, 2 },
+    { 1728, 64, 3 },
+    { 1792, 64, 4 },
+    { 1280, 128, 29 },
+    { 1344, 128, 2 },
+    { 1408, 128, 4 },
+    { 1664, 128, 30 },
+    { 1728, 128, 31 },
+    { 1792, 128, 32 },
+    { 1280, 192, 43 },
+    { 1344, 192, 16 },
+    { 1408, 192, 18 },
+    { 1344, 256, 30 },
+    { 1408, 256, 32 },
+    { 1920, 256, 2 },
+    { 1984, 256, 4 },
+    { 1920, 320, 16 },
+    { 1984, 320, 18 },
+    { 1920, 384, 30 },
+    { 1984, 384, 32 },
+    { 2112, 384, 15 },
+    { 1984, 448, 44 },
+    { 2048, 448, 46 },
+    { 2112, 448, 29 },
+    { 2112, 512, 43 },
+    { 2112, 576, 1 },
+};
+const int farmlandsCount = ARRAY_COUNT(farmlands);
 
 const xVector2 grass1[] =
 {
@@ -161,25 +210,15 @@ const int hedgeContinuousCount = ARRAY_COUNT(hedgeContinuous);
 const xVector2 hedges[] =
 {
     { 0, 64 },
-    { 0, 128 },
+    { 0, 128 }
 };
 const int hedgesCount = ARRAY_COUNT(hedges);
 
-
-const xRectangle highGround[] =
-{
-    { 704, 0, 64, 256 },
-    { 0, 192, 576, 64 },
-    { 0, 256, 64, 128 },
-};
-const int highGroundCount = ARRAY_COUNT(highGround);
-
-
-const xVector2 highGroundStairs[] =
+const xVector2 upperLayerStairs[] =
 {
     { 576, 192 },
 };
-const int highGroundStairsCount = ARRAY_COUNT(highGroundStairs);
+const int upperLayerStairsCount = ARRAY_COUNT(upperLayerStairs);
 
 const Vector2 treesOakLarge[] =
 {
