@@ -173,7 +173,7 @@ static void xLoadHouse(World *world)
 //     xAddEmptyEntity(world, collider);
 // }
 
-static void xLoadGrass1(World *world)
+static void xLoadGrass(World *world)
 {
     // Grass Variant 1
     for (int i = 0; i < grass1Count; i++)
@@ -234,7 +234,7 @@ static void xLoadLightPosts(World *world)
     }
 }
 
-static void xLoadHighGround(World *world)
+static void xLoadUpperLayers(World *world)
 {
     for (int i = 0; i < upperLayerCount; i++)
     {
@@ -246,7 +246,7 @@ static void xLoadHighGround(World *world)
             64,
         };
 
-        xAddHighGroundBounds(world, temp);
+        xAddUpperLayerColliders(world, upperLayer[i].index, temp);
     }
 }
 
@@ -314,7 +314,6 @@ static void xLoadHedges(World *world)
     };
 
     xAddHedge(world, HEDGE_SINGLE, temp);
-    
 }
 
 static void xLoadWildflowers(World *world)
@@ -422,9 +421,9 @@ void xLoadBaseMap(World *world, AnimalManager *manager)
     xLoadWildflowers(world);
     xLoadHedges(world);
     xLoadStairs(world);
-    xLoadHighGround(world);
+    xLoadUpperLayers(world);
     xLoadLightPosts(world);
-    xLoadGrass1(world);
     xLoadTrees(world);
+    xLoadGrass(world);
     xLoadHouse(world);
 }

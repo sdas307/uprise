@@ -18,7 +18,7 @@ void xAddGrass(World *world, GrassVariant variant, xRectangle dest);
 
 void xAddMushroom(World *world, MushroomType type, xRectangle dest);
 
-void xAddHighGroundBounds(World *world, xRectangle dest);
+void xAddUpperLayerColliders(World *world, int index, xRectangle dest);
 
 void xAddStairs(World *world, xRectangle dest);
 
