@@ -277,6 +277,68 @@ local function collectTilePositions(cel)
 end
 
 ------------------------------------------------------------
+-- Collect tilemap tile positions and tile indices
+------------------------------------------------------------
+
+local function collectTilemapTiles(layer)
+
+    local tiles = {}
+
+    local cel = layer:cel(1)
+
+    if not cel then
+        return tiles
+    end
+
+    local image = cel.image
+
+    --------------------------------------------------------
+    -- Tile size comes from the layer's tileset
+    --------------------------------------------------------
+
+    local tileset = layer.tileset
+
+    if not tileset then
+        return tiles
+    end
+
+    local tileSize = tileset.grid.tileSize
+
+    local tileWidth = math.abs(tileSize.width)
+    local tileHeight = math.abs(tileSize.height)
+
+    --------------------------------------------------------
+    -- Read tilemap cells
+    --------------------------------------------------------
+
+    for pixel in image:pixels() do
+
+        local tileIndex = app.pixelColor.tileI(pixel())
+
+        ----------------------------------------------------
+        -- Tile index 0 is the empty tile
+        ----------------------------------------------------
+
+        if tileIndex ~= 0 then
+
+            table.insert(
+                tiles,
+                {
+                    x = cel.position.x + pixel.x * tileWidth,
+                    y = cel.position.y + pixel.y * tileHeight,
+                    index = tileIndex
+                }
+            )
+
+        end
+
+    end
+
+    return tiles
+
+end
+
+------------------------------------------------------------
 -- Validate C identifier
 ------------------------------------------------------------
 
@@ -353,11 +415,20 @@ local function collectLayers(sprite)
                         groups[arrayName] = {}
                     end
 
+                    if layer.isTilemap then
+
+                        local tiles = collectTilemapTiles(layer)
+
+                        for _, tile in ipairs(tiles) do
+                            table.insert(groups[arrayName], tile)
+                            exportedObjects = exportedObjects + 1
+                        end
+
                     ------------------------------------------------
                     -- Choose export behaviour
                     ------------------------------------------------
 
-                    if arrayName == "highGround" or arrayName == "hedgeContinuous" or arrayName == "pond" then
+                    elseif arrayName == "highGround" or arrayName == "hedgeContinuous" or arrayName == "pond" then
 
                         local rectangles = collectColliderRuns(cel)
 
@@ -537,10 +608,35 @@ local function writeExport(path, groups)
         local objects = groups[name]
 
         --------------------------------------------------------
+        -- Tilemap export
+        --------------------------------------------------------
+
+        if #objects > 0 and objects[1].index then
+
+            file:write("static const TileObject " .. name .. "[] =\n")
+
+            file:write("{\n")
+
+            for _, object in ipairs(objects) do
+
+                file:write(
+                    string.format(
+                        "    { %d, %d, %d },\n",
+                        object.x,
+                        object.y,
+                        object.index
+                    )
+                )
+
+            end
+
+            file:write("};\n\n")
+
+        --------------------------------------------------------
         -- Rectangle export
         --------------------------------------------------------
 
-        if #objects > 0 and objects[1].width then
+        elseif #objects > 0 and objects[1].width then
 
             file:write("static const Rectangle " .. name .. "[] =\n")
 
