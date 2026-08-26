@@ -1,7 +1,19 @@
 ------------------------------------------------------------
--- World Coordinate Exporter
--- Export World Coordinates
+-- Parse Layer Export Configurations
 ------------------------------------------------------------
+
+local function parseLayerData(data)
+
+    local config = {}
+
+    for key, value in data:gmatch("(%w+)%s*=%s*([^;]+)") do
+        config[key] = value:match("^%s*(.-)%s*$")
+    end
+
+    return config
+
+end
+
 ------------------------------------------------------------
 -- Find opaque pixel bounds
 ------------------------------------------------------------
@@ -372,13 +384,10 @@ local function collectLayers(sprite)
         -- Layer User Data contains the export group
         ----------------------------------------------------
 
-        local arrayName = layer.data or ""
+        local layerData = parseLayerData(layer.data or "")
 
-        ----------------------------------------------------
-        -- Trim whitespace
-        ----------------------------------------------------
-
-        arrayName = arrayName:match("^%s*(.-)%s*$")
+        local arrayName = layerData.name or ""
+        local exportType = layerData.type or ""
 
         ----------------------------------------------------
         -- Empty User Data means ignore the layer
@@ -391,6 +400,16 @@ local function collectLayers(sprite)
             ------------------------------------------------
 
             if not isValidIdentifier(arrayName) then
+
+                table.insert(invalidLayers, {
+                    layer = layer.name,
+                    group = arrayName
+                })
+
+            elseif exportType ~= "single"
+                and exportType ~= "tile_positions"
+                and exportType ~= "colliders"
+                and exportType ~= "tilemap" then
 
                 table.insert(invalidLayers, {
                     layer = layer.name,
@@ -415,71 +434,70 @@ local function collectLayers(sprite)
                         groups[arrayName] = {}
                     end
 
-                    if layer.isTilemap then
+                    ------------------------------------------------
+                    -- Choose export behaviour
+                    ------------------------------------------------
+                    if exportType == "tilemap" then
 
                         local tiles = collectTilemapTiles(layer)
 
                         for _, tile in ipairs(tiles) do
-                            table.insert(groups[arrayName], tile)
+
+                            table.insert(
+                                groups[arrayName],
+                                tile
+                            )
+
                             exportedObjects = exportedObjects + 1
+
                         end
 
-                    ------------------------------------------------
-                    -- Choose export behaviour
-                    ------------------------------------------------
-
-                    elseif arrayName == "highGround" or arrayName == "hedgeContinuous" or arrayName == "pond" then
-
+                    elseif exportType == "colliders" then
+                        
                         local rectangles = collectColliderRuns(cel)
 
                         for _, rectangle in ipairs(rectangles) do
 
-                            table.insert(groups[arrayName], rectangle)
+                            table.insert(
+                                groups[arrayName],
+                                rectangle
+                            )
 
                             exportedObjects = exportedObjects + 1
 
                         end
 
-                        ------------------------------------------------
-                        -- Tile position export
-                        ------------------------------------------------
-
-                    elseif arrayName == "grass1"
-                        or arrayName == "grass2"
-                        or arrayName == "grass3"
-                        or arrayName == "wildflower1"
-                        or arrayName == "wildflower2"
-                        or arrayName == "wildflower3"
-                        or arrayName == "hedge" then
+                    elseif exportType == "tile_positions" then
 
                         local positions = collectTilePositions(cel)
 
                         for _, position in ipairs(positions) do
 
-                            table.insert(groups[arrayName], position)
+                            table.insert(
+                                groups[arrayName],
+                                position
+                            )
 
                             exportedObjects = exportedObjects + 1
 
                         end
 
-                    ------------------------------------------------
-                    -- Existing single-object export
-                    ------------------------------------------------
-
-                    else
+                    elseif exportType == "single" then
 
                         local bounds = getOpaqueBounds(cel.image)
 
                         if bounds then
 
-                            table.insert(groups[arrayName], {
-                                x = cel.position.x + bounds.x,
-
-                                y = cel.position.y + bounds.y
-                            })
+                            table.insert(
+                                groups[arrayName],
+                                {
+                                    x = cel.position.x + bounds.x,
+                                    y = cel.position.y + bounds.y
+                                }
+                            )
 
                             exportedObjects = exportedObjects + 1
-
+                        
                         end
 
                     end

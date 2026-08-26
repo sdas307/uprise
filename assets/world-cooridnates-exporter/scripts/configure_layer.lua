@@ -30,10 +30,29 @@ function configureExportLayer()
     end
 
     --------------------------------------------------------
-    -- Current export group
+    -- Current export configuration
     --------------------------------------------------------
 
-    local currentGroup = layer.data or ""
+    local currentData = layer.data or ""
+    local currentName = ""
+    local currentType = "single"
+
+    for key, value in currentData:gmatch("(%w+)%s*=%s*([^;]+)") do
+
+        value = value:match("^%s*(.-)%s*$")
+
+        if key == "name" then
+            currentName = value
+        elseif key == "type" then
+            currentType = value
+        end
+
+    end
+
+    -- Backwards compatibility with old configuration.
+    if currentName == "" and currentData ~= "" then
+        currentName = currentData
+    end
 
     --------------------------------------------------------
     -- Dialog
@@ -53,8 +72,23 @@ function configureExportLayer()
     dialog:entry
     {
         id = "groupName",
-        label = "Export Group:",
-        text = currentGroup
+        label = "Export Name:",
+        text = currentName
+    }
+
+    dialog:combobox
+    {
+        id = "exportType",
+        label = "Export Type:",
+        option = currentType,
+
+        options =
+        {
+            "single",
+            "tile_positions",
+            "colliders",
+            "tilemap"
+        }
     }
 
     dialog:separator()
@@ -67,6 +101,7 @@ function configureExportLayer()
         onclick = function()
 
             local groupName = dialog.data.groupName
+            local exportType = dialog.data.exportType
 
             ------------------------------------------------
             -- Empty group disables export
@@ -107,7 +142,9 @@ function configureExportLayer()
             -- Save
             ------------------------------------------------
 
-            layer.data = groupName
+            layer.data =
+                "name=" .. groupName ..
+                ";type=" .. exportType
 
             dialog:close()
 
@@ -125,3 +162,5 @@ function configureExportLayer()
     }
 
 end
+
+configureExportLayer()
