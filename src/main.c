@@ -36,9 +36,11 @@ int main(void)
 
     while (!WindowShouldClose())
     {
+
+        float dt = GetFrameTime();
         // ---------------- UPDATE ----------------
 
-        xUpdatePlayer(&player, &world);
+        xUpdatePlayer(&player, &world, dt);
 
         xUpdateAnimation(&world);
 

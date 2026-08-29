@@ -60,7 +60,7 @@ typedef struct Player
 void xInitPlayer(Player *player);
 
 /// Update player values based on movement and animation logic.
-void xUpdatePlayer(Player *player, World *world);             
+void xUpdatePlayer(Player *player, World *world, float dt);             
 
 /// Unload player object's texture from vram.
 void xUnloadPlayer(Player *player);
