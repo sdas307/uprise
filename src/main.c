@@ -37,7 +37,9 @@ int main(void)
     while (!WindowShouldClose())
     {
 
+        // Only 1 delta time variable exists.
         float dt = GetFrameTime();
+
         // ---------------- UPDATE ----------------
 
         xUpdatePlayer(&player, &world, dt);
