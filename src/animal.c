@@ -33,12 +33,12 @@ static int xGetAnimationLength(AnimalState state);
 /// Get the row index of the animation in question.
 static int xGetAnimationRow(AnimalState state);
 
-static const int idlePercent = 30;
+static const int idleChance = 30;
 
 const xRectangle wanderZone = 
 {
-    64 * 7,
-    64 * 4,
+    1000,
+    1200,
     64 * 7,
     64 * 5
 };
@@ -162,7 +162,7 @@ static bool xStayIdle()
 {
     int random = GetRandomValue(1, 100);
 
-    if (random >= idlePercent)
+    if (random >= idleChance)
         return true;
     else
         return false;
