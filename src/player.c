@@ -93,8 +93,8 @@ void xInitPlayer(Player *player)
     {
         .x = 0,
         .y = 200,
-        .walk_speed = 12,
-        .run_speed = 16
+        .walk_speed = 160,
+        .run_speed = 256
     };
 
     if (!LoadPlayerConfig(&config))
@@ -295,21 +295,20 @@ static void xMovePlayer(Player *player, World *world, float dt)
 
     // X-axis
     xRectangle nextCollider = player->gameObject.collider;
-    nextCollider.x += movement.x * player->speed;
+    nextCollider.x += movement.x;
 
     if (!xCheckCollision(world, nextCollider))
     {
-        player->gameObject.dest.x += movement.x * player->speed;
+        player->gameObject.dest.x += movement.x;
         player->gameObject.collider.x = nextCollider.x;
     }
     
     // Y-axis
-    nextCollider = player->gameObject.collider;
-    nextCollider.y += movement.y * player->speed;
+    nextCollider.y += movement.y;
 
     if (!xCheckCollision(world, nextCollider))
     {
-        player->gameObject.dest.y += movement.y * player->speed;
+        player->gameObject.dest.y += movement.y;
         player->gameObject.collider.y = nextCollider.y;
     }
 

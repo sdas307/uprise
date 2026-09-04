@@ -36,6 +36,8 @@ void xUpdateInteraction(InteractionTarget *target, World *world, xCamera2D camer
         return;
     }
 
+    target->valid = true;
+
     // Find an entity occupying the target cell.
     for (int i=0; i < world->entityCount; i++)
     {

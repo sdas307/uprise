@@ -55,7 +55,7 @@ typedef struct Player
 
     int speed;          /// Player's movement speed.
     int walkSpeed;      /// Player's walking movement speed.
-    int runSpeed;      /// Player's running movement speed.
+    int runSpeed;       /// Player's running movement speed.
 
 } Player;
 

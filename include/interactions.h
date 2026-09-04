@@ -5,7 +5,7 @@
 #include "world.h"
 
 #define WORLD_GRID_SIZE 64
-#define PLAYER_TARGET_RANGE 3
+#define PLAYER_TARGET_RANGE 1
 
 typedef struct InteractionTarget
 {
