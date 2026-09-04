@@ -150,12 +150,13 @@ void xInitPlayer(Player *player)
     player->gameObject.flip = false;
 }
 
-void xUpdatePlayer(Player *player, World *world, float dt)
+void xUpdatePlayer(Player *player, World *world, xCamera2D camera, float dt)
 {
     xReadPlayerInput(player);
     xUpdatePlayerState(player);
     xMovePlayer(player, world, dt);
     xUpdatePlayerAnimation(player);
+    xUpdateInteraction(&player->target, world, camera, (xVector2){player->gameObject.collider.x, player->gameObject.collider.y});
     // DrawRectangleLinesEx(player->gameObject.dest, 1.0f, RED);
 }
 

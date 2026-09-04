@@ -69,6 +69,16 @@ typedef enum EntityID
 
 } EntityID;
 
+typedef enum InteractionID
+{
+    INTERACTION_TREE_CHOP,
+    INTERACTION_CROP_HARVEST,
+    INTERACTION_FRUIT_HARVEST,
+    INTERACTION_FARMLAND_WATER,
+    INTERACTION_DESTROY
+
+} InteractionID;
+
 typedef struct EntityInfo
 {
     EntityID id;
@@ -79,6 +89,9 @@ typedef struct EntityInfo
     xRectangle dest;
     xRectangle collider;
     xRectangle fadeArea;
+
+    bool interactable;
+    InteractionID interactionID;
 
     bool fadeable;
     bool collidable;
@@ -94,8 +107,9 @@ typedef struct Entity
     EntityID id;
     
     int hp;
-    bool harvestable;
-    bool destructible;
+
+    bool interactable;
+    InteractionID interactionID;
 
 } Entity;
 

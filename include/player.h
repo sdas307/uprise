@@ -4,6 +4,7 @@
 #include "raylib.h"
 #include "xEngine.h"
 #include "world.h"
+#include "interactions.h"
 
 typedef enum PlayerState
 {
@@ -42,6 +43,8 @@ typedef struct Player
 
     PlayerDirection direction; /// Current facing direction.
 
+    InteractionTarget target;
+
     bool attackPressed;
     bool waterPressed;
     bool isWatering;
@@ -60,7 +63,7 @@ typedef struct Player
 void xInitPlayer(Player *player);
 
 /// Update player values based on movement and animation logic.
-void xUpdatePlayer(Player *player, World *world, float dt);             
+void xUpdatePlayer(Player *player, World *world, xCamera2D gameCamera, float dt);             
 
 /// Unload player object's texture from vram.
 void xUnloadPlayer(Player *player);

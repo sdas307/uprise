@@ -80,6 +80,23 @@ static void xRenderTerrain(World *world)
     DrawTexturePro(world->terrain.texture, world->terrain.source, world->terrain.dest, ZERO_POSITION, 0, WHITE);
 }
 
+void xRenderInteractionTarget(const InteractionTarget *target)
+{
+    if (!target->valid)
+        return;
+
+    // World Co-ordinates rectangle (from grid co-ordinates).
+    xRectangle rectangle =
+    {
+        target->grid.x * WORLD_GRID_SIZE,
+        target->grid.y * WORLD_GRID_SIZE,
+        WORLD_GRID_SIZE,
+        WORLD_GRID_SIZE,
+    };
+
+    DrawRectangleLinesEx(rectangle, 5.0f, BEIGE);
+}
+
 static void xSortRenderOrder(xGameObject **renderList, int count)
 {
     bool swapped = false;

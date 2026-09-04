@@ -6,7 +6,7 @@ static void xCreateEntity(World *world, const EntityInfo *info, const Animation 
     if (world->entityCount >= MAX_OBJECTS)
         return;
 
-    xGameObject *object = &world->entities[world->entityCount++].gameObject;
+    xGameObject *object = &world->entities[world->entityCount].gameObject;
 
     object->texture = *info->spritesheet;
 
@@ -22,10 +22,18 @@ static void xCreateEntity(World *world, const EntityInfo *info, const Animation 
 
     object->depth = info->alwaysBelowPlayer ? 0 : info->collider.y + info->collider.height;
 
+    world->entities[world->entityCount].interactable = info->interactable;
+    world->entities[world->entityCount].interactionID = info->interactionID;
+
     object->flip = info->flip;
     object->active = info->active;
 
-    object->animation = *animation;
+    if (animation)
+        object->animation = *animation;
+    else
+        object->animation = (Animation) {0};
+
+    world->entityCount++;
 }
 
 void xAddHouse(World *world, HouseType type, xRectangle dest)
@@ -38,7 +46,9 @@ void xAddHouse(World *world, HouseType type, xRectangle dest)
         .collidable = true,
         .flip = false,
         .active = true,
-        .alwaysBelowPlayer = false
+        .alwaysBelowPlayer = false,
+        .interactable = true,
+        .interactionID = INTERACTION_DESTROY
     };
 
     Animation animation = {0};
@@ -221,8 +231,10 @@ void xAddTree(World *world, TreeType type, TreeStage stage, xRectangle dest)
         .fadeable = true,
         .collidable = true,
         .alwaysBelowPlayer = false,
+        .interactable = true,
+        .interactionID = INTERACTION_DESTROY,
         .flip = false,
-        .active = true        
+        .active = true
     };
 
     Animation animation = {0};
