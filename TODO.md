@@ -1,11 +1,20 @@
 
 
 ==========================================================================
+__16.8.26__
+[ ] Farming test.
+[ ] Farmlands watering animation.
+[o] Player watering.
+[x] Collecting animations.
+[ ] Crop harvesting animation.
+==========================================================================
+
+==========================================================================
 __3.8.26__
-[ ] All world entities should be renderable.
-[ ] Farming Test.
-[ ] Camera smoothing.
-[ ] Continue world building.
+[...] All world entities should be renderable. -> Getting there.
+[x] Farming Test.
+[x] Camera smoothing.
+[o] Continue world building.
 ==========================================================================
 
 ==========================================================================

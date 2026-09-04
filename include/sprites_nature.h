@@ -3,6 +3,27 @@
 
 #include "xEngine.h"
 
+extern const xRectangle SRC_CLIFF_STAIRS_WOOD;
+
+typedef enum farmlandIndex
+{
+    TOP_LEFT,
+    TOP_CENTER,
+    TOP_RIGHT,
+    CENTER_LEFT,
+    CENTER_CENTER,
+    CENTER_RIGHT,
+    BOTTOM_LEFT,
+    BOTTOM_CENTER,
+    BOTTOM_RIGHT,
+
+    FARMLAND_COUNT
+
+} farmlandIndex;
+
+extern const xRectangle SRC_FARMLAND_DRY[];
+extern const xRectangle SRC_FARMLAND_WET[];
+
 /* --------------- TERRAIN DECOR SPRITES --------------- */
 
 extern const xRectangle SRC_GRASS_1[];

@@ -1,7 +1,19 @@
 ------------------------------------------------------------
--- World Coordinate Exporter
--- Export World Coordinates
+-- Parse Layer Export Configurations
 ------------------------------------------------------------
+
+local function parseLayerData(data)
+
+    local config = {}
+
+    for key, value in data:gmatch("(%w+)%s*=%s*([^;]+)") do
+        config[key] = value:match("^%s*(.-)%s*$")
+    end
+
+    return config
+
+end
+
 ------------------------------------------------------------
 -- Find opaque pixel bounds
 ------------------------------------------------------------
@@ -277,6 +289,68 @@ local function collectTilePositions(cel)
 end
 
 ------------------------------------------------------------
+-- Collect tilemap tile positions and tile indices
+------------------------------------------------------------
+
+local function collectTilemapTiles(layer)
+
+    local tiles = {}
+
+    local cel = layer:cel(1)
+
+    if not cel then
+        return tiles
+    end
+
+    local image = cel.image
+
+    --------------------------------------------------------
+    -- Tile size comes from the layer's tileset
+    --------------------------------------------------------
+
+    local tileset = layer.tileset
+
+    if not tileset then
+        return tiles
+    end
+
+    local tileSize = tileset.grid.tileSize
+
+    local tileWidth = math.abs(tileSize.width)
+    local tileHeight = math.abs(tileSize.height)
+
+    --------------------------------------------------------
+    -- Read tilemap cells
+    --------------------------------------------------------
+
+    for pixel in image:pixels() do
+
+        local tileIndex = app.pixelColor.tileI(pixel())
+
+        ----------------------------------------------------
+        -- Tile index 0 is the empty tile
+        ----------------------------------------------------
+
+        if tileIndex ~= 0 then
+
+            table.insert(
+                tiles,
+                {
+                    x = cel.position.x + pixel.x * tileWidth,
+                    y = cel.position.y + pixel.y * tileHeight,
+                    index = tileIndex
+                }
+            )
+
+        end
+
+    end
+
+    return tiles
+
+end
+
+------------------------------------------------------------
 -- Validate C identifier
 ------------------------------------------------------------
 
@@ -310,13 +384,10 @@ local function collectLayers(sprite)
         -- Layer User Data contains the export group
         ----------------------------------------------------
 
-        local arrayName = layer.data or ""
+        local layerData = parseLayerData(layer.data or "")
 
-        ----------------------------------------------------
-        -- Trim whitespace
-        ----------------------------------------------------
-
-        arrayName = arrayName:match("^%s*(.-)%s*$")
+        local arrayName = layerData.name or ""
+        local exportType = layerData.type or ""
 
         ----------------------------------------------------
         -- Empty User Data means ignore the layer
@@ -329,6 +400,16 @@ local function collectLayers(sprite)
             ------------------------------------------------
 
             if not isValidIdentifier(arrayName) then
+
+                table.insert(invalidLayers, {
+                    layer = layer.name,
+                    group = arrayName
+                })
+
+            elseif exportType ~= "single"
+                and exportType ~= "tile_positions"
+                and exportType ~= "colliders"
+                and exportType ~= "tilemap" then
 
                 table.insert(invalidLayers, {
                     layer = layer.name,
@@ -356,59 +437,67 @@ local function collectLayers(sprite)
                     ------------------------------------------------
                     -- Choose export behaviour
                     ------------------------------------------------
+                    if exportType == "tilemap" then
 
-                    if arrayName == "highGround" or arrayName == "hedgeContinuous" or arrayName == "pond" then
+                        local tiles = collectTilemapTiles(layer)
 
-                        local rectangles = collectColliderRuns(cel)
+                        for _, tile in ipairs(tiles) do
 
-                        for _, rectangle in ipairs(rectangles) do
-
-                            table.insert(groups[arrayName], rectangle)
+                            table.insert(
+                                groups[arrayName],
+                                tile
+                            )
 
                             exportedObjects = exportedObjects + 1
 
                         end
 
-                        ------------------------------------------------
-                        -- Tile position export
-                        ------------------------------------------------
+                    elseif exportType == "colliders" then
+                        
+                        local rectangles = collectColliderRuns(cel)
 
-                    elseif arrayName == "grass1"
-                        or arrayName == "grass2"
-                        or arrayName == "grass3"
-                        or arrayName == "wildflower1"
-                        or arrayName == "wildflower2"
-                        or arrayName == "wildflower3"
-                        or arrayName == "hedge" then
+                        for _, rectangle in ipairs(rectangles) do
+
+                            table.insert(
+                                groups[arrayName],
+                                rectangle
+                            )
+
+                            exportedObjects = exportedObjects + 1
+
+                        end
+
+                    elseif exportType == "tile_positions" then
 
                         local positions = collectTilePositions(cel)
 
                         for _, position in ipairs(positions) do
 
-                            table.insert(groups[arrayName], position)
+                            table.insert(
+                                groups[arrayName],
+                                position
+                            )
 
                             exportedObjects = exportedObjects + 1
 
                         end
 
-                    ------------------------------------------------
-                    -- Existing single-object export
-                    ------------------------------------------------
-
-                    else
+                    elseif exportType == "single" then
 
                         local bounds = getOpaqueBounds(cel.image)
 
                         if bounds then
 
-                            table.insert(groups[arrayName], {
-                                x = cel.position.x + bounds.x,
-
-                                y = cel.position.y + bounds.y
-                            })
+                            table.insert(
+                                groups[arrayName],
+                                {
+                                    x = cel.position.x + bounds.x,
+                                    y = cel.position.y + bounds.y
+                                }
+                            )
 
                             exportedObjects = exportedObjects + 1
-
+                        
                         end
 
                     end
@@ -537,10 +626,35 @@ local function writeExport(path, groups)
         local objects = groups[name]
 
         --------------------------------------------------------
+        -- Tilemap export
+        --------------------------------------------------------
+
+        if #objects > 0 and objects[1].index then
+
+            file:write("static const TileObject " .. name .. "[] =\n")
+
+            file:write("{\n")
+
+            for _, object in ipairs(objects) do
+
+                file:write(
+                    string.format(
+                        "    { %d, %d, %d },\n",
+                        object.x,
+                        object.y,
+                        object.index
+                    )
+                )
+
+            end
+
+            file:write("};\n\n")
+
+        --------------------------------------------------------
         -- Rectangle export
         --------------------------------------------------------
 
-        if #objects > 0 and objects[1].width then
+        elseif #objects > 0 and objects[1].width then
 
             file:write("static const Rectangle " .. name .. "[] =\n")
 

@@ -67,6 +67,8 @@ typedef struct xGameObject
 
     Animation animation;
 
+    bool interactable;
+
     bool collidable;        /// Whether collisions are active.
     bool fadeable;          /// Whether to fade on overlap.
     bool flip;              /// Whether to flip the sprite horizontally.

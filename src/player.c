@@ -19,7 +19,7 @@ static void xReadPlayerInput(Player *player);
 static void xUpdatePlayerState(Player *player);
 
 /// Move player based on user input.
-static void xMovePlayer(Player *player, World *world);
+static void xMovePlayer(Player *player, World *world, float dt);
 
 /// Update player sprites to show animation.
 static void xUpdatePlayerAnimation(Player *player);
@@ -35,9 +35,10 @@ static int xGetAnimationRow(PlayerState state, PlayerDirection direction);
 
 typedef struct PlayerConfig
 {
-    int x;      // Player spawn x.
-    int y;      // Player spawn y.
-    int speed;  // Player movement speed.
+    int x;              // Player spawn x.
+    int y;              // Player spawn y.
+    int walk_speed;     // Player walking speed.
+    int run_speed;      // Player running speed.
 
 } PlayerConfig;
 
@@ -74,7 +75,8 @@ bool LoadPlayerConfig(PlayerConfig *config)
     to tell fscanf to ignore all whitespace (\n, \t, etc.) */
     if (fscanf(file, " x = %d", &config->x) != 1 ||
         fscanf(file, " y = %d", &config->y) != 1 ||
-        fscanf(file, " speed = %d", &config->speed) != 1)
+        fscanf(file, " walk_speed = %d", &config->walk_speed) != 1 ||
+        fscanf(file, " run_speed = %d", &config->run_speed) != 1)
     {
         fclose(file);
         return false;
@@ -91,7 +93,8 @@ void xInitPlayer(Player *player)
     {
         .x = 0,
         .y = 200,
-        .speed = 3
+        .walk_speed = 160,
+        .run_speed = 256
     };
 
     if (!LoadPlayerConfig(&config))
@@ -107,6 +110,7 @@ void xInitPlayer(Player *player)
     player->interval = 0.10f;
     player->walkInterval = 0.10f;
     player->runInterval = 0.09f;
+    player->waterInterval = 0.15f;
 
     player->animationTimer = 0.0f;
     player->currentFrame = 0;
@@ -122,6 +126,8 @@ void xInitPlayer(Player *player)
     player->gameObject.active = true;
 
     player->attackPressed = false;
+    player->waterPressed = false;
+    player->isWatering = false;
     player->isRunning = false;
 
     player->gameObject.collider = (xRectangle)
@@ -134,22 +140,23 @@ void xInitPlayer(Player *player)
 
     player->gameObject.depth = player->gameObject.collider.y + player->gameObject.collider.height;
 
-    player->speed = config.speed;
+    player->speed = config.walk_speed;
     // printf("speed = %d", config.speed);
-    player->walkSpeed = 3;
-    player->runSpeed = 5;
+    player->walkSpeed = config.walk_speed;
+    player->runSpeed = config.run_speed;
     
     player->state = PLAYER_IDLE;
     player->direction = PLAYER_FACE_FRONT;
     player->gameObject.flip = false;
 }
 
-void xUpdatePlayer(Player *player, World *world)
+void xUpdatePlayer(Player *player, World *world, xCamera2D camera, float dt)
 {
     xReadPlayerInput(player);
     xUpdatePlayerState(player);
-    xMovePlayer(player, world);
+    xMovePlayer(player, world, dt);
     xUpdatePlayerAnimation(player);
+    xUpdateInteraction(&player->target, world, camera, (xVector2){player->gameObject.collider.x, player->gameObject.collider.y});
     // DrawRectangleLinesEx(player->gameObject.dest, 1.0f, RED);
 }
 
@@ -194,12 +201,15 @@ static void xReadPlayerInput(Player *player)
 
     if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
         player->attackPressed = true;
+    
+    if (IsMouseButtonPressed(MOUSE_BUTTON_RIGHT))
+        player->waterPressed = true;
 
 }
 
 static void xUpdatePlayerState(Player *player)
 {
-    if (player->state == PLAYER_ATTACK)
+    if (player->state == PLAYER_ATTACK || player->state == PLAYER_WATERING)
     {
         return;
     }
@@ -215,6 +225,18 @@ static void xUpdatePlayerState(Player *player)
         return;
     }
 
+    if (player->waterPressed)
+    {
+        player->state = PLAYER_WATERING;
+        player->currentFrame = 0;
+        player->animationTimer = 0.0f;
+
+        player->isWatering = true;
+        player->waterPressed = false;
+
+        return;
+    }
+
     if ((player->moveX != 0) || (player->moveY != 0))
     {
         player->state = PLAYER_WALK;
@@ -225,10 +247,10 @@ static void xUpdatePlayerState(Player *player)
     }
 }
 
-static void xMovePlayer(Player *player, World *world)
+static void xMovePlayer(Player *player, World *world, float dt)
 {
     // No movement while attacking.
-    if (player->state == PLAYER_ATTACK)
+    if (player->state == PLAYER_ATTACK || player->state == PLAYER_WATERING)
         return;
 
     int dx = player->moveX;
@@ -268,19 +290,30 @@ static void xMovePlayer(Player *player, World *world)
     // Normalize diagonal movement to maintain a constant speed.
     movement = Vector2Normalize(movement);
 
+    movement.x *= player->speed * dt;
+    movement.y *= player->speed * dt;
+
+    // X-axis
     xRectangle nextCollider = player->gameObject.collider;
-    nextCollider.x += movement.x * player->speed;
-    nextCollider.y += movement.y * player->speed;
+    nextCollider.x += movement.x;
 
     if (!xCheckCollision(world, nextCollider))
     {
-        player->gameObject.dest.x += movement.x * player->speed;
-        player->gameObject.dest.y += movement.y * player->speed;
-
-        player->gameObject.collider = nextCollider;
-
-        player->gameObject.depth = player->gameObject.collider.y + player->gameObject.collider.height;
+        player->gameObject.dest.x += movement.x;
+        player->gameObject.collider.x = nextCollider.x;
     }
+    
+    // Y-axis
+    nextCollider.y += movement.y;
+
+    if (!xCheckCollision(world, nextCollider))
+    {
+        player->gameObject.dest.y += movement.y;
+        player->gameObject.collider.y = nextCollider.y;
+    }
+
+    player->gameObject.depth = player->gameObject.collider.y + player->gameObject.collider.height;
+
 }
 
 // static bool xOutsideScreen(Player *player, xRectangle collider)
@@ -330,7 +363,20 @@ static void xUpdatePlayerAnimation(Player *player)
     player->animationTimer += GetFrameTime();
 
     // If player is running, set the interval to a faster rate.
-    player->interval = player->isRunning ? player->runInterval : player->walkInterval;
+    // player->interval = player->isRunning ? player->runInterval : player->walkInterval;
+
+    if (player->isRunning)
+    {
+        player->interval = player->runInterval;
+    }
+    if (player->isWatering)
+    {
+        player->interval = player->waterInterval;
+    }
+    else
+    {
+        player->interval = player->walkInterval;
+    }
 
     while (player->animationTimer >= player->interval)
     {
@@ -342,6 +388,25 @@ static void xUpdatePlayerAnimation(Player *player)
             if (player->currentFrame >= totalFrames)
             {
                 player->currentFrame = 0;
+
+                // Return to the correct state.
+                if ((player->moveX != 0 || player->moveY != 0))
+                {
+                    player->state = PLAYER_WALK;
+                }
+                else
+                {
+                    player->state = PLAYER_IDLE;
+                }
+            }
+        }
+        else if (player->state == PLAYER_WATERING)
+        {
+            // Play watering animation once.
+            if (player->currentFrame >= totalFrames)
+            {
+                player->currentFrame = 0;
+                player->isWatering = false;
 
                 // Return to the correct state.
                 if ((player->moveX != 0 || player->moveY != 0))
@@ -446,6 +511,9 @@ static int xGetAnimationLength(PlayerState state)
         case PLAYER_IDLE:
         case PLAYER_WALK:
             return 6;
+        
+        case PLAYER_WATERING:
+            return 2;
 
         default:
             return 0;
@@ -510,6 +578,24 @@ static int xGetAnimationRow(PlayerState state, PlayerDirection direction)
 
                 default:
                     return 6;
+            }
+
+        case PLAYER_WATERING:
+            
+            switch (direction)
+            {
+                case PLAYER_FACE_FRONT:
+                    return 10;
+
+                case PLAYER_FACE_LEFT:
+                case PLAYER_FACE_RIGHT:
+                    return 12;
+
+                case PLAYER_FACE_BACK:
+                    return 11;
+                
+                default:
+                    return 10;
             }
     }
 

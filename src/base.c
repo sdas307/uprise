@@ -36,144 +36,83 @@ static void xLoadHouse(World *world)
     xAddHouse(world, HOUSE_TYPE_WOOD_CABIN, temp);
 }
 
-/// Load light posts at world coordinates.
-// static void xLoadLightPost(World *world)
-// {
-//     xRectangle dest =
-//     {
-//         64 * 6 + 16,
-//         64 * 4,
-//         SRC_LIGHT_POST.width,
-//         SRC_LIGHT_POST.height
-//     };
+/// Load animals at world coordinates.
+static void xLoadAnimals(AnimalManager *manager)
+{
+    xRectangle dest =
+    {
+        1000,
+        1000,
+        SRC_COW.width,
+        SRC_COW.height
+    };
+    xSpawnCow(manager, dest);
 
-//     xAddLightPost(world, dest);
-// }
+    dest = (xRectangle)
+    {
+        1000,
+        1000,
+        SRC_SHEEP.width,
+        SRC_SHEEP.height
+    };
+    xSpawnSheep(manager, dest);
 
-/// Load rocks at world coordinates.
-// static void xLoadRocks(World *world)
-// {
-//     xRectangle dest =
-//     {
-//         64*2 - 26,
-//         64*6 - 21,
-//         SRC_ROCK_SMALL.width,
-//         SRC_ROCK_SMALL.height
-//     };
+    dest = (xRectangle)
+    {
+        1000,
+        1000,
+        SRC_PIG.width,
+        SRC_PIG.height
+    };
+    xSpawnPig(manager, dest);
 
-//     xAddRock(world, ROCK_SMALL, dest);
-// }
+    dest = (xRectangle)
+    {
+        1000,
+        1000,
+        SRC_COW.width,
+        SRC_COW.height
+    };
+    xSpawnCow(manager, dest);
 
-// /// Load animals at world coordinates.
-// static void xLoadAnimals(AnimalManager *manager)
-// {
-//     xRectangle dest =
-//     {
-//         464,
-//         400-128,
-//         SRC_COW.width,
-//         SRC_COW.height
-//     };
-//     xSpawnCow(manager, dest);
+    dest = (xRectangle)
+    {
+        1000,
+        1000,
+        SRC_CHICKEN.width,
+        SRC_CHICKEN.height
+    };
+    xSpawnChicken(manager, dest);
 
-//     dest = (xRectangle)
-//     {
-//         764,
-//         640,
-//         SRC_SHEEP.width,
-//         SRC_SHEEP.height
-//     };
-//     xSpawnSheep(manager, dest);
+    dest = (xRectangle)
+    {
+        1000,
+        1000,
+        SRC_CHICKEN.width,
+        SRC_CHICKEN.height
+    };
+    xSpawnChicken(manager, dest);
 
-//     dest = (xRectangle)
-//     {
-//         640,
-//         632,
-//         SRC_PIG.width,
-//         SRC_PIG.height
-//     };
-//     xSpawnPig(manager, dest);
+    dest = (xRectangle)
+    {
+        1000,
+        1000,
+        SRC_CHICKEN.width,
+        SRC_CHICKEN.height
+    };
+    xSpawnChicken(manager, dest);
 
-//     dest = (xRectangle)
-//     {
-//         700,
-//         600,
-//         SRC_COW.width,
-//         SRC_COW.height
-//     };
-//     xSpawnCow(manager, dest);
+    dest = (xRectangle)
+    {
+        1000,
+        1000,
+        SRC_CHICKEN.width,
+        SRC_CHICKEN.height
+    };
+    xSpawnChicken(manager, dest);
+}
 
-//     dest = (xRectangle)
-//     {
-//         400,
-//         400,
-//         SRC_CHICKEN.width,
-//         SRC_CHICKEN.height
-//     };
-//     xSpawnChicken(manager, dest);
-
-//     dest = (xRectangle)
-//     {
-//         464,
-//         400,
-//         SRC_CHICKEN.width,
-//         SRC_CHICKEN.height
-//     };
-//     xSpawnChicken(manager, dest);
-
-//     dest = (xRectangle)
-//     {
-//         600,
-//         464,
-//         SRC_CHICKEN.width,
-//         SRC_CHICKEN.height
-//     };
-//     xSpawnChicken(manager, dest);
-
-//     dest = (xRectangle)
-//     {
-//         650,
-//         500,
-//         SRC_CHICKEN.width,
-//         SRC_CHICKEN.height
-//     };
-//     xSpawnChicken(manager, dest);
-// }
-
-// static void xHighGroundColliders(World *world, xRectangle const highGround[])
-// {
-//     // Top row
-//     xRectangle collider =
-//     {
-//         highGround[0].x + 48,
-//         highGround[0].y + 28,
-//         highGround[0].width - 48,
-//         highGround[0].height - 40,
-//     };
-//     xAddEmptyEntity(world, collider);
-
-//     // Left column
-//     collider = (xRectangle)
-//     {
-//         highGround[1].x + 28,
-//         highGround[1].y - 16,
-//         highGround[1].width - 44,
-//         highGround[1].height - 32,
-//     };
-//     xAddEmptyEntity(world, collider);
-
-//     // Bottom row
-//     collider = (xRectangle)
-//     {
-//         highGround[2].x - 16,
-//         highGround[2].y + 16,
-//         highGround[2].width + 16,
-//         highGround[2].height - 48,
-//     };
-//     xAddEmptyEntity(world, collider);
-// }
-
-static void xLoadGrass1(World *world)
+static void xLoadGrass(World *world)
 {
     // Grass Variant 1
     for (int i = 0; i < grass1Count; i++)
@@ -234,30 +173,30 @@ static void xLoadLightPosts(World *world)
     }
 }
 
-static void xLoadHighGround(World *world)
+static void xLoadUpperLayers(World *world)
 {
-    for (int i = 0; i < highGroundCount; i++)
+    for (int i = 0; i < upperLayerCount; i++)
     {
         xRectangle temp =
         {
-            highGround[i].x,
-            highGround[i].y,
-            highGround[i].width,
-            highGround[i].height,
+            upperLayer[i].x,
+            upperLayer[i].y,
+            64,
+            64,
         };
 
-        xAddHighGroundBounds(world, temp);
+        xAddUpperLayerColliders(world, upperLayer[i].index, temp);
     }
 }
 
 static void xLoadStairs(World *world)
 {
-    for (int i = 0; i < highGroundStairsCount; i++)
+    for (int i = 0; i < upperLayerStairsCount; i++)
     {
         xRectangle temp =
         {
-            highGroundStairs[i].x,
-            highGroundStairs[i].y,
+            upperLayerStairs[i].x,
+            upperLayerStairs[i].y,
             SRC_STAIRS_GROUND.width,
             SRC_STAIRS_GROUND.height
         };
@@ -314,7 +253,6 @@ static void xLoadHedges(World *world)
     };
 
     xAddHedge(world, HEDGE_SINGLE, temp);
-    
 }
 
 static void xLoadWildflowers(World *world)
@@ -366,15 +304,66 @@ static void xLoadWildflowers(World *world)
     }
 }
 
-/// Load all elements of base map in their world positions. 
+static void xLoadCliffColliders(World *world)
+{
+    for (int i = 0; i < cliffCollidersCount; i++)
+    {
+        xRectangle temp = 
+        {
+            cliffColliders[i].x,
+            cliffColliders[i].y,
+            64,
+            64
+        };
+        xAddCliffCollider(world, cliffColliders[i].index, temp);
+    }
+}
+
+static void xLoadCliffStairs(World *world)
+{
+    for (int i = 0; i < cliffStairsCount; i++)
+    {
+        xRectangle temp =
+        {
+            cliffStairs[i].x,
+            cliffStairs[i].y,
+            SRC_CLIFF_STAIRS_WOOD.width,
+            SRC_CLIFF_STAIRS_WOOD.height
+        };
+        xAddCliffStairs(world, temp);
+    }
+}
+
+static void xLoadFarmlands(World *world)
+{
+    xRectangle temp = {0};
+
+    for (int i = 0; i < farmlandsDryCount; i++)
+    {
+        temp = (xRectangle)
+        {
+            farmlandsDry[i].x,
+            farmlandsDry[i].y,
+            64,
+            64
+        };
+
+        xAddFarmland(world, farmlandsDry[i].index, temp);
+    }
+}
+
 void xLoadBaseMap(World *world, AnimalManager *manager)
 {
+    xLoadAnimals(manager);
+    xLoadFarmlands(world);
+    xLoadCliffColliders(world);
+    xLoadCliffStairs(world);
     xLoadWildflowers(world);
     xLoadHedges(world);
     xLoadStairs(world);
-    xLoadHighGround(world);
+    xLoadUpperLayers(world);
     xLoadLightPosts(world);
-    xLoadGrass1(world);
     xLoadTrees(world);
+    xLoadGrass(world);
     xLoadHouse(world);
 }

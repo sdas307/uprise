@@ -6,7 +6,7 @@ static void xCreateEntity(World *world, const EntityInfo *info, const Animation 
     if (world->entityCount >= MAX_OBJECTS)
         return;
 
-    xGameObject *object = &world->entities[world->entityCount++].gameObject;
+    xGameObject *object = &world->entities[world->entityCount].gameObject;
 
     object->texture = *info->spritesheet;
 
@@ -22,10 +22,18 @@ static void xCreateEntity(World *world, const EntityInfo *info, const Animation 
 
     object->depth = info->alwaysBelowPlayer ? 0 : info->collider.y + info->collider.height;
 
+    world->entities[world->entityCount].interactable = info->interactable;
+    world->entities[world->entityCount].interactionID = info->interactionID;
+
     object->flip = info->flip;
     object->active = info->active;
 
-    object->animation = *animation;
+    if (animation)
+        object->animation = *animation;
+    else
+        object->animation = (Animation) {0};
+
+    world->entityCount++;
 }
 
 void xAddHouse(World *world, HouseType type, xRectangle dest)
@@ -38,7 +46,9 @@ void xAddHouse(World *world, HouseType type, xRectangle dest)
         .collidable = true,
         .flip = false,
         .active = true,
-        .alwaysBelowPlayer = false
+        .alwaysBelowPlayer = false,
+        .interactable = true,
+        .interactionID = INTERACTION_DESTROY
     };
 
     Animation animation = {0};
@@ -221,8 +231,10 @@ void xAddTree(World *world, TreeType type, TreeStage stage, xRectangle dest)
         .fadeable = true,
         .collidable = true,
         .alwaysBelowPlayer = false,
+        .interactable = true,
+        .interactionID = INTERACTION_DESTROY,
         .flip = false,
-        .active = true        
+        .active = true
     };
 
     Animation animation = {0};
@@ -303,8 +315,10 @@ void xAddGrass(World *world, GrassVariant variant, xRectangle dest)
         .spritesheet = &world->spritesheets[SHEET_NATURE_GRASS_WILDFLOWERS],
         .source = SRC_GRASS_1[0],
         .dest = dest,
-        .fadeable = false,
         .collidable = false,
+        .collider = {0},
+        .fadeable = false,
+        .fadeArea = {0},
         .alwaysBelowPlayer = true,
         .flip = false,
         .active = true
@@ -312,22 +326,12 @@ void xAddGrass(World *world, GrassVariant variant, xRectangle dest)
 
     Animation animation =
     {
-        .active = false,
+        .active = true,
         .frameCount = 8,
         .frames = SRC_GRASS_1,
         .currentFrame = 0,
         .frameTime = 0.1f,
         .timer = 0
-    };
-
-    info.collider = (xRectangle)
-    {
-        0
-    };
-
-    info.fadeArea = (xRectangle)
-    {
-        0
     };
 
     switch (variant)
@@ -362,7 +366,9 @@ void xAddMushroom(World *world, MushroomType type, xRectangle dest)
         .spritesheet = &world->spritesheets[SHEET_NATURE_FLOWER_MUSHROOMS],
         .dest = dest,
         .fadeable = false,
+        .fadeArea = {0},
         .collidable = false,
+        .collider = {0},
         .alwaysBelowPlayer = false,
         .flip = false,
         .active = true
@@ -380,23 +386,10 @@ void xAddMushroom(World *world, MushroomType type, xRectangle dest)
         break;
     }
 
-    info.collider = (xRectangle)
-    {
-        dest.x + 4,
-        dest.y + 20,
-        dest.width - 8,
-        8
-    };
-
-    info.fadeArea = (xRectangle)
-    {
-        0
-    };
-
     xCreateEntity(world, &info, &animation);
 }
 
-void xAddHighGroundBounds(World *world, xRectangle dest)
+void xAddUpperLayerColliders(World *world, int index, xRectangle dest)
 {
     EntityInfo info =
     {
@@ -411,13 +404,51 @@ void xAddHighGroundBounds(World *world, xRectangle dest)
 
     Animation animation = {0};
 
-    info.collider = (xRectangle)
+    switch (index)
     {
-        dest.x + 20,
-        dest.y + 24,
-        dest.width - 24,
-        dest.height - 42
-    };
+    case 1:
+        info.collider = (xRectangle)
+        {
+            dest.x + 32,
+            dest.y + 32,
+            dest.width - 32,
+            dest.height - 32
+        };
+        break;
+
+    case 2:
+        info.collider = (xRectangle)
+        {
+            dest.x,
+            dest.y + 24,
+            dest.width,
+            dest.height - 24
+        };
+        break;
+
+     case 4:
+        info.collider = (xRectangle)
+        {
+            dest.x + 20,
+            dest.y,
+            dest.width - 20 - 12,
+            dest.height
+        };
+        break;
+
+    case 12:
+        info.collider = (xRectangle)
+        {
+            dest.x + 20,
+            dest.y,
+            dest.width - 24 - 8,
+            dest.height - 12
+        };
+        break;
+    
+    default:
+        break;
+    }
 
     xCreateEntity(world, &info, &animation);
 }
@@ -513,9 +544,10 @@ void xAddWildflowers(World *world, WildflowerVariant variant, xRectangle dest)
         .id = ENTITY_WILDFLOWER,
         .spritesheet = &world->spritesheets[SHEET_NATURE_GRASS_WILDFLOWERS],
         .dest = dest,
-        .collider = (xRectangle) {0},
-        .fadeable = false,
         .collidable = false,
+        .collider = {0},
+        .fadeable = false,
+        .fadeArea = {0},
         .alwaysBelowPlayer = true,
         .flip = false,
         .active = true
@@ -675,13 +707,195 @@ void xAddWildflowers(World *world, WildflowerVariant variant, xRectangle dest)
 //     xCreateEntity(world, id, source, dest, collider);
 // }
 
-// void xAddEmptyEntity(World *world, xRectangle dest)
-// {
-//     xRectangle source = {0, 0, 0, 0};
-//     Texture2D *spritesheet = &(Texture2D){0};
-//     EntityID id = ENTITY_EMPTY_OBJECT;
+void xAddCliffStairs(World *world, xRectangle dest)
+{
+    EntityInfo info =
+    {
+        .source = SRC_CLIFF_STAIRS_WOOD,
+        .spritesheet = &world->spritesheets[SHEET_NATURE_GRASSLANDS],
+        .id = ENTITY_EMPTY_OBJECT,
+        .active = true,
+        .collidable = false,
+        .fadeable = false,
+        .fadeArea = {0},
+        .dest = dest,
+        .alwaysBelowPlayer = true,
+        .collider = dest
+    };
 
-//     xRectangle collider = dest;
+    Animation animation = {0};
 
-//     xCreateEntity(world, id, source, dest, collider);
-// }
+    xCreateEntity(world, &info, &animation);
+}
+
+void xAddCliffCollider(World *world, int index, xRectangle dest)
+{
+    EntityInfo info =
+    {
+        .source = {0},
+        .spritesheet = &(Texture2D){0},
+        .id = ENTITY_EMPTY_OBJECT,
+        .active = true,
+        .collidable = true,
+        .fadeable = false,
+        .fadeArea = {0},
+        .dest = dest
+    };
+
+    Animation animation = {0};
+
+    switch (index)
+    {
+    case 5:
+
+        info.collider = (xRectangle)
+        {
+            .x = dest.x + 24,
+            .y = dest.y,
+            .width = dest.width - 8 - 24,
+            .height = dest.height
+        };
+
+        break;
+
+    case 7:
+
+        info.collider = (xRectangle)
+        {
+            .x = dest.x,
+            .y = dest.y + 24,
+            .width = dest.width,
+            .height = dest.height - 24
+        };
+
+        break;
+
+    case 8:
+
+        info.collider = (xRectangle)
+        {
+            .x = dest.x + 24,
+            .y = dest.y,
+            .width = dest.width - 24 - 8,
+            .height = dest.height
+        };
+
+        break;
+
+    case 10:
+
+        info.collider = (xRectangle)
+        {
+            .x = dest.x,
+            .y = dest.y,
+            .width = dest.width,
+            .height = dest.height
+        };
+
+        break;
+
+    case 11:
+
+        info.collider = (xRectangle)
+        {
+            .x = dest.x,
+            .y = dest.y,
+            .width = dest.width - 8,
+            .height = dest.height
+        };
+
+        break;
+
+    case 13:
+
+        info.collider = (xRectangle)
+        {
+            .x = dest.x,
+            .y = dest.y,
+            .width = dest.width,
+            .height = dest.height
+        };
+
+        break;
+
+    case 14:
+
+        info.collider = (xRectangle)
+        {
+            .x = dest.x,
+            .y = dest.y,
+            .width = dest.width - 8,
+            .height = dest.height
+        };
+
+        break;
+    
+    default:
+        break;
+    }
+
+    xCreateEntity(world, &info, &animation);
+}
+
+void xAddFarmland(World *world, int index, xRectangle dest)
+{
+    EntityInfo info =
+    {
+        .id = ENTITY_FARMLAND_DRY,
+        .active = true,
+        .spritesheet = &world->spritesheets[SHEET_NATURE_GRASSLANDS],
+        .collidable = false,
+        .collider = dest,
+        .alwaysBelowPlayer = true,
+        .fadeable = false,
+        .fadeArea = {0},
+        .dest = dest
+    };
+
+    Animation animation = {0};
+
+    switch (index)
+    {
+    case 1:
+        info.source = SRC_FARMLAND_DRY[TOP_LEFT];
+        break;
+
+    case 2:
+        info.source = SRC_FARMLAND_DRY[TOP_CENTER];
+        break;
+
+    case 3:
+        info.source = SRC_FARMLAND_DRY[TOP_RIGHT];
+        break;
+
+    case 4:
+        info.source = SRC_FARMLAND_DRY[CENTER_LEFT];
+        break;
+
+    case 5:
+        info.source = SRC_FARMLAND_DRY[CENTER_CENTER];
+        break;
+
+    case 6:
+        info.source = SRC_FARMLAND_DRY[CENTER_RIGHT];
+        break;
+
+    case 7:
+        info.source = SRC_FARMLAND_DRY[BOTTOM_LEFT];
+        break;
+
+    case 8:
+        info.source = SRC_FARMLAND_DRY[BOTTOM_CENTER];
+        break;
+
+    case 9:
+        info.source = SRC_FARMLAND_DRY[BOTTOM_RIGHT];
+        break;
+    
+    default:
+        info.source = (xRectangle){0};
+        break;
+    }
+    
+    xCreateEntity(world, &info, &animation);
+}

@@ -4,12 +4,14 @@
 #include "raylib.h"
 #include "xEngine.h"
 #include "world.h"
+#include "interactions.h"
 
 typedef enum PlayerState
 {
     PLAYER_IDLE,
     PLAYER_WALK,
-    PLAYER_ATTACK
+    PLAYER_ATTACK,
+    PLAYER_WATERING
 
 } PlayerState;
 
@@ -30,6 +32,7 @@ typedef struct Player
     float interval;             /// Animation interval.
     float runInterval;
     float walkInterval;
+    float waterInterval;
 
     float animationTimer;
     int currentFrame;
@@ -40,7 +43,11 @@ typedef struct Player
 
     PlayerDirection direction; /// Current facing direction.
 
+    InteractionTarget target;
+
     bool attackPressed;
+    bool waterPressed;
+    bool isWatering;
     bool isRunning;
 
     int moveX;
@@ -48,7 +55,7 @@ typedef struct Player
 
     int speed;          /// Player's movement speed.
     int walkSpeed;      /// Player's walking movement speed.
-    int runSpeed;      /// Player's running movement speed.
+    int runSpeed;       /// Player's running movement speed.
 
 } Player;
 
@@ -56,7 +63,7 @@ typedef struct Player
 void xInitPlayer(Player *player);
 
 /// Update player values based on movement and animation logic.
-void xUpdatePlayer(Player *player, World *world);             
+void xUpdatePlayer(Player *player, World *world, xCamera2D gameCamera, float dt);             
 
 /// Unload player object's texture from vram.
 void xUnloadPlayer(Player *player);

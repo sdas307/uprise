@@ -6,8 +6,8 @@ const xRectangle SRC_CHICKEN =
 {
     0,
     0,
-    64 * 2,
-    64 * 2
+    64 * 1,
+    64 * 1
 };
 
 const xRectangle SRC_CHICKEN_WHITE_1 =

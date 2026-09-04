@@ -21,7 +21,6 @@ int main(void)
 
     xInitPlayer(&player);
     
-
     xInitCamera(&gameCamera, &player.gameObject);
 
     printf("\n\nInit World!\n\n");
@@ -36,9 +35,15 @@ int main(void)
 
     while (!WindowShouldClose())
     {
+
+        // Only 1 delta time variable exists.
+        float dt = GetFrameTime();
+
         // ---------------- UPDATE ----------------
 
-        xUpdatePlayer(&player, &world);
+        xUpdatePlayer(&player, &world, gameCamera.camera, dt);
+
+        xUpdateInteraction(&player.target, &world, gameCamera.camera, (xVector2) {player.gameObject.dest.x, player.gameObject.dest.y});
 
         xUpdateAnimation(&world);
 
@@ -58,6 +63,7 @@ int main(void)
             BeginMode2D(gameCamera.camera);
 
                 xRenderScene(&world, &player, &manager);
+                xRenderInteractionTarget(&player.target);
                 // xCameraDebugLines(&camera);
                 
             EndMode2D();

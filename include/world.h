@@ -19,6 +19,9 @@ typedef enum EntityID
     ENTITY_LIGHT_POST,
     ENTITY_STAIRS,
 
+    ENTITY_FARMLAND_DRY,
+    ENTITY_FARMLAND_WET,
+
     ENTITY_HEDGE,
     ENTITY_WILDFLOWER,
 
@@ -66,6 +69,16 @@ typedef enum EntityID
 
 } EntityID;
 
+typedef enum InteractionID
+{
+    INTERACTION_TREE_CHOP,
+    INTERACTION_CROP_HARVEST,
+    INTERACTION_FRUIT_HARVEST,
+    INTERACTION_FARMLAND_WATER,
+    INTERACTION_DESTROY
+
+} InteractionID;
+
 typedef struct EntityInfo
 {
     EntityID id;
@@ -76,6 +89,9 @@ typedef struct EntityInfo
     xRectangle dest;
     xRectangle collider;
     xRectangle fadeArea;
+
+    bool interactable;
+    InteractionID interactionID;
 
     bool fadeable;
     bool collidable;
@@ -91,8 +107,9 @@ typedef struct Entity
     EntityID id;
     
     int hp;
-    bool harvestable;
-    bool destructible;
+
+    bool interactable;
+    InteractionID interactionID;
 
 } Entity;
 
@@ -143,6 +160,15 @@ typedef enum HouseType
     HOUSE_TYPE_WOOD_CABIN,
 
 } HouseType;
+
+typedef struct TileObject
+{
+    int x;
+    int y;
+
+    int index;
+
+} TileObject;
 
 typedef enum MushroomType
 {
