@@ -14,6 +14,8 @@ static xVector2 getGridPosition(xVector2 position);
 /// Return true if target cell is in player's range.
 static bool isTargetInRange(xVector2 targetGrid, xVector2 playerGrid);
 
+static void temporarilySetSourceToZero(InteractionTarget *target);
+
 
 /* ---------- Implementation ---------- */
 
@@ -56,6 +58,9 @@ void xUpdateInteraction(InteractionTarget *target, World *world, xCamera2D camer
             target->entity = entity;
             target->valid = true;
 
+            // Temporarily destroying objects via source = {0}.
+            temporarilySetSourceToZero(target);
+
             // DrawRectangleLinesEx((xRectangle){target->grid.x, target->grid.y, 64, 64}, 2.0f, RED);
 
             return;
@@ -85,4 +90,26 @@ static bool isTargetInRange(xVector2 target, xVector2 player)
     // 1 cell away = 3x3 grid.
 
     return (dx <= PLAYER_TARGET_RANGE && dy <= PLAYER_TARGET_RANGE);
+}
+
+static void temporarilySetSourceToZero(InteractionTarget *target)
+{
+    if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+    {
+        if (target->valid && target->entity)
+        {
+            Entity *entity = target->entity;
+
+            switch (entity->interactionID)
+            {
+                case INTERACTION_DESTROY:
+                    entity->gameObject.source = (xRectangle) {0};
+                    break;
+
+                default:
+                    // entity->gameObject.source = (xRectangle) {0};
+                    break;
+            }
+        }
+    }
 }
