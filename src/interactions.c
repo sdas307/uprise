@@ -14,11 +14,10 @@ static xVector2 getGridPosition(xVector2 position);
 /// Return true if target cell is in player's range.
 static bool isTargetInRange(xVector2 targetGrid, xVector2 playerGrid);
 
-static void temporarilySetSourceToZero(InteractionTarget *target);
+static void interact(InteractionTarget *target);
 
 
 /* ---------- Implementation ---------- */
-
 
 void xUpdateInteraction(InteractionTarget *target, World *world, xCamera2D camera, xVector2 playerPos)
 {
@@ -59,7 +58,7 @@ void xUpdateInteraction(InteractionTarget *target, World *world, xCamera2D camer
             target->valid = true;
 
             // Temporarily destroying objects via source = {0}.
-            temporarilySetSourceToZero(target);
+            interact(target);
 
             // DrawRectangleLinesEx((xRectangle){target->grid.x, target->grid.y, 64, 64}, 2.0f, RED);
 
@@ -92,7 +91,7 @@ static bool isTargetInRange(xVector2 target, xVector2 player)
     return (dx <= PLAYER_TARGET_RANGE && dy <= PLAYER_TARGET_RANGE);
 }
 
-static void temporarilySetSourceToZero(InteractionTarget *target)
+static void interact(InteractionTarget *target)
 {
     if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
     {
@@ -103,11 +102,20 @@ static void temporarilySetSourceToZero(InteractionTarget *target)
             switch (entity->interactionID)
             {
                 case INTERACTION_DESTROY:
-                    entity->gameObject.source = (xRectangle) {0};
+                    entity->gameObject.active = false;
                     break;
 
-                default:
-                    // entity->gameObject.source = (xRectangle) {0};
+                case INTERACTION_CROP_HARVEST:
+                    break;
+
+                case INTERACTION_FRUIT_HARVEST:
+                    break;
+
+                case INTERACTION_FARMLAND_WATER:
+                    
+                    break;
+
+                case INTERACTION_TREE_CHOP:
                     break;
             }
         }

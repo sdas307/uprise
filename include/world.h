@@ -71,6 +71,7 @@ typedef enum EntityID
 
 typedef enum InteractionID
 {
+    INTERACTION_NONE,
     INTERACTION_TREE_CHOP,
     INTERACTION_CROP_HARVEST,
     INTERACTION_FRUIT_HARVEST,
@@ -90,7 +91,6 @@ typedef struct EntityInfo
     xRectangle collider;
     xRectangle fadeArea;
 
-    bool interactable;
     InteractionID interactionID;
 
     bool fadeable;

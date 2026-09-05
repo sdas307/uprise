@@ -21,8 +21,7 @@ static void xCreateEntity(World *world, const EntityInfo *info, const Animation 
     object->collidable = info->collidable;
 
     object->depth = info->alwaysBelowPlayer ? 0 : info->collider.y + info->collider.height;
-
-    world->entities[world->entityCount].interactable = info->interactable;
+    
     world->entities[world->entityCount].interactionID = info->interactionID;
 
     object->flip = info->flip;
@@ -47,8 +46,8 @@ void xAddHouse(World *world, HouseType type, xRectangle dest)
         .flip = false,
         .active = true,
         .alwaysBelowPlayer = false,
-        .interactable = true,
-        .interactionID = INTERACTION_DESTROY
+        .interactionID = INTERACTION_NONE
+
     };
 
     Animation animation = {0};
@@ -100,7 +99,8 @@ void xAddLightPost(World *world, xRectangle dest)
         .fadeable = true,
         .collidable = true,
         .active = true,
-        .alwaysBelowPlayer = false
+        .alwaysBelowPlayer = false,
+        .interactionID = INTERACTION_NONE
     };
 
     Animation animation =
@@ -231,10 +231,9 @@ void xAddTree(World *world, TreeType type, TreeStage stage, xRectangle dest)
         .fadeable = true,
         .collidable = true,
         .alwaysBelowPlayer = false,
-        .interactable = true,
-        .interactionID = INTERACTION_DESTROY,
         .flip = false,
-        .active = true
+        .active = true,
+        .interactionID = INTERACTION_DESTROY,
     };
 
     Animation animation = {0};
@@ -321,7 +320,8 @@ void xAddGrass(World *world, GrassVariant variant, xRectangle dest)
         .fadeArea = {0},
         .alwaysBelowPlayer = true,
         .flip = false,
-        .active = true
+        .active = true,
+        .interactionID = INTERACTION_NONE
     };
 
     Animation animation =
@@ -371,7 +371,8 @@ void xAddMushroom(World *world, MushroomType type, xRectangle dest)
         .collider = {0},
         .alwaysBelowPlayer = false,
         .flip = false,
-        .active = true
+        .active = true,
+        .interactionID = INTERACTION_NONE
     };
 
     Animation animation = {0};
@@ -399,7 +400,8 @@ void xAddUpperLayerColliders(World *world, int index, xRectangle dest)
         .dest = dest,
         .fadeable = false,
         .collidable = true,
-        .active = true
+        .active = true,
+        .interactionID = INTERACTION_NONE
     };
 
     Animation animation = {0};
@@ -465,7 +467,8 @@ void xAddStairs(World *world, xRectangle dest)
         .collidable = false,
         .active = true,
         .alwaysBelowPlayer = true,
-        .flip = false
+        .flip = false,
+        .interactionID = INTERACTION_NONE
     };
     
     Animation animation = {0};
@@ -486,7 +489,8 @@ void xAddHedge(World *world, HedgePiece piece, xRectangle dest)
         .collidable = true,
         .alwaysBelowPlayer = false,
         .active = true,
-        .flip = false
+        .flip = false,
+        .interactionID = INTERACTION_NONE
     };
 
     Animation animation = {0};
@@ -550,7 +554,8 @@ void xAddWildflowers(World *world, WildflowerVariant variant, xRectangle dest)
         .fadeArea = {0},
         .alwaysBelowPlayer = true,
         .flip = false,
-        .active = true
+        .active = true,
+        .interactionID = INTERACTION_NONE
     };
 
     Animation animation = 
@@ -720,7 +725,8 @@ void xAddCliffStairs(World *world, xRectangle dest)
         .fadeArea = {0},
         .dest = dest,
         .alwaysBelowPlayer = true,
-        .collider = dest
+        .collider = dest,
+        .interactionID = INTERACTION_NONE
     };
 
     Animation animation = {0};
@@ -739,7 +745,8 @@ void xAddCliffCollider(World *world, int index, xRectangle dest)
         .collidable = true,
         .fadeable = false,
         .fadeArea = {0},
-        .dest = dest
+        .dest = dest,
+        .interactionID = INTERACTION_NONE
     };
 
     Animation animation = {0};
@@ -849,7 +856,8 @@ void xAddFarmland(World *world, int index, xRectangle dest)
         .alwaysBelowPlayer = true,
         .fadeable = false,
         .fadeArea = {0},
-        .dest = dest
+        .dest = dest,
+        .interactionID = INTERACTION_FARMLAND_WATER
     };
 
     Animation animation = {0};
