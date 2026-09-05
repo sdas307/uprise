@@ -1,4 +1,5 @@
 #include "interactions.h"
+#include "entities.h"
 
 #include <stdlib.h>
 #include <math.h>
@@ -14,6 +15,7 @@ static xVector2 getGridPosition(xVector2 position);
 /// Return true if target cell is in player's range.
 static bool isTargetInRange(xVector2 targetGrid, xVector2 playerGrid);
 
+/// Make the change in the entity upon interaction.
 static void interact(InteractionTarget *target);
 
 
@@ -112,7 +114,7 @@ static void interact(InteractionTarget *target)
                     break;
 
                 case INTERACTION_FARMLAND_WATER:
-                    
+                    target->entity->id = ENTITY_FARMLAND_WET;
                     break;
 
                 case INTERACTION_TREE_CHOP:

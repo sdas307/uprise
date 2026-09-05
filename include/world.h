@@ -108,7 +108,6 @@ typedef struct Entity
     
     int hp;
 
-    bool interactable;
     InteractionID interactionID;
 
 } Entity;

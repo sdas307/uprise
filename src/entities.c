@@ -32,6 +32,7 @@ static void xCreateEntity(World *world, const EntityInfo *info, const Animation 
     else
         object->animation = (Animation) {0};
 
+    // Update entity count for the next entity.
     world->entityCount++;
 }
 
@@ -47,7 +48,6 @@ void xAddHouse(World *world, HouseType type, xRectangle dest)
         .active = true,
         .alwaysBelowPlayer = false,
         .interactionID = INTERACTION_NONE
-
     };
 
     Animation animation = {0};
