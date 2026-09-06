@@ -306,57 +306,57 @@ void xAddTree(World *world, TreeType type, TreeStage stage, xRectangle dest)
     xCreateEntity(world, &info, &animation);
 }
 
-void xAddGrass(World *world, GrassVariant variant, xRectangle dest)
-{
-    EntityInfo info =
-    {
-        .id = ENTITY_GRASS,
-        .spritesheet = &world->spritesheets[SHEET_NATURE_GRASS_WILDFLOWERS],
-        .source = SRC_GRASS_1[0],
-        .dest = dest,
-        .collidable = false,
-        .collider = {0},
-        .fadeable = false,
-        .fadeArea = {0},
-        .alwaysBelowPlayer = true,
-        .flip = false,
-        .active = true,
-        .interactionID = INTERACTION_NONE
-    };
+// void xAddGrass(World *world, GrassVariant variant, xRectangle dest)
+// {
+//     EntityInfo info =
+//     {
+//         .id = ENTITY_GRASS,
+//         .spritesheet = &world->spritesheets[SHEET_NATURE_STATIC_TERRAIN_DECOR],
+//         .source = {0},
+//         .dest = dest,
+//         .collidable = false,
+//         .collider = {0},
+//         .fadeable = false,
+//         .fadeArea = {0},
+//         .alwaysBelowPlayer = true,
+//         .flip = false,
+//         .active = true,
+//         .interactionID = INTERACTION_NONE
+//     };
 
-    Animation animation =
-    {
-        .active = true,
-        .frameCount = 8,
-        .frames = SRC_GRASS_1,
-        .currentFrame = 0,
-        .frameTime = 0.1f,
-        .timer = 0
-    };
+//     Animation animation =
+//     {
+//         .active = false,
+//         .frameCount = 0,
+//         .frames = {0},
+//         .currentFrame = 0,
+//         .frameTime = 0.1f,
+//         .timer = 0
+//     };
 
-    switch (variant)
-    {
-    case GRASS_VAR_1:
-        info.source = SRC_GRASS_1[0];
-        animation.frames = SRC_GRASS_1;
-        break;
-
-    case GRASS_VAR_2:
-        info.source = SRC_GRASS_2[0];
-        animation.frames = SRC_GRASS_2;
-        break;
+//     switch (variant)
+//     {
+//     case GRASS_VAR_1:
+//         info.source = SRC_GRASS[0];
+//         break;
     
-    case GRASS_VAR_3:
-        info.source = SRC_GRASS_3[0];
-        animation.frames = SRC_GRASS_3;
-        break;
+//     case GRASS_VAR_2:
+//         info.source = SRC_GRASS[1];
+//         break;
 
-    default:
-        break;
-    }
+//     case GRASS_VAR_3:
+//         info.source = SRC_GRASS[2];
+//         break;
 
-    xCreateEntity(world, &info, &animation);
-}
+//     default:
+//         // Fallback - safe and sound grass variant 1.
+//         info.source = SRC_GRASS[1];
+//         animation.active = false;
+//         break;
+//     }
+
+//     xCreateEntity(world, &info, &animation);
+// }
 
 void xAddMushroom(World *world, MushroomType type, xRectangle dest)
 {
@@ -541,105 +541,103 @@ void xAddHedge(World *world, HedgePiece piece, xRectangle dest)
     xCreateEntity(world, &info, &animation);
 }
 
-void xAddWildflowers(World *world, WildflowerVariant variant, xRectangle dest)
-{
-    EntityInfo info =
-    {
-        .id = ENTITY_WILDFLOWER,
-        .spritesheet = &world->spritesheets[SHEET_NATURE_GRASS_WILDFLOWERS],
-        .dest = dest,
-        .collidable = false,
-        .collider = {0},
-        .fadeable = false,
-        .fadeArea = {0},
-        .alwaysBelowPlayer = true,
-        .flip = false,
-        .active = true,
-        .interactionID = INTERACTION_NONE
-    };
+// void xAddWildflowers(World *world, WildflowerVariant variant, xRectangle dest)
+// {
+//     EntityInfo info =
+//     {
+//         .id = ENTITY_WILDFLOWER,
+//         .spritesheet = &world->spritesheets[SHEET_NATURE_STATIC_TERRAIN_DECOR],
+//         .dest = dest,
+//         .collidable = false,
+//         .collider = {0},
+//         .fadeable = false,
+//         .fadeArea = {0},
+//         .alwaysBelowPlayer = true,
+//         .flip = false,
+//         .active = true,
+//         .interactionID = INTERACTION_NONE
+//     };
 
-    Animation animation = 
-    {
-        .active = false,
-        .currentFrame = 0,
-        .frameCount = 8,
-        .frames = SRC_WF_YELLOW_1,
-        .frameTime = 0.1f,
-        .timer = 0.0f
-    };
+//     Animation animation = 
+//     {
+//         .active = false,
+//         .currentFrame = 0,
+//         .frameCount = 0,
+//         .frames = {0},
+//         .frameTime = 0.1f,
+//         .timer = 0.0f
+//     };
 
-    switch (variant)
-    {
-    case WF_VAR_YELLOW_1:
-        info.source = SRC_WF_YELLOW_1[0];
-        animation.frames = SRC_WF_YELLOW_1;
-        break;
+//     switch (variant)
+//     {
+//     case WF_VAR_WHITE_1:
+//         info.source = SRC_WILDFLOWER[0];
+//         break;
 
-    case WF_VAR_YELLOW_2:
-        info.source = SRC_WF_YELLOW_2[0];
-        animation.frames = SRC_WF_YELLOW_2;
-        break;
+//     case WF_VAR_WHITE_2:
+//         info.source = SRC_WILDFLOWER[1];
+//         break;
 
-    case WF_VAR_YELLOW_3:
-        info.source = SRC_WF_YELLOW_3[0];
-        animation.frames = SRC_WF_YELLOW_3;
-        break;
-
-    case WF_VAR_WHITE_1:
-        info.source = SRC_WF_WHITE_1[0];
-        break;
-
-    case WF_VAR_WHITE_2:
-        info.source = SRC_WF_WHITE_2[0];
-        break;
-
-    case WF_VAR_WHITE_3:
-        info.source = SRC_WF_WHITE_3[0];
-        break;
-
-    case WF_VAR_RED_1:
-        info.source = SRC_WF_RED_1[0];
-        break;
-
-    case WF_VAR_RED_2:
-        info.source = SRC_WF_RED_2[0];
-        break;
-
-    case WF_VAR_RED_3:
-        info.source = SRC_WF_RED_3[0];
-        break;
-
-    case WF_VAR_PINK_1:
-        info.source = SRC_WF_OFF_WHITE_1[0];
-        break;
-
-    case WF_VAR_PINK_2:
-        info.source = SRC_WF_OFF_WHITE_2[0];
-        break;
-
-    case WF_VAR_PINK_3:
-        info.source = SRC_WF_OFF_WHITE_3[0];
-        break;
-
-    case WF_VAR_CYAN_1:
-        info.source = SRC_WF_CYAN_1[0];
-        break;
-
-    case WF_VAR_CYAN_2:
-        info.source = SRC_WF_CYAN_2[0];
-        break;
-
-    case WF_VAR_CYAN_3:
-        info.source = SRC_WF_CYAN_3[0];
-        break;
+//     case WF_VAR_WHITE_3:
+//         info.source = SRC_WILDFLOWER[2];
+//         break;
     
-    default:
-        info.source = SRC_WF_YELLOW_1[0];
-        break;
-    }
+//     case WF_VAR_YELLOW_1:
+//         info.source = SRC_WILDFLOWER[3];
+//         break;
 
-    xCreateEntity(world, &info, &animation);
-}
+//     case WF_VAR_YELLOW_2:
+//         info.source = SRC_WILDFLOWER[4];
+//         break;
+
+//     case WF_VAR_YELLOW_3:
+//         info.source = SRC_WILDFLOWER[5];
+//         break;
+
+//     case WF_VAR_RED_1:
+//         info.source = SRC_WILDFLOWER[6];
+//         break;
+
+//     case WF_VAR_RED_2:
+//         info.source = SRC_WILDFLOWER[7];
+//         break;
+
+//     case WF_VAR_RED_3:
+//         info.source = SRC_WILDFLOWER[8];
+//         break;
+
+//     case WF_VAR_PINK_1:
+//         info.source = SRC_WILDFLOWER[9];
+//         break;
+
+//     case WF_VAR_PINK_2:
+//         info.source = SRC_WILDFLOWER[10];
+//         break;
+
+//     case WF_VAR_PINK_3:
+//         info.source = SRC_WILDFLOWER[11];
+//         break;
+
+//     case WF_VAR_CYAN_1:
+//         info.source = SRC_WILDFLOWER[12];
+//         break;
+
+//     case WF_VAR_CYAN_2:
+//         info.source = SRC_WILDFLOWER[13];
+//         break;
+
+//     case WF_VAR_CYAN_3:
+//         info.source = SRC_WILDFLOWER[14];
+//         break;
+    
+//     default:
+//         // Fallback - yellow variant 1.
+//         info.source = SRC_WILDFLOWER[3];
+//         break;
+//     }
+
+//     xCreateEntity(world, &info, &animation);
+// }
 
 // void xAddFlower(World *world, FlowerColor color, FlowerType type, xRectangle dest)
 // {

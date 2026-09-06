@@ -16,7 +16,7 @@ static xVector2 getGridPosition(xVector2 position);
 static bool isTargetInRange(xVector2 targetGrid, xVector2 playerGrid);
 
 /// Make the change in the entity upon interaction.
-static void interact(InteractionTarget *target);
+static void Interact(InteractionTarget *target);
 
 
 /* ---------- Implementation ---------- */
@@ -60,7 +60,7 @@ void xUpdateInteraction(InteractionTarget *target, World *world, xCamera2D camer
             target->valid = true;
 
             // Temporarily destroying objects via source = {0}.
-            interact(target);
+            Interact(target);
 
             // DrawRectangleLinesEx((xRectangle){target->grid.x, target->grid.y, 64, 64}, 2.0f, RED);
 
@@ -93,7 +93,7 @@ static bool isTargetInRange(xVector2 target, xVector2 player)
     return (dx <= PLAYER_TARGET_RANGE && dy <= PLAYER_TARGET_RANGE);
 }
 
-static void interact(InteractionTarget *target)
+static void Interact(InteractionTarget *target)
 {
     if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
     {

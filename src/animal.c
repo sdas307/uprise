@@ -143,6 +143,7 @@ static void xAnimalWandering(Animal *animal, World *world, float dt)
         // If moving right -> flip.
         animal->gameObject.flip = (movement.x > 0);
 
+        // X-axis
         xRectangle nextCollider = animal->gameObject.collider;
         nextCollider.x += movement.x;
 
@@ -152,6 +153,7 @@ static void xAnimalWandering(Animal *animal, World *world, float dt)
             animal->gameObject.collider.x = nextCollider.x;
         }
 
+        // Y-axis
         nextCollider = animal->gameObject.collider;
         nextCollider.y += movement.y;
 

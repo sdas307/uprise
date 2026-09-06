@@ -15,7 +15,7 @@ const char PATH_FOREST[] = "assets/old_assets/maps/map_forest.png";
 const char PATH_WORLD_OBJECTS[] = "assets/old_assets/maps/world_objects_transparent.png";
 const char PATH_SPRITE_SHEET[] = "assets/old_assets/uprise_spritesheet/spritesheet.png";
 
-const char PATH_START_BASE[] = "assets/new/world_maps/starting_base.png";
+const char PATH_START_BASE[] = "assets/new/world_maps/starting_base1.png";
 
 const char *PATH_SPRITESHEETS[] = 
 {
@@ -25,7 +25,8 @@ const char *PATH_SPRITESHEETS[] =
 
     "assets/new/spritesheets/nature/trees.png",
     "assets/new/spritesheets/nature/grasslands.png",
-    "assets/new/spritesheets/nature/grass_wildflowers.png",
+    "assets/new/spritesheets/nature/static_terrain_decor.png",
+    //"assets/new/spritesheets/nature/grass_wildflowers.png",
     "assets/new/spritesheets/nature/crops_fruits.png",
     "assets/new/spritesheets/nature/flower_mushrooms.png",
     "assets/new/spritesheets/nature/cliffs.png",
