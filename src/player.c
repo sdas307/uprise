@@ -313,7 +313,6 @@ static void xMovePlayer(Player *player, World *world, float dt)
     }
 
     player->gameObject.depth = player->gameObject.collider.y + player->gameObject.collider.height;
-
 }
 
 // static bool xOutsideScreen(Player *player, xRectangle collider)

@@ -71,6 +71,7 @@ typedef enum EntityID
 
 typedef enum InteractionID
 {
+    INTERACTION_NONE,
     INTERACTION_TREE_CHOP,
     INTERACTION_CROP_HARVEST,
     INTERACTION_FRUIT_HARVEST,
@@ -90,7 +91,6 @@ typedef struct EntityInfo
     xRectangle collider;
     xRectangle fadeArea;
 
-    bool interactable;
     InteractionID interactionID;
 
     bool fadeable;
@@ -108,7 +108,6 @@ typedef struct Entity
     
     int hp;
 
-    bool interactable;
     InteractionID interactionID;
 
 } Entity;
@@ -121,7 +120,7 @@ typedef enum SpriteSheets
 
     SHEET_NATURE_TREE,
     SHEET_NATURE_GRASSLANDS,
-    SHEET_NATURE_GRASS_WILDFLOWERS,
+    SHEET_NATURE_STATIC_TERRAIN_DECOR,
     SHEET_NATURE_CROPS_FRUITS,
     SHEET_NATURE_FLOWER_MUSHROOMS,
     SHEET_NATURE_CLIFF,
@@ -196,7 +195,7 @@ typedef enum GrassVariant
 {
     GRASS_VAR_1,
     GRASS_VAR_2,
-    GRASS_VAR_3
+    GRASS_VAR_3,
 
 } GrassVariant;
 

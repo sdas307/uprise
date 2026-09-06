@@ -112,50 +112,50 @@ static void xLoadAnimals(AnimalManager *manager)
     xSpawnChicken(manager, dest);
 }
 
-static void xLoadGrass(World *world)
-{
-    // Grass Variant 1
-    for (int i = 0; i < grass1Count; i++)
-    {
-        xRectangle temp =
-        {
-            grass1[i].x,
-            grass1[i].y,
-            SRC_GRASS_1[0].width,
-            SRC_GRASS_1[0].height
-        };
+// static void xLoadGrass(World *world)
+// {
+//     // Grass Variant 1
+//     for (int i = 0; i < grass1Count; i++)
+//     {
+//         xRectangle temp =
+//         {
+//             grass1[i].x,
+//             grass1[i].y,
+//             SRC_GRASS[0].width,
+//             SRC_GRASS[0].height
+//         };
 
-        xAddGrass(world, GRASS_VAR_1, temp);
-    }
+//         xAddGrass(world, GRASS_VAR_1, temp);
+//     }
 
-    // Grass Variant 2
-    for (int i = 0; i < grass2Count; i++)
-    {
-        xRectangle temp =
-        {
-            grass2[i].x,
-            grass2[i].y,
-            SRC_GRASS_2[0].width,
-            SRC_GRASS_2[0].height
-        };
+//     // Grass Variant 2
+//     for (int i = 0; i < grass2Count; i++)
+//     {
+//         xRectangle temp =
+//         {
+//             grass2[i].x,
+//             grass2[i].y,
+//             SRC_GRASS[0].width,
+//             SRC_GRASS[0].height
+//         };
 
-        xAddGrass(world, GRASS_VAR_2, temp);
-    }
+//         xAddGrass(world, GRASS_VAR_2, temp);
+//     }
 
-    // Grass Variant 3
-    for (int i = 0; i < grass3Count; i++)
-    {
-        xRectangle temp =
-        {
-            grass3[i].x,
-            grass3[i].y,
-            SRC_GRASS_3[0].width,
-            SRC_GRASS_3[0].height
-        };
+//     // Grass Variant 3
+//     for (int i = 0; i < grass3Count; i++)
+//     {
+//         xRectangle temp =
+//         {
+//             grass3[i].x,
+//             grass3[i].y,
+//             SRC_GRASS[0].width,
+//             SRC_GRASS[0].height
+//         };
 
-        xAddGrass(world, GRASS_VAR_3, temp);
-    }
-}
+//         xAddGrass(world, GRASS_VAR_3, temp);
+//     }
+// }
 
 static void xLoadLightPosts(World *world)
 {
@@ -255,54 +255,54 @@ static void xLoadHedges(World *world)
     xAddHedge(world, HEDGE_SINGLE, temp);
 }
 
-static void xLoadWildflowers(World *world)
-{
-    xRectangle temp = {0};
-    WildflowerVariant variant = WF_VAR_YELLOW_1;
+// static void xLoadWildflowers(World *world)
+// {
+//     xRectangle temp = {0};
+//     WildflowerVariant variant = WF_VAR_YELLOW_1;
 
-    for (int i = 0; i < wildflower1Count; i++)
-    {
-        temp = (xRectangle)
-        {
-            wildflower1[i].x,
-            wildflower1[i].y,
-            SRC_WF_YELLOW_1[0].width,
-            SRC_WF_YELLOW_1[0].height
-        };
+//     for (int i = 0; i < wildflower1Count; i++)
+//     {
+//         temp = (xRectangle)
+//         {
+//             wildflower1[i].x,
+//             wildflower1[i].y,
+//             SRC_WILDFLOWER[0].width,
+//             SRC_WILDFLOWER[0].height
+//         };
 
-        xAddWildflowers(world, variant, temp);
-    }
+//         xAddWildflowers(world, variant, temp);
+//     }
 
-    variant = WF_VAR_YELLOW_2;
+//     variant = WF_VAR_YELLOW_2;
 
-    for (int i = 0; i < wildflower2Count; i++)
-    {
-        temp = (xRectangle)
-        {
-            wildflower2[i].x,
-            wildflower2[i].y,
-            SRC_WF_YELLOW_2[0].width,
-            SRC_WF_YELLOW_2[0].height
-        };
+//     for (int i = 0; i < wildflower2Count; i++)
+//     {
+//         temp = (xRectangle)
+//         {
+//             wildflower2[i].x,
+//             wildflower2[i].y,
+//             SRC_WILDFLOWER[0].width,
+//             SRC_WILDFLOWER[0].height
+//         };
 
-        xAddWildflowers(world, variant, temp);
-    }
+//         xAddWildflowers(world, variant, temp);
+//     }
 
-    variant = WF_VAR_YELLOW_3;
+//     variant = WF_VAR_YELLOW_3;
 
-    for (int i = 0; i < wildflower3Count; i++)
-    {
-        temp = (xRectangle)
-        {
-            wildflower3[i].x,
-            wildflower3[i].y,
-            SRC_WF_YELLOW_3[0].width,
-            SRC_WF_YELLOW_3[0].height
-        };
+//     for (int i = 0; i < wildflower3Count; i++)
+//     {
+//         temp = (xRectangle)
+//         {
+//             wildflower3[i].x,
+//             wildflower3[i].y,
+//             SRC_WILDFLOWER[0].width,
+//             SRC_WILDFLOWER[0].height
+//         };
 
-        xAddWildflowers(world, variant, temp);
-    }
-}
+//         xAddWildflowers(world, variant, temp);
+//     }
+// }
 
 static void xLoadCliffColliders(World *world)
 {
@@ -319,7 +319,7 @@ static void xLoadCliffColliders(World *world)
     }
 }
 
-static void xLoadCliffStairs(World *world)
+static void xLoadCliffStairsColliders(World *world)
 {
     for (int i = 0; i < cliffStairsCount; i++)
     {
@@ -330,7 +330,7 @@ static void xLoadCliffStairs(World *world)
             SRC_CLIFF_STAIRS_WOOD.width,
             SRC_CLIFF_STAIRS_WOOD.height
         };
-        xAddCliffStairs(world, temp);
+        xAddCliffStairsCollider(world, temp);
     }
 }
 
@@ -357,13 +357,13 @@ void xLoadBaseMap(World *world, AnimalManager *manager)
     xLoadAnimals(manager);
     xLoadFarmlands(world);
     xLoadCliffColliders(world);
-    xLoadCliffStairs(world);
-    xLoadWildflowers(world);
+    xLoadCliffStairsColliders(world);
+    // xLoadWildflowers(world);
     xLoadHedges(world);
     xLoadStairs(world);
     xLoadUpperLayers(world);
     xLoadLightPosts(world);
     xLoadTrees(world);
-    xLoadGrass(world);
+    // xLoadGrass(world);
     xLoadHouse(world);
 }

@@ -1,4 +1,5 @@
 #include "interactions.h"
+#include "entities.h"
 
 #include <stdlib.h>
 #include <math.h>
@@ -14,9 +15,11 @@ static xVector2 getGridPosition(xVector2 position);
 /// Return true if target cell is in player's range.
 static bool isTargetInRange(xVector2 targetGrid, xVector2 playerGrid);
 
+/// Make the change in the entity upon interaction.
+static void Interact(InteractionTarget *target);
+
 
 /* ---------- Implementation ---------- */
-
 
 void xUpdateInteraction(InteractionTarget *target, World *world, xCamera2D camera, xVector2 playerPos)
 {
@@ -56,6 +59,9 @@ void xUpdateInteraction(InteractionTarget *target, World *world, xCamera2D camer
             target->entity = entity;
             target->valid = true;
 
+            // Temporarily destroying objects via source = {0}.
+            Interact(target);
+
             // DrawRectangleLinesEx((xRectangle){target->grid.x, target->grid.y, 64, 64}, 2.0f, RED);
 
             return;
@@ -85,4 +91,35 @@ static bool isTargetInRange(xVector2 target, xVector2 player)
     // 1 cell away = 3x3 grid.
 
     return (dx <= PLAYER_TARGET_RANGE && dy <= PLAYER_TARGET_RANGE);
+}
+
+static void Interact(InteractionTarget *target)
+{
+    if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+    {
+        if (target->valid && target->entity)
+        {
+            Entity *entity = target->entity;
+
+            switch (entity->interactionID)
+            {
+                case INTERACTION_DESTROY:
+                    entity->gameObject.active = false;
+                    break;
+
+                case INTERACTION_CROP_HARVEST:
+                    break;
+
+                case INTERACTION_FRUIT_HARVEST:
+                    break;
+
+                case INTERACTION_FARMLAND_WATER:
+                    target->entity->id = ENTITY_FARMLAND_WET;
+                    break;
+
+                case INTERACTION_TREE_CHOP:
+                    break;
+            }
+        }
+    }
 }

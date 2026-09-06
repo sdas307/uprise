@@ -14,8 +14,6 @@ void xAddLightPost(World *world, xRectangle dest);
 
 void xAddRock(World *world, RockType type, xRectangle dest);
 
-void xAddGrass(World *world, GrassVariant variant, xRectangle dest);
-
 void xAddMushroom(World *world, MushroomType type, xRectangle dest);
 
 void xAddUpperLayerColliders(World *world, int index, xRectangle dest);
@@ -24,11 +22,9 @@ void xAddStairs(World *world, xRectangle dest);
 
 void xAddHedge(World *world, HedgePiece piece, xRectangle dest);
 
-void xAddWildflowers(World *world, WildflowerVariant variant, xRectangle dest);
-
 void xAddFlower(World *world, FlowerColor color, FlowerType type, xRectangle dest);
 
-void xAddCliffStairs(World *world, xRectangle dest);
+void xAddCliffStairsCollider(World *world, xRectangle dest);
 
 void xAddCliffCollider(World *world, int index, xRectangle dest);
 
