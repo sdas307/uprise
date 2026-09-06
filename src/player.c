@@ -304,6 +304,7 @@ static void xMovePlayer(Player *player, World *world, float dt)
     }
     
     // Y-axis
+    nextCollider = player->gameObject.collider;
     nextCollider.y += movement.y;
 
     if (!xCheckCollision(world, nextCollider))

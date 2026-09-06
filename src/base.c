@@ -7,8 +7,8 @@
 /// Load all trees at their world coordinates.
 static void xLoadTrees(World *world)
 {
-    // Load large trees.
-    for (int i=0; i<treesOakLargeCount; i++)
+    // Load large oak trees.
+    for (int i = 0; i < treesOakLargeCount; i++)
     {
         xRectangle temp =
         {
@@ -19,6 +19,20 @@ static void xLoadTrees(World *world)
         };
 
         xAddTree(world, TREE_TYPE_OAK, TREE_STAGE_LARGE, temp);
+    }
+
+    // Load large birch trees.
+    for (int i = 0; i < treesBirchLargeCount; i++)
+    {
+        xRectangle temp =
+        {
+            treesBirchLarge[i].x,
+            treesBirchLarge[i].y,
+            SRC_TREE_BIRCH_LARGE.width,
+            SRC_TREE_BIRCH_LARGE.height
+        };
+
+        xAddTree(world, TREE_TYPE_BIRCH, TREE_STAGE_LARGE, temp);
     }
 }
 
@@ -111,51 +125,6 @@ static void xLoadAnimals(AnimalManager *manager)
     };
     xSpawnChicken(manager, dest);
 }
-
-// static void xLoadGrass(World *world)
-// {
-//     // Grass Variant 1
-//     for (int i = 0; i < grass1Count; i++)
-//     {
-//         xRectangle temp =
-//         {
-//             grass1[i].x,
-//             grass1[i].y,
-//             SRC_GRASS[0].width,
-//             SRC_GRASS[0].height
-//         };
-
-//         xAddGrass(world, GRASS_VAR_1, temp);
-//     }
-
-//     // Grass Variant 2
-//     for (int i = 0; i < grass2Count; i++)
-//     {
-//         xRectangle temp =
-//         {
-//             grass2[i].x,
-//             grass2[i].y,
-//             SRC_GRASS[0].width,
-//             SRC_GRASS[0].height
-//         };
-
-//         xAddGrass(world, GRASS_VAR_2, temp);
-//     }
-
-//     // Grass Variant 3
-//     for (int i = 0; i < grass3Count; i++)
-//     {
-//         xRectangle temp =
-//         {
-//             grass3[i].x,
-//             grass3[i].y,
-//             SRC_GRASS[0].width,
-//             SRC_GRASS[0].height
-//         };
-
-//         xAddGrass(world, GRASS_VAR_3, temp);
-//     }
-// }
 
 static void xLoadLightPosts(World *world)
 {
