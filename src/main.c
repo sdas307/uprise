@@ -51,7 +51,7 @@ int main(void)
         
         for (int i = 0; i < manager.animalCount; i++)
         {
-            xUpdateAnimal(&manager.animals[i], &world);
+            xUpdateAnimal(&manager.animals[i], &world, dt);
         }
 
         // ---------------- DRAW ----------------

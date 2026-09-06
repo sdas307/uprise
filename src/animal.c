@@ -13,7 +13,7 @@
 static void xInitAnimal(Animal *animal);
 
 /// Move animal based on wandering AI logic.
-static void xAnimalWandering(Animal *animal, World *world);
+static void xAnimalWandering(Animal *animal, World *world, float dt);
 
 /// Update animal sprites to show animation.
 static void xAnimateAnimal(Animal *animal);
@@ -75,13 +75,13 @@ static void xInitAnimal(Animal *animal)
     animal->gameObject.collidable = true;
 }
 
-void xUpdateAnimal(Animal *animal, World *world)
+void xUpdateAnimal(Animal *animal, World *world, float dt)
 {
     xAnimateAnimal(animal);
-    xAnimalWandering(animal, world);
+    xAnimalWandering(animal, world, dt);
 }
 
-static void xAnimalWandering(Animal *animal, World *world)
+static void xAnimalWandering(Animal *animal, World *world, float dt)
 {
     if (!animal->isTargetSet && !animal->isIdleSet)
     {
@@ -122,33 +122,46 @@ static void xAnimalWandering(Animal *animal, World *world)
     }
     else if (animal->isTargetSet)
     {
+        float step = animal->speed * dt;
+
         // Reached target point.
-        if (distance < animal->speed)
+        if (distance <= step)
         {
             animal->gameObject.dest.x = animal->targetX;
             animal->gameObject.dest.y = animal->targetY;
 
             animal->isTargetSet = false;
+
+            return;
         }
 
         movement = Vector2Normalize(movement);
+
+        movement.x *= animal->speed * dt;
+        movement.y *= animal->speed * dt;
 
         // If moving right -> flip.
         animal->gameObject.flip = (movement.x > 0);
 
         xRectangle nextCollider = animal->gameObject.collider;
-        nextCollider.x += movement.x * animal->speed;
-        nextCollider.y += movement.y * animal->speed;
+        nextCollider.x += movement.x;
 
         if (!xAnimalCheckCollision(world, nextCollider))
         {
-            animal->gameObject.dest.x += movement.x * animal->speed;
-            animal->gameObject.dest.y += movement.y * animal->speed;
-
-            animal->gameObject.collider = nextCollider;
-
-            animal->gameObject.depth = animal->gameObject.collider.y + animal->gameObject.collider.height;
+            animal->gameObject.dest.x += movement.x;
+            animal->gameObject.collider.x = nextCollider.x;
         }
+
+        nextCollider = animal->gameObject.collider;
+        nextCollider.y += movement.y;
+
+        if (!xAnimalCheckCollision(world, nextCollider))
+        {
+            animal->gameObject.dest.y += movement.y;
+            animal->gameObject.collider.y = nextCollider.y;
+        }
+
+        animal->gameObject.depth = animal->gameObject.collider.y + animal->gameObject.collider.height;
     }
 }
 
@@ -268,7 +281,7 @@ void xSpawnChicken(AnimalManager *manager, xRectangle dest)
 
     animal->gameObject.depth = animal->gameObject.collider.y + animal->gameObject.collider.height;
 
-    animal->speed = 1;
+    animal->speed = 64;
     animal->gameObject.flip = false;
 }
 
@@ -301,7 +314,7 @@ void xSpawnSheep(AnimalManager *manager, xRectangle dest)
 
     animal->gameObject.depth = animal->gameObject.collider.y + animal->gameObject.collider.height;
 
-    animal->speed = 2;
+    animal->speed = 128;
     animal->gameObject.flip = false;
 }
 
@@ -334,7 +347,7 @@ void xSpawnPig(AnimalManager *manager, xRectangle dest)
 
     animal->gameObject.depth = animal->gameObject.collider.y + animal->gameObject.collider.height;
 
-    animal->speed = 2;
+    animal->speed = 64;
     animal->gameObject.flip = false;
 }
 
@@ -368,7 +381,7 @@ void xSpawnCow(AnimalManager *manager, xRectangle dest)
 
     animal->gameObject.depth = animal->gameObject.collider.y + animal->gameObject.collider.height;
 
-    animal->speed = 1;
+    animal->speed = 64;
     animal->gameObject.flip = false;
 }
 

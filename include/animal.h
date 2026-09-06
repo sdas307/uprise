@@ -78,7 +78,7 @@ typedef struct World World;
 
 extern const xRectangle wanderZone;
 
-void xUpdateAnimal(Animal *animal, World *world);
+void xUpdateAnimal(Animal *animal, World *world, float dt);
 
 void xUnloadAnimal(Animal *animal);
 
