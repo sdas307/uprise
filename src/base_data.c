@@ -229,6 +229,13 @@ const Vector2 treesOakLarge[] =
 };
 const int treesOakLargeCount = ARRAY_COUNT(treesOakLarge);
 
+const xVector2 treesBirchLarge[] =
+{
+    { 241 * 4, 113 * 4 },
+    { 257 * 4, 113 * 4 },
+};
+const int treesBirchLargeCount = ARRAY_COUNT(treesBirchLarge);
+
 const xVector2 wildflower1[] =
 {
     { 1728, 64 },

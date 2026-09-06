@@ -241,8 +241,36 @@ void xAddTree(World *world, TreeType type, TreeStage stage, xRectangle dest)
     switch (type)
     {
     case TREE_TYPE_BIRCH:
-        /* code */
-        break;
+
+        switch (stage)
+        {
+        case TREE_STAGE_LARGE:
+            
+            info.id = ENTITY_TREE_BIRCH_LARGE;
+
+            info.source = SRC_TREE_BIRCH_LARGE;
+
+            info.collider = (xRectangle)
+            {
+                dest.x + dest.width / 2 - 24,
+                dest.y + 236,
+                48,
+                20,
+            };
+
+            info.fadeArea = (xRectangle)
+            {
+                dest.x + 52,
+                dest.y + 48,
+                dest.width - 44 - 60,
+                dest.height - 40 - 64 - 20 - 44
+            };
+            break;
+        
+        default:
+            break;
+        }
+    break;
     
     case TREE_TYPE_OAK:
 

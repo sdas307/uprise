@@ -46,6 +46,9 @@ extern const int hedgesCount;
 extern const Vector2 treesOakLarge[];
 extern const int treesOakLargeCount;
 
+extern const xVector2 treesBirchLarge[];
+extern const int treesBirchLargeCount;
+
 extern const xVector2 wildflower1[];
 extern const int wildflower1Count;
 

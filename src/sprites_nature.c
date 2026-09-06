@@ -400,9 +400,9 @@ const xRectangle SRC_TREE_BIRCH_MEDIUM =
 
 const xRectangle SRC_TREE_BIRCH_LARGE =
 {
-    64 * 7,
+    64 * 1,
     64 * 0,
-    64 * 4,
+    64 * 2,
     64 * 5
 };
 
