@@ -36,7 +36,7 @@ const xRectangle SRC_FARMLAND_WET[] =
 
 /* --------------- TERRAIN DECOR SPRITES --------------- */
 
-/// Contains 3 static grass variants.
+// Contains 3 static grass variants.
 const xRectangle SRC_GRASS[] =
 {
     { 64 * 3, 64 * 0, 64, 64 },     // Grass Variant 1

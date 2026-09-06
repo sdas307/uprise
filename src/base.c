@@ -319,7 +319,7 @@ static void xLoadCliffColliders(World *world)
     }
 }
 
-static void xLoadCliffStairs(World *world)
+static void xLoadCliffStairsColliders(World *world)
 {
     for (int i = 0; i < cliffStairsCount; i++)
     {
@@ -330,7 +330,7 @@ static void xLoadCliffStairs(World *world)
             SRC_CLIFF_STAIRS_WOOD.width,
             SRC_CLIFF_STAIRS_WOOD.height
         };
-        xAddCliffStairs(world, temp);
+        xAddCliffStairsCollider(world, temp);
     }
 }
 
@@ -357,7 +357,7 @@ void xLoadBaseMap(World *world, AnimalManager *manager)
     xLoadAnimals(manager);
     xLoadFarmlands(world);
     xLoadCliffColliders(world);
-    xLoadCliffStairs(world);
+    xLoadCliffStairsColliders(world);
     // xLoadWildflowers(world);
     xLoadHedges(world);
     xLoadStairs(world);

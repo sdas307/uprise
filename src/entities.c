@@ -710,12 +710,12 @@ void xAddHedge(World *world, HedgePiece piece, xRectangle dest)
 //     xCreateEntity(world, id, source, dest, collider);
 // }
 
-void xAddCliffStairs(World *world, xRectangle dest)
+void xAddCliffStairsCollider(World *world, xRectangle dest)
 {
     EntityInfo info =
     {
-        .source = SRC_CLIFF_STAIRS_WOOD,
-        .spritesheet = &world->spritesheets[SHEET_NATURE_GRASSLANDS],
+        .source = {0},
+        .spritesheet = &(Texture2D){0},
         .id = ENTITY_EMPTY_OBJECT,
         .active = true,
         .collidable = false,

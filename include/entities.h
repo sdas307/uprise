@@ -28,7 +28,7 @@ void xAddWildflowers(World *world, WildflowerVariant variant, xRectangle dest);
 
 void xAddFlower(World *world, FlowerColor color, FlowerType type, xRectangle dest);
 
-void xAddCliffStairs(World *world, xRectangle dest);
+void xAddCliffStairsCollider(World *world, xRectangle dest);
 
 void xAddCliffCollider(World *world, int index, xRectangle dest);
 
