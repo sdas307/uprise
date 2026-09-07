@@ -28,31 +28,7 @@ extern const xRectangle SRC_FARMLAND_WET[];
 
 extern const xRectangle SRC_GRASS[];
 
-// extern const xRectangle SRC_GRASS_1[];
-// extern const xRectangle SRC_GRASS_2[];
-// extern const xRectangle SRC_GRASS_3[];
-
 extern const xRectangle SRC_WILDFLOWER[];
-
-// extern const xRectangle SRC_WF_YELLOW_1[];
-// extern const xRectangle SRC_WF_YELLOW_2[];
-// extern const xRectangle SRC_WF_YELLOW_3[];
-
-// extern const xRectangle SRC_WF_WHITE_1[];
-// extern const xRectangle SRC_WF_WHITE_2[];
-// extern const xRectangle SRC_WF_WHITE_3[];
-
-// extern const xRectangle SRC_WF_RED_1[];
-// extern const xRectangle SRC_WF_RED_2[];
-// extern const xRectangle SRC_WF_RED_3[];
-
-// extern const xRectangle SRC_WF_OFF_WHITE_1[];
-// extern const xRectangle SRC_WF_OFF_WHITE_2[];
-// extern const xRectangle SRC_WF_OFF_WHITE_3[];
-
-// extern const xRectangle SRC_WF_CYAN_1[];
-// extern const xRectangle SRC_WF_CYAN_2[];
-// extern const xRectangle SRC_WF_CYAN_3[];
 
 /* --------------- --------------- --------------- */
 
