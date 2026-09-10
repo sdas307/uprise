@@ -47,7 +47,7 @@ int main(void)
 
         xUpdateAnimation(&world);
 
-        xUpdateCamera(&gameCamera, &player.gameObject);
+        xUpdateCamera(&gameCamera, &player.gameObject, dt);
         
         for (int i = 0; i < manager.animalCount; i++)
         {

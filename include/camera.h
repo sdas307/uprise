@@ -21,6 +21,8 @@ typedef struct xGameCamera
 
     CameraBoundary bounds;          /// Camera boundary.
 
+    float smoothing;                /// Camera chases player - smoothing value.
+
 } xGameCamera;
 
 /** Initialize camera to follow an object with an offset.
@@ -32,8 +34,9 @@ void xInitCamera(xGameCamera *gameCamera, const xGameObject *object);
 /** Update camera every frame.
  * @param camera Camera to update.
  * @param object Object to follow.
+ * @param dt Detla time.
  */
-void xUpdateCamera(xGameCamera *gameCamera, const xGameObject *object);
+void xUpdateCamera(xGameCamera *gameCamera, const xGameObject *object, float dt);
 
 /// Draw debug lines to show the point the camera is following.
 void xCameraDebugLines(xCamera2D *camera);
