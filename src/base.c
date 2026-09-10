@@ -224,55 +224,6 @@ static void xLoadHedges(World *world)
     xAddHedge(world, HEDGE_SINGLE, temp);
 }
 
-// static void xLoadWildflowers(World *world)
-// {
-//     xRectangle temp = {0};
-//     WildflowerVariant variant = WF_VAR_YELLOW_1;
-
-//     for (int i = 0; i < wildflower1Count; i++)
-//     {
-//         temp = (xRectangle)
-//         {
-//             wildflower1[i].x,
-//             wildflower1[i].y,
-//             SRC_WILDFLOWER[0].width,
-//             SRC_WILDFLOWER[0].height
-//         };
-
-//         xAddWildflowers(world, variant, temp);
-//     }
-
-//     variant = WF_VAR_YELLOW_2;
-
-//     for (int i = 0; i < wildflower2Count; i++)
-//     {
-//         temp = (xRectangle)
-//         {
-//             wildflower2[i].x,
-//             wildflower2[i].y,
-//             SRC_WILDFLOWER[0].width,
-//             SRC_WILDFLOWER[0].height
-//         };
-
-//         xAddWildflowers(world, variant, temp);
-//     }
-
-//     variant = WF_VAR_YELLOW_3;
-
-//     for (int i = 0; i < wildflower3Count; i++)
-//     {
-//         temp = (xRectangle)
-//         {
-//             wildflower3[i].x,
-//             wildflower3[i].y,
-//             SRC_WILDFLOWER[0].width,
-//             SRC_WILDFLOWER[0].height
-//         };
-
-//         xAddWildflowers(world, variant, temp);
-//     }
-// }
-
 static void xLoadCliffColliders(World *world)
 {
     for (int i = 0; i < cliffCollidersCount; i++)
