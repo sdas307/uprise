@@ -37,7 +37,7 @@ static int getAnimationIdleRow(PlayerEquipment equipment, PlayerDirection direct
 static int getAnimationWalkRow(PlayerEquipment equipment, PlayerDirection direction);
 
 /// Get the attack animations row index from spritesheet (with and without epuipment in hand).
-static int getAnimationAttackRow(PlayerEquipment equipment, PlayerDirection direction);
+static int getAnimationAttackRow(PlayerState state, PlayerEquipment equipment, PlayerDirection direction);
 
 
 /* ---------- Implementation ---------- */
@@ -127,7 +127,7 @@ void xInitPlayer(Player *player)
     player->frameWidth = 256;
     player->frameHeight = 256;
 
-    player->equipment = EQUIP_NONE;
+    player->equipment = EQUIP_HOE;
 
     player->gameObject.source = (xRectangle) {0, 0, player->frameWidth, player->frameHeight};
     player->gameObject.dest = (xRectangle) {config.x, config.y, player->frameWidth, player->frameHeight};
@@ -496,7 +496,7 @@ static int xGetAnimationRow(PlayerState state, PlayerEquipment equipment, Player
             return getAnimationWalkRow(equipment, direction);
 
         case PLAYER_ATTACK:
-            return getAnimationAttackRow(equipment, direction);
+            return getAnimationAttackRow(state, equipment, direction);
 
         case PLAYER_FISHING:
             return -1; // #############################
@@ -511,6 +511,9 @@ static int getAnimationIdleRow(PlayerEquipment equipment, PlayerDirection direct
     switch (equipment)
     {
         case EQUIP_NONE:
+        case EQUIP_PICKAXE:
+        case EQUIP_AXE:
+        case EQUIP_HOE:
             switch (direction)
             {
             case PLAYER_FACE_FRONT:
@@ -565,32 +568,35 @@ static int getAnimationWalkRow(PlayerEquipment equipment, PlayerDirection direct
     switch (equipment)
     {
         case EQUIP_NONE:
+        case EQUIP_AXE:
+        case EQUIP_PICKAXE:
+        case EQUIP_HOE:
             switch (direction)
             {
-            case PLAYER_FACE_FRONT:
-                return 12;
+                case PLAYER_FACE_FRONT:
+                    return 12;
 
-            case PLAYER_FACE_LEFT:
-            case PLAYER_FACE_RIGHT:
-                return 16;
+                case PLAYER_FACE_LEFT:
+                case PLAYER_FACE_RIGHT:
+                    return 16;
 
-            case PLAYER_FACE_BACK:
-                return 20;
+                case PLAYER_FACE_BACK:
+                    return 20;
             }
         break;
 
         case EQUIP_LANTERN:
             switch (direction)
             {
-            case PLAYER_FACE_FRONT:
-                    return 12;
-                
-            case PLAYER_FACE_LEFT:
-            case PLAYER_FACE_RIGHT:
-                return 16;
+                case PLAYER_FACE_FRONT:
+                        return 12;
+                    
+                case PLAYER_FACE_LEFT:
+                case PLAYER_FACE_RIGHT:
+                    return 16;
 
-            case PLAYER_FACE_BACK:
-                return 20;
+                case PLAYER_FACE_BACK:
+                    return 20;
             }
         break;
 
@@ -614,7 +620,7 @@ static int getAnimationWalkRow(PlayerEquipment equipment, PlayerDirection direct
     return -1;
 }
 
-static int getAnimationAttackRow(PlayerEquipment equipment, PlayerDirection direction)
+static int getAnimationAttackRow(PlayerState state, PlayerEquipment equipment, PlayerDirection direction)
 {
     switch (equipment)
     {
@@ -650,18 +656,24 @@ static int getAnimationAttackRow(PlayerEquipment equipment, PlayerDirection dire
         break;
 
         case EQUIP_AXE:
-            switch (direction)
+            switch (state)
             {
-                case PLAYER_FACE_FRONT:
-                    return 128;
+                case PLAYER_ATTACK:
+                    switch (direction)
+                    {
+                    case PLAYER_FACE_FRONT:
+                        return 128;
 
-                case PLAYER_FACE_LEFT:
-                case PLAYER_FACE_RIGHT:
-                    return 132;
+                    case PLAYER_FACE_LEFT:
+                    case PLAYER_FACE_RIGHT:
+                        return 132;
 
-                case PLAYER_FACE_BACK:
-                    return 136;
-            }
+                    case PLAYER_FACE_BACK:
+                        return 136;
+                    }
+                break;
+        }
+            
         break;
 
         case EQUIP_PICKAXE:
