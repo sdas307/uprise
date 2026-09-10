@@ -61,27 +61,33 @@ void xUpdateCamera(xGameCamera *gameCamera, const xGameObject *object, float dt)
 
 static void xClampCamera(xGameCamera *gameCamera, const xVector2 objectCenter, float dt)
 {
+    // Camera left bound.
     if (objectCenter.x <= gameCamera->bounds.left)
     {
         gameCamera->camera.target.x = xCameraLerp(gameCamera->camera.target.x, gameCamera->bounds.left, gameCamera->smoothing, dt);
     }
+    // Camera right bound.
     else if (objectCenter.x >= gameCamera->bounds.right)
     {
         gameCamera->camera.target.x = xCameraLerp(gameCamera->camera.target.x, gameCamera->bounds.right, gameCamera->smoothing, dt);
     }
+    // Chase player's x.
     else
     {
         gameCamera->camera.target.x = xCameraLerp(gameCamera->camera.target.x, objectCenter.x, gameCamera->smoothing,  dt);
     }
     
+    // Camera upper bound.
     if (objectCenter.y <= gameCamera->bounds.up)
     {
         gameCamera->camera.target.y = xCameraLerp(gameCamera->camera.target.y, gameCamera->bounds.up, gameCamera->smoothing,  dt);
     }
+    // Camera lower bound.
     else if (objectCenter.y >= gameCamera->bounds.down)
     {
         gameCamera->camera.target.y = xCameraLerp(gameCamera->camera.target.y, gameCamera->bounds.down, gameCamera->smoothing,  dt);
     }
+    // Chase player's y.
     else
     {
         gameCamera->camera.target.y = xCameraLerp(gameCamera->camera.target.y, objectCenter.y, gameCamera->smoothing,  dt);
