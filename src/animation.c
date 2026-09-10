@@ -3,26 +3,26 @@
 
 /* ---------- Signatures ---------- */
 
-static void Animate(xGameObject *object);
+static void Animate(xGameObject *object, float dt);
 
 /* ---------- ---------- ---------- */
 
-void xUpdateAnimation(World *world)
+void xUpdateAnimation(World *world, float dt)
 {
     for (int i = 0; i < world->entityCount; i++)
     {
-        Animate(&world->entities[i].gameObject);
+        Animate(&world->entities[i].gameObject, dt);
     }
 }
 
-static void Animate(xGameObject *object)
+static void Animate(xGameObject *object, float dt)
 {
     Animation *animation = &object->animation;
 
     if (!animation->active)
         return;
     
-    animation->timer += GetFrameTime();
+    animation->timer += dt;
 
     if (animation->timer >= animation->frameTime)
     {

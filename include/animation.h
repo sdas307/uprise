@@ -3,6 +3,7 @@
 
 #include "world.h"
 
-void xUpdateAnimation(World *world);
+/// Update world entity animations.
+void xUpdateAnimation(World *world, float dt);
 
 #endif
