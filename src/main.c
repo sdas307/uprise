@@ -23,19 +23,18 @@ int main(void)
     
     xInitCamera(&gameCamera, &player.gameObject);
 
-    printf("\n\nInit World!\n\n");
+    printf("\n\nInitializing World!\n\n");
     xInitWorld(&world);
-    printf("\n\nDone Init World!\n\n");
+    printf("\n\nDone Initializing World!\n\n");
 
     printf("\n\nLoading World!\n\n");
     xLoadWorld(&world, &manager);
-    printf("\n\nLoaded World!\n\n");
+    printf("\n\nDone Loading World!\n\n");
 
     SetTargetFPS(60);
 
     while (!WindowShouldClose())
     {
-
         // Only 1 delta time variable exists.
         float dt = GetFrameTime();
 
@@ -45,7 +44,7 @@ int main(void)
 
         xUpdateInteraction(&player.target, &world, gameCamera.camera, (xVector2) {player.gameObject.dest.x, player.gameObject.dest.y});
 
-        xUpdateAnimation(&world);
+        xUpdateAnimation(&world, dt);
 
         xUpdateCamera(&gameCamera, &player.gameObject, dt);
         

@@ -22,13 +22,22 @@ static void xUpdatePlayerState(Player *player);
 static void xMovePlayer(Player *player, World *world, float dt);
 
 /// Update player sprites to show animation.
-static void xUpdatePlayerAnimation(Player *player);
+static void xUpdatePlayerAnimation(Player *player, float dt);
 
 /// Get the number of frames for animation.
-static int xGetAnimationLength(PlayerState state);
+static int xGetAnimationLength(PlayerState state, PlayerEquipment equipment);
 
-/// Get the row index of the animation in question.
-static int xGetAnimationRow(PlayerState state, PlayerDirection direction);
+/// Get the row index of the animation in question (with and without epuipment in hand).
+static int xGetAnimationRow(PlayerState state, PlayerEquipment equipment, PlayerDirection direction);
+
+/// Get the idle animations row index from spritesheet. 
+static int getAnimationIdleRow(PlayerEquipment equipment, PlayerDirection direction);
+
+/// Get the walking animations row index from spritesheet (with and without epuipment in hand).
+static int getAnimationWalkRow(PlayerEquipment equipment, PlayerDirection direction);
+
+/// Get the attack animations row index from spritesheet (with and without epuipment in hand).
+static int getAnimationAttackRow(PlayerEquipment equipment, PlayerDirection direction);
 
 
 /* ---------- Implementation ---------- */
@@ -115,26 +124,26 @@ void xInitPlayer(Player *player)
     player->animationTimer = 0.0f;
     player->currentFrame = 0;
 
-    player->frameWidth = 32;
-    player->frameHeight = 32;
+    player->frameWidth = 256;
+    player->frameHeight = 256;
+
+    player->equipment = EQUIP_NONE;
 
     player->gameObject.source = (xRectangle) {0, 0, player->frameWidth, player->frameHeight};
-    player->gameObject.dest = (xRectangle) {config.x, config.y, player->frameWidth * 4, player->frameHeight * 4};
+    player->gameObject.dest = (xRectangle) {config.x, config.y, player->frameWidth, player->frameHeight};
 
     player->gameObject.type = OBJECT_PLAYER;
 
     player->gameObject.active = true;
 
     player->attackPressed = false;
-    player->waterPressed = false;
-    player->isWatering = false;
     player->isRunning = false;
 
     player->gameObject.collider = (xRectangle)
     {
-        player->gameObject.dest.x + 44,
-        player->gameObject.dest.y + 80,
-        38,
+        player->gameObject.dest.x + 108,
+        player->gameObject.dest.y + 144,
+        36,
         12,
     };
 
@@ -155,7 +164,7 @@ void xUpdatePlayer(Player *player, World *world, xCamera2D camera, float dt)
     xReadPlayerInput(player);
     xUpdatePlayerState(player);
     xMovePlayer(player, world, dt);
-    xUpdatePlayerAnimation(player);
+    xUpdatePlayerAnimation(player, dt);
     xUpdateInteraction(&player->target, world, camera, (xVector2){player->gameObject.collider.x, player->gameObject.collider.y});
     // DrawRectangleLinesEx(player->gameObject.dest, 1.0f, RED);
 }
@@ -201,15 +210,11 @@ static void xReadPlayerInput(Player *player)
 
     if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
         player->attackPressed = true;
-    
-    if (IsMouseButtonPressed(MOUSE_BUTTON_RIGHT))
-        player->waterPressed = true;
-
 }
 
 static void xUpdatePlayerState(Player *player)
 {
-    if (player->state == PLAYER_ATTACK || player->state == PLAYER_WATERING)
+    if (player->state == PLAYER_ATTACK)
     {
         return;
     }
@@ -221,18 +226,6 @@ static void xUpdatePlayerState(Player *player)
         player->animationTimer = 0.0f;
 
         player->attackPressed = false;
-
-        return;
-    }
-
-    if (player->waterPressed)
-    {
-        player->state = PLAYER_WATERING;
-        player->currentFrame = 0;
-        player->animationTimer = 0.0f;
-
-        player->isWatering = true;
-        player->waterPressed = false;
 
         return;
     }
@@ -250,7 +243,7 @@ static void xUpdatePlayerState(Player *player)
 static void xMovePlayer(Player *player, World *world, float dt)
 {
     // No movement while attacking.
-    if (player->state == PLAYER_ATTACK || player->state == PLAYER_WATERING)
+    if (player->state == PLAYER_ATTACK)
         return;
 
     int dx = player->moveX;
@@ -316,21 +309,6 @@ static void xMovePlayer(Player *player, World *world, float dt)
     player->gameObject.depth = player->gameObject.collider.y + player->gameObject.collider.height;
 }
 
-// static bool xOutsideScreen(Player *player, xRectangle collider)
-// {
-//     if (
-//         (player->gameObject.dest.x >= 0) &&
-//         (player->gameObject.dest.x + player->gameObject.dest.width <= SCREEN_WIDTH) &&
-//         (player->gameObject.dest.y >= 0) &&
-//         (player->gameObject.dest.y + player->gameObject.dest.height <= SCREEN_HEIGHT)
-//     )
-//     {
-//         return false;
-//     }
-    
-//     return true;
-// }
-
 static bool xCheckCollision(World *world, xRectangle collider)
 {
     for (int i=0; i < world->entityCount; i++)
@@ -350,17 +328,17 @@ static bool xCheckCollision(World *world, xRectangle collider)
     return false;
 }
 
-static void xUpdatePlayerAnimation(Player *player)
+static void xUpdatePlayerAnimation(Player *player, float dt)
 {
     // ---------------- SELECT SPRITE ROW ----------------
 
-    int totalFrames = xGetAnimationLength(player->state);
+    int totalFrames = xGetAnimationLength(player->state, player->equipment);
 
 
     // ---------------- ANIMATION TIMER ----------------
 
     // Advance to the next animation frame.
-    player->animationTimer += GetFrameTime();
+    player->animationTimer += dt;
 
     // If player is running, set the interval to a faster rate.
     // player->interval = player->isRunning ? player->runInterval : player->walkInterval;
@@ -368,10 +346,6 @@ static void xUpdatePlayerAnimation(Player *player)
     if (player->isRunning)
     {
         player->interval = player->runInterval;
-    }
-    if (player->isWatering)
-    {
-        player->interval = player->waterInterval;
     }
     else
     {
@@ -400,25 +374,6 @@ static void xUpdatePlayerAnimation(Player *player)
                 }
             }
         }
-        else if (player->state == PLAYER_WATERING)
-        {
-            // Play watering animation once.
-            if (player->currentFrame >= totalFrames)
-            {
-                player->currentFrame = 0;
-                player->isWatering = false;
-
-                // Return to the correct state.
-                if ((player->moveX != 0 || player->moveY != 0))
-                {
-                    player->state = PLAYER_WALK;
-                }
-                else
-                {
-                    player->state = PLAYER_IDLE;
-                }
-            }
-        }
         else 
         {   
             // Loop idle/walk animation.
@@ -432,8 +387,8 @@ static void xUpdatePlayerAnimation(Player *player)
     }
 
     player->gameObject.source.y =
-        xGetAnimationRow(player->state, player->direction)
-        * player->frameHeight;
+        xGetAnimationRow(player->state, player->equipment, player->direction)
+        * WORLD_GRID_SIZE;
 
     player->gameObject.source.x = player->currentFrame * player->frameWidth;
     
@@ -501,103 +456,260 @@ bool xLoadPlayer(Player *player)
     return true;
 }
 
-static int xGetAnimationLength(PlayerState state)
+static int xGetAnimationLength(PlayerState state, PlayerEquipment equipment)
 {
     switch (state)
     {
         case PLAYER_ATTACK:
-            return 4;
+            switch (equipment)
+            {
+                case EQUIP_NONE:
+                case EQUIP_SWORD:
+                    return 4;
+                    
+                default:
+                    return 6;
+            }
+        break;
         
         case PLAYER_IDLE:
         case PLAYER_WALK:
             return 6;
-        
-        case PLAYER_WATERING:
-            return 2;
+
+        case PLAYER_FISHING:
+            return 9;
 
         default:
+            // Safe fallback animation length - 0.
             return 0;
     }
 }
 
-static int xGetAnimationRow(PlayerState state, PlayerDirection direction)
+static int xGetAnimationRow(PlayerState state, PlayerEquipment equipment, PlayerDirection direction)
 {
     switch (state)
     {
         case PLAYER_IDLE:
-
-            switch (direction)
-            {
-                case PLAYER_FACE_FRONT:
-                    return 0;
-                
-                case PLAYER_FACE_LEFT:
-                case PLAYER_FACE_RIGHT:
-                    return 1;
-
-                case PLAYER_FACE_BACK:
-                    return 2;
-
-                default:
-                    return 0;
-
-            }
+            return getAnimationIdleRow(equipment, direction);
 
         case PLAYER_WALK:
-            
-            switch (direction)
-            {
-                case PLAYER_FACE_FRONT:
-                    return 3;
-
-                case PLAYER_FACE_LEFT:
-                case PLAYER_FACE_RIGHT:
-                    return 4;
-
-                case PLAYER_FACE_BACK:
-                    return 5;
-                
-                default:
-                    return 3;
-
-            }
+            return getAnimationWalkRow(equipment, direction);
 
         case PLAYER_ATTACK:
-            
-            switch (direction)
-            {
-                case PLAYER_FACE_FRONT:
-                    return 6;
+            return getAnimationAttackRow(equipment, direction);
 
-                case PLAYER_FACE_LEFT:
-                case PLAYER_FACE_RIGHT:
-                    return 7;
-
-                case PLAYER_FACE_BACK:
-                    return 8;
-
-                default:
-                    return 6;
-            }
-
-        case PLAYER_WATERING:
-            
-            switch (direction)
-            {
-                case PLAYER_FACE_FRONT:
-                    return 10;
-
-                case PLAYER_FACE_LEFT:
-                case PLAYER_FACE_RIGHT:
-                    return 12;
-
-                case PLAYER_FACE_BACK:
-                    return 11;
-                
-                default:
-                    return 10;
-            }
+        case PLAYER_FISHING:
+            return -1; // #############################
     }
 
-    return 0;
+    // Failed to get appropriate sprite row.
+    return -1;
+}
+
+static int getAnimationIdleRow(PlayerEquipment equipment, PlayerDirection direction)
+{
+    switch (equipment)
+    {
+        case EQUIP_NONE:
+            switch (direction)
+            {
+            case PLAYER_FACE_FRONT:
+                return 0;
+
+            case PLAYER_FACE_LEFT:
+            case PLAYER_FACE_RIGHT:
+                return 4;
+
+            case PLAYER_FACE_BACK:
+                return 8;
+            }
+        break;
+
+        case EQUIP_LANTERN:
+            switch (direction)
+            {
+            case PLAYER_FACE_FRONT:
+                return 0;
+            
+            case PLAYER_FACE_LEFT:
+            case PLAYER_FACE_RIGHT:
+                return 4;
+
+            case PLAYER_FACE_BACK:
+                return 8;
+            }
+        break;
+
+        case EQUIP_TORCH:
+            switch (direction)
+            {
+            case PLAYER_FACE_FRONT:
+                    return 24;
+                
+            case PLAYER_FACE_LEFT:
+            case PLAYER_FACE_RIGHT:
+                return 28;
+
+            case PLAYER_FACE_BACK:
+                return 32;
+            }
+        break;
+    }
+
+    // Couldn't find appropriate sprite index.
+    return -1;
+}
+
+static int getAnimationWalkRow(PlayerEquipment equipment, PlayerDirection direction)
+{
+    switch (equipment)
+    {
+        case EQUIP_NONE:
+            switch (direction)
+            {
+            case PLAYER_FACE_FRONT:
+                return 12;
+
+            case PLAYER_FACE_LEFT:
+            case PLAYER_FACE_RIGHT:
+                return 16;
+
+            case PLAYER_FACE_BACK:
+                return 20;
+            }
+        break;
+
+        case EQUIP_LANTERN:
+            switch (direction)
+            {
+            case PLAYER_FACE_FRONT:
+                    return 12;
+                
+            case PLAYER_FACE_LEFT:
+            case PLAYER_FACE_RIGHT:
+                return 16;
+
+            case PLAYER_FACE_BACK:
+                return 20;
+            }
+        break;
+
+        case EQUIP_TORCH:
+            switch (direction)
+            {
+                case PLAYER_FACE_FRONT:
+                    return 36;
+                    
+                case PLAYER_FACE_LEFT:
+                case PLAYER_FACE_RIGHT:
+                    return 40;
+
+                case PLAYER_FACE_BACK:
+                    return 44;
+            }
+        break;
+    }
+    
+    // Could not find appropriate sprite index.
+    return -1;
+}
+
+static int getAnimationAttackRow(PlayerEquipment equipment, PlayerDirection direction)
+{
+    switch (equipment)
+    {
+        case EQUIP_NONE:
+        case EQUIP_SWORD:
+            switch (direction)
+            {
+                case PLAYER_FACE_FRONT:
+                    return 24;
+
+                case PLAYER_FACE_LEFT:
+                case PLAYER_FACE_RIGHT:
+                    return 36;
+
+                case PLAYER_FACE_BACK:
+                    return 48;
+            }
+        break;
+
+        case EQUIP_BO:
+            switch (direction)
+            {
+                case PLAYER_FACE_FRONT:
+                    return 116;
+
+                case PLAYER_FACE_LEFT:
+                case PLAYER_FACE_RIGHT:
+                    return 120;
+
+                case PLAYER_FACE_BACK:
+                    return 124;
+            }
+        break;
+
+        case EQUIP_AXE:
+            switch (direction)
+            {
+                case PLAYER_FACE_FRONT:
+                    return 128;
+
+                case PLAYER_FACE_LEFT:
+                case PLAYER_FACE_RIGHT:
+                    return 132;
+
+                case PLAYER_FACE_BACK:
+                    return 136;
+            }
+        break;
+
+        case EQUIP_PICKAXE:
+            switch (direction)
+            {
+                case PLAYER_FACE_FRONT:
+                    return 140;
+
+                case PLAYER_FACE_LEFT:
+                case PLAYER_FACE_RIGHT:
+                    return 144;
+
+                case PLAYER_FACE_BACK:
+                    return 148;
+            }
+        break;
+
+        case EQUIP_HOE:
+            switch (direction)
+            {
+                case PLAYER_FACE_FRONT:
+                    return 152;
+
+                case PLAYER_FACE_LEFT:
+                case PLAYER_FACE_RIGHT:
+                    return 156;
+
+                case PLAYER_FACE_BACK:
+                    return 160;
+            }
+        break;
+        
+        case EQUIP_WATERING_CAN:
+            switch (direction)
+            {
+                case PLAYER_FACE_FRONT:
+                    return 164;
+
+                case PLAYER_FACE_LEFT:
+                case PLAYER_FACE_RIGHT:
+                    return 168;
+
+                case PLAYER_FACE_BACK:
+                    return 172;
+            }
+        break;
+    }
+
+    // Failed to find appropriate sprite index.
+    return -1;
 }

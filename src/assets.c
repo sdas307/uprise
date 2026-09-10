@@ -2,7 +2,7 @@
 #include "config.h"
 #include <string.h>
 
-const char PATH_PLAYER_SHEET[] = "assets/old_assets/player/player.png";
+const char PATH_PLAYER_SHEET[] = "assets/new/spritesheets/player/player_master_spritesheet.png";
 
 const char PATH_CHICKEN_SHEET[] = "assets/old_assets/animals/chicken/chicken.png";
 const char PATH_SHEEP_SHEET[] = "assets/old_assets/animals/sheep/sheep.png";
@@ -26,7 +26,6 @@ const char *PATH_SPRITESHEETS[] =
     "assets/new/spritesheets/nature/trees.png",
     "assets/new/spritesheets/nature/grasslands.png",
     "assets/new/spritesheets/nature/static_terrain_decor.png",
-    //"assets/new/spritesheets/nature/grass_wildflowers.png",
     "assets/new/spritesheets/nature/crops_fruits.png",
     "assets/new/spritesheets/nature/flower_mushrooms.png",
     "assets/new/spritesheets/nature/cliffs.png",
