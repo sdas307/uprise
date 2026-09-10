@@ -23,6 +23,7 @@ static void Interact(InteractionTarget *target);
 
 void xUpdateInteraction(InteractionTarget *target, World *world, xCamera2D camera, xVector2 playerPos)
 {
+    // Reset target from previous frame.
     target->valid = false;
     target->entity = NULL;
 
@@ -57,7 +58,6 @@ void xUpdateInteraction(InteractionTarget *target, World *world, xCamera2D camer
         if (entityGridX == target->grid.x && entityGridY == target->grid.y)
         {
             target->entity = entity;
-            target->valid = true;
 
             // Temporarily destroying objects via source = {0}.
             Interact(target);

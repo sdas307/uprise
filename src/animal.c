@@ -16,7 +16,7 @@ static void xInitAnimal(Animal *animal);
 static void xAnimalWandering(Animal *animal, World *world, float dt);
 
 /// Update animal sprites to show animation.
-static void xAnimateAnimal(Animal *animal);
+static void xAnimateAnimal(Animal *animal, float dt);
 
 /// Set target values (x and y) for the animal.
 static void xAnimalSetTarget(Animal *animal);
@@ -77,12 +77,13 @@ static void xInitAnimal(Animal *animal)
 
 void xUpdateAnimal(Animal *animal, World *world, float dt)
 {
-    xAnimateAnimal(animal);
+    xAnimateAnimal(animal, dt);
     xAnimalWandering(animal, world, dt);
 }
 
 static void xAnimalWandering(Animal *animal, World *world, float dt)
 {
+    // No current activity: decide whether to move or stay idle.
     if (!animal->isTargetSet && !animal->isIdleSet)
     {
         if (xStayIdle() == false)
@@ -98,30 +99,31 @@ static void xAnimalWandering(Animal *animal, World *world, float dt)
             animal->state = ANIMAL_IDLE;
         }
     }
-
-    xVector2 movement =
-    {
-        animal->targetX - animal->gameObject.dest.x,
-        animal->targetY - animal->gameObject.dest.y
-    };
-
-    float distance = Vector2Length(movement);
     
-    if (distance == 0)
-        return;
-
+    // Currently idling.
     if (animal->isIdleSet)
     {
-        animal->dt += GetFrameTime();
+        animal->dt += dt;
 
         if (animal->dt > animal->idleDuration)
         {
             animal->isIdleSet = false;
-            animal->dt = 0;
+            animal->dt = 0.0f;
         }
+
+        return;
     }
-    else if (animal->isTargetSet)
+
+    // Currently moving toward target.
+    if (animal->isTargetSet)
     {
+        xVector2 movement =
+        {
+            animal->targetX - animal->gameObject.dest.x,
+            animal->targetY - animal->gameObject.dest.y
+        };
+        
+        float distance = Vector2Length(movement);
         float step = animal->speed * dt;
 
         // Reached target point.
@@ -183,11 +185,11 @@ static bool xStayIdle()
         return false;
 }
 
-static void xAnimateAnimal(Animal *animal)
+static void xAnimateAnimal(Animal *animal, float dt)
 {
     int totalFrames = xGetAnimationLength(animal->state);
 
-    animal->animTimer += GetFrameTime();
+    animal->animTimer += dt;
 
     switch (animal->state)
     {
@@ -206,6 +208,7 @@ static void xAnimateAnimal(Animal *animal)
         }
 
         break;
+
     case ANIMAL_MOVING:
 
         while (animal->animTimer >= animal->animMovingInterval)
@@ -232,7 +235,7 @@ static void xAnimateAnimal(Animal *animal)
 
 static bool xAnimalCheckCollision(World *world, xRectangle collider)
 {
-    for (int i = 0; i <= world->entityCount; i++)
+    for (int i = 0; i < world->entityCount; i++)
     {
         if (!world->entities[i].gameObject.active)
             continue;
