@@ -11,9 +11,23 @@ typedef enum PlayerState
     PLAYER_IDLE,
     PLAYER_WALK,
     PLAYER_ATTACK,
-    PLAYER_WATERING
+    PLAYER_FISHING,
 
 } PlayerState;
+
+typedef enum PlayerEquipment
+{
+    EQUIP_NONE,
+    EQUIP_LANTERN,
+    EQUIP_TORCH,
+    EQUIP_SWORD,
+    EQUIP_BO,
+    EQUIP_AXE,
+    EQUIP_PICKAXE,
+    EQUIP_HOE,
+    EQUIP_WATERING_CAN
+
+} PlayerEquipment;
 
 typedef enum PlayerDirection
 {
@@ -39,15 +53,14 @@ typedef struct Player
     int frameWidth;
     int frameHeight;
 
-    PlayerState state;         /// Current player state.
+    PlayerState state;          /// Current player state.
+    PlayerEquipment equipment;      /// Currently equipped item. 
 
-    PlayerDirection direction; /// Current facing direction.
+    PlayerDirection direction;  /// Current facing direction.
 
     InteractionTarget target;
 
     bool attackPressed;
-    bool waterPressed;
-    bool isWatering;
     bool isRunning;
 
     int moveX;
