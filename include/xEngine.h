@@ -65,8 +65,6 @@ typedef struct xGameObject
 
     int depth;              /// Depth of the object (y + height).
 
-    Animation animation;
-
     bool interactable;
 
     bool collidable;        /// Whether collisions are active.
