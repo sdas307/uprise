@@ -42,7 +42,8 @@ int main(void)
 
         xUpdatePlayer(&player, &world, gameCamera.camera, dt);
 
-        xUpdateInteraction(&player.target, &world, gameCamera.camera, (xVector2) {player.gameObject.dest.x, player.gameObject.dest.y});
+        // player.c calls this when needed.
+        //xUpdateInteraction(&player.target, &world, gameCamera.camera, player.gameObject.collider);
 
         xUpdateAnimation(&world, dt);
 
