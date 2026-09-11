@@ -33,7 +33,7 @@ typedef enum xObjectType
 
 } xObjectType;
 
-typedef struct Animation
+typedef struct xAnimation
 {
     bool active;                /// Animation active?
     
@@ -47,7 +47,7 @@ typedef struct Animation
     float frameTime;        /// How long each frame remains visible.
     float timer;            /// Time passed since last frame change.
 
-} Animation;
+} xAnimation;
 
 typedef struct xGameObject
 {

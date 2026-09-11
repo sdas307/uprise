@@ -1,7 +1,7 @@
 #include "entities.h"
 #include "sprites.h"
 
-static void xCreateEntity(World *world, const EntityInfo *info, const Animation *animation)
+static void xCreateEntity(World *world, const EntityInfo *info, const xAnimation *animation)
 {
     if (world->entityCount >= MAX_OBJECTS)
         return;
@@ -31,7 +31,7 @@ static void xCreateEntity(World *world, const EntityInfo *info, const Animation 
     if (animation)
         entity->animation = *animation;
     else
-        entity->animation = (Animation) {0};
+        entity->animation = (xAnimation) {0};
 
     // Update entity count for the next entity.
     world->entityCount++;
@@ -51,7 +51,7 @@ void xAddHouse(World *world, HouseType type, xRectangle dest)
         .interactionID = INTERACTION_NONE
     };
 
-    Animation animation = {0};
+    xAnimation animation = {0};
     
     switch (type)
     {
@@ -104,7 +104,7 @@ void xAddLightPost(World *world, xRectangle dest)
         .interactionID = INTERACTION_NONE
     };
 
-    Animation animation =
+    xAnimation animation =
     {
         .active = true,
         .frameCount = 6,
@@ -237,7 +237,7 @@ void xAddTree(World *world, TreeType type, TreeStage stage, xRectangle dest)
         .interactionID = INTERACTION_DESTROY,
     };
 
-    Animation animation = {0};
+    xAnimation animation = {0};
 
     switch (type)
     {
@@ -349,7 +349,7 @@ void xAddMushroom(World *world, MushroomType type, xRectangle dest)
         .interactionID = INTERACTION_NONE
     };
 
-    Animation animation = {0};
+    xAnimation animation = {0};
     
     switch (type)
     {
@@ -378,7 +378,7 @@ void xAddUpperLayerColliders(World *world, int index, xRectangle dest)
         .interactionID = INTERACTION_NONE
     };
 
-    Animation animation = {0};
+    xAnimation animation = {0};
 
     switch (index)
     {
@@ -445,7 +445,7 @@ void xAddStairs(World *world, xRectangle dest)
         .interactionID = INTERACTION_NONE
     };
     
-    Animation animation = {0};
+    xAnimation animation = {0};
 
     info.collider = (xRectangle) {0};
 
@@ -467,7 +467,7 @@ void xAddHedge(World *world, HedgePiece piece, xRectangle dest)
         .interactionID = INTERACTION_NONE
     };
 
-    Animation animation = {0};
+    xAnimation animation = {0};
 
     info.collider = (xRectangle)
     {
@@ -532,7 +532,7 @@ void xAddCliffStairsCollider(World *world, xRectangle dest)
         .interactionID = INTERACTION_NONE
     };
 
-    Animation animation = {0};
+    xAnimation animation = {0};
 
     xCreateEntity(world, &info, &animation);
 }
@@ -552,7 +552,7 @@ void xAddCliffCollider(World *world, int index, xRectangle dest)
         .interactionID = INTERACTION_NONE
     };
 
-    Animation animation = {0};
+    xAnimation animation = {0};
 
     switch (index)
     {
@@ -663,7 +663,7 @@ void xAddFarmland(World *world, int index, xRectangle dest)
         .interactionID = INTERACTION_FARMLAND_WATER
     };
 
-    Animation animation = {0};
+    xAnimation animation = {0};
 
     switch (index)
     {

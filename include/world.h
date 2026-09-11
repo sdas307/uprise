@@ -106,7 +106,7 @@ typedef struct Entity
     EntityID id;
     xGameObject gameObject;
     
-    Animation animation;
+    xAnimation animation;
     
     int hp;
 
