@@ -127,7 +127,7 @@ void xInitPlayer(Player *player)
     player->frameWidth = 256;
     player->frameHeight = 256;
 
-    player->equipment = EQUIP_HOE;
+    player->equipment = EQUIP_NONE;
 
     player->gameObject.source = (xRectangle) {0, 0, player->frameWidth, player->frameHeight};
     player->gameObject.dest = (xRectangle) {config.x, config.y, player->frameWidth, player->frameHeight};
@@ -210,6 +210,13 @@ static void xReadPlayerInput(Player *player)
 
     if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
         player->attackPressed = true;
+
+    if (IsKeyPressed(KEY_E))
+    {
+        player->equipment++;
+        if (player->equipment == EQUIPMENTS_TOTAL)
+            player->equipment = 0;
+    }
 }
 
 static void xUpdatePlayerState(Player *player)
@@ -221,9 +228,12 @@ static void xUpdatePlayerState(Player *player)
 
     if (player->attackPressed)
     {
-        player->state = PLAYER_ATTACK;
-        player->currentFrame = 0;
-        player->animationTimer = 0.0f;
+        if (player->equipment > EQUIP_TORCH)
+        {
+            player->state = PLAYER_ATTACK;
+            player->currentFrame = 0;
+            player->animationTimer = 0.0f;
+        }
 
         player->attackPressed = false;
 
@@ -511,9 +521,12 @@ static int getAnimationIdleRow(PlayerEquipment equipment, PlayerDirection direct
     switch (equipment)
     {
         case EQUIP_NONE:
+        case EQUIP_SWORD:
         case EQUIP_PICKAXE:
         case EQUIP_AXE:
         case EQUIP_HOE:
+        case EQUIP_BO:
+        case EQUIP_WATERING_CAN:
             switch (direction)
             {
             case PLAYER_FACE_FRONT:
@@ -532,14 +545,14 @@ static int getAnimationIdleRow(PlayerEquipment equipment, PlayerDirection direct
             switch (direction)
             {
             case PLAYER_FACE_FRONT:
-                return 0;
+                return 200;
             
             case PLAYER_FACE_LEFT:
             case PLAYER_FACE_RIGHT:
-                return 4;
+                return 204;
 
             case PLAYER_FACE_BACK:
-                return 8;
+                return 208;
             }
         break;
 
@@ -547,14 +560,14 @@ static int getAnimationIdleRow(PlayerEquipment equipment, PlayerDirection direct
             switch (direction)
             {
             case PLAYER_FACE_FRONT:
-                    return 24;
+                    return 224;
                 
             case PLAYER_FACE_LEFT:
             case PLAYER_FACE_RIGHT:
-                return 28;
+                return 228;
 
             case PLAYER_FACE_BACK:
-                return 32;
+                return 232;
             }
         break;
     }
@@ -568,9 +581,12 @@ static int getAnimationWalkRow(PlayerEquipment equipment, PlayerDirection direct
     switch (equipment)
     {
         case EQUIP_NONE:
+        case EQUIP_SWORD:
         case EQUIP_AXE:
         case EQUIP_PICKAXE:
         case EQUIP_HOE:
+        case EQUIP_BO:
+        case EQUIP_WATERING_CAN:
             switch (direction)
             {
                 case PLAYER_FACE_FRONT:
@@ -589,14 +605,14 @@ static int getAnimationWalkRow(PlayerEquipment equipment, PlayerDirection direct
             switch (direction)
             {
                 case PLAYER_FACE_FRONT:
-                        return 12;
+                        return 212;
                     
                 case PLAYER_FACE_LEFT:
                 case PLAYER_FACE_RIGHT:
-                    return 16;
+                    return 216;
 
                 case PLAYER_FACE_BACK:
-                    return 20;
+                    return 220;
             }
         break;
 
@@ -604,14 +620,14 @@ static int getAnimationWalkRow(PlayerEquipment equipment, PlayerDirection direct
             switch (direction)
             {
                 case PLAYER_FACE_FRONT:
-                    return 36;
+                    return 236;
                     
                 case PLAYER_FACE_LEFT:
                 case PLAYER_FACE_RIGHT:
-                    return 40;
+                    return 240;
 
                 case PLAYER_FACE_BACK:
-                    return 44;
+                    return 244;
             }
         break;
     }
@@ -622,103 +638,108 @@ static int getAnimationWalkRow(PlayerEquipment equipment, PlayerDirection direct
 
 static int getAnimationAttackRow(PlayerState state, PlayerEquipment equipment, PlayerDirection direction)
 {
-    switch (equipment)
+    switch (state)
     {
-        case EQUIP_NONE:
-        case EQUIP_SWORD:
-            switch (direction)
+        case PLAYER_ATTACK:
+            switch (equipment)
             {
-                case PLAYER_FACE_FRONT:
-                    return 24;
-
-                case PLAYER_FACE_LEFT:
-                case PLAYER_FACE_RIGHT:
-                    return 36;
-
-                case PLAYER_FACE_BACK:
-                    return 48;
-            }
-        break;
-
-        case EQUIP_BO:
-            switch (direction)
-            {
-                case PLAYER_FACE_FRONT:
-                    return 116;
-
-                case PLAYER_FACE_LEFT:
-                case PLAYER_FACE_RIGHT:
-                    return 120;
-
-                case PLAYER_FACE_BACK:
-                    return 124;
-            }
-        break;
-
-        case EQUIP_AXE:
-            switch (state)
-            {
-                case PLAYER_ATTACK:
-                    switch (direction)
-                    {
+            case EQUIP_SWORD:
+                switch (direction)
+                {
                     case PLAYER_FACE_FRONT:
-                        return 128;
+                        return 24;
 
                     case PLAYER_FACE_LEFT:
                     case PLAYER_FACE_RIGHT:
-                        return 132;
+                        return 36;
 
                     case PLAYER_FACE_BACK:
-                        return 136;
-                    }
-                break;
-        }
+                        return 48;
+                }
+            break;
+
+            case EQUIP_BO:
+                switch (direction)
+                {
+                    case PLAYER_FACE_FRONT:
+                        return 116;
+
+                    case PLAYER_FACE_LEFT:
+                    case PLAYER_FACE_RIGHT:
+                        return 120;
+
+                    case PLAYER_FACE_BACK:
+                        return 124;
+                }
+            break;
+
+            case EQUIP_AXE:
+                switch (state)
+                {
+                    case PLAYER_ATTACK:
+                        switch (direction)
+                        {
+                        case PLAYER_FACE_FRONT:
+                            return 128;
+
+                        case PLAYER_FACE_LEFT:
+                        case PLAYER_FACE_RIGHT:
+                            return 132;
+
+                        case PLAYER_FACE_BACK:
+                            return 136;
+                        }
+                    break;
+            }
+                
+            break;
+
+            case EQUIP_PICKAXE:
+                switch (direction)
+                {
+                    case PLAYER_FACE_FRONT:
+                        return 140;
+
+                    case PLAYER_FACE_LEFT:
+                    case PLAYER_FACE_RIGHT:
+                        return 144;
+
+                    case PLAYER_FACE_BACK:
+                        return 148;
+                }
+            break;
+
+            case EQUIP_HOE:
+                switch (direction)
+                {
+                    case PLAYER_FACE_FRONT:
+                        return 152;
+
+                    case PLAYER_FACE_LEFT:
+                    case PLAYER_FACE_RIGHT:
+                        return 156;
+
+                    case PLAYER_FACE_BACK:
+                        return 160;
+                }
+            break;
             
-        break;
+            case EQUIP_WATERING_CAN:
+                switch (direction)
+                {
+                    case PLAYER_FACE_FRONT:
+                        return 164;
 
-        case EQUIP_PICKAXE:
-            switch (direction)
-            {
-                case PLAYER_FACE_FRONT:
-                    return 140;
+                    case PLAYER_FACE_LEFT:
+                    case PLAYER_FACE_RIGHT:
+                        return 168;
 
-                case PLAYER_FACE_LEFT:
-                case PLAYER_FACE_RIGHT:
-                    return 144;
-
-                case PLAYER_FACE_BACK:
-                    return 148;
+                    case PLAYER_FACE_BACK:
+                        return 172;
+                }
+            break;
             }
-        break;
 
-        case EQUIP_HOE:
-            switch (direction)
-            {
-                case PLAYER_FACE_FRONT:
-                    return 152;
-
-                case PLAYER_FACE_LEFT:
-                case PLAYER_FACE_RIGHT:
-                    return 156;
-
-                case PLAYER_FACE_BACK:
-                    return 160;
-            }
-        break;
-        
-        case EQUIP_WATERING_CAN:
-            switch (direction)
-            {
-                case PLAYER_FACE_FRONT:
-                    return 164;
-
-                case PLAYER_FACE_LEFT:
-                case PLAYER_FACE_RIGHT:
-                    return 168;
-
-                case PLAYER_FACE_BACK:
-                    return 172;
-            }
         break;
     }
 
