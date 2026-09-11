@@ -47,7 +47,6 @@ typedef struct Player
     float interval;             /// Animation interval.
     float runInterval;
     float walkInterval;
-    float waterInterval;
 
     float animationTimer;
     int currentFrame;

@@ -119,7 +119,6 @@ void xInitPlayer(Player *player)
     player->interval = 0.10f;
     player->walkInterval = 0.10f;
     player->runInterval = 0.09f;
-    player->waterInterval = 0.15f;
 
     player->animationTimer = 0.0f;
     player->currentFrame = 0;
