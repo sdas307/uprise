@@ -17,7 +17,7 @@ void xUpdateAnimation(World *world, float dt)
 
 static void Animate(Entity *entity, float dt)
 {
-    Animation *animation = &entity->animation;
+    xAnimation *animation = &entity->animation;
 
     if (!animation->active)
         return;
