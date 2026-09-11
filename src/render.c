@@ -132,10 +132,10 @@ static void xRenderObject(xGameObject *object, xColor tint)
     }
 
     DrawTexturePro(object->texture, drawSource, object->dest, ZERO_POSITION, 0.0f, tint);
-    DrawRectangleLinesEx(object->collider, 1.0f, RED);
-    DrawRectangleLinesEx(object->dest, 1.0f, GREEN);
-    DrawRectangleLinesEx(object->fadeArea, 1.0f, BLACK);
+    // DrawRectangleLinesEx(object->collider, 1.0f, RED);
+    // DrawRectangleLinesEx(object->dest, 1.0f, GREEN);
+    // DrawRectangleLinesEx(object->fadeArea, 1.0f, BLACK);
 
 
-    DrawRectangleLinesEx(wanderZone, 1.0f, BLUE);
+    // DrawRectangleLinesEx(wanderZone, 1.0f, BLUE);
 }
