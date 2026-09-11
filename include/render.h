@@ -10,6 +10,6 @@
 void xRenderScene(World *world, Player *player, AnimalManager *manager);
 
 /// Render interaction target. 
-void xRenderInteractionTarget(const InteractionTarget *target);
+void xRenderInteractionTarget(const InteractionTarget *target, const PlayerState state);
 
 #endif

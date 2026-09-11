@@ -63,7 +63,7 @@ int main(void)
             BeginMode2D(gameCamera.camera);
 
                 xRenderScene(&world, &player, &manager);
-                xRenderInteractionTarget(&player.target);
+                xRenderInteractionTarget(&player.target, player.state);
                 // xCameraDebugLines(&camera);
                 
             EndMode2D();
