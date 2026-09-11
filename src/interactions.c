@@ -21,7 +21,7 @@ static void Interact(InteractionTarget *target);
 
 /* ---------- Implementation ---------- */
 
-void xUpdateInteraction(InteractionTarget *target, World *world, xCamera2D camera, xVector2 playerPos)
+void xUpdateInteraction(InteractionTarget *target, World *world, xCamera2D camera, xRectangle playerCollider)
 {
     // Reset target from previous frame.
     target->valid = false;
@@ -32,7 +32,13 @@ void xUpdateInteraction(InteractionTarget *target, World *world, xCamera2D camer
     target->grid = getGridPosition(mouseWorldPos);
 
     // Convert player's position to grid co-ordinates.
-    xVector2 playerGrid = getGridPosition(playerPos);
+    xVector2 playerColliderPos =
+    {
+        .x = playerCollider.x + playerCollider.width / 2,
+        .y = playerCollider.y + playerCollider.height / 2
+    };
+
+    xVector2 playerGrid = getGridPosition(playerColliderPos);
 
     // Only allow interaction with nearby cells.
     if (!isTargetInRange(target->grid, playerGrid))
@@ -52,8 +58,8 @@ void xUpdateInteraction(InteractionTarget *target, World *world, xCamera2D camer
 
         xRectangle collider = entity->gameObject.collider;
 
-        int entityGridX = (int)floorf(collider.x / WORLD_GRID_SIZE);
-        int entityGridY = (int)floorf(collider.y / WORLD_GRID_SIZE);
+        int entityGridX = (int)floorf((collider.x + collider.width / 2) / WORLD_GRID_SIZE);
+        int entityGridY = (int)floorf((collider.y + collider.height / 2) / WORLD_GRID_SIZE);
 
         if (entityGridX == target->grid.x && entityGridY == target->grid.y)
         {
@@ -62,7 +68,7 @@ void xUpdateInteraction(InteractionTarget *target, World *world, xCamera2D camer
             // Temporarily destroying objects via source = {0}.
             Interact(target);
 
-            // DrawRectangleLinesEx((xRectangle){target->grid.x, target->grid.y, 64, 64}, 2.0f, RED);
+            DrawRectangleLinesEx((xRectangle){target->grid.x, target->grid.y, 64, 64}, 6.0f, RED);
 
             return;
         }
@@ -95,31 +101,28 @@ static bool isTargetInRange(xVector2 target, xVector2 player)
 
 static void Interact(InteractionTarget *target)
 {
-    if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+    if (!target->valid || !target->entity)
+        return;
+    
+    Entity *entity = target->entity;
+
+    switch (entity->interactionID)
     {
-        if (target->valid && target->entity)
-        {
-            Entity *entity = target->entity;
+        case INTERACTION_DESTROY:
+            entity->gameObject.active = false;
+            break;
 
-            switch (entity->interactionID)
-            {
-                case INTERACTION_DESTROY:
-                    entity->gameObject.active = false;
-                    break;
+        case INTERACTION_CROP_HARVEST:
+            break;
 
-                case INTERACTION_CROP_HARVEST:
-                    break;
+        case INTERACTION_FRUIT_HARVEST:
+            break;
 
-                case INTERACTION_FRUIT_HARVEST:
-                    break;
+        case INTERACTION_FARMLAND_WATER:
+            target->entity->id = ENTITY_FARMLAND_WET;
+            break;
 
-                case INTERACTION_FARMLAND_WATER:
-                    target->entity->id = ENTITY_FARMLAND_WET;
-                    break;
-
-                case INTERACTION_TREE_CHOP:
-                    break;
-            }
-        }
+        case INTERACTION_TREE_CHOP:
+            break;
     }
 }

@@ -119,7 +119,6 @@ void xInitPlayer(Player *player)
     player->interval = 0.10f;
     player->walkInterval = 0.10f;
     player->runInterval = 0.09f;
-    player->waterInterval = 0.15f;
 
     player->animationTimer = 0.0f;
     player->currentFrame = 0;
@@ -165,8 +164,10 @@ void xUpdatePlayer(Player *player, World *world, xCamera2D camera, float dt)
     xUpdatePlayerState(player);
     xMovePlayer(player, world, dt);
     xUpdatePlayerAnimation(player, dt);
-    xUpdateInteraction(&player->target, world, camera, (xVector2){player->gameObject.collider.x, player->gameObject.collider.y});
-    // DrawRectangleLinesEx(player->gameObject.dest, 1.0f, RED);
+
+    if (player->state == PLAYER_ATTACK)
+        xUpdateInteraction(&player->target, world, camera, player->gameObject.collider);
+
 }
 
 void xUnloadPlayer(Player *player)
@@ -691,7 +692,6 @@ static int getAnimationAttackRow(PlayerState state, PlayerEquipment equipment, P
                         }
                     break;
             }
-                
             break;
 
             case EQUIP_PICKAXE:
@@ -739,7 +739,6 @@ static int getAnimationAttackRow(PlayerState state, PlayerEquipment equipment, P
                 }
             break;
             }
-
         break;
     }
 

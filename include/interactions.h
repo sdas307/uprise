@@ -9,15 +9,15 @@
 
 typedef struct InteractionTarget
 {
-    xVector2 grid;      // Grid position.
+    xVector2 grid;      /// Grid position.
 
-    Entity *entity;     // Pointer to entity.
+    Entity *entity;     /// Pointer to entity.
 
-    bool valid;         // Whether an interaction is valid.
+    bool valid;         /// Whether an interaction is valid.
 
 } InteractionTarget;
 
 /// Update player-object interactions.
-void xUpdateInteraction(InteractionTarget *target, World *world, xCamera2D camera, xVector2 playerPos);
+void xUpdateInteraction(InteractionTarget *target, World *world, xCamera2D camera, xRectangle playerCollider);
 
 #endif

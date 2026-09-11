@@ -103,8 +103,10 @@ typedef struct EntityInfo
 
 typedef struct Entity
 {
-    xGameObject gameObject;
     EntityID id;
+    xGameObject gameObject;
+    
+    Animation animation;
     
     int hp;
 

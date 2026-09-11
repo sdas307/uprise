@@ -7,6 +7,7 @@ static void xCreateEntity(World *world, const EntityInfo *info, const Animation 
         return;
 
     xGameObject *object = &world->entities[world->entityCount].gameObject;
+    Entity *entity = &world->entities[world->entityCount];
 
     object->texture = *info->spritesheet;
 
@@ -22,15 +23,15 @@ static void xCreateEntity(World *world, const EntityInfo *info, const Animation 
 
     object->depth = info->alwaysBelowPlayer ? 0 : info->collider.y + info->collider.height;
     
-    world->entities[world->entityCount].interactionID = info->interactionID;
+    entity->interactionID = info->interactionID;
 
     object->flip = info->flip;
     object->active = info->active;
 
     if (animation)
-        object->animation = *animation;
+        entity->animation = *animation;
     else
-        object->animation = (Animation) {0};
+        entity->animation = (Animation) {0};
 
     // Update entity count for the next entity.
     world->entityCount++;
@@ -265,10 +266,7 @@ void xAddTree(World *world, TreeType type, TreeStage stage, xRectangle dest)
                 dest.width - 44 - 60,
                 dest.height - 40 - 64 - 20 - 44
             };
-            break;
-        
-        default:
-            break;
+        break;
         }
     break;
     

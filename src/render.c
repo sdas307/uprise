@@ -80,9 +80,9 @@ static void xRenderTerrain(World *world)
     DrawTexturePro(world->terrain.texture, world->terrain.source, world->terrain.dest, ZERO_POSITION, 0, WHITE);
 }
 
-void xRenderInteractionTarget(const InteractionTarget *target)
+void xRenderInteractionTarget(const InteractionTarget *target, const PlayerState state)
 {
-    if (!target->valid)
+    if (!target->valid || state != PLAYER_ATTACK)
         return;
 
     // World Co-ordinates rectangle (from grid co-ordinates).
@@ -94,7 +94,7 @@ void xRenderInteractionTarget(const InteractionTarget *target)
         WORLD_GRID_SIZE,
     };
 
-    DrawRectangleLinesEx(rectangle, 5.0f, BEIGE);
+    DrawRectangleLinesEx(rectangle, 5.0f, WHITE);
 }
 
 static void xSortRenderOrder(xGameObject **renderList, int count)
