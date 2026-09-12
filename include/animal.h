@@ -2,6 +2,7 @@
 #define ANIMAL_H
 
 #include "xEngine.h"
+#include "world.h"
 
 #define MAX_ANIMALS 32
 
@@ -32,7 +33,7 @@ typedef enum AnimalDirection
 
 typedef struct Animal
 {
-    xGameObject gameObject;
+    Entity entity;
 
     int moveX;                      // Direction x component.
     int moveY;                      // Direction y component.

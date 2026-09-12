@@ -21,7 +21,7 @@ int main(void)
 
     xInitPlayer(&player);
     
-    xInitCamera(&gameCamera, &player.gameObject);
+    xInitCamera(&gameCamera, &player.entity.gameObject);
 
     printf("\n\nInitializing World!\n\n");
     xInitWorld(&world);
@@ -47,7 +47,7 @@ int main(void)
 
         xUpdateAnimation(&world, dt);
 
-        xUpdateCamera(&gameCamera, &player.gameObject, dt);
+        xUpdateCamera(&gameCamera, &player.entity.gameObject, dt);
         
         for (int i = 0; i < manager.animalCount; i++)
         {
