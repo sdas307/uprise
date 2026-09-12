@@ -8,13 +8,13 @@
 /* ---------- Signatures ---------- */
 
 /// Get mouse position in world co-ordinates.
-static xVector2 getMouseWorldPosition(xCamera2D camera);
+static xVector2 GetMouseWorldPosition(xCamera2D camera);
 
 /// Convert world positions (pixels) to world grid positions.
-static xVector2 getGridPosition(xVector2 position);
+static xVector2 GetGridPosition(xVector2 position);
 
 /// Return true if target cell is in player's range.
-static bool isTargetInRange(xVector2 targetGrid, xVector2 playerGrid);
+static bool IsTargetInRange(xVector2 targetGrid, xVector2 playerGrid);
 
 /// Make the change in the entity upon interaction.
 static void Interact(InteractionTarget *target);
@@ -28,9 +28,9 @@ void xUpdateInteraction(InteractionTarget *target, World *world, xCamera2D camer
     target->valid = false;
     target->entity = NULL;
 
-    xVector2 mouseWorldPos = getMouseWorldPosition(camera);
+    xVector2 mouseWorldPos = GetMouseWorldPosition(camera);
 
-    target->grid = getGridPosition(mouseWorldPos);
+    target->grid = GetGridPosition(mouseWorldPos);
 
     // Convert player's position to grid co-ordinates.
     xVector2 playerColliderPos =
@@ -39,7 +39,7 @@ void xUpdateInteraction(InteractionTarget *target, World *world, xCamera2D camer
         .y = playerCollider.y + playerCollider.height / 2
     };
 
-    xVector2 playerGrid = getGridPosition(playerColliderPos);
+    xVector2 playerGrid = GetGridPosition(playerColliderPos);
 
     // Only allow interaction with nearby cells.
     if (!isTargetInRange(target->grid, playerGrid))
@@ -76,12 +76,12 @@ void xUpdateInteraction(InteractionTarget *target, World *world, xCamera2D camer
     }
 }
 
-static xVector2 getMouseWorldPosition(xCamera2D camera)
+static xVector2 GetMouseWorldPosition(xCamera2D camera)
 {
     return GetScreenToWorld2D(GetMousePosition(), camera);
 }
 
-static xVector2 getGridPosition(xVector2 position)
+static xVector2 GetGridPosition(xVector2 position)
 {
     return (xVector2)
     {
@@ -90,7 +90,7 @@ static xVector2 getGridPosition(xVector2 position)
     };
 }
 
-static bool isTargetInRange(xVector2 target, xVector2 player)
+static bool IsTargetInRange(xVector2 target, xVector2 player)
 {
     int dx = abs(target.x - player.x);
     int dy = abs(target.y - player.y);
