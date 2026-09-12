@@ -277,7 +277,8 @@ void xSpawnChicken(AnimalManager *manager, xRectangle dest)
     animal->entity.gameObject.source = SRC_CHICKEN;
     animal->entity.gameObject.dest = dest;
 
-    animal->entity.gameObject.collider = (xRectangle){
+    animal->entity.gameObject.collider = (xRectangle)
+    {
         animal->entity.gameObject.dest.x + 12,
         animal->entity.gameObject.dest.y + 36,
         animal->entity.gameObject.dest.width - 24,

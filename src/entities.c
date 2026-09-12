@@ -16,9 +16,8 @@ static void xCreateEntity(World *world, const EntityInfo *info, const xAnimation
     object->collider = info->collider;
     object->fadeArea = info->fadeArea;
 
-    entity->type = WORLD_ENTITY;
-
-    entity->hp = 0;
+    entity->id = info->id;
+    entity->type = info->type;
 
     object->fadeable = info->fadeable;
     object->collidable = info->collidable;
@@ -148,7 +147,7 @@ void xAddTree(World *world, TreeType type, TreeStage stage, xRectangle dest)
         .alwaysBelowPlayer = false,
         .flip = false,
         .active = true,
-        .interactionID = INTERACTION_DESTROY,
+        .interactionID = INTERACTION_TREE_CHOP,
     };
 
     xAnimation animation = {0};
@@ -209,37 +208,8 @@ void xAddTree(World *world, TreeType type, TreeStage stage, xRectangle dest)
                 dest.width - 44 - 52 - 20,
                 dest.height - 40 - 64 - 20 - 36
             };
-
-            break;
-
-        default:
-
-            info.id = ENTITY_TREE_OAK_LARGE;
-
-            info.source = SRC_TREE_OAK_LARGE;
-
-            info.collider = (xRectangle)
-            {
-                dest.x + dest.width / 2 - 26,
-                dest.y + 206,
-                58,
-                20,
-            };
             break;
         }
-        break;
-
-    default:
-
-        info.source = SRC_TREE_OAK_LARGE;
-
-        info.collider = (xRectangle)
-        {
-            dest.x + dest.width / 2 - 26,
-            dest.y + 206,
-            58,
-            20,
-        };
         break;
     }
 

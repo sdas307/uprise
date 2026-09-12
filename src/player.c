@@ -165,7 +165,6 @@ void xUpdatePlayer(Player *player, World *world, xCamera2D camera, float dt)
 
     if (player->state == PLAYER_ATTACK)
         xUpdateInteraction(&player->target, world, camera, player->entity.gameObject.collider);
-
 }
 
 void xUnloadPlayer(Player *player)

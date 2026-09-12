@@ -26,10 +26,6 @@ extern const xRectangle SRC_FARMLAND_WET[];
 
 /* --------------- TERRAIN DECOR SPRITES --------------- */
 
-extern const xRectangle SRC_GRASS[];
-
-extern const xRectangle SRC_WILDFLOWER[];
-
 /* --------------- --------------- --------------- */
 
 
@@ -58,11 +54,13 @@ extern const xRectangle SRC_TREE_BIRCH_CUT;
 extern const xRectangle SRC_TREE_BIRCH_SMALL;
 extern const xRectangle SRC_TREE_BIRCH_MEDIUM;
 extern const xRectangle SRC_TREE_BIRCH_LARGE;
+extern const xRectangle SRC_TREE_BIRCH_LARGE_CHOPPED;
 
 extern const xRectangle SRC_TREE_OAK_CUT;
 extern const xRectangle SRC_TREE_OAK_SMALL;
 extern const xRectangle SRC_TREE_OAK_MEDIUM;
 extern const xRectangle SRC_TREE_OAK_LARGE;
+extern const xRectangle SRC_TREE_OAK_LARGE_CHOPPED;
 
 extern const xRectangle SRC_TREE_SPRUCE_CUT;
 extern const xRectangle SRC_TREE_SPRUCE_SMALL;

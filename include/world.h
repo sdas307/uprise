@@ -66,6 +66,7 @@ typedef enum EnitityType
     COLLIDER_ONLY,
     PLAYER,
     TREE,
+    FARMLAND,
     ANIMAL,
     NPC,
     ENEMY,
@@ -103,12 +104,28 @@ typedef struct Entity
     xGameObject gameObject;
     
     xAnimation animation;
-    
-    int hp;
 
     InteractionID interactionID;
 
 } Entity;
+
+typedef enum TreeState
+{
+    TREE_STATE_UPRIGHT,
+    TREE_STATE_DAMAGE,
+    TREE_STATE_CHOPPING,
+    TREE_STATE_CHOPPED,
+
+} TreeState;
+
+typedef struct Tree
+{
+    Entity *entity;
+    TreeState state;
+
+    int hp;
+
+} Tree;
 
 typedef enum SpriteSheets
 {
@@ -288,6 +305,8 @@ void xInitWorld(World *world);
 
 /// Place all objects in world space.
 void xLoadWorld(World *world, AnimalManager *manager);
+
+void xUpdateWorld(World *world, float dt);
 
 /// Free world textures from GPU.
 void xUnloadWorld(World *world);

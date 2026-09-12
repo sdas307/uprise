@@ -15,7 +15,7 @@ int main(void)
     xGameCamera gameCamera;
     Player player;
     World world;
-    AnimalManager manager;
+    AnimalManager animalManager;
 
     xInitWindow();
 
@@ -28,7 +28,7 @@ int main(void)
     printf("\n\nDone Initializing World!\n\n");
 
     printf("\n\nLoading World!\n\n");
-    xLoadWorld(&world, &manager);
+    xLoadWorld(&world, &animalManager);
     printf("\n\nDone Loading World!\n\n");
 
     SetTargetFPS(60);
@@ -39,19 +39,22 @@ int main(void)
         float dt = GetFrameTime();
 
         // ---------------- UPDATE ----------------
-
+        
         xUpdatePlayer(&player, &world, gameCamera.camera, dt);
+        
+        xUpdateWorld(&world, dt);
 
         // player.c calls this when needed.
-        //xUpdateInteraction(&player.target, &world, gameCamera.camera, player.gameObject.collider);
+        // xUpdateInteraction(&player.target, &world, gameCamera.camera, player.entity.gameObject.collider);
 
         xUpdateAnimation(&world, dt);
 
         xUpdateCamera(&gameCamera, &player.entity.gameObject, dt);
         
-        for (int i = 0; i < manager.animalCount; i++)
+
+        for (int i = 0; i < animalManager.animalCount; i++)
         {
-            xUpdateAnimal(&manager.animals[i], &world, dt);
+            xUpdateAnimal(&animalManager.animals[i], &world, dt);
         }
 
         // ---------------- DRAW ----------------
@@ -62,7 +65,7 @@ int main(void)
 
             BeginMode2D(gameCamera.camera);
 
-                xRenderScene(&world, &player, &manager);
+                xRenderScene(&world, &player, &animalManager);
                 xRenderInteractionTarget(&player.target, player.state);
                 // xCameraDebugLines(&camera);
                 
