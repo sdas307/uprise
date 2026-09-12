@@ -42,7 +42,7 @@ typedef enum PlayerDirection
 /// Player object configured with basic components.
 typedef struct Player
 {
-    xGameObject gameObject;
+    Entity entity;
 
     float interval;             /// Animation interval.
     float runInterval;

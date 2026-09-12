@@ -47,7 +47,7 @@ const xRectangle wanderZone =
 
 static void xInitAnimal(Animal *animal)
 {
-    animal->gameObject.type = OBJECT_ANIMAL;
+    animal->entity.type = ANIMAL;
 
     animal->moveX = 0;
     animal->moveY = 0;
@@ -71,8 +71,8 @@ static void xInitAnimal(Animal *animal)
     // animal->randomInterval = 0.0f;
     // animal->randomStateTimer = 0;
 
-    animal->gameObject.active = true;
-    animal->gameObject.collidable = true;
+    animal->entity.gameObject.active = true;
+    animal->entity.gameObject.collidable = true;
 }
 
 void xUpdateAnimal(Animal *animal, World *world, float dt)
@@ -119,8 +119,8 @@ static void xAnimalWandering(Animal *animal, World *world, float dt)
     {
         xVector2 movement =
         {
-            animal->targetX - animal->gameObject.dest.x,
-            animal->targetY - animal->gameObject.dest.y
+            animal->targetX - animal->entity.gameObject.dest.x,
+            animal->targetY - animal->entity.gameObject.dest.y
         };
         
         float distance = Vector2Length(movement);
@@ -129,8 +129,8 @@ static void xAnimalWandering(Animal *animal, World *world, float dt)
         // Reached target point.
         if (distance <= step)
         {
-            animal->gameObject.dest.x = animal->targetX;
-            animal->gameObject.dest.y = animal->targetY;
+            animal->entity.gameObject.dest.x = animal->targetX;
+            animal->entity.gameObject.dest.y = animal->targetY;
 
             animal->isTargetSet = false;
 
@@ -143,29 +143,29 @@ static void xAnimalWandering(Animal *animal, World *world, float dt)
         movement.y *= animal->speed * dt;
 
         // If moving right -> flip.
-        animal->gameObject.flip = (movement.x > 0);
+        animal->entity.gameObject.flip = (movement.x > 0);
 
         // X-axis
-        xRectangle nextCollider = animal->gameObject.collider;
+        xRectangle nextCollider = animal->entity.gameObject.collider;
         nextCollider.x += movement.x;
 
         if (!xAnimalCheckCollision(world, nextCollider))
         {
-            animal->gameObject.dest.x += movement.x;
-            animal->gameObject.collider.x = nextCollider.x;
+            animal->entity.gameObject.dest.x += movement.x;
+            animal->entity.gameObject.collider.x = nextCollider.x;
         }
 
         // Y-axis
-        nextCollider = animal->gameObject.collider;
+        nextCollider = animal->entity.gameObject.collider;
         nextCollider.y += movement.y;
 
         if (!xAnimalCheckCollision(world, nextCollider))
         {
-            animal->gameObject.dest.y += movement.y;
-            animal->gameObject.collider.y = nextCollider.y;
+            animal->entity.gameObject.dest.y += movement.y;
+            animal->entity.gameObject.collider.y = nextCollider.y;
         }
 
-        animal->gameObject.depth = animal->gameObject.collider.y + animal->gameObject.collider.height;
+        animal->entity.gameObject.depth = animal->entity.gameObject.collider.y + animal->entity.gameObject.collider.height;
     }
 }
 
@@ -225,12 +225,12 @@ static void xAnimateAnimal(Animal *animal, float dt)
         break;
     }
 
-    animal->gameObject.source.x = animal->currentFrame * animal->frameWidth;
+    animal->entity.gameObject.source.x = animal->currentFrame * animal->frameWidth;
 
-    animal->gameObject.source.y = xGetAnimationRow(animal->state) * animal->frameHeight;
+    animal->entity.gameObject.source.y = xGetAnimationRow(animal->state) * animal->frameHeight;
 
-    animal->gameObject.source.width = animal->frameWidth;
-    animal->gameObject.source.height = animal->frameHeight;
+    animal->entity.gameObject.source.width = animal->frameWidth;
+    animal->entity.gameObject.source.height = animal->frameHeight;
 }
 
 static bool xAnimalCheckCollision(World *world, xRectangle collider)
@@ -254,7 +254,7 @@ static bool xAnimalCheckCollision(World *world, xRectangle collider)
 
 void xUnloadAnimal(Animal *animal)
 {
-    UnloadTexture(animal->gameObject.texture);
+    UnloadTexture(animal->entity.gameObject.texture);
 }
 
 void xSpawnChicken(AnimalManager *manager, xRectangle dest)
@@ -271,23 +271,24 @@ void xSpawnChicken(AnimalManager *manager, xRectangle dest)
 
     animal->type = ANIMAL_CHICKEN;
 
-    animal->gameObject.texture = LoadTexture(PATH_CHICKEN_SHEET);
-    SetTextureFilter(animal->gameObject.texture, TEXTURE_FILTER_POINT);
+    animal->entity.gameObject.texture = LoadTexture(PATH_CHICKEN_SHEET);
+    SetTextureFilter(animal->entity.gameObject.texture, TEXTURE_FILTER_POINT);
 
-    animal->gameObject.source = SRC_CHICKEN;
-    animal->gameObject.dest = dest;
+    animal->entity.gameObject.source = SRC_CHICKEN;
+    animal->entity.gameObject.dest = dest;
 
-    animal->gameObject.collider = (xRectangle){
-        animal->gameObject.dest.x + 12,
-        animal->gameObject.dest.y + 36,
-        animal->gameObject.dest.width - 24,
+    animal->entity.gameObject.collider = (xRectangle)
+    {
+        animal->entity.gameObject.dest.x + 12,
+        animal->entity.gameObject.dest.y + 36,
+        animal->entity.gameObject.dest.width - 24,
         16
     };
 
-    animal->gameObject.depth = animal->gameObject.collider.y + animal->gameObject.collider.height;
+    animal->entity.gameObject.depth = animal->entity.gameObject.collider.y + animal->entity.gameObject.collider.height;
 
     animal->speed = 64;
-    animal->gameObject.flip = false;
+    animal->entity.gameObject.flip = false;
 }
 
 void xSpawnSheep(AnimalManager *manager, xRectangle dest)
@@ -304,23 +305,23 @@ void xSpawnSheep(AnimalManager *manager, xRectangle dest)
 
     animal->type = ANIMAL_SHEEP;
 
-    animal->gameObject.texture = LoadTexture(PATH_SHEEP_SHEET);
-    SetTextureFilter(animal->gameObject.texture, TEXTURE_FILTER_POINT);
+    animal->entity.gameObject.texture = LoadTexture(PATH_SHEEP_SHEET);
+    SetTextureFilter(animal->entity.gameObject.texture, TEXTURE_FILTER_POINT);
 
-    animal->gameObject.source = SRC_SHEEP;
-    animal->gameObject.dest = dest;
+    animal->entity.gameObject.source = SRC_SHEEP;
+    animal->entity.gameObject.dest = dest;
 
-    animal->gameObject.collider = (xRectangle){
-        animal->gameObject.dest.x + 36,
-        animal->gameObject.dest.y + 68,
-        animal->gameObject.dest.width - 72,
+    animal->entity.gameObject.collider = (xRectangle){
+        animal->entity.gameObject.dest.x + 36,
+        animal->entity.gameObject.dest.y + 68,
+        animal->entity.gameObject.dest.width - 72,
         20
     };
 
-    animal->gameObject.depth = animal->gameObject.collider.y + animal->gameObject.collider.height;
+    animal->entity.gameObject.depth = animal->entity.gameObject.collider.y + animal->entity.gameObject.collider.height;
 
     animal->speed = 128;
-    animal->gameObject.flip = false;
+    animal->entity.gameObject.flip = false;
 }
 
 void xSpawnPig(AnimalManager *manager, xRectangle dest)
@@ -337,23 +338,23 @@ void xSpawnPig(AnimalManager *manager, xRectangle dest)
 
     animal->type = ANIMAL_PIG;
 
-    animal->gameObject.texture = LoadTexture(PATH_PIG_SHEET);
-    SetTextureFilter(animal->gameObject.texture, TEXTURE_FILTER_POINT);
+    animal->entity.gameObject.texture = LoadTexture(PATH_PIG_SHEET);
+    SetTextureFilter(animal->entity.gameObject.texture, TEXTURE_FILTER_POINT);
 
-    animal->gameObject.source = SRC_PIG;
-    animal->gameObject.dest = dest;
+    animal->entity.gameObject.source = SRC_PIG;
+    animal->entity.gameObject.dest = dest;
 
-    animal->gameObject.collider = (xRectangle){
-        animal->gameObject.dest.x + 36,
-        animal->gameObject.dest.y + 68,
-        animal->gameObject.dest.width - 72,
+    animal->entity.gameObject.collider = (xRectangle){
+        animal->entity.gameObject.dest.x + 36,
+        animal->entity.gameObject.dest.y + 68,
+        animal->entity.gameObject.dest.width - 72,
         20
     };
 
-    animal->gameObject.depth = animal->gameObject.collider.y + animal->gameObject.collider.height;
+    animal->entity.gameObject.depth = animal->entity.gameObject.collider.y + animal->entity.gameObject.collider.height;
 
     animal->speed = 64;
-    animal->gameObject.flip = false;
+    animal->entity.gameObject.flip = false;
 }
 
 void xSpawnCow(AnimalManager *manager, xRectangle dest)
@@ -371,23 +372,23 @@ void xSpawnCow(AnimalManager *manager, xRectangle dest)
 
     animal->type = ANIMAL_COW;
 
-    animal->gameObject.texture = LoadTexture(PATH_COW_SHEET);
+    animal->entity.gameObject.texture = LoadTexture(PATH_COW_SHEET);
 
-    animal->gameObject.source = SRC_COW;
+    animal->entity.gameObject.source = SRC_COW;
 
-    animal->gameObject.dest = dest;
+    animal->entity.gameObject.dest = dest;
 
-    animal->gameObject.collider = (xRectangle){
-        animal->gameObject.dest.x + 28,
-        animal->gameObject.dest.y + 72,
-        animal->gameObject.dest.width - 56,
+    animal->entity.gameObject.collider = (xRectangle){
+        animal->entity.gameObject.dest.x + 28,
+        animal->entity.gameObject.dest.y + 72,
+        animal->entity.gameObject.dest.width - 56,
         24
     };
 
-    animal->gameObject.depth = animal->gameObject.collider.y + animal->gameObject.collider.height;
+    animal->entity.gameObject.depth = animal->entity.gameObject.collider.y + animal->entity.gameObject.collider.height;
 
     animal->speed = 64;
-    animal->gameObject.flip = false;
+    animal->entity.gameObject.flip = false;
 }
 
 static int xGetAnimationLength(AnimalState state)

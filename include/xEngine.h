@@ -23,15 +23,6 @@ typedef struct xTransform
 
 } xTransform;
 
-/* Special cases are adressed here. */
-typedef enum xObjectType
-{
-    OBJECT_PLAYER,
-    OBJECT_ANIMAL,
-    OBJECT_MUSHROOM,
-    OBJECT_ENTITY
-
-} xObjectType;
 
 typedef struct xAnimation
 {
@@ -60,8 +51,6 @@ typedef struct xGameObject
     Rectangle dest;
     Rectangle collider;
     Rectangle fadeArea;         /// Collision results in object fading.
-
-    xObjectType type;       /// Uprise object type.
 
     int depth;              /// Depth of the object (y + height).
 

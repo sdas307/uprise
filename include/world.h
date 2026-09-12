@@ -23,7 +23,6 @@ typedef enum EntityID
     ENTITY_FARMLAND_WET,
 
     ENTITY_HEDGE,
-    ENTITY_WILDFLOWER,
 
     ENTITY_TREE_BIRCH_CUT,
     ENTITY_TREE_BIRCH_SMALL,
@@ -40,32 +39,13 @@ typedef enum EntityID
     ENTITY_TREE_SPRUCE_MEDIUM,
     ENTITY_TREE_SPRUCE_LARGE,
 
-    ENTITY_DECOR_LOG,
-
-    ENTITY_GRASS,
-    ENTITY_MUSHROOM,
-    ENTITY_FLOWER,
-    ENTITY_POTTED_FLOWER,
-
-    ENTITY_ROCK_SMALL,
-    ENTITY_ROCK_LARGE,
-
-    ENTITY_STONE_SMALL,
-    ENTITY_STONE_MEDIUM,
-    ENTITY_STONE_LARGE,
-
     ENTITY_CROP_WHEAT,
     ENTITY_CROP_CARROT,
 
     ENTITY_SIGN_WHEAT,
     ENTITY_SIGN_CARROT,
 
-    ENTITY_POND_6x6,
-
-    ENTITY_GROUND_BLOCK,
-    ENTITY_HIGH_GROUND_BLOCK,
-
-    ENTITY_EMPTY_OBJECT
+    ENTITY_NONE
 
 } EntityID;
 
@@ -80,9 +60,24 @@ typedef enum InteractionID
 
 } InteractionID;
 
+typedef enum EnitityType
+{
+    NONE,
+    COLLIDER_ONLY,
+    PLAYER,
+    TREE,
+    FARMLAND,
+    ANIMAL,
+    NPC,
+    ENEMY,
+    WORLD_ENTITY
+
+} EnitityType;
+
 typedef struct EntityInfo
 {
     EntityID id;
+    EnitityType type;
 
     Texture2D *spritesheet;
 
@@ -104,15 +99,33 @@ typedef struct EntityInfo
 typedef struct Entity
 {
     EntityID id;
+    EnitityType type;
+
     xGameObject gameObject;
     
     xAnimation animation;
-    
-    int hp;
 
     InteractionID interactionID;
 
 } Entity;
+
+typedef enum TreeState
+{
+    TREE_STATE_UPRIGHT,
+    TREE_STATE_DAMAGE,
+    TREE_STATE_CHOPPING,
+    TREE_STATE_CHOPPED,
+
+} TreeState;
+
+typedef struct Tree
+{
+    Entity *entity;
+    TreeState state;
+
+    int hp;
+
+} Tree;
 
 typedef enum SpriteSheets
 {
@@ -292,6 +305,8 @@ void xInitWorld(World *world);
 
 /// Place all objects in world space.
 void xLoadWorld(World *world, AnimalManager *manager);
+
+void xUpdateWorld(World *world, float dt);
 
 /// Free world textures from GPU.
 void xUnloadWorld(World *world);

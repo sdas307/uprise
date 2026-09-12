@@ -16,7 +16,8 @@ static void xCreateEntity(World *world, const EntityInfo *info, const xAnimation
     object->collider = info->collider;
     object->fadeArea = info->fadeArea;
 
-    object->type = OBJECT_ENTITY;
+    entity->id = info->id;
+    entity->type = info->type;
 
     object->fadeable = info->fadeable;
     object->collidable = info->collidable;
@@ -94,6 +95,7 @@ void xAddLightPost(World *world, xRectangle dest)
     EntityInfo info =
     {
         .id = ENTITY_LIGHT_POST,
+        .type = WORLD_ENTITY,
         .source = SRC_LIGHT_POST_WOOD_1[0],
         .spritesheet = &world->spritesheets[SHEET_STRUCTURE_FENCE_POSTS],
         .dest = dest,
@@ -133,100 +135,11 @@ void xAddLightPost(World *world, xRectangle dest)
     xCreateEntity(world, &info, &animation);
 }
 
-// void xAddRock(World *world, RockType type, xRectangle dest)
-// {
-//     xRectangle source;
-//     xRectangle collider;
-
-//     EntityID id;
-
-//     switch (type)
-//     {
-//     case ROCK_SMALL:
-
-//         id = ENTITY_ROCK_SMALL;
-//         source = SRC_ROCK_SMALL;
-
-//         collider = (xRectangle){
-//             dest.x + 8,
-//             dest.y + dest.height - 18,
-//             dest.width - 10,
-//             16
-//         };
-//         break;
-
-//     case ROCK_LARGE:
-
-//         id = ENTITY_ROCK_LARGE;
-//         source = SRC_ROCK_LARGE;
-
-//         collider = (xRectangle){
-//             dest.x,
-//             dest.y + dest.height - 20,
-//             dest.width,
-//             20};
-//         break;
-//     }
-
-//     xCreateEntity(world, id, source, dest, collider);
-// }
-
-// void xAddStone(World *world, StoneType type, xRectangle dest)
-// {
-//     xRectangle source;
-//     xRectangle collider;
-
-//     EntityID id;
-
-//     switch (type)
-//     {
-//     case STONE_SMALL:
-
-//         id = STONE_SMALL;
-//         source = SRC_STONE_SMALL;
-
-//         collider = (xRectangle){
-//             dest.x + 12,
-//             dest.y + 36,
-//             38,
-//             20,
-//         };
-//         break;
-
-//     case STONE_MEDIUM:
-
-//         id = STONE_MEDIUM;
-//         source = SRC_STONE_MEDIUM;
-
-//         collider = (xRectangle){
-//             dest.x + 14,
-//             dest.y + 36,
-//             42,
-//             20,
-//         };
-//         break;
-
-//     case STONE_LARGE:
-
-//         id = STONE_LARGE;
-//         source = SRC_STONE_LARGE;
-
-//         collider = (xRectangle){
-//             dest.x + 8,
-//             dest.y + 36,
-//             50,
-//             20,
-//         };
-//         break;
-//     }
-
-//     xCreateEntity(world, id, source, dest, collider);
-// }
-
 void xAddTree(World *world, TreeType type, TreeStage stage, xRectangle dest)
 {
     EntityInfo info =
     {
+        .type = TREE,
         .spritesheet = &world->spritesheets[SHEET_NATURE_TREE],
         .dest = dest,
         .fadeable = true,
@@ -234,7 +147,7 @@ void xAddTree(World *world, TreeType type, TreeStage stage, xRectangle dest)
         .alwaysBelowPlayer = false,
         .flip = false,
         .active = true,
-        .interactionID = INTERACTION_DESTROY,
+        .interactionID = INTERACTION_TREE_CHOP,
     };
 
     xAnimation animation = {0};
@@ -295,69 +208,8 @@ void xAddTree(World *world, TreeType type, TreeStage stage, xRectangle dest)
                 dest.width - 44 - 52 - 20,
                 dest.height - 40 - 64 - 20 - 36
             };
-
-            break;
-
-        default:
-
-            info.id = ENTITY_TREE_OAK_LARGE;
-
-            info.source = SRC_TREE_OAK_LARGE;
-
-            info.collider = (xRectangle)
-            {
-                dest.x + dest.width / 2 - 26,
-                dest.y + 206,
-                58,
-                20,
-            };
             break;
         }
-        break;
-
-    default:
-
-        info.source = SRC_TREE_OAK_LARGE;
-
-        info.collider = (xRectangle)
-        {
-            dest.x + dest.width / 2 - 26,
-            dest.y + 206,
-            58,
-            20,
-        };
-        break;
-    }
-
-    xCreateEntity(world, &info, &animation);
-}
-
-void xAddMushroom(World *world, MushroomType type, xRectangle dest)
-{
-    EntityInfo info =
-    {
-        .id = ENTITY_MUSHROOM,
-        .spritesheet = &world->spritesheets[SHEET_NATURE_FLOWER_MUSHROOMS],
-        .dest = dest,
-        .fadeable = false,
-        .fadeArea = {0},
-        .collidable = false,
-        .collider = {0},
-        .alwaysBelowPlayer = false,
-        .flip = false,
-        .active = true,
-        .interactionID = INTERACTION_NONE
-    };
-
-    xAnimation animation = {0};
-    
-    switch (type)
-    {
-    case MUSHROOM_TYPE_RED:
-        info.source = SRC_MUSHROOM_RED;
-        break;
-    
-    default:
         break;
     }
 
@@ -368,7 +220,8 @@ void xAddUpperLayerColliders(World *world, int index, xRectangle dest)
 {
     EntityInfo info =
     {
-        .id = ENTITY_HIGH_GROUND_BLOCK,
+        .id = WORLD_ENTITY,
+        .type = COLLIDER_ONLY,
         .spritesheet = &(Texture2D) {0},
         .source = (xRectangle) {0},
         .dest = dest,
@@ -434,6 +287,7 @@ void xAddStairs(World *world, xRectangle dest)
     EntityInfo info =
     {
         .id = ENTITY_STAIRS,
+        .type = WORLD_ENTITY,
         .spritesheet = &world->spritesheets[SHEET_NATURE_GRASSLANDS],
         .source = SRC_STAIRS_GROUND,
         .dest = dest,
@@ -457,6 +311,7 @@ void xAddHedge(World *world, HedgePiece piece, xRectangle dest)
     EntityInfo info =
     {
         .id = ENTITY_HEDGE,
+        .type = WORLD_ENTITY,
         .spritesheet = &world->spritesheets[SHEET_NATURE_TREE],
         .dest = dest,
         .fadeable = false,
@@ -519,9 +374,10 @@ void xAddCliffStairsCollider(World *world, xRectangle dest)
 {
     EntityInfo info =
     {
+        .id = WORLD_ENTITY,
+        .type = COLLIDER_ONLY,
         .source = {0},
         .spritesheet = &(Texture2D){0},
-        .id = ENTITY_EMPTY_OBJECT,
         .active = true,
         .collidable = false,
         .fadeable = false,
@@ -541,9 +397,10 @@ void xAddCliffCollider(World *world, int index, xRectangle dest)
 {
     EntityInfo info =
     {
+        .id = WORLD_ENTITY,
+        .type = COLLIDER_ONLY,
         .source = {0},
         .spritesheet = &(Texture2D){0},
-        .id = ENTITY_EMPTY_OBJECT,
         .active = true,
         .collidable = true,
         .fadeable = false,
@@ -652,6 +509,7 @@ void xAddFarmland(World *world, int index, xRectangle dest)
     EntityInfo info =
     {
         .id = ENTITY_FARMLAND_DRY,
+        .type = WORLD_ENTITY,
         .active = true,
         .spritesheet = &world->spritesheets[SHEET_NATURE_GRASSLANDS],
         .collidable = false,

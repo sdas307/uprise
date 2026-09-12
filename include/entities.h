@@ -4,17 +4,12 @@
 #include "world.h"
 #include "xEngine.h"
 
-void xAddStone(World *world, StoneType type, xRectangle dest);
 
 void xAddTree(World *world, TreeType type, TreeStage stage, xRectangle dest);
 
 void xAddHouse(World *world, HouseType type, xRectangle dest);
 
 void xAddLightPost(World *world, xRectangle dest);
-
-void xAddRock(World *world, RockType type, xRectangle dest);
-
-void xAddMushroom(World *world, MushroomType type, xRectangle dest);
 
 void xAddUpperLayerColliders(World *world, int index, xRectangle dest);
 

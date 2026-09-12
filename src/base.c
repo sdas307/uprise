@@ -248,7 +248,7 @@ static void xLoadCliffStairsColliders(World *world)
             cliffStairs[i].x,
             cliffStairs[i].y,
             SRC_CLIFF_STAIRS_WOOD.width,
-            SRC_CLIFF_STAIRS_WOOD.height
+            SRC_CLIFF_STAIRS_WOOD.height + 64
         };
         xAddCliffStairsCollider(world, temp);
     }

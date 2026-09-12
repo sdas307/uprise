@@ -27,7 +27,7 @@ const char *PATH_SPRITESHEETS[] =
     "assets/new/spritesheets/nature/grasslands.png",
     "assets/new/spritesheets/nature/static_terrain_decor.png",
     "assets/new/spritesheets/nature/crops_fruits.png",
-    "assets/new/spritesheets/nature/flower_mushrooms.png",
+    "assets/new/spritesheets/nature/flowers_mushrooms.png",
     "assets/new/spritesheets/nature/cliffs.png",
     "assets/new/spritesheets/nature/water.png",
     "assets/new/spritesheets/nature/waterfall.png",

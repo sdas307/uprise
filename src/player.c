@@ -10,8 +10,6 @@
 /// Check collisions between player and world objects
 static bool xCheckCollision(World *world, xRectangle collider);
 
-// static bool xOutsideScreen(Player *player, xRectangle collider);
-
 /// Handle user input (keyboard/mouse).
 static void xReadPlayerInput(Player *player);
 
@@ -113,8 +111,8 @@ void xInitPlayer(Player *player)
         printf("\n\n");
     }
 
-    player->gameObject.texture = LoadTexture(PATH_PLAYER_SHEET);
-    SetTextureFilter(player->gameObject.texture, TEXTURE_FILTER_POINT);
+    player->entity.gameObject.texture = LoadTexture(PATH_PLAYER_SHEET);
+    SetTextureFilter(player->entity.gameObject.texture, TEXTURE_FILTER_POINT);
 
     player->interval = 0.10f;
     player->walkInterval = 0.10f;
@@ -128,25 +126,25 @@ void xInitPlayer(Player *player)
 
     player->equipment = EQUIP_NONE;
 
-    player->gameObject.source = (xRectangle) {0, 0, player->frameWidth, player->frameHeight};
-    player->gameObject.dest = (xRectangle) {config.x, config.y, player->frameWidth, player->frameHeight};
+    player->entity.gameObject.source = (xRectangle) {0, 0, player->frameWidth, player->frameHeight};
+    player->entity.gameObject.dest = (xRectangle) {config.x, config.y, player->frameWidth, player->frameHeight};
 
-    player->gameObject.type = OBJECT_PLAYER;
+    player->entity.type = PLAYER;
 
-    player->gameObject.active = true;
+    player->entity.gameObject.active = true;
 
     player->attackPressed = false;
     player->isRunning = false;
 
-    player->gameObject.collider = (xRectangle)
+    player->entity.gameObject.collider = (xRectangle)
     {
-        player->gameObject.dest.x + 108,
-        player->gameObject.dest.y + 144,
+        player->entity.gameObject.dest.x + 108,
+        player->entity.gameObject.dest.y + 144,
         36,
         12,
     };
 
-    player->gameObject.depth = player->gameObject.collider.y + player->gameObject.collider.height;
+    player->entity.gameObject.depth = player->entity.gameObject.collider.y + player->entity.gameObject.collider.height;
 
     player->speed = config.walk_speed;
     // printf("speed = %d", config.speed);
@@ -155,7 +153,7 @@ void xInitPlayer(Player *player)
     
     player->state = PLAYER_IDLE;
     player->direction = PLAYER_FACE_FRONT;
-    player->gameObject.flip = false;
+    player->entity.gameObject.flip = false;
 }
 
 void xUpdatePlayer(Player *player, World *world, xCamera2D camera, float dt)
@@ -166,13 +164,12 @@ void xUpdatePlayer(Player *player, World *world, xCamera2D camera, float dt)
     xUpdatePlayerAnimation(player, dt);
 
     if (player->state == PLAYER_ATTACK)
-        xUpdateInteraction(&player->target, world, camera, player->gameObject.collider);
-
+        xUpdateInteraction(&player->target, world, camera, player->entity.gameObject.collider);
 }
 
 void xUnloadPlayer(Player *player)
 {
-    UnloadTexture(player->gameObject.texture);
+    UnloadTexture(player->entity.gameObject.texture);
 }
 
 static void xReadPlayerInput(Player *player)
@@ -276,12 +273,12 @@ static void xMovePlayer(Player *player, World *world, float dt)
     if (dx < 0)
     {
         player->direction = PLAYER_FACE_LEFT;
-        player->gameObject.flip = true;
+        player->entity.gameObject.flip = true;
     }
     else if (dx > 0)
     {
         player->direction = PLAYER_FACE_RIGHT;
-        player->gameObject.flip = false;
+        player->entity.gameObject.flip = false;
     }
 
     // Create a movement vector from player input.
@@ -298,26 +295,26 @@ static void xMovePlayer(Player *player, World *world, float dt)
     movement.y *= player->speed * dt;
 
     // X-axis
-    xRectangle nextCollider = player->gameObject.collider;
+    xRectangle nextCollider = player->entity.gameObject.collider;
     nextCollider.x += movement.x;
 
     if (!xCheckCollision(world, nextCollider))
     {
-        player->gameObject.dest.x += movement.x;
-        player->gameObject.collider.x = nextCollider.x;
+        player->entity.gameObject.dest.x += movement.x;
+        player->entity.gameObject.collider.x = nextCollider.x;
     }
     
     // Y-axis
-    nextCollider = player->gameObject.collider;
+    nextCollider = player->entity.gameObject.collider;
     nextCollider.y += movement.y;
 
     if (!xCheckCollision(world, nextCollider))
     {
-        player->gameObject.dest.y += movement.y;
-        player->gameObject.collider.y = nextCollider.y;
+        player->entity.gameObject.dest.y += movement.y;
+        player->entity.gameObject.collider.y = nextCollider.y;
     }
 
-    player->gameObject.depth = player->gameObject.collider.y + player->gameObject.collider.height;
+    player->entity.gameObject.depth = player->entity.gameObject.collider.y + player->entity.gameObject.collider.height;
 }
 
 static bool xCheckCollision(World *world, xRectangle collider)
@@ -397,14 +394,14 @@ static void xUpdatePlayerAnimation(Player *player, float dt)
         player->animationTimer -= player->interval;
     }
 
-    player->gameObject.source.y =
+    player->entity.gameObject.source.y =
         xGetAnimationRow(player->state, player->equipment, player->direction)
         * WORLD_GRID_SIZE;
 
-    player->gameObject.source.x = player->currentFrame * player->frameWidth;
+    player->entity.gameObject.source.x = player->currentFrame * player->frameWidth;
     
-    player->gameObject.source.width = player->frameWidth;
-    player->gameObject.source.height = player->frameHeight;
+    player->entity.gameObject.source.width = player->frameWidth;
+    player->entity.gameObject.source.height = player->frameHeight;
 }
 
 bool xSavePlayer(const Player *player)
@@ -421,11 +418,11 @@ bool xSavePlayer(const Player *player)
     // Temporary struct to pass on values to save.
     PlayerSave save =
     {
-        .dest = player->gameObject.dest,
+        .dest = player->entity.gameObject.dest,
         .speed = player->speed,
         .state = player->state,
         .direction = player->direction,
-        .flip = player->gameObject.flip
+        .flip = player->entity.gameObject.flip
     };
 
     // Keeping track of write's success.
@@ -457,11 +454,11 @@ bool xLoadPlayer(Player *player)
     if (!success)
         return false;
 
-    player->gameObject.dest = save.dest;
+    player->entity.gameObject.dest = save.dest;
     player->speed = save.speed;
     player->state = save.state;
     player->direction = save.direction;
-    player->gameObject.flip = save.flip;
+    player->entity.gameObject.flip = save.flip;
 
     // After data has been read from file, return true.
     return true;

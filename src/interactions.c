@@ -2,6 +2,7 @@
 #include "entities.h"
 
 #include <stdlib.h>
+#include <stdio.h>
 #include <math.h>
 
 /* ---------- Signatures ---------- */
@@ -120,9 +121,18 @@ static void Interact(InteractionTarget *target)
 
         case INTERACTION_FARMLAND_WATER:
             target->entity->id = ENTITY_FARMLAND_WET;
-            break;
+        break;
 
         case INTERACTION_TREE_CHOP:
-            break;
+            if (target->entity->id == ENTITY_TREE_OAK_LARGE)
+            {
+                target->entity->id = ENTITY_TREE_OAK_CUT;
+            }
+
+            if (target->entity->id == ENTITY_TREE_BIRCH_LARGE)
+            {
+                target->entity->id = ENTITY_TREE_BIRCH_CUT;
+            }
+        break;
     }
 }

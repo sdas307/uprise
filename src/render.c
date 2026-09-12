@@ -36,11 +36,11 @@ void xRenderScene(World *world, Player *player, AnimalManager *manager)
     // Add animals.
     for (int i = 0; i < manager->animalCount; i++)
     {
-        renderList[renderCount++] = &manager->animals[i].gameObject;
+        renderList[renderCount++] = &manager->animals[i].entity.gameObject;
     }
 
     // Add player
-    renderList[renderCount++] = &player->gameObject;
+    renderList[renderCount++] = &player->entity.gameObject;
 
     // Sort by depth
     xSortRenderOrder(renderList, renderCount);
@@ -48,29 +48,26 @@ void xRenderScene(World *world, Player *player, AnimalManager *manager)
     // Render
     for (int i = 0; i < renderCount; i++)
     {
+        Entity *entity = &world->entities[i];
         xGameObject *object = renderList[i];
-
-        bool isObjectPlayer = (object->type == OBJECT_PLAYER);
-        bool isObjectAnimal = (object->type == OBJECT_ANIMAL);
+        
+        bool isObjectPlayer = (entity->type == PLAYER);
+        bool isObjectAnimal = (entity->type == ANIMAL);
 
         bool fadeEffect = (object->fadeable);
 
-        bool isPlayerBehindObject = (object->depth > player->gameObject.depth);
+        bool isPlayerBehindObject = (object->depth > player->entity.gameObject.depth);
 
-        //xRectangle fadeArea = xGetFadeArea(object);
-
-        bool overlapsPlayer = xCheckCollisionAABB(object->fadeArea, player->gameObject.collider);
+        bool overlapsPlayer = xCheckCollisionAABB(object->fadeArea, player->entity.gameObject.collider);
 
         xColor tint = WHITE;
-
-        // DrawRectangleLinesEx(fadeArea, 2.0f, GREEN);
 
         if (!isObjectPlayer && isPlayerBehindObject && overlapsPlayer && fadeEffect)
         {
             tint = Fade(WHITE, 0.5f);
         }
 
-        if (object->type != ENTITY_EMPTY_OBJECT && object->active)
+        if (object->active)
             xRenderObject(object, tint);
     }
 }
