@@ -23,7 +23,7 @@ typedef struct xTransform
 
 } xTransform;
 
-/* Special cases are adressed here. */
+/* Special cases are adressed here. REFACTOR INTO ENTITY  ######*/
 typedef enum xObjectType
 {
     OBJECT_PLAYER,

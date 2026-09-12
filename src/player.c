@@ -10,8 +10,6 @@
 /// Check collisions between player and world objects
 static bool xCheckCollision(World *world, xRectangle collider);
 
-// static bool xOutsideScreen(Player *player, xRectangle collider);
-
 /// Handle user input (keyboard/mouse).
 static void xReadPlayerInput(Player *player);
 

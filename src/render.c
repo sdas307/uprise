@@ -57,13 +57,9 @@ void xRenderScene(World *world, Player *player, AnimalManager *manager)
 
         bool isPlayerBehindObject = (object->depth > player->gameObject.depth);
 
-        //xRectangle fadeArea = xGetFadeArea(object);
-
         bool overlapsPlayer = xCheckCollisionAABB(object->fadeArea, player->gameObject.collider);
 
         xColor tint = WHITE;
-
-        // DrawRectangleLinesEx(fadeArea, 2.0f, GREEN);
 
         if (!isObjectPlayer && isPlayerBehindObject && overlapsPlayer && fadeEffect)
         {
